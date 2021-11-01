@@ -112,9 +112,9 @@ export default {
       grid:null,
       items:[
         {x:0, y:0, h:16, w:12, moduleName:'header', content:'<div id="zt_header_sys"></div>'},
-        {x:0, y:16, h:45, w:12, moduleName:'apps_center', content:'<div id="zt_news_temp_sys"></div>'},
-        {x:0, y:61, h:42, w:12, moduleName:'database', content:'<div id="zt_database_sys"></div>'},
-        {x:0, y:103, h:12, w:12, moduleName:'footer', content:'<div id="zt_footer_sys"></div>'},
+        // {x:0, y:16, h:45, w:12, moduleName:'apps_center', content:'<div id="zt_news_temp_sys"></div>'},
+        // {x:0, y:61, h:42, w:12, moduleName:'database', content:'<div id="zt_database_sys"></div>'},
+        {x:0, y:103, h:8, w:12, moduleName:'footer', content:'<div id="zt_footer_sys"></div>'},
       ],
       opts: {//元素初始化高度
         cellHeight: '10', 
@@ -129,18 +129,19 @@ export default {
           cs_url:'http://192.168.21.71:9000/footer_sys/temp1/component.css',
           js_url:'http://192.168.21.71:9000/footer_sys/temp1/component.js',
         },
-        {
-          cs_url:'http://192.168.21.71:9000/news_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/news_sys/temp1/component.js',
-        },
-        {
-          cs_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.js',
-        },
+        // {
+        //   cs_url:'http://192.168.21.71:9000/news_sys/temp1/component.css',
+        //   js_url:'http://192.168.21.71:9000/news_sys/temp1/component.js',
+        // },
+        // {
+        //   cs_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
+        //   js_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.js',
+        // },
       ],
     }
   },
   methods:{
+    //初始化模板
     initGrid(){
       this.grid = GridStack.init(this.opts);
       this.grid.on('change', function(event, items) {//改变大小时触发
@@ -157,6 +158,13 @@ export default {
         });
       }, 200);
     },
+    //添加组件
+    addCompont(){
+      let it = {x: 0, y: 51, h: 40, w: 12, moduleName:'板块名称5', content:'<div></div>'};
+      this.grid.addWidget(it);
+    },
+
+    //引入css文件
     addStyle(url){
       var link=document.createElement("link"); 
       link.setAttribute("rel", "stylesheet"); 
@@ -164,26 +172,17 @@ export default {
       link.setAttribute("href", url);
       document.getElementsByTagName("body")[0].appendChild(link);
     },
+    //引入js文件
     addScript(url){
       var js_element=document.createElement("script");
       js_element.setAttribute("type","text/javascript");
       js_element.setAttribute("src",url);
       document.getElementsByTagName("body")[0].appendChild(js_element);
     },
+    //初始化页面数据
     initData(){
       //获取本页下拉框参数
       this.http.getPlain('dictionary','').then(res=>{
-        /**
-          sceneStatus:[],//服务状态
-          visitorLimitType:[],//权限控制
-          sceneLayout:[],//场景布局
-          sceneTemplate:[],//场景模板
-          sceneThemeColor:[],//场景主题色
-          appPlateSortType:[],//场景内APP排序规则
-          appTerminalType:[],//终端类型
-          terminalStatus:[],//终端状态
-          appServiceType:[],//服务类型
-         */
           this.top_list.sceneStatus = res.data.sceneStatus||[];
           this.top_list.visitorLimitType = res.data.visitorLimitType||[];
           this.left_list.sceneLayout = res.data.sceneLayout||[];
@@ -199,7 +198,6 @@ export default {
       // }).catch(err=>{
       //   console.log(err);
       // })
-      
     },
     //点击应用，获取应用的组件及相应信息
     getAppDetails(id){
@@ -303,203 +301,5 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
 @import "../../../assets/admin/css/style.less";
-  /****针对阴影****/
-  .content-collapse{
-    &::after{
-      content: '';
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      left: 0;
-      z-index: 9;
-      position: absolute;
-      box-shadow: 2px 0px 5px rgba(0,0,0,.13);
-    }
-  }
-  .content{
-    background-color: @fff;
-    border-radius: 4px;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
-    height: 100%;
-    .drag-content{
-      position: relative;
-      min-height: 600px;
-      background-color: @F1F3F7;
-      .drag-l,.drag-c,.drag-r{
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        background-color: @fff;
-      }
-      .drag-l-pad,.drag-r-pad{
-        width: 100%;
-        height: 100%;
-        padding: 0 20px;
-      }
-      .drag-l,.drag-r{
-        width: 255px;
-        z-index: 2;
-        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
-        .cut-btn{
-          cursor: pointer;
-          display: block;
-          top:50%;
-          margin-top: -33px;
-          position: absolute;
-          color: @fff;
-          width: 18px;
-          height: 65px;
-          text-align: center;
-          line-height: 65px;
-          background: #A5B3CC;
-          user-select: none;
-          &:hover{
-            opacity:.8;
-          }
-          &:active{
-            opacity:1;
-          }
-        }
-      }
-      .drag-l{
-        left: 0;
-        .cut-btn{
-          left: 255px;
-          border-radius: 0px 40px 40px 0px;
-        }
-      }
-      .drag-l-hide{
-        width: 0;
-        .left-check-page{
-          overflow: hidden;
-        }
-        .cut-btn{
-          left: 0;
-        }
-        .drag-l-pad{
-          padding: 0;
-        }
-      }
-      .drag-r{
-        right: 0;
-        .cut-btn{
-          right: 255px;
-          border-radius:40px 0px 0px 40px;
-        }
-      }
-      .drag-r-hide{
-        width: 0;
-        .right-check-page{
-          overflow: hidden;
-        }
-        .cut-btn{
-          right: 0;
-        }
-        .drag-r-pad{
-          padding: 0;
-        }
-      }
-      .drag-c{
-        left: 289px;
-        right: 289px;
-        z-index: 1;
-        background-color: @F1F3F7;
-        .scaling-right{
-          margin-left: auto;
-          margin-top:30px;
-        }
-        .drag-container{
-          width: 100%;
-          min-width: 420px;//30%
-          background-color: @fff;
-          padding: 30px;
-          .drag-content{
-            width: 1200px;
-            transform-origin: 0 0;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px dashed @BCBCBC;
-          }
-          img{
-            width: 1198px;
-            display: block;
-          }
-        }
-        /***************屏幕按钮板块 */
-        .screen-btn-drag{
-          padding:20px 5px;
-          padding-bottom: 0;
-          .drag-box-warp{
-            display: inline-block;
-            margin-right: -5px;
-          }
-          .default-btn-n-border{
-            margin-bottom: 20px;
-            width: 126px;
-            background-color: @C5CFE0;
-            color: @34395E;
-            margin-right:40px;
-            margin-left: 0;
-            position: relative;
-            &:first-child{
-              margin-left: 0;
-            }
-            &::after{
-              position: absolute;
-              content: '';
-              display: block;
-              left: -5px;
-              right: -5px;
-              top: -5px;
-              bottom: -5px;
-              border: 1px dashed @BCBCBC;
-            }
-            .s-b-d-close{
-              position: absolute;
-              right: -10px;
-              top: -10px;
-              display: none;
-              z-index: 3;
-              font-size: 16px;
-              color: @6C757D;
-              &:hover{
-                opacity: .8;
-              }
-              &:active{
-                opacity: 1;
-              }
-            }
-          }
-          .screen-one{
-            margin-right: 35px;
-          }
-          /***首屏选中效果-不显示删除按钮 */
-          .s-b-active{
-            color: @fff;
-            background: linear-gradient(353deg, #9985FF 0%, #9985FF 54%, #A18FFF 56%, #A18FFF 100%);
-          }
-          /***选中效果 */
-          .s-b-active-close{
-            color: @fff;
-            background: linear-gradient(353deg, #9985FF 0%, #9985FF 54%, #A18FFF 56%, #A18FFF 100%);
-            .s-b-d-close{
-              display: block;
-            }
-          }
-          /****新增按钮 */
-          .s-b-add{
-            background: #E4E6FC;
-          }
-        }
-      }
-      .drag-c-l-tran{
-        left: 34px;
-        transition: left 0.3s ease-in-out;
-      }
-      .drag-c-r-tran{
-        right: 34px;
-        transition: right 0.3s ease-in-out;
-      }
-    }
-  }
+@import "./scene_set.less";
 </style>
