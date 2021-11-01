@@ -2,7 +2,7 @@
 <template>
   <div class="admin-warp-page">
     <el-container>
-      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu_scene :isActive="3"></serviceLMenu_scene></el-aside>
+      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu :isActive="3"></serviceLMenu></el-aside>
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="id?'编辑终端':'添加终端'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
@@ -30,7 +30,7 @@
               <el-form-item label="应用图标" v-model="postForm.logo">
                 <div class="up-img-form-item">
                   <div class="up-img-warp">
-                    <img src="@/assets/img/icon2.png">
+                    <img src="@/assets/admin/img/icon2.png">
                   </div>
                   <div class="up-img-warp select-icon" @click="selectImg()">
                     <span>选择图标</span>
@@ -66,8 +66,8 @@
           <p class="el-form-img-box-hint">点击图标即可选中所需要的图标</p>
           <div class="c-l">
             <div class="el-form-img-box" v-for="i in 20" :key="i" @click="selectImgClick(i)">
-              <img src="@/assets/img/icon2.png"/>
-              <img src="@/assets/img/icon-select.png" :class="select_img==i?'active':''" v-if="select_img==i"/>
+              <img src="@/assets/admin/img/icon2.png"/>
+              <img src="@/assets/admin/img/icon-select.png" :class="select_img==i?'active':''" v-if="select_img==i"/>
             </div>
           </div>
           <span slot="footer" class="dialog-footer">
@@ -82,13 +82,10 @@
 </template>
 
 <script>
-import bus from '@/assets/js/bus';
-import http from "@/assets/js/http";
-import footerPage from "@/common/footer";
-import breadcrumb from "@/components/model/breadcrumb";
-import serviceLMenu_scene from "@/components/model/serviceLMenu_scene";
-import UpdateImg from "@/components/model/UpdateImg";
-import { VueCropper } from 'vue-cropper'
+import footerPage from "@/components/admin/common/footer";
+import breadcrumb from "@/components/admin/common/breadcrumb";
+import serviceLMenu from "@/components/admin/common/serviceLMenu";
+import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
   created(){
@@ -96,7 +93,7 @@ export default {
         this.$root.collapse = msg;
     })
   },
-  components:{footerPage,serviceLMenu_scene,breadcrumb,VueCropper,UpdateImg},
+  components:{footerPage,serviceLMenu,breadcrumb,UpdateImg},
   data () {
     return {
       dialogUPimg:false,
@@ -195,8 +192,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../assets/css/color.less";/**颜色配置 */
-@import "../../../../assets/css/form.less";
+@import "../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/style.less";
+@import "../../../assets/admin/css/form.less";
   .content{
     background-color: @fff;
     border-radius: 4px;

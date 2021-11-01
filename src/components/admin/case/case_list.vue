@@ -2,7 +2,7 @@
 <template>
   <div class="admin-warp-page">
     <el-container>
-      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu_scene :isActive="1"></serviceLMenu_scene></el-aside>
+      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu :isActive="1"></serviceLMenu></el-aside>
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="'服务总览'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
@@ -25,7 +25,7 @@
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in 20" :key="i">
                 <div class="r-box-bg">
-                  <img src="@/assets/img/upload/s1.png"/>
+                  <img src="@/assets/admin/img/upload/s1.png"/>
                   <span class="name">首页
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="el-icon-s-tools" slot="reference"></i>
@@ -51,20 +51,18 @@
 </template>
 
 <script>
-import bus from '@/assets/js/bus';
-import http from "@/assets/js/http";
-import footerPage from "@/common/footer";
-import breadcrumb from "@/components/model/breadcrumb";
-import serviceLMenu_scene from "@/components/model/serviceLMenu_scene";
-import paging from "@/components/model/paging";
+import footerPage from "@/components/admin/common/footer";
+import breadcrumb from "@/components/admin/common/breadcrumb";
+import serviceLMenu from "@/components/admin/common/serviceLMenu";
+import paging from "@/components/admin/common/paging";
 export default {
   name: 'index',
   created(){
-    bus.$on('collapse', msg => {
+    this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
   },
-  components:{footerPage,serviceLMenu_scene,breadcrumb,paging},
+  components:{footerPage,serviceLMenu,breadcrumb,paging},
   data () {
     return {
     }
@@ -84,7 +82,7 @@ export default {
         SortField:1, //排序字段
         IsAsc:1, //默认降序,否则升序
       };
-      http.getPlain('scene-overview','PlateId=109&PageSize=9&PageIndex=1').then(res=>{ //学生专区
+      this.http.getPlain('scene-overview','PlateId=109&PageSize=9&PageIndex=1').then(res=>{ //学生专区
           this.list1 = res.result.dtos||[];
       }).catch(err=>{
           console.log(err);
@@ -131,7 +129,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../assets/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/style.less";
 .paging-page{
   padding-top:0;
   padding-bottom:20px;

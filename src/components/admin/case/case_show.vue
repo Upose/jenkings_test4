@@ -2,7 +2,7 @@
 <template>
   <div class="admin-warp-page">
     <el-container>
-      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu_scene :isActive="1"></serviceLMenu_scene></el-aside>
+      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu :isActive="1"></serviceLMenu></el-aside>
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="'服务总览'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
@@ -113,22 +113,20 @@
 </template>
 
 <script>
-import bus from '@/assets/js/bus';
-import http from "@/assets/js/http";
-import footerPage from "@/common/footer";
-import breadcrumb from "@/components/model/breadcrumb";
-import serviceLMenu_scene from "@/components/model/serviceLMenu_scene";
+import footerPage from "@/components/admin/common/footer";
+import breadcrumb from "@/components/admin/common/breadcrumb";
+import serviceLMenu from "@/components/admin/common/serviceLMenu";
 export default {
   name: 'index',
   created(){
-    bus.$on('collapse', msg => {
+    this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
   },
-  components:{footerPage,serviceLMenu_scene,breadcrumb},
+  components:{footerPage,serviceLMenu,breadcrumb},
   data () {
     return {
-      defalut_img:require('../../../../assets/img/upload/s1.png'),
+      defalut_img:require('../../../assets/admin/img/upload/s1.png'),
       dataList:[
         {
           "terminalName": "string",
@@ -152,7 +150,7 @@ export default {
   },
   methods:{
     initData(){
-      http.getJsonSelf('scene-overview','?PageSize=9&PageIndex=1').then(res=>{ 
+      this.http.getJsonSelf('scene-overview','?PageSize=9&PageIndex=1').then(res=>{ 
         this.dataList = res.data||[];
       }).catch(err=>{
           console.log(err);
@@ -208,7 +206,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../assets/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/style.less";
   /****查询条件板块****/
   .content{
     background-color: @fff;
