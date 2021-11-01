@@ -1,12 +1,12 @@
 <template>
-  <div id="news_sys" class="admin-warp-app">
+  <div id="home_sys" class="admin-warp-app">
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'news_sys',
+  name: 'home_sys',
   mounted(){
     this.$store.commit('getSession');
     this.$i18n.locale = this.$store.state.language;

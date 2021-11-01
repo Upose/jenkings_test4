@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
 })
 
 new Vue({
-  el: '#news_sys',
+  el: '#home_sys',
   router,
   i18n,
   store,

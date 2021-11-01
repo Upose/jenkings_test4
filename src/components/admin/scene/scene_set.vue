@@ -132,8 +132,8 @@ export default {
           js_url:'http://192.168.21.71:9000/footer_sys/temp1/component.js',
         },
         {
-          cs_url:'http://192.168.21.71:9000/news_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/news_sys/temp1/component.js',
+          cs_url:'http://192.168.21.71:9000/home_sys/temp1/component.css',
+          js_url:'http://192.168.21.71:9000/home_sys/temp1/component.js',
         },
         {
           cs_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
