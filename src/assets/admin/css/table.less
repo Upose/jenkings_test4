@@ -1,0 +1,43 @@
+/*********表格样式********/
+
+/****************标准表格页面****************/
+.search-table-general{
+    .color-blue{
+        color: @8CC63F;
+    }
+    .color-red{
+        color: @F56C6C;
+    }
+    .color-purple{
+        color: @912790;
+      }
+    /**表格***/
+    .table-w{
+        background-color: @fff;
+        margin-top: 4px;
+        border-radius: 4px;
+        .m-title{
+            padding:0 20px;
+            height: 64px;
+            line-height: 64px;
+            border-bottom: 1px solid @EBEEF5;
+        }
+        .t-p{
+            padding: 20px;
+            .admin-table{
+                border-left: 1px solid @EBEEF5;
+                border-right: 1px solid @EBEEF5;
+            }
+            .next-btn{
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+        }
+        /deep/ .el-button--mini, .el-button--mini.is-round{
+            padding: 7px 10px;
+        }
+        /deep/ .el-button+.el-button{
+            margin-left: 5px;
+        }
+    }
+}
