@@ -31,7 +31,7 @@
             </el-dropdown>
         </h1>
         <div class="drag-box-warp">
-            <div class="drag-box" v-for="i in apps_list" :key="i+'c'">
+            <div class="drag-box" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
             <i class="el-icon-s-marketing d-b-img"></i>
             <span class="d-b-txt" :title="i.name">{{i.name||''}}</span>
             </div>
@@ -75,9 +75,15 @@ export default {
     getApps(id){
       this.http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.dataList.terminal_type).then(res=>{
         this.apps_list = res.data||[];
+        if(this.serve_name == '' && this.apps_list.length>0){
+          this.serveClick(this.apps_list[0]);
+        }
       }).catch(err=>{
         console.log(err);
       })
+    },
+    appDetails(id){
+      this.$emit('getAppDetails',id);
     },
     /****左边-折叠菜单-点击*****/
     collapseClick(val){

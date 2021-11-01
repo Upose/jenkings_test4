@@ -35,4 +35,5 @@ export default {
 
 <style lang="less">
 @import "./assets/public/css/public.less";/**颜色配置 */
+@import "./assets/admin/font/iconfont.css";/**通用文件 */
 </style>

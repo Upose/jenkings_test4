@@ -6,13 +6,9 @@
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
-                <div class="d-temp-box">
-                <span class="temp-name">模板一</span>
-                <el-button type="primary" class="button" size="mini"><i class="n-check"></i> 选用</el-button>
-                </div>
-                <div class="d-temp-box">
-                <span class="temp-name">模板一</span>
-                <el-button type="primary" class="button" size="mini"><i class="el-icon-success"></i> 已选</el-button>
+                <div class="d-temp-box" v-for="(it,i) in dataList" :key="i">
+                    <span class="temp-name">{{it.name||'无'}}</span>
+                    <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="it.check?'vip-check':'vip-no-check'"></i> 选用</el-button>
                 </div>
             </div>
             </div><!--选择样式 end-->
@@ -49,8 +45,10 @@
 <script>
 export default {
   name: 'index',
+  mounted(){},
   data () {
     return {
+      dataList:[],//模板列表
       postForm:{},
       options: [{
         value: '选项1',
@@ -60,12 +58,25 @@ export default {
   },
 
   methods:{
-    initData(){
-      this.http.getPlain('AssetNewest','PlateId=109&PageSize=9&PageIndex=1').then(res=>{ //学生专区
-          this.list1 = res.result.dtos||[];
+    appDetails(id){
+        //获取应用组件列表 /{appid}
+        this.http.getPlain_url('app-widget-list-by-app-id','/'+id).then(res=>{
+            this.dataList = res.data||[];
+            console.log(this.dataList);
+        }).catch(err=>{
+            console.log(err);
+        })
+      //获取应用栏目列表 /{appid}
+      this.http.getPlain_url('app-plate-list-by-app-id','/'+id).then(res=>{
+        console.log(res)
       }).catch(err=>{
-          console.log(err);
+        console.log(err);
       })
+    },
+    //选择某个模板
+    appsTemplate(val,i){
+        this.dataList[i]['check'] = !this.dataList[i]['check'];
+        this.$forceUpdate();
     },
   },
 }

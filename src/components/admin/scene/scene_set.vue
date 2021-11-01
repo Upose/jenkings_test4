@@ -13,7 +13,7 @@
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
             <div class="drag-l" :class="left_fold?'drag-l-hide':''">
               <div class="drag-l-pad">
-                <leftCheck :dataList="left_list"></leftCheck>
+                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails"></leftCheck>
                 <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
               </div>
             </div><!--左边菜单 end-->
@@ -37,7 +37,7 @@
 
             <div class="drag-r" :class="right_fold?'drag-r-hide':''">
               <div class="drag-r-pad">
-                <rightCheck :dataList="right_list"></rightCheck>
+                <rightCheck ref="rightCheck_ref"></rightCheck>
                 <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
               </div>
             </div><!--右边菜单 end-->
@@ -108,8 +108,6 @@ export default {
         sceneTemplate:[],//场景模板
         sceneThemeColor:[],//场景主题色
       },
-      //右边 步骤四
-      right_list:{},
       //以下是拖拽参数
       grid:null,
       items:[
@@ -132,8 +130,8 @@ export default {
           js_url:'http://192.168.21.71:9000/footer_sys/temp1/component.js',
         },
         {
-          cs_url:'http://192.168.21.71:9000/home_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/home_sys/temp1/component.js',
+          cs_url:'http://192.168.21.71:9000/news_sys/temp1/component.css',
+          js_url:'http://192.168.21.71:9000/news_sys/temp1/component.js',
         },
         {
           cs_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
@@ -201,18 +199,11 @@ export default {
       // }).catch(err=>{
       //   console.log(err);
       // })
-      // //获取应用栏目列表 /{appid}
-      // this.http.getPlain_url('app-plate-list-by-app-id','/'+this.appid).then(res=>{
-      //   console.log(res)
-      // }).catch(err=>{
-      //   console.log(err);
-      // })
-      // //获取应用组件列表 /{appid}
-      // this.http.getPlain_url('app-widget-list-by-app-id','/'+this.appid).then(res=>{
-      //   console.log(res)
-      // }).catch(err=>{
-      //   console.log(err);
-      // })
+      
+    },
+    //点击应用，获取应用的组件及相应信息
+    getAppDetails(id){
+      this.$refs.rightCheck_ref.appDetails(id);
     },
     /****监听中间区域的变化****/
     monitorCenter(){
