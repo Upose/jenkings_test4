@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import http from "@/assets/js/http";
 export default {
   name: 'index',
   props:['dataList'],
@@ -56,7 +55,7 @@ export default {
     },
     //获取用户类型
     getUserType(id){
-      http.getPlain_url('dictionary-by-type','/'+id).then(res=>{
+      this.http.getPlain_url('dictionary-by-type','/'+id).then(res=>{
         this.userType = res.data||[];
         if(this.userType.length>0){
           this.postForm.user_type = this.userType[0].value;
@@ -70,7 +69,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../../assets/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/style.less";
 /*****顶部 */
 .drag-top{
   width: 100%;

@@ -25,12 +25,12 @@ export default {
         component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_manage')), 'scene'),
         meta: { title: '服务中台-选择终端' , keepAlive:true},
       },
-      // {
-      //   path: '/sceneSet',
-      //   name: 'sceneSet',
-      //   component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_set')), 'scene'),
-      //   meta: { title: '服务中台-场景设置' , keepAlive:true},
-      // },
+      {
+        path: '/sceneSet',
+        name: 'sceneSet',
+        component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_set')), 'scene'),
+        meta: { title: '服务中台-场景设置' , keepAlive:true},
+      },
       {
         path: '/programManage',
         name: 'programManage',

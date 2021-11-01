@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import http from "@/assets/js/http";
 export default {
   name: 'index',
   props:['dataList'],
@@ -74,7 +73,7 @@ export default {
     },
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype}
     getApps(id){
-      http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.dataList.terminal_type).then(res=>{
+      this.http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.dataList.terminal_type).then(res=>{
         this.apps_list = res.data||[];
       }).catch(err=>{
         console.log(err);
@@ -89,7 +88,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../../assets/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/style.less";
 .drag-l-warp{
     left: 0;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);

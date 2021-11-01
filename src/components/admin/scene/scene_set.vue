@@ -2,7 +2,7 @@
 <template>
   <div class="admin-warp-page">
     <el-container>
-      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu_scene :isActive="1"></serviceLMenu_scene></el-aside>
+      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu :isActive="1"></serviceLMenu></el-aside>
       <el-main class="admin-content" :class="{'content-collapse':$root.collapse}">
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
@@ -28,7 +28,7 @@
               </div><!--屏幕数量+拖拽 end-->
               <div class="drag-container" ref="dragContainer">
                 <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}">
-                  <!--<iframe src="http://lib.cqu.edu.cn/" border="0" width="1198px" height="600px" scrolling="no"></iframe>-->
+                  <!--<iframe src="this.http://lib.cqu.edu.cn/" border="0" width="1198px" height="600px" scrolling="no"></iframe>-->
                 </div><!--拖拽内容板块 end-->
 
               </div>
@@ -51,23 +51,21 @@
 </template>
 
 <script>
-import bus from '@/assets/js/bus';
-import http from "@/assets/js/http";
-import footerPage from "@/common/footer";
-import breadcrumb from "@/components/model/breadcrumb";
-import scalingPage from "@/components/model/scaling";
-import serviceLMenu_scene from "@/components/model/serviceLMenu_scene";
+import scalingPage from "@/components/admin/common/scaling";
+import breadcrumb from "@/components/admin/common/breadcrumb";
+import serviceLMenu from "@/components/admin/common/serviceLMenu";
+
 import topSelect from "./model/top_select";
 import leftCheck from "./model/left_check";
 import rightCheck from "./model/right_check";
 import Sortable from "sortablejs";
 export default {
   name: 'index',
-  components:{footerPage,serviceLMenu_scene,breadcrumb,scalingPage,topSelect,leftCheck,rightCheck},
+  components:{serviceLMenu,breadcrumb,scalingPage,topSelect,leftCheck,rightCheck},
   created(){
     //console.log('参数接收：'+this.$route.query.id);
     this.$root.collapse = true;
-    bus.$on('collapse', msg => {
+    this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
   },
@@ -126,20 +124,20 @@ export default {
       },
       temp_list:[
         {
-          cs_url:'http://192.168.21.71:9000/header_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/header_sys/temp1/component.js',
+          cs_url:'this.http://192.168.21.71:9000/header_sys/temp1/component.css',
+          js_url:'this.http://192.168.21.71:9000/header_sys/temp1/component.js',
         },
         {
-          cs_url:'http://192.168.21.71:9000/footer_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/footer_sys/temp1/component.js',
+          cs_url:'this.http://192.168.21.71:9000/footer_sys/temp1/component.css',
+          js_url:'this.http://192.168.21.71:9000/footer_sys/temp1/component.js',
         },
         {
-          cs_url:'http://192.168.21.71:9000/news_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/news_sys/temp1/component.js',
+          cs_url:'this.http://192.168.21.71:9000/news_sys/temp1/component.css',
+          js_url:'this.http://192.168.21.71:9000/news_sys/temp1/component.js',
         },
         {
-          cs_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.js',
+          cs_url:'this.http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
+          js_url:'this.http://192.168.21.71:9000/database_nav_sys/temp1/component.js',
         },
       ],
     }
@@ -176,7 +174,7 @@ export default {
     },
     initData(){
       //获取本页下拉框参数
-      http.getPlain('dictionary','').then(res=>{
+      this.http.getPlain('dictionary','').then(res=>{
         /**
           sceneStatus:[],//服务状态
           visitorLimitType:[],//权限控制
@@ -198,19 +196,19 @@ export default {
           console.log(err);
       })
       // //获取场景内所有栏目列表 /{sceneid}
-      // http.getPlain_url('app-plate-list-by-scene-id','/'+this.sceneid).then(res=>{
+      // this.http.getPlain_url('app-plate-list-by-scene-id','/'+this.sceneid).then(res=>{
       //   console.log(res)
       // }).catch(err=>{
       //   console.log(err);
       // })
       // //获取应用栏目列表 /{appid}
-      // http.getPlain_url('app-plate-list-by-app-id','/'+this.appid).then(res=>{
+      // this.http.getPlain_url('app-plate-list-by-app-id','/'+this.appid).then(res=>{
       //   console.log(res)
       // }).catch(err=>{
       //   console.log(err);
       // })
       // //获取应用组件列表 /{appid}
-      // http.getPlain_url('app-widget-list-by-app-id','/'+this.appid).then(res=>{
+      // this.http.getPlain_url('app-widget-list-by-app-id','/'+this.appid).then(res=>{
       //   console.log(res)
       // }).catch(err=>{
       //   console.log(err);
@@ -312,7 +310,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../assets/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../assets/admin/css/style.less";
   /****针对阴影****/
   .content-collapse{
     &::after{

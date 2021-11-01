@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import http from "@/assets/js/http";
 export default {
   name: 'index',
   data () {
@@ -62,7 +61,7 @@ export default {
 
   methods:{
     initData(){
-      http.getPlain('AssetNewest','PlateId=109&PageSize=9&PageIndex=1').then(res=>{ //学生专区
+      this.http.getPlain('AssetNewest','PlateId=109&PageSize=9&PageIndex=1').then(res=>{ //学生专区
           this.list1 = res.result.dtos||[];
       }).catch(err=>{
           console.log(err);
@@ -73,7 +72,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../../assets/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/style.less";
 .drag-r-warp{
     right: 0;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
