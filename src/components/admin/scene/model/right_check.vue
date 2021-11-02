@@ -62,13 +62,12 @@ export default {
         //获取应用组件列表 /{appid}
         this.http.getPlain_url('app-widget-list-by-app-id','/'+id).then(res=>{
             this.dataList = res.data||[];
-            console.log(this.dataList);
         }).catch(err=>{
             console.log(err);
         })
-      //获取应用栏目列表 /{appid}
+      //获取应用栏目列表 /{appid}  (这个地方还未处理)
       this.http.getPlain_url('app-plate-list-by-app-id','/'+id).then(res=>{
-        console.log(res)
+        // console.log(res)
       }).catch(err=>{
         console.log(err);
       })

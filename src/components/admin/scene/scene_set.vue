@@ -116,33 +116,23 @@ export default {
       //以下是拖拽参数
       grid:null,
       items:[
-        {x:0, y:0, h:16, w:12, moduleName:'header', content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_header_sys"></div></div>'},
-        // {x:0, y:16, h:45, w:12, moduleName:'apps_center', content:'<div id="zt_news_temp_sys"></div>'},
-        // {x:0, y:61, h:42, w:12, moduleName:'database', content:'<div id="zt_database_sys"></div>'},
-        {x:0, y:103, h:10, w:12, moduleName:'footer', content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_footer_sys"></div></div>'},
+        {
+          x:0, y:0, h:16, w:12, 
+          target:'http://192.168.21.71:9000/header_sys/temp1',
+          id:'zt_header_sys',
+          content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_header_sys"></div></div>'
+        },
+        {
+          x:0, y:0, h:10, w:12, 
+          target:'http://192.168.21.71:9000/footer_sys/temp1',
+          id:'zt_footer_sys',
+          content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_footer_sys"></div></div>'
+        },
       ],
       opts: {//元素初始化高度
         cellHeight: '10', 
         cellHeightThrottle: 100,
       },
-      temp_list:[
-        {
-          cs_url:'http://192.168.21.71:9000/header_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/header_sys/temp1/component.js',
-        },
-        {
-          cs_url:'http://192.168.21.71:9000/footer_sys/temp1/component.css',
-          js_url:'http://192.168.21.71:9000/footer_sys/temp1/component.js',
-        },
-        // {
-        //   cs_url:'http://192.168.21.71:9000/news_sys/temp1/component.css',
-        //   js_url:'http://192.168.21.71:9000/news_sys/temp1/component.js',
-        // },
-        // {
-        //   cs_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.css',
-        //   js_url:'http://192.168.21.71:9000/database_nav_sys/temp1/component.js',
-        // },
-      ],
     }
   },
   methods:{
@@ -150,37 +140,56 @@ export default {
     initGrid(){
       this.grid = GridStack.init(this.opts);
       this.grid.on('change', function(event, items) {//改变大小时触发
-        var moduleName = items.moduleName;//自定义的板块名称，moduleName字段可以自己更换
         var _rect = items._rect;//元素大小，距离x轴，y轴的位置（单位：px）;(w,h,x,y)
         var _lastUiPosition = items._lastUiPosition;//距离顶部，左边的位置（left,top）
         var _orig = items._orig;//在12宫格中所占的比列（x,y,h,w）
-        console.log(event,items);
+        // console.log(event,items);
       })
       this.grid.load(this.items);
-      setTimeout(() => {
-        this.temp_list.forEach(e => {
-          this.addStyle(e.cs_url);
-          this.addScript(e.js_url);
-        });
-      }, 200);
+      //定时延迟加载js
+      this.items.forEach((e,i)=>{
+        setTimeout(() => {
+          this.addStyle(e.target+'/component.css');
+          this.addScript(e.target+'/component.js?id='+e.id);
+        }, (i+1)*50);
+      })
+      
+
     },
     //添加组件
     addCompont(val){
       console.log(val);
-      /****
-       * 这里的id要动态
-       */
-      var component_id = 'zt_news_temp_sys';
-      let it = {x: 0, y: 0, h: 20, w: 12, moduleName:val.name, content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'};
+      var component_id = 'a'+new Date().getTime();//这里的id要动态
+      let it = {
+          x: 0, y: 0, h: 20, w: 12, 
+          target:val.target,
+          id:component_id,
+          content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'
+        };
       this.grid.addWidget(it);
       setTimeout(()=>{
         this.addStyle(val.target+'/component.css');
-        this.addScript(val.target+'/component.js');
+        this.addScript(val.target+'/component.js?id='+it.id);
       },200)
     },
     //删除模板
     delCompont(val){
       console.log(val);
+    },
+    //保存模板结构json
+    saveClick(){
+      var list = [];
+      if(this.grid.save() && this.grid.save().length){
+        this.grid.save().forEach(item=>{
+          list.push({
+            x: item.x, y: item.y, h: item.h, w: item.w, 
+            target:item.target,
+            id:item.id,
+            content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
+          })
+        })
+      }
+      console.log(list);
     },
     //引入css文件
     addStyle(url){
@@ -259,10 +268,6 @@ export default {
         }//onEnd
       });
     },
-    //保存
-    saveClick(){
-      console.log(this.grid.save());
-    },
     /****新增一屏 */
     addScreen(){
       this.screen_list.push({title:''});
@@ -325,3 +330,4 @@ export default {
 @import "../../../assets/admin/css/style.less";
 @import "./scene_set.less";
 </style>
+

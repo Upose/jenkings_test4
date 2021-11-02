@@ -45,6 +45,16 @@
 export default {
   name: 'index',
   props:['dataList'],
+  watch: {
+    dataList: {
+      deep: true,  // 深度监听
+      handler(newVal,oldVal) {
+        if(newVal.appServiceType && newVal.appServiceType.length>0){
+          this.serveClick(newVal.appServiceType[0]);
+        }
+      }
+    }
+  },
   data () {
     return {
       serve_name:'',//应用类型-选择的名称
@@ -66,7 +76,7 @@ export default {
     }
   },
   methods:{
-    //服务类型点击
+    //应用选择-服务类型点击事件
     serveClick(val){
       this.serve_name = val.key;
       this.getApps(val.value);
@@ -78,10 +88,14 @@ export default {
         if(this.serve_name == '' && this.apps_list.length>0){
           this.serveClick(this.apps_list[0]);
         }
+        if(this.apps_list&&this.apps_list.length>0){
+          this.appDetails(this.apps_list[0].appId);
+        }
       }).catch(err=>{
         console.log(err);
       })
     },
+    //应用点击事件
     appDetails(id){
       this.$emit('getAppDetails',id);
     },
