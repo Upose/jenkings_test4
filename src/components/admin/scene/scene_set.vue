@@ -68,9 +68,12 @@ export default {
     this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
+    var _this = this;
     document.addEventListener("click",function(e){
       if(e.target.className == 'jl_vip_zt_del'){
-        console.log('点击了删除按钮');
+        if(e.target.parentNode.parentNode.parentNode){
+          _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
+        }
       }
     });
   },
@@ -151,19 +154,21 @@ export default {
         setTimeout(() => {
           this.addStyle(e.target+'/component.css');
           this.addScript(e.target+'/component.js?id='+e.id);
-        }, (i+1)*50);
+        }, (i+1)*150);
       })
       
 
     },
     //添加组件
     addCompont(val){
+      console.log(this.$options);
       console.log(val);
-      var component_id = 'a'+new Date().getTime();//这里的id要动态
+      var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
       let it = {
           x: 0, y: 0, h: 20, w: 12, 
           target:val.target,
           id:component_id,
+          modelName:component_id,
           content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'
         };
       this.grid.addWidget(it);
@@ -171,10 +176,6 @@ export default {
         this.addStyle(val.target+'/component.css');
         this.addScript(val.target+'/component.js?id='+it.id);
       },200)
-    },
-    //删除模板
-    delCompont(val){
-      console.log(val);
     },
     //保存模板结构json
     saveClick(){
