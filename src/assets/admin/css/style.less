@@ -443,6 +443,10 @@ iframe {
 .el-radio-button__orig-radio:disabled:checked+.el-radio-button__inner {
   background-color: @6777EF;
 }
+.el-textarea__inner:focus {
+  outline: 0;
+  border-color: @6777EF;
+}
 // 文字按钮默认字体颜色
 .el-button--text {
   color: @6777EF;
@@ -653,14 +657,6 @@ iframe {
   background-color: @F8FAFF;
 }
 
-.el-table thead {
-  color: @6C757D;
-
-  th {
-    background-color: @F1F3F7;
-  }
-}
-
 .el-table--border td,
 .el-table--border th,
 .el-table__body-wrapper .el-table--border.is-scrolling-left~.el-table__fixed {
@@ -703,6 +699,21 @@ iframe {
   top: 7px;
 }
 
+/**新修改*/
+.el-table .cell{
+  line-height: 22px;
+}
+.el-table .el-table__body td.el-table__cell{
+  padding: 9px 0;
+  height: 48px;
+}
+.el-table th.el-table__cell{
+  color: @6C757D;
+  background-color: @F1F3F7;
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell{
+  background-color: @F8FAFF;
+}
 /****查询顶部****/
 .search-table-w {
   background-color: @fff;

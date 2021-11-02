@@ -49,5 +49,11 @@ export default {
         component: r => require.ensure([], () => r(require('@/components/admin/terminal/terminal_add')), 'terminal'),
         meta: { title: '服务中台-终端管理-添加终端' , keepAlive:true},
       },
+      {
+        path: '/test',
+        name: 'test',
+        component: r => require.ensure([], () => r(require('@/components/admin/scene/test')), 'scene'),
+        meta: { title: '服务中台-场景设置' , keepAlive:true},
+      },
     ],
 }
