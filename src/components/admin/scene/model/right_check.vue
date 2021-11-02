@@ -6,7 +6,7 @@
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
-                <div class="d-temp-box" v-for="(it,i) in dataList" :key="i" :style="{'background':'url('+it.cover+')'}">
+                <div class="d-temp-box" v-for="(it,i) in dataList" :key="i" :style="{'background-image':'url('+it.cover+')'}">
                     <span class="temp-name">{{it.name||'无'}}</span>
                     <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="it.check?'vip-check':'vip-no-check'"></i> 选用</el-button>
                 </div>
@@ -77,6 +77,7 @@ export default {
     appsTemplate(val,i){
         this.dataList[i]['check'] = !this.dataList[i]['check'];
         //将选择的信息放入模板中渲染。
+        this.$emit('addCompont',val);
         this.$forceUpdate();
     },
   },
@@ -128,6 +129,9 @@ export default {
             background-color: #A5B3CC;
             border: 1px solid #A5B3CC;
             position: relative;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
             .temp-name{
                 color: @fff;
             }

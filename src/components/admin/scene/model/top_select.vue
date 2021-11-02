@@ -26,7 +26,7 @@
           <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">保存</el-button>
           <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">预览</el-button>
         </div> -->
-        <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium">保存</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="saveClick()">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium">预览</el-button>
         <el-button icon="el-icon-download" size="medium" class="s-r-f-r">复制链接</el-button>
         <!-- </div> -->
@@ -63,6 +63,10 @@ export default {
       }).catch(err=>{
         console.log(err);
       })
+    },
+    //保存
+    saveClick(){
+      this.$emit('saveClick');
     },
   },
 }

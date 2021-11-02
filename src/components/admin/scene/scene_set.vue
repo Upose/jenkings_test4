@@ -7,7 +7,7 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list"></topSelect>
+            <topSelect :dataList="top_list" @saveClick="saveClick"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
@@ -26,18 +26,18 @@
                 </div>
                 <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
               </div><!--屏幕数量+拖拽 end-->
-              <div class="drag-container" ref="dragContainer">
-                <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}">
-                  <!--<iframe src="this.http://lib.cqu.edu.cn/" border="0" width="1198px" height="600px" scrolling="no"></iframe>-->
-                </div><!--拖拽内容板块 end-->
 
-              </div>
+              <div class="drag-container" ref="dragContainer">
+                <div class="drag-content grid-stack"></div>
+                <!-- <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}"></div> -->
+              </div><!--拖拽板块-->
+
               <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio"></scalingPage>
             </div><!--中间内容 end-->
 
             <div class="drag-r" :class="right_fold?'drag-r-hide':''">
               <div class="drag-r-pad">
-                <rightCheck ref="rightCheck_ref"></rightCheck>
+                <rightCheck ref="rightCheck_ref" @addCompont="addCompont"></rightCheck>
                 <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
               </div>
             </div><!--右边菜单 end-->
@@ -68,6 +68,11 @@ export default {
     this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
+    document.addEventListener("click",function(e){
+      if(e.target.className == 'jl_vip_zt_del'){
+        console.log('点击了删除按钮');
+      }
+    });
   },
   mounted(){
     this.initGrid();
@@ -111,10 +116,10 @@ export default {
       //以下是拖拽参数
       grid:null,
       items:[
-        {x:0, y:0, h:16, w:12, moduleName:'header', content:'<div id="zt_header_sys"></div>'},
+        {x:0, y:0, h:16, w:12, moduleName:'header', content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_header_sys"></div></div>'},
         // {x:0, y:16, h:45, w:12, moduleName:'apps_center', content:'<div id="zt_news_temp_sys"></div>'},
         // {x:0, y:61, h:42, w:12, moduleName:'database', content:'<div id="zt_database_sys"></div>'},
-        {x:0, y:103, h:10, w:12, moduleName:'footer', content:'<div id="zt_footer_sys"></div>'},
+        {x:0, y:103, h:10, w:12, moduleName:'footer', content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_footer_sys"></div></div>'},
       ],
       opts: {//元素初始化高度
         cellHeight: '10', 
@@ -149,6 +154,7 @@ export default {
         var _rect = items._rect;//元素大小，距离x轴，y轴的位置（单位：px）;(w,h,x,y)
         var _lastUiPosition = items._lastUiPosition;//距离顶部，左边的位置（left,top）
         var _orig = items._orig;//在12宫格中所占的比列（x,y,h,w）
+        console.log(event,items);
       })
       this.grid.load(this.items);
       setTimeout(() => {
@@ -159,11 +165,23 @@ export default {
       }, 200);
     },
     //添加组件
-    addCompont(){
-      let it = {x: 0, y: 51, h: 40, w: 12, moduleName:'板块名称5', content:'<div></div>'};
+    addCompont(val){
+      console.log(val);
+      /****
+       * 这里的id要动态
+       */
+      var component_id = 'zt_news_temp_sys';
+      let it = {x: 0, y: 0, h: 20, w: 12, moduleName:val.name, content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'};
       this.grid.addWidget(it);
+      setTimeout(()=>{
+        this.addStyle(val.target+'/component.css');
+        this.addScript(val.target+'/component.js');
+      },200)
     },
-
+    //删除模板
+    delCompont(val){
+      console.log(val);
+    },
     //引入css文件
     addStyle(url){
       var link=document.createElement("link"); 
@@ -240,6 +258,10 @@ export default {
           let drag_row = this.screen_list[e.newIndex]; //拖动行
         }//onEnd
       });
+    },
+    //保存
+    saveClick(){
+      console.log(this.grid.save());
     },
     /****新增一屏 */
     addScreen(){
