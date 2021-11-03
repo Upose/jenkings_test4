@@ -25,5 +25,11 @@ export default new Router({
       name: '/404',
       component: r => require.ensure([], () => r(require('@/components/404')), 'index'),
     },
+    {
+      path: '/scenePreview',
+      name: 'scenePreview',
+      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview')), 'scene'),
+      meta: { title: '服务中台-场景预览' , keepAlive:true},
+    },
   ]
 })

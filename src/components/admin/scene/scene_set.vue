@@ -7,7 +7,7 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list" @saveClick="saveClick"></topSelect>
+            <topSelect :dataList="top_list" @saveClick="saveClick" @scenePreview="scenePreview"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
@@ -63,7 +63,6 @@ export default {
   name: 'index',
   components:{serviceLMenu,breadcrumb,scalingPage,topSelect,leftCheck,rightCheck},
   created(){
-    //console.log('参数接收：'+this.$route.query.id);
     this.$root.collapse = true;
     this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
@@ -119,18 +118,18 @@ export default {
       //以下是拖拽参数
       grid:null,
       items:[
-        {
-          x:0, y:0, h:16, w:12, 
-          target:'http://192.168.21.71:9000/header_sys/temp1',
-          id:'zt_header_sys',
-          content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_header_sys"></div></div>'
-        },
-        {
-          x:0, y:0, h:10, w:12, 
-          target:'http://192.168.21.71:9000/footer_sys/temp1',
-          id:'zt_footer_sys',
-          content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_footer_sys"></div></div>'
-        },
+        // {
+        //   x:0, y:0, h:16, w:12, 
+        //   target:'http://192.168.21.71:9000/header_sys/temp1',
+        //   id:'zt_header_sys',
+        //   content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_header_sys"></div></div>'
+        // },
+        // {
+        //   x:0, y:0, h:10, w:12, 
+        //   target:'http://192.168.21.71:9000/footer_sys/temp1',
+        //   id:'zt_footer_sys',
+        //   content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_footer_sys"></div></div>'
+        // },
       ],
       opts: {//元素初始化高度
         cellHeight: '10', 
@@ -156,12 +155,9 @@ export default {
           this.addScript(e.target+'/component.js?id='+e.id);
         }, (i+1)*150);
       })
-      
-
     },
     //添加组件
     addCompont(val){
-      console.log(this.$options);
       console.log(val);
       var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
       let it = {
@@ -191,6 +187,25 @@ export default {
         })
       }
       console.log(list);
+    },
+    //预览
+    scenePreview(){
+      var list = [];
+      if(this.grid.save() && this.grid.save().length){
+        this.grid.save().forEach(item=>{
+          list.push({
+            x: item.x, y: item.y, h: item.h, w: item.w, 
+            target:item.target,
+            id:item.id,
+            content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
+          })
+        })
+      }
+      window.localStorage.setItem('scenePreview',JSON.stringify(list));
+      var url = window.location.origin+"/#/scenePreview";
+      setTimeout(() => {
+        window.open(url);
+      }, 200);
     },
     //引入css文件
     addStyle(url){

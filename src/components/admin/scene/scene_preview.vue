@@ -1,0 +1,69 @@
+<!---服务中台-栏目管理-->
+<template>
+  <div class="admin-warp-page">
+    <div class="grid-stack"></div>
+  </div>
+</template>
+
+<script>
+import Sortable from "sortablejs";
+export default {
+  name: 'index',
+  mounted(){
+    this.initGrid();
+  },
+  destroyed(){
+    window.removeEventListener('resize', () => {},false);
+  },
+  data () {
+    return {
+      //以下是拖拽参数
+      grid:null,
+      items:JSON.parse(window.localStorage.getItem('scenePreview')),
+      opts: {//元素初始化高度
+        cellHeight: '10', 
+        cellHeightThrottle: 100,
+      },
+      temp_list:[],
+    }
+  },
+  methods:{
+    //初始化模板
+    initGrid(){
+      this.grid = GridStack.init(this.opts);
+      this.grid.on('change', function(event, items) {//改变大小时触发
+        var _rect = items._rect;//元素大小，距离x轴，y轴的位置（单位：px）;(w,h,x,y)
+        var _lastUiPosition = items._lastUiPosition;//距离顶部，左边的位置（left,top）
+        var _orig = items._orig;//在12宫格中所占的比列（x,y,h,w）
+        // console.log(event,items);
+      })
+      this.grid.load(this.items);
+      //定时延迟加载js
+      this.items.forEach((e,i)=>{
+        setTimeout(() => {
+          this.addStyle(e.target+'/component.css');
+          this.addScript(e.target+'/component.js?id='+e.id);
+        }, (i+1)*150);
+      })
+    },
+    //引入css文件
+    addStyle(url){
+      var link=document.createElement("link"); 
+      link.setAttribute("rel", "stylesheet"); 
+      link.setAttribute("type", "text/css"); 
+      link.setAttribute("href", url);
+      document.getElementsByTagName("body")[0].appendChild(link);
+    },
+    //引入js文件
+    addScript(url){
+      var js_element=document.createElement("script");
+      js_element.setAttribute("type","text/javascript");
+      js_element.setAttribute("src",url);
+      document.getElementsByTagName("body")[0].appendChild(js_element);
+    },
+  },
+}
+</script>
+
+<style lang="less" scoped>
+</style>

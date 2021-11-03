@@ -27,7 +27,7 @@
           <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">预览</el-button>
         </div> -->
         <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="saveClick()">保存</el-button>
-        <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium">预览</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="scenePreview()">预览</el-button>
         <el-button icon="el-icon-download" size="medium" class="s-r-f-r">复制链接</el-button>
         <!-- </div> -->
     </div><!--顶部条件筛选 end-->
@@ -67,6 +67,10 @@ export default {
     //保存
     saveClick(){
       this.$emit('saveClick');
+    },
+    //预览
+    scenePreview(){
+      this.$emit('scenePreview');
     },
   },
 }
