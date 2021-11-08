@@ -16,24 +16,26 @@
             <div class="select-type">
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="s-choose">
-                <div class="s-c-row">
-                <h2 class="s-title">绑定栏目 <span class="s-edit">编辑</span></h2>
-                <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                </div>
-                <div class="s-c-row">
-                <h2 class="s-title">显示条数</h2>
-                <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                </div>
-                <div class="s-c-row">
-                <h2 class="s-title">排序规则</h2>
-                <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
-                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                </div>
+               <div class="">
+                    <div class="s-c-row">
+                        <h2 class="s-title">绑定栏目 <span class="s-edit">编辑</span></h2>
+                        <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </div>
+                    <div class="s-c-row">
+                        <h2 class="s-title">显示条数</h2>
+                        <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </div>
+                    <div class="s-c-row">
+                        <h2 class="s-title">排序规则</h2>
+                        <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
+                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                    </div>
+               </div>
                 <button class="s-c-add"><i class="el-icon-plus"></i><span>添加</span></button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium">保存</el-button>
             </div>
@@ -62,15 +64,19 @@ export default {
         //获取应用组件列表 /{appid}
         this.http.getPlain_url('app-widget-list-by-app-id','/'+id).then(res=>{
             this.dataList = res.data||[];
+            //获取模板列表，默认选中第一个模板
+            if(this.dataList.length>0){
+                this.appsTemplate(this.dataList[0],0);
+            }
         }).catch(err=>{
             console.log(err);
         })
       //获取应用栏目列表 /{appid}  (这个地方还未处理)
-      this.http.getPlain_url('app-plate-list-by-app-id','/'+id).then(res=>{
-        // console.log(res)
-      }).catch(err=>{
-        console.log(err);
-      })
+    //   this.http.getPlain_url('app-plate-list-by-app-id','/'+id).then(res=>{
+    //     // console.log(res)
+    //   }).catch(err=>{
+    //     console.log(err);
+    //   })
     },
     //选择某个模板
     appsTemplate(val,i){

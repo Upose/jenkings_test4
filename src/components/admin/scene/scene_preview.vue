@@ -1,7 +1,9 @@
 <!---服务中台-栏目管理-->
 <template>
-  <div class="admin-warp-page">
-    <div class="grid-stack"></div>
+  <div class="html-warp-page">
+    <div v-for="(item,index) in items" :key="index" :class="item.target_class" :style="styleRender(item)">
+      <div :id="item.id"></div>
+    </div>
   </div>
 </template>
 
@@ -10,10 +12,8 @@ import Sortable from "sortablejs";
 export default {
   name: 'index',
   mounted(){
-    this.initGrid();
-  },
-  destroyed(){
-    window.removeEventListener('resize', () => {},false);
+    document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));
+    console.log(this.items);
   },
   data () {
     return {
@@ -46,6 +46,18 @@ export default {
         }, (i+1)*150);
       })
     },
+    styleRender(val){//css 渲染
+      var list = {
+        width:(100/12)*val.w+'%',
+        height:(val.h*10)+'px',
+        top:(val.y*10)+'px',
+        left:(100/12)*val.x+'%',
+        position: 'absolute',
+      };
+      this.addStyle(val.target+'/component.css');
+      this.addScript(val.target+'/component.js');
+      return list;
+    },
     //引入css文件
     addStyle(url){
       var link=document.createElement("link"); 
@@ -66,4 +78,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.html-warp-page{
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+}
 </style>

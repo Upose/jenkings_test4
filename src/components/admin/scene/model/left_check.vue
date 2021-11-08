@@ -17,7 +17,7 @@
             </div>
         </el-collapse-item>
         <el-collapse-item title="请选择主题色" name="3">
-            <div class="color-temp" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div>
+            <div class="color-temp" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div>
         </el-collapse-item>
         </el-collapse><!--主题风格 end-->
         <div class="step-three">
@@ -76,6 +76,11 @@ export default {
     }
   },
   methods:{
+    //设置主题
+    setTheme(val){
+      document.getElementsByTagName("body")[0].setAttribute('class',val.value);
+      window.localStorage.setItem('template',val.value);
+    },
     //应用选择-服务类型点击事件
     serveClick(val){
       this.serve_name = val.key;
@@ -88,9 +93,9 @@ export default {
         if(this.serve_name == '' && this.apps_list.length>0){
           this.serveClick(this.apps_list[0]);
         }
-        if(this.apps_list&&this.apps_list.length>0){
-          this.appDetails(this.apps_list[0].appId);
-        }
+        // if(this.apps_list&&this.apps_list.length>0){//默认选中第一个应用
+        //   this.appDetails(this.apps_list[0].appId);
+        // }
       }).catch(err=>{
         console.log(err);
       })

@@ -3,6 +3,10 @@
     <headerpage></headerpage>
     <div class="admin-warp-content"><router-view></router-view></div>
     <!-- <footerpage class="footer-page"></footerpage> -->
+    <div class="color-bg-warp">
+      <span @click="skinClick('template1')">红</span>
+      <span @click="skinClick('template2')">蓝</span>
+    </div>
 </div>
 </template>
 
@@ -13,17 +17,35 @@ export default {
   name: 'index',
   components:{headerpage,footerpage},
   data () {
-    return {}
+    return {
+    }
   },
   methods:{
-    
+    skinClick(val){
+      document.getElementsByTagName("body")[0].setAttribute('class',val);
+      window.localStorage.setItem('template',val);
+    },
   }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "../../../assets/admin/css/style.less";
+/***最后会删除 */
+.color-bg-warp{
+  cursor: pointer;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  background: #eee;
+  span{
+    border: 1px solid #eee;
+    padding: 5px 10px;
+  }
+}
+/*****删除end */
 .warp{
   width: 100%;
   height: 100%;

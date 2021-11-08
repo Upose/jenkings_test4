@@ -68,7 +68,9 @@ export default {
         this.$root.collapse = msg;
     })
     var _this = this;
+    //监听事件
     document.addEventListener("click",function(e){
+      console.log(e);
       if(e.target.className == 'jl_vip_zt_del'){
         if(e.target.parentNode.parentNode.parentNode){
           _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
@@ -77,6 +79,7 @@ export default {
     });
   },
   mounted(){
+    document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));//颜色初始化
     this.initGrid();
     this.initData();
     this.setHeight(document.body.clientHeight-104);
@@ -115,21 +118,43 @@ export default {
         sceneTemplate:[],//场景模板
         sceneThemeColor:[],//场景主题色
       },
-      //以下是拖拽参数
+      //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       grid:null,
       items:[
+        {
+          x:0, y:0, h:16, w:12, 
+          target:'http://192.168.21.71:9000/header_sys/temp1',
+          id:'a12345',
+          target_class:'jl_vip_zt_header_sys1',
+          content:'<div class="jl_vip_zt_warp jl_vip_zt_header_sys1"><i class="jl_vip_zt_del">X</i><div id="a12345"></div></div>'
+        },
+        {
+          x:0, y:16, h:43, w:12, 
+          target:'http://192.168.21.71:9000/news_sys/temp1',
+          id:'c13553',
+          target_class:'jl_vip_zt_news_sys1',
+          content:'<div class="jl_vip_zt_warp jl_vip_zt_news_sys1"><i class="jl_vip_zt_del">X</i><div id="c13553"></div></div>'
+        },
         // {
-        //   x:0, y:0, h:16, w:12, 
-        //   target:'http://192.168.21.71:9000/header_sys/temp1',
-        //   id:'zt_header_sys',
-        //   content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_header_sys"></div></div>'
+        //   x:0, y:16, h:43, w:12, 
+        //   target:'http://192.168.21.71:9000/news_sys/temp1',
+        //   id:'c133',
+        //   target_class:'jl_vip_zt_news_sys1',//应用模板唯一表示
+        //   content:'<div class="jl_vip_zt_warp jl_vip_zt_news_sys1"><i class="jl_vip_zt_del">X</i><div id="c133"></div></div>'
         // },
-        // {
-        //   x:0, y:0, h:10, w:12, 
-        //   target:'http://192.168.21.71:9000/footer_sys/temp1',
-        //   id:'zt_footer_sys',
-        //   content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="zt_footer_sys"></div></div>'
-        // },
+        {
+          x:0, y:100, h:10, w:12, 
+          target:'http://192.168.21.71:9000/footer_sys/temp1',
+          id:'c12345',
+          target_class:'jl_vip_zt_footer_sys1',
+          content:'<div class="jl_vip_zt_warp jl_vip_zt_footer_sys1"><i class="jl_vip_zt_del">X</i><div id="c12345"></div></div>'
+        },
+      ],
+      //资源文件列表（需去重且需重写刷新）
+      resource_file_list:[
+        'http://192.168.21.71:9000/header_sys/temp1',
+        'http://192.168.21.71:9000/news_sys/temp1',
+        'http://192.168.21.71:9000/footer_sys/temp1',
       ],
       opts: {//元素初始化高度
         cellHeight: '10', 
@@ -148,12 +173,9 @@ export default {
         // console.log(event,items);
       })
       this.grid.load(this.items);
-      //定时延迟加载js
-      this.items.forEach((e,i)=>{
-        setTimeout(() => {
-          this.addStyle(e.target+'/component.css');
-          this.addScript(e.target+'/component.js?id='+e.id);
-        }, (i+1)*150);
+      this.resource_file_list.forEach((item,i)=>{
+        this.addStyle(item+'/component.css');
+        this.addScript(item+'/component.js');
       })
     },
     //添加组件
@@ -164,13 +186,13 @@ export default {
           x: 0, y: 0, h: 20, w: 12, 
           target:val.target,
           id:component_id,
-          modelName:component_id,
-          content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'
+          target_class:val.target_class||'jl_vip_zt_news_sys1',
+          content:'<div class="jl_vip_zt_warp jl_vip_zt_news_sys1"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'
         };
       this.grid.addWidget(it);
       setTimeout(()=>{
         this.addStyle(val.target+'/component.css');
-        this.addScript(val.target+'/component.js?id='+it.id);
+        this.addScript(val.target+'/component.js');
       },200)
     },
     //保存模板结构json
@@ -182,6 +204,7 @@ export default {
             x: item.x, y: item.y, h: item.h, w: item.w, 
             target:item.target,
             id:item.id,
+            target_class:item.target_class,
             content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
           })
         })
@@ -196,6 +219,7 @@ export default {
           list.push({
             x: item.x, y: item.y, h: item.h, w: item.w, 
             target:item.target,
+            target_class:item.target_class,
             id:item.id,
             content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
           })
@@ -345,5 +369,6 @@ export default {
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
 @import "../../../assets/admin/css/style.less";
 @import "./scene_set.less";
+@import "../../../assets/web/css/color.less";/**通用文件 */
 </style>
 
