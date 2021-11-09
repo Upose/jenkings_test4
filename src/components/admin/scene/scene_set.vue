@@ -13,7 +13,7 @@
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
             <div class="drag-l" :class="left_fold?'drag-l-hide':''">
               <div class="drag-l-pad">
-                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick"></leftCheck>
+                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick" @setTheme="setTheme"></leftCheck>
                 <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
               </div>
             </div><!--左边菜单 end-->
@@ -120,13 +120,16 @@ export default {
       },
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       grid:null,
+      postForm:{
+        themeColor:'',//颜色参数
+      },
       items:[
         {
           x:0, y:0, h:16, w:12, 
           target:'http://192.168.21.71:9000/header_sys/temp1',
           id:'a12345',
-          widgetCode:'jl_vip_zt_header_sys1',
-          content:'<div class="jl_vip_zt_warp jl_vip_zt_header_sys1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="a12345"></div></div>'
+          widgetCode:'header_sys_temp1',
+          content:'<div class="jl_vip_zt_warp header_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="a12345"></div></div>'
         },
         {
           x:0, y:16, h:43, w:12, 
@@ -135,19 +138,12 @@ export default {
           widgetCode:'news_sys_temp1',
           content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
         },
-        // {
-        //   x:0, y:16, h:43, w:12, 
-        //   target:'http://192.168.21.71:9000/news_sys/temp1',
-        //   id:'c133',
-        //   widgetCode:'news_sys_temp1',//应用模板唯一表示
-        //   content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c133"></div></div>'
-        // },
         {
           x:0, y:100, h:10, w:12, 
           target:'http://192.168.21.71:9000/footer_sys/temp1',
           id:'c12345',
-          widgetCode:'jl_vip_zt_footer_sys1',
-          content:'<div class="jl_vip_zt_warp jl_vip_zt_footer_sys1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c12345"></div></div>'
+          widgetCode:'footer_sys_temp1',
+          content:'<div class="jl_vip_zt_warp footer_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c12345"></div></div>'
         },
       ],
       //资源文件列表（需去重且需重写刷新）
@@ -231,13 +227,20 @@ export default {
         window.open(url);
       }, 200);
     },
+    //设置主题颜色
+    setTheme(val){
+      this.postForm.themeColor=val;
+    },
     //选择布局
     layoutClick(val){
-      console.log(val);
+      this.postForm.themeColor=val.value;
     },
     //设置头部底部
     setHFooter(val){
-      console.log(val);
+      this.postForm['footerTemplateId'] = val.footerTemplateId;
+      this.postForm['footerTemplateUrl'] = val.footerTemplateUrl;
+      this.postForm['headerTemplateId'] = val.headerTemplateId;
+      this.postForm['headerTemplateUrl'] = val.headerTemplateUrl;
     },
     //初始化页面数据
     initData(){

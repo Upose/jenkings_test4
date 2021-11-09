@@ -58,28 +58,20 @@ export default {
   methods: {
     /****保存按钮*******/
     submitForm(){
-        console.log(this.postForm);
         this.$emit('setHFooter',this.postForm);
         this.$emit('hfHide');
     },
     //模板选择
     headerClick(val){
-        console.log(val);
         this.head_check = val.id;
-        var list = {
-            "headerTemplateId": val.layoutId,
-            "headerTemplateUrl": val.router
-        }
-        this.postForm.header = list;
+        this.postForm['headerTemplateId'] = val.id;
+        this.postForm['headerTemplateUrl'] = val.router;
     },
     //模板选择
     footerClick(val){
-        this.footer_check = val.id
-        var list = {
-            "footerTemplateId": val.layoutId,
-            "footerTemplateUrl": val.router
-        }
-        this.postForm.footer = list;
+        this.footer_check = val.id;
+        this.postForm['footerTemplateId'] = val.id;
+        this.postForm['footerTemplateUrl'] = val.router;
     },
     /****取消按钮*******/
     closeClick(){

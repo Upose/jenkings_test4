@@ -76,10 +76,10 @@ export default {
     }
   },
   methods:{
-    //设置主题
+    //设置主题色
     setTheme(val){
       document.getElementsByTagName("body")[0].setAttribute('class',val.value);
-      window.localStorage.setItem('template',val.value);
+      this.$emit('setTheme',val.value);
     },
     //应用选择-服务类型点击事件
     serveClick(val){
