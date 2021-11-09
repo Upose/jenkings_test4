@@ -28,7 +28,7 @@
               </div><!--屏幕数量+拖拽 end-->
 
               <div class="drag-container" ref="dragContainer">
-                <div class="drag-content grid-stack"></div>
+                <div class="drag-content grid-stack" ref="grid_stack"></div>
                 <!-- <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}"></div> -->
               </div><!--拖拽板块-->
 
@@ -121,31 +121,37 @@ export default {
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       grid:null,
       postForm:{
-        themeColor:'',//颜色参数
+        themeColor:'template1',//颜色参数
+        layoutId:'1',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
+        headerTemplateUrl: "http://192.168.21.71:9000/header_sys/temp1",
+        footerTemplateUrl: "http://192.168.21.71:9000/footer_sys/temp1",
+        sceneScreens:[{
+          sceneApps:[
+            // {
+            //   x:0, y:0, h:16, w:12, 
+            //   target:'http://192.168.21.71:9000/header_sys/temp1',
+            //   id:'a12345',
+            //   widgetCode:'header_sys_temp1',
+            //   content:'<div class="jl_vip_zt_warp header_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="a12345"></div></div>'
+            // },
+            {
+              x:0, y:16, h:43, w:12, 
+              target:'http://192.168.21.71:9000/news_sys/temp1',
+              id:'c13553',
+              widgetCode:'news_sys_temp1',
+              content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
+            },
+            // {
+            //   x:0, y:100, h:10, w:12, 
+            //   target:'http://192.168.21.71:9000/footer_sys/temp1',
+            //   id:'c12345',
+            //   widgetCode:'footer_sys_temp1',
+            //   content:'<div class="jl_vip_zt_warp footer_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c12345"></div></div>'
+            // },
+          ],
+        }],//分屏
       },
-      items:[
-        {
-          x:0, y:0, h:16, w:12, 
-          target:'http://192.168.21.71:9000/header_sys/temp1',
-          id:'a12345',
-          widgetCode:'header_sys_temp1',
-          content:'<div class="jl_vip_zt_warp header_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="a12345"></div></div>'
-        },
-        {
-          x:0, y:16, h:43, w:12, 
-          target:'http://192.168.21.71:9000/news_sys/temp1',
-          id:'c13553',
-          widgetCode:'news_sys_temp1',
-          content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
-        },
-        {
-          x:0, y:100, h:10, w:12, 
-          target:'http://192.168.21.71:9000/footer_sys/temp1',
-          id:'c12345',
-          widgetCode:'footer_sys_temp1',
-          content:'<div class="jl_vip_zt_warp footer_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c12345"></div></div>'
-        },
-      ],
+      
       //资源文件列表（需去重且需重写刷新）
       resource_file_list:[
         'http://192.168.21.71:9000/header_sys/temp1',
@@ -168,7 +174,7 @@ export default {
         var _orig = items._orig;//在12宫格中所占的比列（x,y,h,w）
         // console.log(event,items);
       })
-      this.grid.load(this.items);
+      this.grid.load(this.postForm.sceneScreens[0]['sceneApps']);//这里是取的第一屏
       this.resource_file_list.forEach((item,i)=>{
         this.addStyle(item+'/component.css');
         this.addScript(item+'/component.js');
@@ -176,7 +182,6 @@ export default {
     },
     //添加组件
     addCompont(val){
-      console.log(val);
       var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
       let it = {
           x: 0, y: 0, h: 20, w: 12, 
@@ -209,6 +214,7 @@ export default {
     },
     //预览 保存不要遮罩层
     scenePreview(){
+      console.log(this.grid.save());
       var list = [];
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
@@ -221,7 +227,10 @@ export default {
           })
         })
       }
-      window.localStorage.setItem('scenePreview',JSON.stringify(list));
+      //[0]表示第几屏
+      this.postForm['sceneScreens'][0]['body_height'] = this.$refs.grid_stack.clientHeight;
+      this.postForm['sceneScreens'][0]['sceneApps'] = list;
+      window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
       var url = window.location.origin+"/#/scenePreview";
       setTimeout(() => {
         window.open(url);
@@ -233,7 +242,7 @@ export default {
     },
     //选择布局
     layoutClick(val){
-      this.postForm.themeColor=val.value;
+      this.postForm.layoutId = val.value;
     },
     //设置头部底部
     setHFooter(val){

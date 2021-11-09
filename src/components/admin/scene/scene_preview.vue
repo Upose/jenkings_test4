@@ -1,41 +1,24 @@
 <!---服务中台-栏目管理-->
 <template>
-  <div class="html-warp-page">
-    <div class="header">头部</div>
-    <div class="bocy-content">
-      <div v-for="(item,index) in items" :key="index" :class="item.widgetCode" :style="styleRender(item)">
+  <div class="html-warp-page" :class="items.themeColor||'template1'">
+    <div class="header_sys_temp1"><div id="header_sys_temp1"></div></div>
+    <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.body_height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
+      <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode" :style="styleRender(item)">
         <div :id="item.id"></div>
       </div>
     </div>
-    <div>底部</div>
+    <div class="footer_sys_temp1"><div id="footer_sys_temp1"></div></div>
   </div>
 </template>
 <style lang="less" scoped>
-.bocy-content{
+.width_1200{
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  // overflow: hidden;
-  zoom: 1;
-  &::after{
-    display: block;
-    content: '';
-    width: 0;
-    height: 0;
-    clear: both;
-  }
 }
-// .jl_vip_zt_header_sys1{
-//   &::after{
-//     display: block;
-//     content: '';
-//     width: 1920px;
-//     height: 100%;
-//     background: red;
-//     left: 0;
-//   }
-// }
+.bocy-content{
+  position: relative;
+}
 .html-warp-page{
   width: 100%;
   min-height: 100%;
@@ -47,7 +30,10 @@ export default {
   name: 'index',
   mounted(){
     document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));
-    console.log(this.items);
+    this.addStyle(this.items.footerTemplateUrl+'/component.css');
+    this.addScript(this.items.footerTemplateUrl+'/component.js');
+    this.addStyle(this.items.headerTemplateUrl+'/component.css');
+    this.addScript(this.items.headerTemplateUrl+'/component.js');
   },
   data () {
     return {
@@ -63,23 +49,6 @@ export default {
   },
   methods:{
     //初始化模板
-    initGrid(){
-      this.grid = GridStack.init(this.opts);
-      this.grid.on('change', function(event, items) {//改变大小时触发
-        var _rect = items._rect;//元素大小，距离x轴，y轴的位置（单位：px）;(w,h,x,y)
-        var _lastUiPosition = items._lastUiPosition;//距离顶部，左边的位置（left,top）
-        var _orig = items._orig;//在12宫格中所占的比列（x,y,h,w）
-        // console.log(event,items);
-      })
-      this.grid.load(this.items);
-      //定时延迟加载js
-      this.items.forEach((e,i)=>{
-        setTimeout(() => {
-          this.addStyle(e.target+'/component.css');
-          this.addScript(e.target+'/component.js?id='+e.id);
-        }, (i+1)*150);
-      })
-    },
     styleRender(val){//css 渲染
       var list = {
         width:(100/12)*val.w+'%',
