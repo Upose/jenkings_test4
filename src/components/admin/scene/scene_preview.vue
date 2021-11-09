@@ -1,12 +1,46 @@
 <!---服务中台-栏目管理-->
 <template>
   <div class="html-warp-page">
-    <div v-for="(item,index) in items" :key="index" :class="item.target_class" :style="styleRender(item)">
-      <div :id="item.id"></div>
+    <div class="header">头部</div>
+    <div class="bocy-content">
+      <div v-for="(item,index) in items" :key="index" :class="item.widgetCode" :style="styleRender(item)">
+        <div :id="item.id"></div>
+      </div>
     </div>
+    <div>底部</div>
   </div>
 </template>
-
+<style lang="less" scoped>
+.bocy-content{
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  // overflow: hidden;
+  zoom: 1;
+  &::after{
+    display: block;
+    content: '';
+    width: 0;
+    height: 0;
+    clear: both;
+  }
+}
+// .jl_vip_zt_header_sys1{
+//   &::after{
+//     display: block;
+//     content: '';
+//     width: 1920px;
+//     height: 100%;
+//     background: red;
+//     left: 0;
+//   }
+// }
+.html-warp-page{
+  width: 100%;
+  min-height: 100%;
+}
+</style>
 <script>
 import Sortable from "sortablejs";
 export default {
@@ -53,6 +87,7 @@ export default {
         top:(val.y*10)+'px',
         left:(100/12)*val.x+'%',
         position: 'absolute',
+        // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
       this.addStyle(val.target+'/component.css');
       this.addScript(val.target+'/component.js');
@@ -77,10 +112,3 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.html-warp-page{
-  width: 100%;
-  min-height: 100%;
-  position: relative;
-}
-</style>

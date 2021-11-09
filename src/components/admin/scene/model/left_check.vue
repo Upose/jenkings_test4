@@ -5,9 +5,9 @@
         <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1>
         <el-collapse v-model="activeCollapse" @change="collapseClick" class="drag-collapse">
         <el-collapse-item title="请选择布局" name="1">
-            <div class="drag-box" v-for="i in (dataList.sceneLayout||[])" :key="i+'a'">
-            <i class="el-icon-s-marketing d-b-img"></i>
-            <span class="d-b-txt">{{i.key||'暂无'}}</span>
+            <div class="drag-box" v-for="i in (dataList.sceneLayout||[])" :key="i+'a'" @click="layoutClick(i)">
+              <i class="el-icon-s-marketing d-b-img"></i>
+              <span class="d-b-txt">{{i.key||'暂无'}}</span>
             </div>
         </el-collapse-item>
         <el-collapse-item title="请选择模板" name="2">
@@ -99,6 +99,10 @@ export default {
       }).catch(err=>{
         console.log(err);
       })
+    },
+    //选择布局
+    layoutClick(val){
+      this.$emit('layoutClick',val);
     },
     //应用点击事件
     appDetails(id){

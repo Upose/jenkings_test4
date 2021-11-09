@@ -7,13 +7,13 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list" @saveClick="saveClick" @scenePreview="scenePreview"></topSelect>
+            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
             <div class="drag-l" :class="left_fold?'drag-l-hide':''">
               <div class="drag-l-pad">
-                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails"></leftCheck>
+                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick"></leftCheck>
                 <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
               </div>
             </div><!--左边菜单 end-->
@@ -70,7 +70,7 @@ export default {
     var _this = this;
     //监听事件
     document.addEventListener("click",function(e){
-      console.log(e);
+      // console.log(e);
       if(e.target.className == 'jl_vip_zt_del'){
         if(e.target.parentNode.parentNode.parentNode){
           _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
@@ -125,29 +125,29 @@ export default {
           x:0, y:0, h:16, w:12, 
           target:'http://192.168.21.71:9000/header_sys/temp1',
           id:'a12345',
-          target_class:'jl_vip_zt_header_sys1',
-          content:'<div class="jl_vip_zt_warp jl_vip_zt_header_sys1"><i class="jl_vip_zt_del">X</i><div id="a12345"></div></div>'
+          widgetCode:'jl_vip_zt_header_sys1',
+          content:'<div class="jl_vip_zt_warp jl_vip_zt_header_sys1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="a12345"></div></div>'
         },
         {
           x:0, y:16, h:43, w:12, 
           target:'http://192.168.21.71:9000/news_sys/temp1',
           id:'c13553',
-          target_class:'jl_vip_zt_news_sys1',
-          content:'<div class="jl_vip_zt_warp jl_vip_zt_news_sys1"><i class="jl_vip_zt_del">X</i><div id="c13553"></div></div>'
+          widgetCode:'news_sys_temp1',
+          content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
         },
         // {
         //   x:0, y:16, h:43, w:12, 
         //   target:'http://192.168.21.71:9000/news_sys/temp1',
         //   id:'c133',
-        //   target_class:'jl_vip_zt_news_sys1',//应用模板唯一表示
-        //   content:'<div class="jl_vip_zt_warp jl_vip_zt_news_sys1"><i class="jl_vip_zt_del">X</i><div id="c133"></div></div>'
+        //   widgetCode:'news_sys_temp1',//应用模板唯一表示
+        //   content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c133"></div></div>'
         // },
         {
           x:0, y:100, h:10, w:12, 
           target:'http://192.168.21.71:9000/footer_sys/temp1',
           id:'c12345',
-          target_class:'jl_vip_zt_footer_sys1',
-          content:'<div class="jl_vip_zt_warp jl_vip_zt_footer_sys1"><i class="jl_vip_zt_del">X</i><div id="c12345"></div></div>'
+          widgetCode:'jl_vip_zt_footer_sys1',
+          content:'<div class="jl_vip_zt_warp jl_vip_zt_footer_sys1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c12345"></div></div>'
         },
       ],
       //资源文件列表（需去重且需重写刷新）
@@ -186,8 +186,8 @@ export default {
           x: 0, y: 0, h: 20, w: 12, 
           target:val.target,
           id:component_id,
-          target_class:val.target_class||'jl_vip_zt_news_sys1',
-          content:'<div class="jl_vip_zt_warp jl_vip_zt_news_sys1"><i class="jl_vip_zt_del">X</i><div id="'+component_id+'"></div></div>'
+          widgetCode:val.widgetCode,
+          content:'<div class="jl_vip_zt_warp '+val.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="'+component_id+'"></div></div>'
         };
       this.grid.addWidget(it);
       setTimeout(()=>{
@@ -204,14 +204,14 @@ export default {
             x: item.x, y: item.y, h: item.h, w: item.w, 
             target:item.target,
             id:item.id,
-            target_class:item.target_class,
-            content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
+            widgetCode:item.widgetCode,
+            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
           })
         })
       }
       console.log(list);
     },
-    //预览
+    //预览 保存不要遮罩层
     scenePreview(){
       var list = [];
       if(this.grid.save() && this.grid.save().length){
@@ -219,9 +219,9 @@ export default {
           list.push({
             x: item.x, y: item.y, h: item.h, w: item.w, 
             target:item.target,
-            target_class:item.target_class,
+            widgetCode:item.widgetCode,
             id:item.id,
-            content:'<div class="jl_vip_zt_warp"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
           })
         })
       }
@@ -231,20 +231,13 @@ export default {
         window.open(url);
       }, 200);
     },
-    //引入css文件
-    addStyle(url){
-      var link=document.createElement("link"); 
-      link.setAttribute("rel", "stylesheet"); 
-      link.setAttribute("type", "text/css"); 
-      link.setAttribute("href", url);
-      document.getElementsByTagName("body")[0].appendChild(link);
+    //选择布局
+    layoutClick(val){
+      console.log(val);
     },
-    //引入js文件
-    addScript(url){
-      var js_element=document.createElement("script");
-      js_element.setAttribute("type","text/javascript");
-      js_element.setAttribute("src",url);
-      document.getElementsByTagName("body")[0].appendChild(js_element);
+    //设置头部底部
+    setHFooter(val){
+      console.log(val);
     },
     //初始化页面数据
     initData(){
@@ -360,6 +353,21 @@ export default {
       }
       //console.log(cls);
       return cls;
+    },
+    //引入css文件
+    addStyle(url){
+      var link=document.createElement("link"); 
+      link.setAttribute("rel", "stylesheet"); 
+      link.setAttribute("type", "text/css"); 
+      link.setAttribute("href", url);
+      document.getElementsByTagName("body")[0].appendChild(link);
+    },
+    //引入js文件
+    addScript(url){
+      var js_element=document.createElement("script");
+      js_element.setAttribute("type","text/javascript");
+      js_element.setAttribute("src",url);
+      document.getElementsByTagName("body")[0].appendChild(js_element);
     },
   },
 }

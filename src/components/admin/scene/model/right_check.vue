@@ -16,28 +16,28 @@
             <div class="select-type">
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="s-choose">
-               <div class="">
-                    <div class="s-c-row">
+               <div class="" v-for="(it,i) in set_list" :key="i">
+                    <div class="s-c-row" v-if="it.availableConfig.indexOf('1')>-1">
                         <h2 class="s-title">绑定栏目 <span class="s-edit">编辑</span></h2>
-                        <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
+                        <el-select class="w-saml" v-model="it.appPlateIds" size="medium" placeholder="请选择">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
-                    <div class="s-c-row">
+                    <div class="s-c-row" v-if="it.availableConfig.indexOf('2')>-1">
                         <h2 class="s-title">显示条数</h2>
-                        <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
+                        <el-select class="w-saml" v-model="it.topCount" size="medium" placeholder="请选择">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
-                    <div class="s-c-row">
+                    <div class="s-c-row" v-if="it.availableConfig.indexOf('3')>-1">
                         <h2 class="s-title">排序规则</h2>
-                        <el-select class="w-saml" v-model="postForm.val" size="medium" placeholder="请选择">
+                        <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="请选择">
                             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
                </div>
                 <button class="s-c-add"><i class="el-icon-plus"></i><span>添加</span></button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium">保存</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" @click="saveClick()" size="medium">保存</el-button>
             </div>
         </div><!--设置内容 end-->
     </div><!--右边菜单 end-->
@@ -52,6 +52,16 @@ export default {
     return {
       dataList:[],//模板列表
       postForm:{},
+      set_list:[ //这里为了渲染有哪几栏，有哪些设置参数
+        {
+            availableConfig:'1,2,3',//显示那几栏
+            sortList:[{key:'添加时间倒序',value:'CreatedTime-DESC'}],//排序
+            topCountList:[{key:'1',value:'1'}],//显示条数
+            topCount:'',//数据条数-（需要参数）
+            sortType:1,//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
+            appPlateIds:'',//应用栏目标识 -（需要参数）
+        }
+      ],
       options: [{
         value: '选项1',
         label: '选项1'
@@ -84,6 +94,11 @@ export default {
         //将选择的信息放入模板中渲染。
         this.$emit('addCompont',val);
         this.$forceUpdate();
+    },
+    //保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。
+    //取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。
+    saveClick(){
+        
     },
   },
 }

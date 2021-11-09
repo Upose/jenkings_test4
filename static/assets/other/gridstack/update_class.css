@@ -22,3 +22,12 @@
 .jl_vip_zt_warp .jl_vip_zt_del:hover{
     background-color: #fff;
 }
+.jl_vip_zt_warp .mask-layer{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(0,0,0,0);
+}

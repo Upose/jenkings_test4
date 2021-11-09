@@ -20,7 +20,7 @@
               <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
-        <el-button class="default-btn-border" icon="el-icon-setting" size="medium">高级设置</el-button>
+        <el-button class="default-btn-border" icon="el-icon-setting" size="medium" @click="hfShow()">高级设置</el-button>
         <!-- <div class="s-r-btns">
           <el-button icon="el-icon-download" size="medium">复制链接</el-button>
           <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">保存</el-button>
@@ -31,15 +31,19 @@
         <el-button icon="el-icon-download" size="medium" class="s-r-f-r">复制链接</el-button>
         <!-- </div> -->
     </div><!--顶部条件筛选 end-->
+    <header_footer @hfHide="hfHide" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
   </div>
 </template>
 
 <script>
+import header_footer from "../../common/head_foter";
 export default {
   name: 'index',
   props:['dataList'],
+  components:{header_footer},
   data () {
     return {
+      header_footer_show:false,
       postForm:{},
       userType: [],
     }
@@ -63,6 +67,18 @@ export default {
       }).catch(err=>{
         console.log(err);
       })
+    },
+    //设置头部底部
+    setHFooter(val){
+      this.$emit('setHFooter',val);
+    },
+    //隐藏头部尾部
+    hfHide(){
+      this.header_footer_show = false;
+    },
+    //显示头部尾部
+    hfShow(){
+      this.header_footer_show = true;
     },
     //保存
     saveClick(){
