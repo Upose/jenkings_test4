@@ -70,11 +70,15 @@ export default {
     var _this = this;
     //监听事件
     document.addEventListener("click",function(e){
-      // console.log(e);
-      if(e.target.className == 'jl_vip_zt_del'){
+      if(e.target.className == 'jl_vip_zt_del'){//删除按钮
         if(e.target.parentNode.parentNode.parentNode){
           _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
         }
+      }
+      if(e.target.className == 'mask-layer'){//单击
+        var appid = e.target.dataset.appid;//应用id
+        var appwidgetid = e.target.dataset.appwidgetid;//模板id
+        //根据应用id，和模板id，获取到对应的模板列表，然后点击模板列表，更换选中块的内容
       }
     });
   },
@@ -127,27 +131,18 @@ export default {
         footerTemplateUrl: "http://192.168.21.71:9000/footer_sys/temp1",
         sceneScreens:[{
           sceneApps:[
-            // {
-            //   x:0, y:0, h:16, w:12, 
-            //   target:'http://192.168.21.71:9000/header_sys/temp1',
-            //   id:'a12345',
-            //   widgetCode:'header_sys_temp1',
-            //   content:'<div class="jl_vip_zt_warp header_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="a12345"></div></div>'
-            // },
             {
-              x:0, y:16, h:43, w:12, 
+              x:0, y:0, h:43, w:12, 
+              // noMove: true, //不能移动
+              // noResize: true, //静止调整大小
+              // locked: true,//锁定
+              appId:'appwd125-1717-4562-b3fc-2c963f66afa6',//应用id
+              appWidgetId:'appwd125-1717-4562-b3fc-2c963f66afa6', //组件id
               target:'http://192.168.21.71:9000/news_sys/temp1',
               id:'c13553',
               widgetCode:'news_sys_temp1',
               content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
             },
-            // {
-            //   x:0, y:100, h:10, w:12, 
-            //   target:'http://192.168.21.71:9000/footer_sys/temp1',
-            //   id:'c12345',
-            //   widgetCode:'footer_sys_temp1',
-            //   content:'<div class="jl_vip_zt_warp footer_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c12345"></div></div>'
-            // },
           ],
         }],//分屏
       },
@@ -187,10 +182,13 @@ export default {
           x: 0, y: 0, h: 20, w: 12, 
           target:val.target,
           id:component_id,
+          appId:val.appId,
+          appWidgetId:val.id,
           widgetCode:val.widgetCode,
-          content:'<div class="jl_vip_zt_warp '+val.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="'+component_id+'"></div></div>'
+          content:'<div class="jl_vip_zt_warp '+val.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+val.appId+'" data-appWidgetId="'+val.id+'"></div><div id="'+component_id+'"></div></div>'
         };
       this.grid.addWidget(it);
+      //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
       setTimeout(()=>{
         this.addStyle(val.target+'/component.css');
         this.addScript(val.target+'/component.js');

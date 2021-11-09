@@ -1,4 +1,4 @@
-<!---服务中台-栏目管理-->
+<!---服务中台-预览页面-->
 <template>
   <div class="html-warp-page" :class="items.themeColor||'template1'">
     <div class="header_sys_temp1"><div id="header_sys_temp1"></div></div>
@@ -18,6 +18,7 @@
 }
 .bocy-content{
   position: relative;
+  min-width: 1200px;//最小宽度
 }
 .html-warp-page{
   width: 100%;

@@ -6,9 +6,9 @@
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
-                <div class="d-temp-box" v-for="(it,i) in dataList" :key="i" :style="{'background-image':'url('+it.cover+')'}">
+                <div class="d-temp-box" v-for="(it,i) in template_list" :key="i" :style="{'background-image':'url('+it.cover+')'}">
                     <span class="temp-name">{{it.name||'无'}}</span>
-                    <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="it.check?'vip-check':'vip-no-check'"></i> 选用</el-button>
+                    <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="template_check == it.id?'vip-check':'vip-no-check'"></i> 选用</el-button>
                 </div>
             </div>
             </div><!--选择样式 end-->
@@ -20,19 +20,19 @@
                     <div class="s-c-row" v-if="it.availableConfig.indexOf('1')>-1">
                         <h2 class="s-title">绑定栏目 <span class="s-edit">编辑</span></h2>
                         <el-select class="w-saml" v-model="it.appPlateIds" size="medium" placeholder="请选择">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            <el-option v-for="(item,i) in options" :key="i+'c'" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
                     <div class="s-c-row" v-if="it.availableConfig.indexOf('2')>-1">
                         <h2 class="s-title">显示条数</h2>
                         <el-select class="w-saml" v-model="it.topCount" size="medium" placeholder="请选择">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            <el-option v-for="(item,i) in it.topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
                     </div>
                     <div class="s-c-row" v-if="it.availableConfig.indexOf('3')>-1">
                         <h2 class="s-title">排序规则</h2>
                         <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="请选择">
-                            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                            <el-option v-for="(item,i) in it.sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
                     </div>
                </div>
@@ -50,22 +50,20 @@ export default {
   mounted(){},
   data () {
     return {
-      dataList:[],//模板列表
+      template_list:[],//模板列表
+      template_check:'',//选择的模板
       postForm:{},
+      options:[],
       set_list:[ //这里为了渲染有哪几栏，有哪些设置参数
         {
             availableConfig:'1,2,3',//显示那几栏
             sortList:[{key:'添加时间倒序',value:'CreatedTime-DESC'}],//排序
-            topCountList:[{key:'1',value:'1'}],//显示条数
+            topCountList:[{key:'1',value:'1'},{key:'2',value:'2'}],//显示条数
             topCount:'',//数据条数-（需要参数）
-            sortType:1,//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
+            sortType:'CreatedTime-DESC',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
             appPlateIds:'',//应用栏目标识 -（需要参数）
         }
       ],
-      options: [{
-        value: '选项1',
-        label: '选项1'
-      }],
     }
   },
 
@@ -73,10 +71,12 @@ export default {
     appDetails(id){
         //获取应用组件列表 /{appid}
         this.http.getPlain_url('app-widget-list-by-app-id','/'+id).then(res=>{
-            this.dataList = res.data||[];
+            this.template_list = res.data||[];
             //获取模板列表，默认选中第一个模板
-            if(this.dataList.length>0){
-                this.appsTemplate(this.dataList[0],0);
+            if(this.template_list.length>0){
+                this.appsTemplate(this.template_list[0],0);
+                this.template_check = this.template_list[0].id;
+                this.$emit('addCompont',this.template_list[0]);
             }
         }).catch(err=>{
             console.log(err);
@@ -90,15 +90,15 @@ export default {
     },
     //选择某个模板
     appsTemplate(val,i){
-        this.dataList[i]['check'] = !this.dataList[i]['check'];
-        //将选择的信息放入模板中渲染。
-        this.$emit('addCompont',val);
+        console.log(val,i);
+        this.template_check = val.id;
+        //这个地方选择了模板之后，需要在对应的应用中进行修改模板，修改时要替换原本的板块。
         this.$forceUpdate();
     },
     //保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。
     //取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。
     saveClick(){
-        
+
     },
   },
 }
