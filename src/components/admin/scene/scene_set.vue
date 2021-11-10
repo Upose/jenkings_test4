@@ -7,13 +7,13 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview"></topSelect>
+            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
             <div class="drag-l" :class="left_fold?'drag-l-hide':''">
               <div class="drag-l-pad">
-                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick" @setTheme="setTheme"></leftCheck>
+                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
                 <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
               </div>
             </div><!--左边菜单 end-->
@@ -129,6 +129,9 @@ export default {
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       grid:null,
       postForm:{
+        templateId:'',//选择模板
+        terminalInstanceId:this.$route.query.id,//终端id
+        terminalInstanceName:this.$route.query.t,//终端实例名称
         themeColor:'template1',//颜色参数
         layoutId:'1',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
         headerTemplate:{
@@ -197,7 +200,7 @@ export default {
         let it = {
             x: 0, y: 0, h: data.height, w: data.width, 
             target:data.target,
-            id:component_id,
+            id:data.id,
             appId:data.appId,
             appWidgetId:data.id,
             widgetCode:data.widgetCode,
@@ -215,7 +218,7 @@ export default {
           let it = {
             x: x, y: y, h: h, w: w, 
             target:data.target,
-            id:component_id,
+            id:data.id,
             appId:data.appId,
             appWidgetId:data.id,
             widgetCode:data.widgetCode,
@@ -255,15 +258,23 @@ export default {
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
           list.push({
-            x: item.x, y: item.y, h: item.h, w: item.w, 
+            xIndex: item.x, yIndex: item.y, height: item.h, width: item.w, 
             target:item.target,
             id:item.id,
+            appId:item.appId,
             widgetCode:item.widgetCode,
-            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
+            // content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div></div>'
           })
         })
       }
-      console.log(list);
+      this.postForm['sceneScreens'][0]['sceneHeight'] = this.$refs.grid_stack.clientHeight;
+      this.postForm['sceneScreens'][0]['sceneApps'] = list;
+      console.log(this.postForm);
+      this.http.postJson('scene-add',this.postForm).then(res=>{
+        console.log(res);
+      }).catch(err=>{
+
+      })
     },
     //预览 保存不要遮罩层
     scenePreview(){
@@ -276,12 +287,13 @@ export default {
             target:item.target,
             widgetCode:item.widgetCode,
             id:item.id,
-            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+item.id+'"></div></div>'
+            appId:item.appId,
+            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div></div>'
           })
         })
       }
       //[0]表示第几屏
-      this.postForm['sceneScreens'][0]['body_height'] = this.$refs.grid_stack.clientHeight;
+      this.postForm['sceneScreens'][0]['sceneHeight'] = this.$refs.grid_stack.clientHeight;
       this.postForm['sceneScreens'][0]['sceneApps'] = list;
       window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
       var url = window.location.origin+"/#/scenePreview";
@@ -289,13 +301,23 @@ export default {
         window.open(url);
       }, 200);
     },
+    //顶部选择的数据
+    topCheck(val){
+      this.postForm.status = val.status||'';
+      this.postForm.sceneUsers = val.user_type||[];
+      this.postForm.visitorLimitType = val.visitor_type||0;
+    },
     //设置主题颜色
     setTheme(val){
       this.postForm.themeColor=val;
     },
+    //选择模板-左边
+    templateClick(val){
+      this.postForm.templateId=val.value||'';
+    },
     //保存模板设置参数（条数，栏目，排序规则等）
     saveTempSet(val){
-      this.postForm.sceneScreens[0]['topCountList'] = val;
+      this.postForm.sceneScreens[0]['appPlateItems'] = val;
     },
     //选择布局
     layoutClick(val){

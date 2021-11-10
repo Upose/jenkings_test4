@@ -11,7 +11,7 @@
             </div>
         </el-collapse-item>
         <el-collapse-item title="请选择模板" name="2">
-            <div class="drag-box" v-for="i in (dataList.sceneTemplate||[])" :key="i+'b'">
+            <div class="drag-box" v-for="i in (dataList.sceneTemplate||[])" :key="i+'b'" @click="templateClick(i)">
               <i class="el-icon-s-marketing d-b-img"></i>
               <span class="d-b-txt">{{i.key||'暂无'}}</span>
             </div>
@@ -85,6 +85,10 @@ export default {
     serveClick(val){
       this.serve_name = val.key;
       this.getApps(val.value);
+    },
+    //选择模板
+    templateClick(val){
+      this.$emit('templateClick',val)
     },
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype}
     getApps(id){

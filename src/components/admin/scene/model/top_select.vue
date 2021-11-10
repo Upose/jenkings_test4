@@ -6,7 +6,7 @@
         <!-- <div class="search-top"> -->
         <div class="s-col"><span class="s-txt">电脑门户：</span><el-input class="w-saml" v-model="dataList.title" disabled="disabled" size="medium" placeholder="首页"></el-input></div>
         <div class="s-col"><span class="s-txt">服务状态：</span>
-          <el-select class="w-saml" v-model="postForm.status" size="medium" placeholder="请选择">
+          <el-select class="w-saml" v-model="postForm.status" @change="statusClcik" size="medium" placeholder="请选择">
               <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
@@ -16,9 +16,9 @@
           </el-select>
         </div>
         <div class="s-col"><span class="s-txt">用户类型：</span>
-          <el-select class="w-saml" v-model="postForm.user_type" size="medium" placeholder="请选择">
-              <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
-          </el-select>
+        <el-select v-model="user_check_list" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
+            <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item"></el-option>
+        </el-select>
         </div>
         <el-button class="default-btn-border" icon="el-icon-setting" size="medium" @click="hfShow()">高级设置</el-button>
         <!-- <div class="s-r-btns">
@@ -44,17 +44,38 @@ export default {
   data () {
     return {
       header_footer_show:false,
-      postForm:{},
+      postForm:{
+        user_type:[]
+      },
       userType: [],
+      user_check_list: []
     }
   },
   mounted(){
     // console.log(this.dataList);
   },
   methods:{
+    //状态选择
+    statusClcik(val){
+      this.$emit('topCheck',this.postForm);
+    },
+    //用户类型
+    userClcik(val){
+      var list = [];
+      if(val.length>0){
+        val.forEach(item=>{
+          list.push({
+            sceneId:this.$route.query.id,
+            userSetId:item.value,
+          });
+        })
+      }
+      this.postForm.user_type = list;
+      this.$emit('topCheck',this.postForm);
+    },
     //权限控制选择
     visitorLimitTypeCheck(val){
-      console.log(val);
+      this.$emit('topCheck',this.postForm);
       this.getUserType(val);
     },
     //获取用户类型

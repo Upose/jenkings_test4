@@ -2,7 +2,7 @@
 <template>
   <div class="html-warp-page" :class="items.themeColor||'template1'">
     <div :class="items.headerTemplate.templateCode"><div :id="items.headerTemplate.templateCode"></div></div>
-    <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.body_height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
+    <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.sceneHeight+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
       <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode" :style="styleRender(item)">
         <div :id="item.id"></div>
       </div>
