@@ -71,7 +71,6 @@ export default {
 
   methods:{
     appDetails(val){
-        console.log(val);
         this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
         this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
