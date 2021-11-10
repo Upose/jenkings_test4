@@ -50,7 +50,7 @@ export default {
   mounted(){},
   data () {
     return {
-      is_add:true,//是添加模板还是修改模板，true为添加
+      is_add:true,//是点击应用添加，还是点击的渲染模板，true为点击应用
       template_list:[],//模板列表
       template_check:'',//选择的模板
       options:[],
@@ -69,8 +69,7 @@ export default {
 
   methods:{
     appDetails(val){
-        console.log(val);
-        this.is_add = val.is_add||true;
+        this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
         this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
             this.template_list = res.data||[];
@@ -96,12 +95,13 @@ export default {
     //   })
     },
     //选择某个模板
-    appsTemplate(val){
+    appsTemplate(val,isAdd){
         console.log(val);
         this.template_check = val.id;
-        if(!this.is_add){
-            console.log('修改指定模板');
-            this.$emit('addCompont',{'list':this.template_list[0],'is_add_compont':false});
+        if(isAdd == 'add'){
+            console.log('应用点击的默认添加第一个模板');
+        }else{
+            this.$emit('addCompont',{'list':val,'is_add_compont':false});
         }
         this.$forceUpdate();
     },

@@ -24,7 +24,7 @@ export default {
   },
   methods:{
     getHeight(val){
-      console.log('宽：'+val);
+      // console.log('宽：'+val);
       var ratio_num = 1;
       if(val && val>0){
         ratio_num = val/1200;

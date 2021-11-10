@@ -69,16 +69,31 @@ export default {
     })
     var _this = this;
     //监听事件
-    document.addEventListener("click",function(e){
+    document.addEventListener("click",function(e){//点击元素准备修改的时候，需要在当前元素添加一个class，并且移出其他兄弟元素的class
       if(e.target.className == 'jl_vip_zt_del'){//删除按钮
         if(e.target.parentNode.parentNode.parentNode){
           _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
         }
       }
-      if(e.target.className == 'mask-layer'){//单击
+      if(e.target.className.indexOf('mask-layer')>-1){//单击
+        e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
+        var class_list = document.getElementsByClassName('mask-layer');//获取所有兄弟元素
+        var cu_id = e.target.parentNode.parentNode.parentNode.getAttribute('gs-id');//当前元素的id
+        if(class_list){//这段代码表示只允许选中一个可修改元素
+          for (let index = 0; index < class_list.length; index++) {
+            var element = class_list[index];
+            var el_id = element.parentNode.parentNode.parentNode.getAttribute('gs-id');
+            if(el_id!= cu_id){
+              element.setAttribute('class','mask-layer');
+            }
+          }
+        }
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
         _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false});
+        //先获取 e.target.parentNode.parentNode.parentNode  的x,y,w,h 的值，然后删除他。再根据这个值重新添加一块相同值的元素。
+        
+        
         //根据应用id，和模板id，获取到对应的模板列表，然后点击模板列表，更换选中块的内容
       }
     });
@@ -138,18 +153,18 @@ export default {
         },//底部模板
         sceneScreens:[{
           sceneApps:[
-            {
-              x:0, y:0, h:43, w:12, 
-              // noMove: true, //不能移动
-              // noResize: true, //静止调整大小
-              // locked: true,//锁定
-              appId:'appwd125-1717-4562-b3fc-2c963f66afa6',//应用id
-              appWidgetId:'appwd125-1717-4562-b3fc-2c963f66afa6', //组件id
-              target:'http://192.168.21.71:9000/news_sys/temp1',
-              id:'c13553',
-              widgetCode:'news_sys_temp1',
-              content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
-            },
+            // {
+            //   x:0, y:0, h:43, w:12, 
+            //   // noMove: true, //不能移动
+            //   // noResize: true, //静止调整大小
+            //   // locked: true,//锁定
+            //   appId:'appwd125-1717-4562-b3fc-2c963f66afa6',//应用id
+            //   appWidgetId:'appwd125-1717-4562-b3fc-2c963f66afa6', //组件id
+            //   target:'http://192.168.21.71:9000/news_sys/temp1',
+            //   id:'c13553',
+            //   widgetCode:'news_sys_temp1',
+            //   content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
+            // },
           ],
         }],//分屏
       },
@@ -198,15 +213,37 @@ export default {
             widgetCode:data.widgetCode,
             content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
           };
-        this.grid.addWidget(it);
+        this.addCompontFlush(it);
+      }else{
+        var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+        if(is_cu_temp.length>0){
+          var x = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-x');
+          var y = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-y');
+          var w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-w');
+          var h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-h');
+          this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
+          let it = {
+            x: x, y: y, h: h, w: w, 
+            target:data.target,
+            id:component_id,
+            appId:data.appId,
+            appWidgetId:data.id,
+            widgetCode:data.widgetCode,
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
+          };
+        this.addCompontFlush(it);
+        }
+        
+      }
+    },
+    //执行添加模板
+    addCompontFlush(it){
+      this.grid.addWidget(it);
         //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
         setTimeout(()=>{
-          this.addStyle(data.target+'/component.css');
-          this.addScript(data.target+'/component.js');
+          this.addStyle(it.target+'/component.css');
+          this.addScript(it.target+'/component.js');
         },200)
-      }else{
-        console.log('执行修改模板渲染的地方');
-      }
     },
     //保存模板结构json
     saveClick(){
