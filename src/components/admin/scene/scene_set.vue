@@ -77,17 +77,9 @@ export default {
       }
       if(e.target.className.indexOf('mask-layer')>-1){//单击
         e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
-        var class_list = document.getElementsByClassName('mask-layer');//获取所有兄弟元素
+        //移出不属于点击区域的选中元素
         var cu_id = e.target.parentNode.parentNode.parentNode.getAttribute('gs-id');//当前元素的id
-        if(class_list){//这段代码表示只允许选中一个可修改元素
-          for (let index = 0; index < class_list.length; index++) {
-            var element = class_list[index];
-            var el_id = element.parentNode.parentNode.parentNode.getAttribute('gs-id');
-            if(el_id!= cu_id){
-              element.setAttribute('class','mask-layer');
-            }
-          }
-        }
+        _this.removeActiveClass(cu_id);
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
         _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false});
@@ -202,8 +194,10 @@ export default {
       console.log(val);
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
+      var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
       if(is_add){
-        var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
+        //添加时，要将已存在的选中状态的元素移出选中状态；
+        this.removeActiveClass('mask-layer');
         let it = {
             x: 0, y: 0, h: 20, w: 12, 
             target:data.target,
@@ -211,7 +205,7 @@ export default {
             appId:data.appId,
             appWidgetId:data.id,
             widgetCode:data.widgetCode,
-            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
           };
         this.addCompontFlush(it);
       }else{
@@ -229,12 +223,26 @@ export default {
             appId:data.appId,
             appWidgetId:data.id,
             widgetCode:data.widgetCode,
-            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
           };
+        this.removeActiveClass('mask-layer');  
         this.addCompontFlush(it);
         }
         
       }
+    },
+    //移出class,有值表示当前为选中，无值表示当前为添加一个新元素时，需默认选中添加的元素
+    removeActiveClass(cu_id){
+      var class_list = document.getElementsByClassName('mask-layer');//获取所有兄弟元素
+        if(class_list){//这段代码表示只允许选中一个可修改元素
+          for (let index = 0; index < class_list.length; index++) {
+            var element = class_list[index];
+            var el_id = element.parentNode.parentNode.parentNode.getAttribute('gs-id');
+            if(el_id!= cu_id){
+              element.setAttribute('class','mask-layer');
+            }
+          }
+        }
     },
     //执行添加模板
     addCompontFlush(it){
