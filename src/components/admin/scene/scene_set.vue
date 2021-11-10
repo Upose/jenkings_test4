@@ -82,7 +82,8 @@ export default {
         _this.removeActiveClass(cu_id);
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
-        _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false});
+        var set_list = e.target.dataset.set;//设置的配置参数
+        _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
         //先获取 e.target.parentNode.parentNode.parentNode  的x,y,w,h 的值，然后删除他。再根据这个值重新添加一块相同值的元素。
         
         
@@ -247,11 +248,11 @@ export default {
     //执行添加模板
     addCompontFlush(it){
       this.grid.addWidget(it);
-        //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
-        setTimeout(()=>{
-          this.addStyle(it.target+'/component.css');
-          this.addScript(it.target+'/component.js');
-        },200)
+      //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
+      setTimeout(()=>{
+        this.addStyle(it.target+'/component.css');
+        this.addScript(it.target+'/component.js');
+      },200)
     },
     //保存模板结构json
     saveClick(){
@@ -326,9 +327,9 @@ export default {
       //   console.log(err);
       // })
     },
-    //点击应用，获取应用的组件及相应信息
+    //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。
     getAppDetails(val){
-      this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add});
+      this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
     },
     /****监听中间区域的变化****/
     monitorCenter(){

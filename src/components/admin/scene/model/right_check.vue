@@ -19,8 +19,8 @@
                <div class="" v-for="(it,i) in set_list" :key="i">
                     <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
                         <h2 class="s-title">绑定栏目 <!--<span class="s-edit" @click="addRow()">添加</span>--></h2>
-                        <el-select class="w-saml" v-model="appPlateIds" size="medium" placeholder="请选择">
-                            <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.label" :value="item.value"></el-option>
+                        <el-select class="w-saml" v-model="it.appPlateIds" size="medium" placeholder="请选择">
+                            <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
                     </div>
                     <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
@@ -51,16 +51,18 @@ export default {
   data () {
     return {
       is_add:true,//是点击应用添加，还是点击的渲染模板，true为点击应用
-      availableConfig:'',//显示哪几栏
-      sortList:[{key:'添加时间倒序',value:'CreatedTime-DESC'}],//排序列表
-      topCountList:[{key:'1',value:'1'},{key:'2',value:'2'}],//显示条数列表
+      availableConfig:'',//显示哪几栏设置
+      sortList:[],//排序列表
+      topCountList:[],//显示条数列表
       appPlateList:[],//栏目列表
+
       template_list:[],//模板列表
-      template_check:'',//选择的模板
+      template_check:'',//选择的模板id
+
       set_list:[ //这里为了渲染有哪几栏，有哪些设置参数
         {
             topCount:'',//数据条数-（需要参数）
-            sortType:'CreatedTime-DESC',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
+            sortType:'',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
             appPlateIds:'',//应用栏目标识 -（需要参数）
         }
       ],
@@ -69,6 +71,7 @@ export default {
 
   methods:{
     appDetails(val){
+        console.log(val);
         this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
         this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
@@ -82,17 +85,12 @@ export default {
                     this.$emit('addCompont',{'list':this.template_list[0],'is_add_compont':true});
                 }
             }else{
+                this.set_list = JSON.parse(val.set_list||'[{}]');
                 this.template_check = val.temp_id;
             }
         }).catch(err=>{
             console.log(err);
         })
-    //获取应用栏目列表 /{appid}  (这个地方还未处理)
-    //   this.http.getPlain_url('app-plate-list-by-app-id','/'+id).then(res=>{
-    //     // console.log(res)
-    //   }).catch(err=>{
-    //     console.log(err);
-    //   })
     },
     //选择某个模板
     appsTemplate(val,isAdd){
@@ -101,7 +99,12 @@ export default {
 
         this.availableConfig = val.availableConfig;//有哪几项设置
         this.sortList = val.sortList;//排序
-        this.appPlateList = [];//栏目列表要单独请求
+        //获取应用栏目列表 /{appid}
+        this.http.getPlain_url('app-plate-list-by-app-id','/'+val.appId).then(res=>{
+            this.appPlateList = res.data||[];
+        }).catch(err=>{
+            console.log(err);
+        })
         this.topCountList = val.topCountList;//显示条数
 
         if(isAdd == 'add'){
@@ -132,7 +135,8 @@ export default {
     只有点击保存的时候，才将值放入到模板上，再次点击模板，需要将模板上的值，以及有几组值，放入到列表中。
     */
     saveClick(){
-        
+        var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+        is_cu_temp[0].setAttribute('data-set',JSON.stringify(this.set_list))
     },
   },
 }
