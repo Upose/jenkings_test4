@@ -78,6 +78,7 @@ export default {
       if(e.target.className == 'mask-layer'){//单击
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
+        _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false});
         //根据应用id，和模板id，获取到对应的模板列表，然后点击模板列表，更换选中块的内容
       }
     });
@@ -183,22 +184,29 @@ export default {
     },
     //添加组件
     addCompont(val){
-      var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
-      let it = {
-          x: 0, y: 0, h: 20, w: 12, 
-          target:val.target,
-          id:component_id,
-          appId:val.appId,
-          appWidgetId:val.id,
-          widgetCode:val.widgetCode,
-          content:'<div class="jl_vip_zt_warp '+val.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+val.appId+'" data-appWidgetId="'+val.id+'"></div><div id="'+component_id+'"></div></div>'
-        };
-      this.grid.addWidget(it);
-      //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
-      setTimeout(()=>{
-        this.addStyle(val.target+'/component.css');
-        this.addScript(val.target+'/component.js');
-      },200)
+      console.log(val);
+      var data = val.list;//模板参数
+      var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
+      if(is_add){
+        var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
+        let it = {
+            x: 0, y: 0, h: 20, w: 12, 
+            target:data.target,
+            id:component_id,
+            appId:data.appId,
+            appWidgetId:data.id,
+            widgetCode:data.widgetCode,
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
+          };
+        this.grid.addWidget(it);
+        //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
+        setTimeout(()=>{
+          this.addStyle(data.target+'/component.css');
+          this.addScript(data.target+'/component.js');
+        },200)
+      }else{
+        console.log('执行修改模板渲染的地方');
+      }
     },
     //保存模板结构json
     saveClick(){
@@ -274,8 +282,8 @@ export default {
       // })
     },
     //点击应用，获取应用的组件及相应信息
-    getAppDetails(id){
-      this.$refs.rightCheck_ref.appDetails(id);
+    getAppDetails(val){
+      this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add});
     },
     /****监听中间区域的变化****/
     monitorCenter(){

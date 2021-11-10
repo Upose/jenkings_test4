@@ -3,10 +3,6 @@
     <headerpage></headerpage>
     <div class="admin-warp-content"><router-view></router-view></div>
     <!-- <footerpage class="footer-page"></footerpage> -->
-    <div class="color-bg-warp">
-      <span @click="skinClick('template1')">红</span>
-      <span @click="skinClick('template2')">蓝</span>
-    </div>
 </div>
 </template>
 
@@ -21,10 +17,10 @@ export default {
     }
   },
   methods:{
-    skinClick(val){
-      document.getElementsByTagName("body")[0].setAttribute('class',val);
-      window.localStorage.setItem('template',val);
-    },
+    // skinClick(val){
+    //   document.getElementsByTagName("body")[0].setAttribute('class',val);
+    //   window.localStorage.setItem('template',val);
+    // },
   }
 }
 </script>

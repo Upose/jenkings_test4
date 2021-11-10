@@ -50,9 +50,9 @@ export default {
   mounted(){},
   data () {
     return {
+      is_add:true,//是添加模板还是修改模板，true为添加
       template_list:[],//模板列表
       template_check:'',//选择的模板
-      postForm:{},
       options:[],
       set_list:[ //这里为了渲染有哪几栏，有哪些设置参数
         {
@@ -68,20 +68,27 @@ export default {
   },
 
   methods:{
-    appDetails(id){
+    appDetails(val){
+        console.log(val);
+        this.is_add = val.is_add||true;
         //获取应用组件列表 /{appid}
-        this.http.getPlain_url('app-widget-list-by-app-id','/'+id).then(res=>{
+        this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
             this.template_list = res.data||[];
-            //获取模板列表，默认选中第一个模板
-            if(this.template_list.length>0){
-                this.appsTemplate(this.template_list[0],0);
-                this.template_check = this.template_list[0].id;
-                this.$emit('addCompont',this.template_list[0]);
+            if(val.is_add){
+                //获取模板列表，默认选中第一个模板
+                if(this.template_list.length>0){
+                    //默认选择添加第一个模板之后，需要将当前渲染的那一个模板id拿到，方便做应用选择。
+                    this.appsTemplate(this.template_list[0],'add');
+                    this.template_check = this.template_list[0].id;
+                    this.$emit('addCompont',{'list':this.template_list[0],'is_add_compont':true});
+                }
+            }else{
+                this.template_check = val.temp_id;
             }
         }).catch(err=>{
             console.log(err);
         })
-      //获取应用栏目列表 /{appid}  (这个地方还未处理)
+    //获取应用栏目列表 /{appid}  (这个地方还未处理)
     //   this.http.getPlain_url('app-plate-list-by-app-id','/'+id).then(res=>{
     //     // console.log(res)
     //   }).catch(err=>{
@@ -89,10 +96,13 @@ export default {
     //   })
     },
     //选择某个模板
-    appsTemplate(val,i){
-        console.log(val,i);
+    appsTemplate(val){
+        console.log(val);
         this.template_check = val.id;
-        //这个地方选择了模板之后，需要在对应的应用中进行修改模板，修改时要替换原本的板块。
+        if(!this.is_add){
+            console.log('修改指定模板');
+            this.$emit('addCompont',{'list':this.template_list[0],'is_add_compont':false});
+        }
         this.$forceUpdate();
     },
     //保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。

@@ -106,7 +106,7 @@ export default {
     },
     //应用点击事件
     appDetails(id){
-      this.$emit('getAppDetails',id);
+      this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true});
     },
     /****左边-折叠菜单-点击*****/
     collapseClick(val){
