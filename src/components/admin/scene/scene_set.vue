@@ -19,7 +19,7 @@
             </div><!--左边菜单 end-->
 
             <div class="drag-c" id="monitorCenter" :class="isFoldClass()">
-              <div class="screen-btn-drag">
+              <div class="screen-btn-drag" v-show="postForm.layoutId=='2' || postForm.layoutId=='4'">
                 <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click="removScreen(0)"></span></el-button>
                 <div class="drag-box-warp" ref="dragBox">
                   <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" @click="screenClick(index)" class="default-btn-n-border" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index}}屏<span class="s-b-d-close el-icon-error" @click="removScreen(index)"></span></el-button>
@@ -37,7 +37,7 @@
 
             <div class="drag-r" :class="right_fold?'drag-r-hide':''">
               <div class="drag-r-pad">
-                <rightCheck ref="rightCheck_ref" @addCompont="addCompont"></rightCheck>
+                <rightCheck ref="rightCheck_ref" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
                 <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
               </div>
             </div><!--右边菜单 end-->
@@ -75,19 +75,14 @@ export default {
           _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
         }
       }
-      if(e.target.className.indexOf('mask-layer')>-1){//单击
+      if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
         e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
-        //移出不属于点击区域的选中元素
         var cu_id = e.target.parentNode.parentNode.parentNode.getAttribute('gs-id');//当前元素的id
-        _this.removeActiveClass(cu_id);
+        _this.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
         var set_list = e.target.dataset.set;//设置的配置参数
         _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
-        //先获取 e.target.parentNode.parentNode.parentNode  的x,y,w,h 的值，然后删除他。再根据这个值重新添加一块相同值的元素。
-        
-        
-        //根据应用id，和模板id，获取到对应的模板列表，然后点击模板列表，更换选中块的内容
       }
     });
   },
@@ -115,7 +110,7 @@ export default {
       left_fold:false,
       right_fold:false,
       screen_cu:0,//当前是第几屏
-      screen_list:[{title:'首屏'},{title:'第一屏'}],//屏数量
+      screen_list:[{title:'首屏'},{}],//屏数量
       appid:'',//应用id
       sceneid:this.$route.query.id,//场景id
       //顶部 步骤1
@@ -298,6 +293,10 @@ export default {
     setTheme(val){
       this.postForm.themeColor=val;
     },
+    //保存模板设置参数（条数，栏目，排序规则等）
+    saveTempSet(val){
+      this.postForm.sceneScreens[0]['topCountList'] = val;
+    },
     //选择布局
     layoutClick(val){
       this.postForm.layoutId = val.value;
@@ -320,12 +319,6 @@ export default {
       }).catch(err=>{
           console.log(err);
       })
-      // //获取场景内所有栏目列表 /{sceneid}
-      // this.http.getPlain_url('app-plate-list-by-scene-id','/'+this.sceneid).then(res=>{
-      //   console.log(res)
-      // }).catch(err=>{
-      //   console.log(err);
-      // })
     },
     //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。
     getAppDetails(val){
@@ -336,7 +329,7 @@ export default {
       let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
       let element = document.querySelector('#monitorCenter')
       this.observer = new MutationObserver((objList) => {
-        console.log('obj List:', objList)
+        // console.log('obj List:', objList)
         let width = element.offsetWidth
         if (this.recordOldValue && width === this.recordOldValue.width) {
           return
@@ -344,7 +337,7 @@ export default {
         this.recordOldValue = {
           width
         }
-        console.log('obj width:', width)
+        // console.log('obj width:', width)
       })
       this.observer.observe(element, { attributes: true, childList: true, subtree: true })
     },

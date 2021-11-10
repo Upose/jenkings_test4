@@ -130,12 +130,13 @@ export default {
         }
     },
     /**保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。
-    取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。
-    只有点击保存的时候，才将值放入到模板上，再次点击模板，需要将模板上的值，以及有几组值，放入到列表中。
+        取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。、
     */
     saveClick(){
         var is_cu_temp = document.getElementsByClassName('mask-layer-active');
         is_cu_temp[0].setAttribute('data-set',JSON.stringify(this.set_list))
+        //这里还需要把内容存到要要提交的数据中
+        this.$emit('saveTempSet',this.set_list);
     },
   },
 }

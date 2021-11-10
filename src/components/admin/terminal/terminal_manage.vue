@@ -80,7 +80,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        http.deleteJsonSelf('terminal-instance-del','/'+val.id).then(res=>{
+        this.http.deleteJsonSelf('terminal-instance-del','/'+val.id).then(res=>{
           this.$message({type: 'success',message: '删除成功!'});
           this.initData();
         }).catch(err=>{
