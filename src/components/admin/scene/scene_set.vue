@@ -199,7 +199,7 @@ export default {
         //添加时，要将已存在的选中状态的元素移出选中状态；
         this.removeActiveClass('mask-layer');
         let it = {
-            x: 0, y: 0, h: 20, w: 12, 
+            x: 0, y: 0, h: data.height, w: data.width, 
             target:data.target,
             id:component_id,
             appId:data.appId,

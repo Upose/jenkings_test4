@@ -17,27 +17,27 @@
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="s-choose">
                <div class="" v-for="(it,i) in set_list" :key="i">
-                    <div class="s-c-row" v-if="it.availableConfig.indexOf('1')>-1">
-                        <h2 class="s-title">绑定栏目 <span class="s-edit">编辑</span></h2>
-                        <el-select class="w-saml" v-model="it.appPlateIds" size="medium" placeholder="请选择">
-                            <el-option v-for="(item,i) in options" :key="i+'c'" :label="item.label" :value="item.value"></el-option>
+                    <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
+                        <h2 class="s-title">绑定栏目 <!--<span class="s-edit" @click="addRow()">添加</span>--></h2>
+                        <el-select class="w-saml" v-model="appPlateIds" size="medium" placeholder="请选择">
+                            <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.label" :value="item.value"></el-option>
                         </el-select>
                     </div>
-                    <div class="s-c-row" v-if="it.availableConfig.indexOf('2')>-1">
+                    <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
                         <h2 class="s-title">显示条数</h2>
                         <el-select class="w-saml" v-model="it.topCount" size="medium" placeholder="请选择">
-                            <el-option v-for="(item,i) in it.topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
+                            <el-option v-for="(item,i) in topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
                     </div>
-                    <div class="s-c-row" v-if="it.availableConfig.indexOf('3')>-1">
+                    <div class="s-c-row" v-if="availableConfig.indexOf('3')>-1">
                         <h2 class="s-title">排序规则</h2>
                         <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="请选择">
-                            <el-option v-for="(item,i) in it.sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
+                            <el-option v-for="(item,i) in sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
                     </div>
                </div>
-                <button class="s-c-add"><i class="el-icon-plus"></i><span>添加</span></button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" @click="saveClick()" size="medium">保存</el-button>
+                <button class="s-c-add" @click="addRow()" v-if="this.availableConfig.indexOf('1')!=-1"><i class="el-icon-plus"></i><span>添加</span></button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting"  v-if="isShowBtn()" @click="saveClick()" size="medium">保存</el-button>
             </div>
         </div><!--设置内容 end-->
     </div><!--右边菜单 end-->
@@ -51,14 +51,14 @@ export default {
   data () {
     return {
       is_add:true,//是点击应用添加，还是点击的渲染模板，true为点击应用
+      availableConfig:'',//显示哪几栏
+      sortList:[{key:'添加时间倒序',value:'CreatedTime-DESC'}],//排序列表
+      topCountList:[{key:'1',value:'1'},{key:'2',value:'2'}],//显示条数列表
+      appPlateList:[],//栏目列表
       template_list:[],//模板列表
       template_check:'',//选择的模板
-      options:[],
       set_list:[ //这里为了渲染有哪几栏，有哪些设置参数
         {
-            availableConfig:'1,2,3',//显示那几栏
-            sortList:[{key:'添加时间倒序',value:'CreatedTime-DESC'}],//排序
-            topCountList:[{key:'1',value:'1'},{key:'2',value:'2'}],//显示条数
             topCount:'',//数据条数-（需要参数）
             sortType:'CreatedTime-DESC',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
             appPlateIds:'',//应用栏目标识 -（需要参数）
@@ -98,6 +98,12 @@ export default {
     appsTemplate(val,isAdd){
         console.log(val);
         this.template_check = val.id;
+
+        this.availableConfig = val.availableConfig;//有哪几项设置
+        this.sortList = val.sortList;//排序
+        this.appPlateList = [];//栏目列表要单独请求
+        this.topCountList = val.topCountList;//显示条数
+
         if(isAdd == 'add'){
             console.log('应用点击的默认添加第一个模板');
         }else{
@@ -105,10 +111,28 @@ export default {
         }
         this.$forceUpdate();
     },
-    //保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。
-    //取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。
+    //添加一组
+    addRow(){
+        this.set_list.push({
+            topCount:'',
+            sortType:'',
+            appPlateIds:'',
+        });
+    },
+    //是否显示保存按钮
+    isShowBtn(){
+        if(this.availableConfig && this.availableConfig!=""){
+            return true;
+        }else{
+            return false;
+        }
+    },
+    /**保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。
+    取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。
+    只有点击保存的时候，才将值放入到模板上，再次点击模板，需要将模板上的值，以及有几组值，放入到列表中。
+    */
     saveClick(){
-
+        
     },
   },
 }
