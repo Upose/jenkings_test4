@@ -127,8 +127,14 @@ export default {
       postForm:{
         themeColor:'template1',//颜色参数
         layoutId:'1',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
-        headerTemplateUrl: "http://192.168.21.71:9000/header_sys/temp1",
-        footerTemplateUrl: "http://192.168.21.71:9000/footer_sys/temp1",
+        headerTemplate:{
+          router:'http://192.168.21.71:9000/header_sys/temp1',
+          templateCode:'header_sys_temp1',
+        },//头部模板
+        footerTemplate:{
+          router:'http://192.168.21.71:9000/footer_sys/temp1',
+          templateCode:'footer_sys_temp1',
+        },//底部模板
         sceneScreens:[{
           sceneApps:[
             {
@@ -244,10 +250,8 @@ export default {
     },
     //设置头部底部
     setHFooter(val){
-      this.postForm['footerTemplateId'] = val.footerTemplateId;
-      this.postForm['footerTemplateUrl'] = val.footerTemplateUrl;
-      this.postForm['headerTemplateId'] = val.headerTemplateId;
-      this.postForm['headerTemplateUrl'] = val.headerTemplateUrl;
+      this.postForm['headerTemplate'] = val.headerTemplate;
+      this.postForm['footerTemplate'] = val.footerTemplate;
     },
     //初始化页面数据
     initData(){

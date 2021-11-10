@@ -64,14 +64,12 @@ export default {
     //模板选择
     headerClick(val){
         this.head_check = val.id;
-        this.postForm['headerTemplateId'] = val.id;
-        this.postForm['headerTemplateUrl'] = val.router;
+        this.postForm['headerTemplate'] = val;
     },
     //模板选择
     footerClick(val){
         this.footer_check = val.id;
-        this.postForm['footerTemplateId'] = val.id;
-        this.postForm['footerTemplateUrl'] = val.router;
+        this.postForm['footerTemplate'] = val;
     },
     /****取消按钮*******/
     closeClick(){

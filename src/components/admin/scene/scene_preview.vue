@@ -1,13 +1,13 @@
 <!---服务中台-预览页面-->
 <template>
   <div class="html-warp-page" :class="items.themeColor||'template1'">
-    <div class="header_sys_temp1"><div id="header_sys_temp1"></div></div>
+    <div :class="items.headerTemplate.templateCode"><div :id="items.headerTemplate.templateCode"></div></div>
     <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.body_height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
       <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode" :style="styleRender(item)">
         <div :id="item.id"></div>
       </div>
     </div>
-    <div class="footer_sys_temp1"><div id="footer_sys_temp1"></div></div>
+    <div :class="items.footerTemplate.templateCode"><div :id="items.footerTemplate.templateCode"></div></div>
   </div>
 </template>
 <style lang="less" scoped>
@@ -30,11 +30,10 @@ import Sortable from "sortablejs";
 export default {
   name: 'index',
   mounted(){
-    document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));
-    this.addStyle(this.items.footerTemplateUrl+'/component.css');
-    this.addScript(this.items.footerTemplateUrl+'/component.js');
-    this.addStyle(this.items.headerTemplateUrl+'/component.css');
-    this.addScript(this.items.headerTemplateUrl+'/component.js');
+    this.addStyle(this.items.headerTemplate.router+'/component.css');
+    this.addScript(this.items.headerTemplate.router+'/component.js');
+    this.addStyle(this.items.footerTemplate.router+'/component.css');
+    this.addScript(this.items.footerTemplate.router+'/component.js');
   },
   data () {
     return {

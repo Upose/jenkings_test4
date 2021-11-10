@@ -89,7 +89,7 @@ import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
   created(){
-    bus.$on('collapse', msg => {
+    this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
   },
@@ -119,7 +119,7 @@ export default {
   },
   methods:{
     initData(){
-      http.getPlain_url('terminal-instance-detail','/'+this.id).then(res=>{ //学生专区
+      this.http.getPlain_url('terminal-instance-detail','/'+this.id).then(res=>{ //学生专区
         this.postForm = res.data||{};
       }).catch(err=>{
           console.log(err);
@@ -164,19 +164,19 @@ export default {
     //表单提交
     submitForm(formName) {
       console.log(this.postForm);
-      this.postForm['icon']="https://gimg2.baidu.com/icon.png"
-      this.postForm['logo']="https://gimg2.baidu.com/icon.png"
+      this.postForm['icon']="this.https://gimg2.baidu.com/icon.png"
+      this.postForm['logo']="this.https://gimg2.baidu.com/icon.png"
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){
-              http.putJson('terminal-instance-updata',this.postForm).then(res=>{ 
+              this.http.putJson('terminal-instance-updata',this.postForm).then(res=>{ 
                 this.$message({type: 'success',message: '修改成功!'});
                 window.history.back(); 
               }).catch(err=>{
                 this.$message({type: 'error',message: '修改失败'});    
               })
             }else{
-              http.postJson('terminal-instance-add',this.postForm).then(res=>{ 
+              this.http.postJson('terminal-instance-add',this.postForm).then(res=>{ 
                 this.$message({type: 'success',message: '添加成功!'});
                 window.history.back(); 
               }).catch(err=>{
