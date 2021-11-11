@@ -4,7 +4,7 @@
     <div class="drag-top c-l">
         <h1 class="step-num"><span class="num">1</span><span class="txt">场景信息</span></h1>
         <!-- <div class="search-top"> -->
-        <div class="s-col"><span class="s-txt">电脑门户：</span><el-input class="w-saml" v-model="dataList.title" disabled="disabled" size="medium" placeholder="首页"></el-input></div>
+        <div class="s-col"><span class="s-txt">电脑门户：</span><el-input class="w-saml" :value="$route.query.t" disabled="disabled" size="medium" placeholder="首页"></el-input></div>
         <div class="s-col"><span class="s-txt">服务状态：</span>
           <el-select class="w-saml" v-model="postForm.status" @change="statusClcik" size="medium" placeholder="请选择">
               <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>

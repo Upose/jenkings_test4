@@ -92,7 +92,7 @@ export default {
     },
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype}
     getApps(id){
-      this.http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.dataList.terminal_type).then(res=>{
+      this.http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.$route.query.terminal).then(res=>{
         this.apps_list = res.data||[];
         if(this.serve_name == '' && this.apps_list.length>0){
           this.serveClick(this.apps_list[0]);

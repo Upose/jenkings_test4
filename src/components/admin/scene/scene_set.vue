@@ -20,9 +20,9 @@
 
             <div class="drag-c" id="monitorCenter" :class="isFoldClass()">
               <div class="screen-btn-drag" v-show="postForm.layoutId=='2' || postForm.layoutId=='4'">
-                <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click="removScreen(0)"></span></el-button>
+                <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(0)"></span></el-button>
                 <div class="drag-box-warp" ref="dragBox">
-                  <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" @click="screenClick(index)" class="default-btn-n-border" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index}}屏<span class="s-b-d-close el-icon-error" @click="removScreen(index)"></span></el-button>
+                  <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
                 </div>
                 <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
               </div><!--屏幕数量+拖拽 end-->
@@ -110,17 +110,15 @@ export default {
       left_fold:false,
       right_fold:false,
       screen_cu:0,//当前是第几屏
-      screen_list:[{title:'首屏'},{}],//屏数量
+      screen_list:[{sceneApps:[]},{sceneApps:[]}],//屏数量
       sceneid:this.$route.query.id,//场景id
       //顶部 步骤1
       top_list:{
-        title:this.$route.query.t,
         sceneStatus:[],//服务状态
         visitorLimitType:[],//权限控制
       },
       //左边 步骤2,3
       left_list:{
-        terminal_type:this.$route.query.terminal,//终端id
         sceneLayout:[],//场景布局
         sceneTemplate:[],//场景模板
         sceneThemeColor:[],//场景主题色
@@ -162,10 +160,7 @@ export default {
       },
       
       //资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
-      resource_file_list:[
-        'http://192.168.21.71:9000/header_sys/temp1',
-        'http://192.168.21.71:9000/news_sys/temp1',
-      ],
+      resource_file_list:[],
       opts: {//元素初始化高度
         cellHeight: '10', 
         cellHeightThrottle: 100,
@@ -176,12 +171,59 @@ export default {
     //初始化模板，需要将当前模板的数据渲染到模板上，且在切换模板的时候，要重新save保存一下当前模板的数据到当前屏。
     initGrid(){
       this.grid = GridStack.init(this.opts);
-      this.grid.load(this.postForm.sceneScreens[0]['sceneApps']);//这里是取的第一屏
+      this.initScree();
+    },
+    initScree(){
+      if(this.grid){
+        this.grid.removeAll();
+      }
+      console.log(this.screen_list[this.screen_cu]['sceneApps']);
+      this.grid.load(this.screen_list[this.screen_cu]['sceneApps']||[]);//这里是取的第一屏
       this.loadRes();
+    },
+    /****新增一屏 */
+    addScreen(){
+      this.screen_list.push({sceneApps:[]});
+    },
+    /****点击第几屏 */
+    screenClick(val){
+      this.saveList();
+      setTimeout(() => {
+        this.screen_cu = val;
+        this.initScree();
+      }, 100);
+    },
+    //保存当前屏幕的列表 -- 切换屏幕的时候需要将当前屏幕的参数获取然后放入到数组中。
+    saveList(){
+      var list = [];
+      if(this.grid.save() && this.grid.save().length){
+        this.grid.save().forEach(item=>{
+          list.push({
+            x: item.x, y: item.y, h: item.h, w: item.w, 
+            target:item.target,
+            tempId:item.tempId,
+            divId:item.divId,//元素渲染id
+            appId:item.appId,
+            widgetCode:item.widgetCode,
+            appWidget:item.appWidget,
+            appPlateItems:item.appPlateItems,//应用对应的设置
+            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[])+'"></div><div id="'+item.divId+'"></div></div>'
+          })
+        })
+      }
+      this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
+      this.screen_list[this.screen_cu]['sceneApps'] = list;
+    },
+    /****删除一屏 */
+    removScreen(val){
+      this.screen_list.splice(val,1);
+      this.postForm.sceneScreens.splice(this.postForm.sceneScreens[val],1);
+      this.screen_cu = val-1;
+      console.log(this.screen_cu);
     },
     //添加组件
     addCompont(val){
-      console.log(val);
+      // console.log(val);
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
@@ -191,7 +233,7 @@ export default {
         let it = {
             x: 0, y: 0, h: data.height, w: data.width, 
             target:data.target,
-            id:data.id,
+            tempId:data.id,
             divId:component_id,//元素渲染id
             appId:data.appId,
             widgetCode:data.widgetCode,
@@ -211,7 +253,7 @@ export default {
           let it = {
             x: x, y: y, h: h, w: w, 
             target:data.target,
-            id:data.id,
+            tempId:data.id,
             divId:component_id,//元素渲染id
             appId:data.appId,
             appPlateItems:[],//应用对应的设置
@@ -240,7 +282,7 @@ export default {
     //执行添加模板
     addCompontFlush(it){
       this.grid.addWidget(it);
-      this.postForm.sceneScreens[0]['sceneApps'].push(it);
+      this.screen_list[this.screen_cu]['sceneApps'].push(it);
       this.loadRes();
     },
     //保存模板结构json
@@ -251,7 +293,7 @@ export default {
           list.push({
             xIndex: item.x, yIndex: item.y, height: item.h, width: item.w, 
             target:item.target,
-            id:item.id,
+            id:item.tempId,
             appWidget:item.appWidget,
             appPlateItems:[],//应用对应的设置
             appId:item.appId,
@@ -260,8 +302,8 @@ export default {
           })
         })
       }
-      this.postForm['sceneScreens'][0]['height'] = this.$refs.grid_stack.clientHeight;
-      this.postForm['sceneScreens'][0]['sceneApps'] = list;
+      this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
+      this.screen_list[this.screen_cu]['sceneApps'] = list;
       console.log(this.postForm);
       this.http.postJson('scene-add',this.postForm).then(res=>{
         console.log(res);
@@ -279,7 +321,7 @@ export default {
             x: item.x, y: item.y, h: item.h, w: item.w, 
             target:item.target,
             widgetCode:item.widgetCode,
-            id:item.id,
+            id:item.tempId,
             appWidget:item.appWidget,
             appId:item.appId,
             content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div></div>'
@@ -287,8 +329,8 @@ export default {
         })
       }
       //[0]表示第几屏
-      this.postForm['sceneScreens'][0]['height'] = this.$refs.grid_stack.clientHeight;
-      this.postForm['sceneScreens'][0]['sceneApps'] = list;
+      this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
+      this.screen_list[this.screen_cu]['sceneApps'] = list;
       window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
       var url = window.location.origin+"/#/scenePreview";
       setTimeout(() => {
@@ -390,18 +432,6 @@ export default {
         }//onEnd
       });
     },
-    /****新增一屏 */
-    addScreen(){
-      this.screen_list.push({});
-    },
-    /****删除一屏 */
-    removScreen(val){
-      this.screen_list.splice(val,1);
-    },
-    /****点击第几屏 */
-    screenClick(val){
-      this.screen_cu = val;
-    },
     /*********高度动态设置 */
     setHeight(val){
       if(this.$refs.dragContainer){
@@ -414,13 +444,10 @@ export default {
         this.drag_height = val;
       }
     },
+    //缩放比例
     getRatio(val){
       // console.log('父级获取到的比例为：'+val);
       this.ratio_num = val;
-    },
-    /****左边-折叠菜单-点击*****/
-    collapseClick(val){
-      //console.log(val);
     },
     /***左边折叠 */
     leftFold(){
@@ -440,13 +467,12 @@ export default {
       }else if(this.right_fold){
         cls = 'drag-c-r-tran';
       }
-      //console.log(cls);
       return cls;
     },
     //加载资源文件
     loadRes(){
-      if(this.postForm.sceneScreens[0]['sceneApps']){
-        this.postForm.sceneScreens[0]['sceneApps'].forEach(item=>{
+      if(this.screen_list[this.screen_cu]['sceneApps']){
+        this.screen_list[this.screen_cu]['sceneApps'].forEach(item=>{
           var is_yes = false;
           this.resource_file_list.forEach((it,i)=>{
             if(it.url == item.target){
