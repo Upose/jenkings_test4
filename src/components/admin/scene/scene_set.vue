@@ -211,15 +211,19 @@ export default {
           })
         })
       }
-      this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
-      this.screen_list[this.screen_cu]['sceneApps'] = list;
+      if(list.length>0){
+        this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
+        this.screen_list[this.screen_cu]['sceneApps'] = list;
+      }
     },
     /****删除一屏 */
     removScreen(val){
       this.screen_list.splice(val,1);
-      this.postForm.sceneScreens.splice(this.postForm.sceneScreens[val],1);
+      if(this.grid){
+        this.grid.removeAll();
+      }
       this.screen_cu = val-1;
-      console.log(this.screen_cu);
+      this.screenClick(this.screen_cu);
     },
     //添加组件
     addCompont(val){
