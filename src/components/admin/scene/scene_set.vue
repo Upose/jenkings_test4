@@ -77,7 +77,7 @@ export default {
       }
       if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
         e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
-        var cu_id = e.target.parentNode.parentNode.parentNode.getAttribute('gs-id');//当前元素的id
+        var cu_id = e.target.parentNode.dataset.id;//当前元素的id
         _this.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
@@ -124,6 +124,8 @@ export default {
         sceneThemeColor:[],//场景主题色
       },
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
+      resource_file_list:[],//资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
+      apps_set_list:{},//场景内所有的应用模板设置参数。
       grid:null,//拖拽渲染
       postForm:{
         name:this.$route.query.t,//场景名称，默认终端名称
@@ -159,9 +161,6 @@ export default {
           }
         ],//分屏
       },
-      
-      //资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
-      resource_file_list:[],
       opts: {//元素初始化高度
         cellHeight: '10', 
         cellHeightThrottle: 100,
@@ -178,7 +177,6 @@ export default {
       if(this.grid){
         this.grid.removeAll();
       }
-      console.log(this.screen_list[this.screen_cu]['sceneApps']);
       this.grid.load(this.screen_list[this.screen_cu]['sceneApps']||[]);//这里是取的第一屏
       this.loadRes();
     },
@@ -196,6 +194,7 @@ export default {
     },
     //保存当前屏幕的列表 -- 切换屏幕的时候需要将当前屏幕的参数获取然后放入到数组中。
     saveList(){
+      var _this = this;
       var list = [];
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
@@ -207,7 +206,7 @@ export default {
             appId:item.appId,
             widgetCode:item.widgetCode,
             appWidget:item.appWidget,
-            appPlateItems:item.appPlateItems,//应用对应的设置
+            appPlateItems:_this.apps_set_list[item.divId]||item.appPlateItems,//应用对应的设置
             content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[])+'"></div><div id="'+item.divId+'"></div></div>'
           })
         })
@@ -273,7 +272,7 @@ export default {
         if(class_list){//这段代码表示只允许选中一个可修改元素
           for (let index = 0; index < class_list.length; index++) {
             var element = class_list[index];
-            var el_id = element.parentNode.parentNode.parentNode.getAttribute('gs-id');
+            var el_id = element.parentNode.dataset.id;
             if(el_id!= cu_id){
               element.setAttribute('class','mask-layer');
             }
@@ -291,10 +290,11 @@ export default {
       this.saveList();
       var list = [];
       if(this.screen_list.length>0){
-        this.screen_list.forEach(item=>{
+        this.screen_list.forEach((item,index)=>{
           var obj = {
             height:item.height,//屏高
             sceneApps:[],//屏内包含的应用模板
+            orderIndex:index,//当前序号
           };
           if(item.sceneApps && item.sceneApps.length>0){
             item.sceneApps.forEach(it=>{
@@ -303,7 +303,7 @@ export default {
                 target:it.target,
                 id:it.tempId,
                 appWidget:it.appWidget,
-                appPlateItems:[],//应用对应的设置
+                appPlateItems:it.appPlateItems,//应用对应的设置
                 appId:it.appId,
                 widgetCode:it.widgetCode,
               })
@@ -315,7 +315,7 @@ export default {
       this.postForm['sceneScreens'] = list;
       console.log(this.postForm);
     },
-    //保存模板结构json
+    //保存
     saveClick(){
       this.savePostJson();
       setTimeout(() => {
@@ -345,10 +345,7 @@ export default {
     },
     //保存模板设置参数（条数，栏目，排序规则等）
     saveTempSet(val){
-      console.log(val);
-      //可以选择单独存一个数组，然后save保存当前屏数据的时候，循环将数组中的值，放入到对应的应用中。
-      // item['appPlateItems']=val.list;
-      //这个地方可以选择将数据单独存到一个数组中，然后最后提交的时候再塞入到里面一起提交。这里的参数要根据
+      this.apps_set_list[val.divId] = val.list||[];
     },
     //设置主题颜色
     setTheme(val){
@@ -356,7 +353,17 @@ export default {
     },
     //选择模板-左边
     templateClick(val){
-      this.postForm.templateId=val.value||'';
+      this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
+        confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
+      }).then(() => {
+        this.postForm.templateId=val.value||'';
+        if(this.grid){
+          this.grid.removeAll();
+        }
+        this.screen_list.forEach(item=>{
+          item['sceneApps'] = [];
+        })
+      })
     },
     //选择布局
     layoutClick(val){
@@ -364,6 +371,16 @@ export default {
         confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
       }).then(() => {
         this.postForm.layoutId = val.value;
+        if(this.grid){
+          this.grid.removeAll();
+        }
+        if(val.value == '1' || val.value == '3'){//通屏
+          this.screen_cu = 0;
+          this.screen_list = [{sceneApps:[]}];
+        }else{//分屏
+          this.screen_cu = 0;
+          this.screen_list = [{sceneApps:[]},{sceneApps:[]}];
+        }
       })
     },
     //设置头部底部
