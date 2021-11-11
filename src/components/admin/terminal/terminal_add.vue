@@ -27,16 +27,23 @@
                   <el-radio :label="5">显示屏</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="应用图标" v-model="postForm.logo">
+              <el-form-item label="终端logo" v-model="postForm.logo">
                 <div class="up-img-form-item">
                   <div class="up-img-warp">
-                    <img src="@/assets/admin/img/icon2.png">
-                  </div>
-                  <div class="up-img-warp select-icon" @click="selectImg()">
-                    <span>选择图标</span>
+                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
                   </div>
                   <div class="up-img-warp up-icon" @click="upImg()">
                     <span>上传图标</span>
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="默认图标" v-model="postForm.logo">
+                <div class="up-img-form-item">
+                  <div class="up-img-warp">
+                    <img :src="postForm.icon||default_img">
+                  </div>
+                  <div class="up-img-warp select-icon" @click="selectImg()">
+                    <span>选择图标</span>
                   </div>
                 </div>
               </el-form-item>
@@ -65,8 +72,8 @@
         <el-dialog title="图片选择" :visible.sync="dialogSelectimg" width="540px" :close-on-click-modal="false" :before-close="selectImgClose">
           <p class="el-form-img-box-hint">点击图标即可选中所需要的图标</p>
           <div class="c-l">
-            <div class="el-form-img-box" v-for="i in 20" :key="i" @click="selectImgClick(i)">
-              <img src="@/assets/admin/img/icon2.png"/>
+            <div class="el-form-img-box" v-for="i in iconList" :key="i" @click="selectImgClick(i)">
+              <img :src="i.value"/>
               <img src="@/assets/admin/img/icon-select.png" :class="select_img==i?'active':''" v-if="select_img==i"/>
             </div>
           </div>
@@ -98,7 +105,10 @@ export default {
     return {
       dialogUPimg:false,
       dialogSelectimg:false,
+      basurl:process.env.VUE_APP_IMG_URL+'/',
+      default_img:require("../../../assets/admin/img/icon2.png"),
       select_img:null,
+      iconList:[],//图标列表
       postForm: {},
       id:this.$route.query.id,//判断是否编辑
       rules: {
@@ -112,10 +122,14 @@ export default {
     }
   },
   mounted(){
-    console.log(this.id);
     if(this.id){
       this.initData();
-    } 
+    }
+    this.http.getPlain_url('icon_dictionary','').then(res=>{
+      this.iconList = res.data.terminalIcon||[];
+    }).catch(err=>{
+
+    })
   },
   methods:{
     initData(){
@@ -136,17 +150,15 @@ export default {
     //关闭图标选择弹窗
     closeClick(){
       this.dialogSelectimg = false;
-      this.select_img = null;
     },
     //关闭图标选择弹窗
     selectImgClose(done){
-      this.select_img = null;
       done();
     },
     //确定图标选择弹窗
     submitImg(){
+      this.postForm.icon = this.select_img.value;
       this.dialogSelectimg = false;
-      this.select_img = null;
     },
     //打开图标上传弹窗
     upImg(){
@@ -154,23 +166,15 @@ export default {
     },
     //获取图片上传返回地址
     imgUrl(val){
-      this.postForm['cover'] = val[0];
+      this.postForm['logo'] = val[0];
       this.dialogUPimg = false;
     },
     //图片上传-弹窗关闭
     handleClose(done) {
       done();
-      // this.$confirm('确认关闭？')
-      //   .then(_ => {
-      //     done();
-      //   })
-      //   .catch(_ => {});
     },
     //表单提交
     submitForm(formName) {
-      console.log(this.postForm);
-      this.postForm['icon']="this.https://gimg2.baidu.com/icon.png"
-      this.postForm['logo']="this.https://gimg2.baidu.com/icon.png"
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){

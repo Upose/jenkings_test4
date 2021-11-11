@@ -183,35 +183,6 @@ export default {
       });
     });
   },
-  //带token的get方法  --- plain ；data参数是在调用时拼接好的（如：id=1&name=张三）
-  getPlain: function (url, data) {
-    var get_url ='';
-    if(data){
-      get_url = this.postUrl[url] + '?' + data;
-    }else{
-      get_url = this.postUrl[url];
-    }
-    return new Promise((resolve, reject) => {
-      axios({
-        url: get_url,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'text/plain',
-          'Authorization': token
-        },
-      }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
-      }).catch(err => {
-        reject(err);
-      });
-    });
-  },
   getPlain_url: function (url, data) {
     return new Promise((resolve, reject) => {
       axios({

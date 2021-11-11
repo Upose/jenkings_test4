@@ -25,5 +25,6 @@ export default {
         'app-plate-list-by-scene-id': baseURL + '/api/scene-manage/app-plate-list-by-scene-id', //获取场景内所有栏目列表 /{sceneid}
         'dictionary-by-type': baseURL + '/api/scene-manage/dictionary-by-type', //按类型获取下拉框字典 /{dictype}
         'template-list': baseURL + '/api/scene-manage/template-list', //获取模板列表
+        'icon_dictionary': baseURL + '/api/terminal/dictionary', //获取图标选择列表
     },
 }
