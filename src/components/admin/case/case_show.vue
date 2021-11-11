@@ -9,18 +9,18 @@
           <div class="s-w c-l">
             <span class="m-title"><i class="el-icon-s-platform"></i>已使用场景</span>
             <span class="d-title">所有场景：</span>
-            <el-button type="primary" size="medium">默认</el-button>
-            <el-button size="medium">自定义</el-button>
+            <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">默认</el-button>
+            <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">自定义</el-button>
             <span class="d-title">所有状态：</span>
-            <el-button size="medium">启用</el-button>
-            <el-button size="medium">禁用</el-button>
+            <el-button :type="Status==1?'primary':''" size="medium" @click="statusClick(1)">启用</el-button>
+            <el-button :type="Status==0?'primary':''" size="medium" @click="statusClick(0)">禁用</el-button>
             <el-button size="medium" icon="el-icon-plus" class="r-btn" @click="addClick()">新建场景</el-button>
           </div>
         </div><!---顶部查询板块 end--->
         <div class="list-content">
           <div class="row" v-for="(item,index) in dataList" :key="index">
             <div class="title">{{item.terminalName||''}}
-              <span class="more-r" @click="moreClick('id')">更多<i class="el-icon-arrow-right"></i></span>
+              <span class="more-r" @click="moreClick(item.terminalId)">更多<i class="el-icon-arrow-right"></i></span>
             </div>
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in (item.sceneList||[])":key="i+'a'">
@@ -126,6 +126,8 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb},
   data () {
     return {
+      Status:null,//启用，禁用
+      IsSystemScene:null,//是否默认场景
       defalut_img:require('../../../assets/admin/img/upload/s1.png'),
       dataList:[
         {
@@ -146,11 +148,18 @@ export default {
     }
   },
   mounted(){
-      this.initData();
+    this.initData();
   },
   methods:{
     initData(){
-      this.http.getJsonSelf('scene-overview','?PageSize=9&PageIndex=1').then(res=>{ 
+      var pars = '?PageSize=8&PageIndex=1';
+      if(this.Status){
+        pars = pars+"&Status="+this.Status;
+      }
+      if(this.IsSystemScene){
+        pars = pars+"&IsSystemScene="+this.IsSystemScene;
+      }
+      this.http.getJsonSelf('scene-overview',pars).then(res=>{ 
         this.dataList = res.data||[];
       }).catch(err=>{
           console.log(err);
@@ -175,6 +184,16 @@ export default {
       }).catch(() => {
         this.$message({type: 'info',message: '已取消删除'});          
       });
+    },
+    //启用，禁用状态选择
+    statusClick(val){
+      this.Status = val;
+      this.initData();
+    },
+    //默认，自定义
+    IsSystemSceneClick(val){
+      this.IsSystemScene = val;
+      this.initData();
     },
     //禁用场景
     disableClick(val){

@@ -9,11 +9,11 @@
           <div class="s-w c-l">
             <span class="m-title"><i class="el-icon-s-platform"></i>PC门户端</span>
             <span class="d-title">所有场景：</span>
-            <el-button type="primary" size="medium">默认</el-button>
-            <el-button size="medium">自定义</el-button>
+            <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">默认</el-button>
+            <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">自定义</el-button>
             <span class="d-title">所有状态：</span>
-            <el-button size="medium">启用</el-button>
-            <el-button size="medium">禁用</el-button>
+            <el-button :type="Status==1?'primary':''" size="medium" @click="statusClick(1)">启用</el-button>
+            <el-button :type="Status==0?'primary':''" size="medium" @click="statusClick(0)">禁用</el-button>
             <el-button size="medium" icon="el-icon-plus" class="r-btn" @click="addClick()">新建场景</el-button>
           </div>
         </div><!---顶部查询板块 end--->
@@ -23,10 +23,10 @@
               <span class="more-r">更多<i class="el-icon-arrow-right"></i></span>
             </div> -->
             <div class="row-list c-l">
-              <div class="row-box set-hover" v-for="i in 20" :key="i">
+              <div class="row-box set-hover" v-for="i in listData" :key="i">
                 <div class="r-box-bg">
                   <img src="@/assets/admin/img/upload/s1.png"/>
-                  <span class="name">首页
+                  <span class="name">{{i.name}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="el-icon-s-tools" slot="reference"></i>
                     <ul class="hover-menu">
@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <paging></paging>
+            <paging :pagedata="pageData" @pagechange="pageChange" v-if="pageData.totalCount"></paging>
         </div><!----场景列表 end-->
         
         <footerPage class="top20"></footerPage>
@@ -65,31 +65,47 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb,paging},
   data () {
     return {
+      Status:null,//启用，禁用
+      IsSystemScene:null,//是否默认场景
+      defalut_img:require('../../../assets/admin/img/upload/s1.png'),
+      listData:[],
+      pageData: {
+        pageIndex: 1,
+        pageSize: 50,
+      },//分页参数
+      postForm:{
+        TerminalId:this.$route.query.id,
+      },
     }
   },
   mounted(){
-    //   this.initData();
+      this.initData();
   },
   methods:{
     initData(){
-      var list = {
-        IsSystemScene:0, //是否系统默认场景 0-否 1-是
-        Status:0, //启用状态。0-停用，1-启用
-        TopCount:0, //每种终端的场景获取数量
-        PageIndex:1, //页
-        PageSize:1, //条数
-        Keyword:1, //关键字，用于模糊查询
-        SortField:1, //排序字段
-        IsAsc:1, //默认降序,否则升序
-      };
-      this.http.getPlain('scene-overview','PlateId=109&PageSize=9&PageIndex=1').then(res=>{
-          this.list1 = res.result.dtos||[];
+      var pas = '?PageSize='+this.pageData.pageSize+"&PageIndex="+this.pageData.pageIndex;
+      if(this.postForm.TerminalId){
+        pas = pas + "&TerminalId="+this.postForm.TerminalId;
+      }
+      this.http.getPlain('scene-list-by-terminal-id',pas).then(res=>{
+          this.listData = res.data.items||[];
+          this.pageData.totalCount = res.data.totalCount;
       }).catch(err=>{
           console.log(err);
       })
     },
     addClick(){
       this.$router.push('/sceneManage');
+    },
+    //启用，禁用状态选择
+    statusClick(val){
+      this.Status = val;
+      this.initData();
+    },
+    //默认，自定义
+    IsSystemSceneClick(val){
+      this.IsSystemScene = val;
+      this.initData();
     },
     //编辑场景
     editClick(val){
