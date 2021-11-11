@@ -60,7 +60,7 @@
           </el-form>
         </div><!---顶部查询板块 end--->
         <el-dialog title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleClose">
-          <UpdateImg></UpdateImg>
+          <UpdateImg @imgUrl="imgUrl" :imgWidth="100" :imgHeight="100"></UpdateImg>
         </el-dialog>
         <el-dialog title="图片选择" :visible.sync="dialogSelectimg" width="540px" :close-on-click-modal="false" :before-close="selectImgClose">
           <p class="el-form-img-box-hint">点击图标即可选中所需要的图标</p>
@@ -151,6 +151,11 @@ export default {
     //打开图标上传弹窗
     upImg(){
       this.dialogUPimg = true;
+    },
+    //获取图片上传返回地址
+    imgUrl(val){
+      this.postForm['cover'] = val[0];
+      this.dialogUPimg = false;
     },
     //图片上传-弹窗关闭
     handleClose(done) {

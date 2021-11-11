@@ -42,7 +42,7 @@ var postFom = {
         "screenName": "string",
         "orderIndex": 0,
         "deleteFlag": true,
-        // "sceneHeight":'',//前端要求增加参数-场景高度
+        // "height":'',//场景高度
         "sceneApps": [//屏幕中的应用模板元素
           {
             "id": "string",//生成id
@@ -80,7 +80,7 @@ var postFom = {
                 }
               ]
             },
-            "appPlateItems": [
+            "appPlateItems": [//模板对应的设置信息
               {
                 "id": "string",
                 "name": "string",

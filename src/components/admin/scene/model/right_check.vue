@@ -134,9 +134,10 @@ export default {
     */
     saveClick(){
         var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+        var divId = is_cu_temp[0].parentNode.dataset.id;
         is_cu_temp[0].setAttribute('data-set',JSON.stringify(this.set_list))
         //这里还需要把内容存到要要提交的数据中
-        this.$emit('saveTempSet',this.set_list);
+        this.$emit('saveTempSet',{'list':this.set_list,'divId':divId});
     },
   },
 }

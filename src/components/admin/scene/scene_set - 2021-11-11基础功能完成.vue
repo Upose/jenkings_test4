@@ -126,9 +126,9 @@ export default {
         sceneThemeColor:[],//场景主题色
       },
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
-      grid:null,//拖拽渲染
+      grid:null,
       postForm:{
-        templateId:'',//选择模板-左边 风格
+        templateId:'',//选择模板
         terminalInstanceId:this.$route.query.id,//终端id
         terminalInstanceName:this.$route.query.t,//终端实例名称
         themeColor:'template1',//颜色参数
@@ -161,10 +161,11 @@ export default {
         ],//分屏
       },
       
-      //资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
+      //资源文件列表（需去重且需重写刷新）
       resource_file_list:[
         'http://192.168.21.71:9000/header_sys/temp1',
         'http://192.168.21.71:9000/news_sys/temp1',
+        'http://192.168.21.71:9000/footer_sys/temp1',
       ],
       opts: {//元素初始化高度
         cellHeight: '10', 
@@ -173,11 +174,20 @@ export default {
     }
   },
   methods:{
-    //初始化模板，需要将当前模板的数据渲染到模板上，且在切换模板的时候，要重新save保存一下当前模板的数据到当前屏。
+    //初始化模板
     initGrid(){
       this.grid = GridStack.init(this.opts);
+      this.grid.on('change', function(event, items) {//改变大小时触发
+        var _rect = items._rect;//元素大小，距离x轴，y轴的位置（单位：px）;(w,h,x,y)
+        var _lastUiPosition = items._lastUiPosition;//距离顶部，左边的位置（left,top）
+        var _orig = items._orig;//在12宫格中所占的比列（x,y,h,w）
+        // console.log(event,items);
+      })
       this.grid.load(this.postForm.sceneScreens[0]['sceneApps']);//这里是取的第一屏
-      this.loadRes();
+      this.resource_file_list.forEach((item,i)=>{
+        this.addStyle(item+'/component.css');
+        this.addScript(item+'/component.js');
+      })
     },
     //添加组件
     addCompont(val){
@@ -185,6 +195,7 @@ export default {
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
+      console.log(component_id);
       if(is_add){
         //添加时，要将已存在的选中状态的元素移出选中状态；
         this.removeActiveClass('mask-layer');
@@ -240,8 +251,11 @@ export default {
     //执行添加模板
     addCompontFlush(it){
       this.grid.addWidget(it);
-      this.postForm.sceneScreens[0]['sceneApps'].push(it);
-      this.loadRes();
+      //这个地方的添加class和js时，需要先判断resource_file_list是否已经存在，存在就执行刷新，不存在就添加。
+      setTimeout(()=>{
+        this.addStyle(it.target+'/component.css');
+        this.addScript(it.target+'/component.js');
+      },200)
     },
     //保存模板结构json
     saveClick(){
@@ -442,29 +456,6 @@ export default {
       }
       //console.log(cls);
       return cls;
-    },
-    //加载资源文件
-    loadRes(){
-      if(this.postForm.sceneScreens[0]['sceneApps']){
-        this.postForm.sceneScreens[0]['sceneApps'].forEach(item=>{
-          var is_yes = false;
-          this.resource_file_list.forEach((it,i)=>{
-            if(it.url == item.target){
-              is_yes = true;
-              return;
-            }
-          })
-          if(!is_yes){
-            this.resource_file_list.push({url:item.target,widgetCode:item.widgetCode});
-            setTimeout(()=>{
-              this.addStyle(item.target+'/component.css');
-              this.addScript(item.target+'/component.js');
-            },200)
-          }else{
-            window[item.widgetCode]();
-          }
-        })
-      }
     },
     //引入css文件
     addStyle(url){
