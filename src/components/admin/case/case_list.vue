@@ -82,7 +82,7 @@ export default {
         SortField:1, //排序字段
         IsAsc:1, //默认降序,否则升序
       };
-      this.http.getPlain('scene-overview','PlateId=109&PageSize=9&PageIndex=1').then(res=>{ //学生专区
+      this.http.getPlain('scene-overview','PlateId=109&PageSize=9&PageIndex=1').then(res=>{
           this.list1 = res.result.dtos||[];
       }).catch(err=>{
           console.log(err);
