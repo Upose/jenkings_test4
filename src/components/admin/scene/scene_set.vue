@@ -126,6 +126,7 @@ export default {
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       grid:null,//拖拽渲染
       postForm:{
+        name:this.$route.query.t,//场景名称，默认终端名称
         templateId:'',//选择模板-左边 风格
         terminalInstanceId:this.$route.query.id,//终端id
         terminalInstanceName:this.$route.query.t,//终端实例名称
@@ -285,63 +286,69 @@ export default {
       this.screen_list[this.screen_cu]['sceneApps'].push(it);
       this.loadRes();
     },
+    //保存和预览时，提交的数据（预览时，需要把参数重新渲染成需要的参数）
+    savePostJson(){
+      this.saveList();
+      var list = [];
+      if(this.screen_list.length>0){
+        this.screen_list.forEach(item=>{
+          var obj = {
+            height:item.height,//屏高
+            sceneApps:[],//屏内包含的应用模板
+          };
+          if(item.sceneApps && item.sceneApps.length>0){
+            item.sceneApps.forEach(it=>{
+              obj.sceneApps.push({
+                xIndex: it.x, yIndex: it.y, height: it.h, width: it.w, 
+                target:it.target,
+                id:it.tempId,
+                appWidget:it.appWidget,
+                appPlateItems:[],//应用对应的设置
+                appId:it.appId,
+                widgetCode:it.widgetCode,
+              })
+            })
+          }
+          list.push(obj);
+        })
+      }
+      this.postForm['sceneScreens'] = list;
+      console.log(this.postForm);
+    },
     //保存模板结构json
     saveClick(){
-      var list = [];
-      if(this.grid.save() && this.grid.save().length){
-        this.grid.save().forEach(item=>{
-          list.push({
-            xIndex: item.x, yIndex: item.y, height: item.h, width: item.w, 
-            target:item.target,
-            id:item.tempId,
-            appWidget:item.appWidget,
-            appPlateItems:[],//应用对应的设置
-            appId:item.appId,
-            widgetCode:item.widgetCode,
-            // content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div></div>'
-          })
-        })
-      }
-      this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
-      this.screen_list[this.screen_cu]['sceneApps'] = list;
-      console.log(this.postForm);
-      this.http.postJson('scene-add',this.postForm).then(res=>{
-        console.log(res);
-      }).catch(err=>{
-
-      })
-    },
-    //预览 保存不要遮罩层
-    scenePreview(){
-      console.log(this.grid.save());
-      var list = [];
-      if(this.grid.save() && this.grid.save().length){
-        this.grid.save().forEach(item=>{
-          list.push({
-            x: item.x, y: item.y, h: item.h, w: item.w, 
-            target:item.target,
-            widgetCode:item.widgetCode,
-            id:item.tempId,
-            appWidget:item.appWidget,
-            appId:item.appId,
-            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'"><i class="jl_vip_zt_del">X</i><div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div></div>'
-          })
-        })
-      }
-      //[0]表示第几屏
-      this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
-      this.screen_list[this.screen_cu]['sceneApps'] = list;
-      window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
-      var url = window.location.origin+"/#/scenePreview";
+      this.savePostJson();
       setTimeout(() => {
-        window.open(url);
+        this.http.postJson('scene-add',this.postForm).then(res=>{
+          console.log(res);
+        }).catch(err=>{
+        })
       }, 200);
+    },
+    //预览
+    scenePreview(){
+      this.savePostJson();
+      setTimeout(() => {
+        window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
+        var url = window.location.origin+"/#/scenePreview";
+        setTimeout(() => {
+          window.open(url);
+        }, 50);
+      }, 100);
     },
     //顶部选择的数据
     topCheck(val){
+      this.postForm.name = val.name||'';
       this.postForm.status = val.status||'';
       this.postForm.sceneUsers = val.user_type||[];
       this.postForm.visitorLimitType = val.visitor_type||0;
+    },
+    //保存模板设置参数（条数，栏目，排序规则等）
+    saveTempSet(val){
+      console.log(val);
+      //可以选择单独存一个数组，然后save保存当前屏数据的时候，循环将数组中的值，放入到对应的应用中。
+      // item['appPlateItems']=val.list;
+      //这个地方可以选择将数据单独存到一个数组中，然后最后提交的时候再塞入到里面一起提交。这里的参数要根据
     },
     //设置主题颜色
     setTheme(val){
@@ -350,18 +357,6 @@ export default {
     //选择模板-左边
     templateClick(val){
       this.postForm.templateId=val.value||'';
-    },
-    //保存模板设置参数（条数，栏目，排序规则等）
-    saveTempSet(val){
-      console.log(this.grid);
-      if(this.grid.save() && this.grid.save().length){
-        this.grid.save().forEach(item=>{
-          if(item.divId == val.divId){
-            // item['appPlateItems']=val.list;
-            //这个地方可以选择将数据单独存到一个数组中，然后最后提交的时候再塞入到里面一起提交。
-          }
-        })
-      }
     },
     //选择布局
     layoutClick(val){
@@ -394,6 +389,7 @@ export default {
     getAppDetails(val){
       this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
     },
+
     /****监听中间区域的变化****/
     monitorCenter(){
       let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
