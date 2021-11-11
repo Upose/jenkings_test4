@@ -329,7 +329,6 @@ export default {
   },
   //带token的文件上传方法  --- form-data
   postFile: function (url, formData) {
-    console.log(process.env.VUE_APP_IMG_URL);
     return new Promise((resolve, reject) => {
       axios({
         url: process.env.VUE_APP_IMG_URL + '/api/file/upload-file',
