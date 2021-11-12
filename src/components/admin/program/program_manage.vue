@@ -94,16 +94,17 @@ export default {
   methods:{
     //获取终端和终端对应的场景
     initData(){
+      var _this = this;
       this.http.getJsonSelf('scene-overview','?PageSize=9&PageIndex=1').then(res=>{ 
-        this.dataList = res.data||[];
-        if(this.dataList.length>0){
-          this.activeName = this.dataList[0].terminalId;
-          this.s_list = this.dataList[0].sceneList||[];
-          if(this.s_list.length>0){
-            this.getList(this.s_list.id);
+        _this.dataList = res.data||[];
+        if(_this.dataList.length>0){
+          _this.activeName = _this.dataList[0].terminalId;
+          _this.s_list = _this.dataList[0].sceneList||[];
+          console.log(_this.s_list);
+          if(_this.s_list.length>0){
+            _this.getList(_this.s_list[0].id);
           }
         }
-        this.getList();//默认获取第一个的数据
       }).catch(err=>{
           console.log(err);
       })

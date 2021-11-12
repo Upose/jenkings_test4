@@ -1,13 +1,13 @@
 <!---服务中台-预览页面-->
 <template>
   <div class="html-warp-page" :class="items.themeColor||'template1'">
-    <div :class="items.headerTemplate.templateCode"><div :id="items.headerTemplate.templateCode"></div></div>
+    <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
     <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-      <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode" :style="styleRender(item)">
-        <div :id="item.id"></div>
+      <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)">
+        <div :id="setId()"></div>
       </div>
     </div>
-    <div :class="items.footerTemplate.templateCode"><div :id="items.footerTemplate.templateCode"></div></div>
+    <div :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div>
   </div>
 </template>
 <style lang="less" scoped>
@@ -62,6 +62,10 @@ export default {
       this.addStyle(val.appWidget.target+'/component.css');
       this.addScript(val.appWidget.target+'/component.js');
       return list;
+    },
+    //动态设置模板id
+    setId(){
+      return 'jl_vip_zt_'+new Date().getTime();
     },
     //引入css文件
     addStyle(url){

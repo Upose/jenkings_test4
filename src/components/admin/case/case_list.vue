@@ -108,8 +108,8 @@ export default {
       this.initData();
     },
     //编辑场景
-    editClick(val,terminalType){
-      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:terminalType,t:val.name,scene:val.id}});
+    editClick(val){
+      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:this.$route.query.type,t:val.name,scene:val.id}});
     },
     //删除场景
     delClick(val){

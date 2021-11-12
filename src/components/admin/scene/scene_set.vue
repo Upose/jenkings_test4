@@ -87,7 +87,9 @@ export default {
     });
   },
   mounted(){
-    this.getDetails();
+    if(this.$route.query.scene){
+      this.getDetails();
+    }
     document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));//颜色初始化
     this.initGrid();
     this.initData();
@@ -171,7 +173,7 @@ export default {
   methods:{
     //获取详情
     getDetails(){
-      this.http.getPlain_url('scene-detail','/'+'5e53edb6-4cfc-4c48-bd86-292249947456').then(res=>{
+      this.http.getPlain_url('scene-detail','/'+this.$route.query.scene).then(res=>{
         console.log('详情',res);
       }).catch(err=>{
 
