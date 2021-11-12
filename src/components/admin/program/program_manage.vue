@@ -10,10 +10,14 @@
             <el-tab-pane v-for="(it,i) in dataList" :key="i" :label="it.terminalName" :name="it.terminalId" ></el-tab-pane>
           </el-tabs>
           <div class="search-div">
-            <el-button type="primary" size="small" v-for="(it,i) in s_list" :key="i">默认</el-button>
+            <el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
           </div>
           <el-table stripe :data="tableData" border class="admin-table">
-            <el-table-column prop="id" label="序号" align="center" width="120"></el-table-column>
+            <el-table-column prop="id" label="序号" align="center" width="120">
+              <template slot-scope="scope">
+                {{scope.$index+1}}
+              </template>
+            </el-table-column>
             <el-table-column prop="appName" label="应用名称"></el-table-column>
             <el-table-column prop="content" label="栏目名称"></el-table-column>
             <el-table-column prop="content" label="创建日期"></el-table-column>
@@ -69,23 +73,11 @@ export default {
     return {
       tab_name:['1','2','3'],
       activeName:'',
-      m_index:0,
+      m_index:0,//一级菜单点击位置
+      s_index:0,//二级菜单点击位置
       dataList:[],//主菜单
       s_list:[],//子菜单
-      tableData:[
-      //   {
-      //   "appId": "string",
-      //   "appName": "string",
-      //   "icon": "string",
-      //   "plateList": [
-      //     {
-      //       "id": "string",
-      //       "name": "string",
-      //       "createTime": "2021-10-27T03:49:14.120Z"
-      //     }
-      //   ]
-      // }
-      ],
+      tableData:[],
     }
   },
   mounted(){
@@ -95,12 +87,11 @@ export default {
     //获取终端和终端对应的场景
     initData(){
       var _this = this;
-      this.http.getJsonSelf('scene-overview','?PageSize=9&PageIndex=1').then(res=>{ 
+      this.http.getJsonSelf('scene-overview','?TopCount=100').then(res=>{ 
         _this.dataList = res.data||[];
         if(_this.dataList.length>0){
           _this.activeName = _this.dataList[0].terminalId;
           _this.s_list = _this.dataList[0].sceneList||[];
-          console.log(_this.s_list);
           if(_this.s_list.length>0){
             _this.getList(_this.s_list[0].id);
           }
@@ -112,15 +103,21 @@ export default {
     //根据场景，获取对应的下方列表
     getList(id){
       this.http.getJsonSelf('app-plate-list-by-scene-id','/'+id).then(res=>{ 
-        this.tableData = red.data||[];
+        this.tableData = res.data||[];
       }).catch(err=>{
 
       })
     },
-    //菜单点击
+    //一级菜单点击
     handleClick(val){
       this.m_index = val.index;
+      this.s_index = 0;
       console.log(val.index);//下标
+    },
+    //二级菜单点击
+    menuClick(val,index){
+      this.s_index = index;
+      console.log(val);
     },
     handleSet(row){
       this.$router.push({path:'programAdd',query: {id:row.id,}});

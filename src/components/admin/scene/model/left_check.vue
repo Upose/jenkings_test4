@@ -11,9 +11,9 @@
             </div>
         </el-collapse-item>
         <el-collapse-item title="请选择模板" name="2">
-            <div class="drag-box" v-for="i in (dataList.sceneTemplate||[])" :key="i+'b'" @click="templateClick(i)">
+            <div class="drag-box" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
               <i class="el-icon-s-marketing d-b-img"></i>
-              <span class="d-b-txt">{{i.key||'暂无'}}</span>
+              <span class="d-b-txt">{{i.name||'暂无'}}</span>
             </div>
         </el-collapse-item>
         <el-collapse-item title="请选择主题色" name="3">
@@ -52,13 +52,17 @@ export default {
         if(newVal.appServiceType && newVal.appServiceType.length>0){
           this.serveClick(newVal.appServiceType[0]);
         }
+        if(newVal.sceneLayout && newVal.sceneLayout.length>0){
+          this.layoutClick(newVal.sceneLayout[0]);
+        }
       }
     }
   },
   data () {
     return {
       serve_name:'',//应用类型-选择的名称
-      activeCollapse:['1'],//左边折叠的数量
+      activeCollapse:['1','2'],//左边折叠的数量
+      sceneTemplate:[],//模板列表
       apps_list:[
         // {
         //   "id": "string",
@@ -86,6 +90,19 @@ export default {
       this.serve_name = val.key;
       this.getApps(val.value);
     },
+    //选择布局
+    layoutClick(val){
+      this.$emit('layoutClick',val);
+      this.getTemplate(val.value);
+    },
+    //获取模板列表
+    getTemplate(id){
+      this.http.getPlain('template-list','LayoutId='+id+'&Type=1&PageIndex=1&PageSize=100').then(res=>{
+        this.sceneTemplate = res.data.items||[];
+      }).catch(err=>{
+
+      })
+    },
     //选择模板
     templateClick(val){
       this.$emit('templateClick',val)
@@ -103,10 +120,6 @@ export default {
       }).catch(err=>{
         console.log(err);
       })
-    },
-    //选择布局
-    layoutClick(val){
-      this.$emit('layoutClick',val);
     },
     //应用点击事件
     appDetails(id){

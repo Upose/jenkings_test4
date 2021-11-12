@@ -137,14 +137,8 @@ export default {
         terminalInstanceName:this.$route.query.t,//终端实例名称
         themeColor:'template1',//颜色参数
         layoutId:'2',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
-        headerTemplate:{
-          router:'http://192.168.21.71:9000/header_sys/temp1',
-          templateCode:'header_sys_temp1',
-        },//头部模板
-        footerTemplate:{
-          router:'http://192.168.21.71:9000/footer_sys/temp1',
-          templateCode:'footer_sys_temp1',
-        },//底部模板
+        headerTemplate:{},//头部模板
+        footerTemplate:{},//底部模板
         sceneScreens:[//屏幕数量
           {
             sceneApps:[//模板数量
@@ -366,36 +360,34 @@ export default {
     setTheme(val){
       this.postForm.themeColor=val;
     },
+    //选择布局
+    layoutClick(val){
+      this.postForm.layoutId = val.value;
+    },
     //选择模板-左边
     templateClick(val){
+      console.log(val);
       this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
         confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
       }).then(() => {
-        this.postForm.templateId=val.value||'';
+        this.postForm.templateId=val.id||'';
+        //将头部尾部加入到默认数据中；
+        this.postForm.headerTemplate = val.defaultHeaderTemplate||{};
+        this.postForm.footerTemplate = val.defaultFooterTemplate||{};
         if(this.grid){
           this.grid.removeAll();
         }
+        //这个地方要处理一下。
+        // if(val.value == '1' || val.value == '3'){//通屏
+        //   this.screen_cu = 0;
+        //   this.screen_list = [{sceneApps:[]}];
+        // }else{//分屏
+        //   this.screen_cu = 0;
+        //   this.screen_list = [{sceneApps:[]},{sceneApps:[]}];
+        // }
         this.screen_list.forEach(item=>{
           item['sceneApps'] = [];
         })
-      })
-    },
-    //选择布局
-    layoutClick(val){
-      this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
-        confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
-      }).then(() => {
-        this.postForm.layoutId = val.value;
-        if(this.grid){
-          this.grid.removeAll();
-        }
-        if(val.value == '1' || val.value == '3'){//通屏
-          this.screen_cu = 0;
-          this.screen_list = [{sceneApps:[]}];
-        }else{//分屏
-          this.screen_cu = 0;
-          this.screen_list = [{sceneApps:[]},{sceneApps:[]}];
-        }
       })
     },
     //设置头部底部
