@@ -87,6 +87,7 @@ export default {
     });
   },
   mounted(){
+    this.getDetails();
     document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));//颜色初始化
     this.initGrid();
     this.initData();
@@ -168,6 +169,14 @@ export default {
     }
   },
   methods:{
+    //获取详情
+    getDetails(){
+      this.http.getPlain_url('scene-detail','/'+'bceada93-6229-43c0-975f-a039cbf27f1a').then(res=>{
+        console.log('详情',res);
+      }).catch(err=>{
+
+      })
+    },
     //初始化模板，需要将当前模板的数据渲染到模板上，且在切换模板的时候，要重新save保存一下当前模板的数据到当前屏。
     initGrid(){
       this.grid = GridStack.init(this.opts);

@@ -19,7 +19,7 @@
                <div class="" v-for="(it,i) in set_list" :key="i">
                     <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
                         <h2 class="s-title">绑定栏目 <!--<span class="s-edit" @click="addRow()">添加</span>--></h2>
-                        <el-select class="w-saml" v-model="it.appPlateIds" size="medium" placeholder="请选择">
+                        <el-select class="w-saml" v-model="it.id" size="medium" placeholder="请选择">
                             <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
                     </div>
@@ -63,7 +63,7 @@ export default {
         {
             topCount:'',//数据条数-（需要参数）
             sortType:'',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
-            appPlateIds:'',//应用栏目标识 -（需要参数）
+            id:'',//应用栏目标识 -（需要参数）
         }
       ],
     }
@@ -118,7 +118,7 @@ export default {
         this.set_list.push({
             topCount:'',
             sortType:'',
-            appPlateIds:'',
+            id:'',
         });
     },
     //是否显示保存按钮
