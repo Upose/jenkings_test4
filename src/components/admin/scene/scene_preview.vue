@@ -34,6 +34,7 @@ export default {
     this.addScript(this.items.headerTemplate.router+'/component.js');
     this.addStyle(this.items.footerTemplate.router+'/component.css');
     this.addScript(this.items.footerTemplate.router+'/component.js');
+    console.log(this.items);
   },
   data () {
     return {
@@ -58,8 +59,8 @@ export default {
         position: 'absolute',
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
-      this.addStyle(val.target+'/component.css');
-      this.addScript(val.target+'/component.js');
+      this.addStyle(val.appWidget.target+'/component.css');
+      this.addScript(val.appWidget.target+'/component.js');
       return list;
     },
     //引入css文件

@@ -20,7 +20,7 @@
         <div class="list-content">
           <div class="row" v-for="(item,index) in dataList" :key="index">
             <div class="title">{{item.terminalName||''}}
-              <span class="more-r" @click="moreClick(item.terminalId)">更多<i class="el-icon-arrow-right"></i></span>
+              <span class="more-r" @click="moreClick(item)">更多<i class="el-icon-arrow-right"></i></span>
             </div>
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in (item.sceneList||[])":key="i+'a'">
@@ -31,7 +31,7 @@
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="el-icon-s-tools" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="editClick(i)"><i class="el-icon-delete"></i><span>修改</span></li>
+                      <li @click="editClick(i,item.terminalType)"><i class="el-icon-delete"></i><span>修改</span></li>
                       <li @click="delClick(i)"><i class="el-icon-delete"></i><span>删除</span></li>
                       <li @click="previewClick(i)"><i class="el-icon-delete"></i><span>预览</span></li>
                       <li @click="disableClick(i)"><i class="el-icon-delete"></i><span>禁用</span></li>
@@ -152,7 +152,7 @@ export default {
   },
   methods:{
     initData(){
-      var pars = '?PageSize=8&PageIndex=1';
+      var pars = '?TopCount=16';
       if(this.Status){
         pars = pars+"&Status="+this.Status;
       }
@@ -169,18 +169,24 @@ export default {
       this.$router.push('/sceneManage');
     },
     //编辑场景
-    editClick(val){
-      console.log(val);
-      this.$router.push('/sceneSet')
+    editClick(val,terminalType){
+      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:terminalType,t:val.name,scene:val.id}});
     },
     //删除场景
     delClick(val){
+      var _this = this;
       this.$confirm('请谨慎执行删除操作, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({type: 'success',message: '删除成功!'});
+        _this.http.deletePlain('scene-del','/'+val.id).then(res=>{ 
+          console.log(res);
+          _this.$message({type: 'success',message: '删除成功!'});
+          _this.initData();
+        }).catch(err=>{
+            _this.$message({type: 'error',message: '删除失败'});   
+        })
       }).catch(() => {
         this.$message({type: 'info',message: '已取消删除'});          
       });
@@ -197,24 +203,40 @@ export default {
     },
     //禁用场景
     disableClick(val){
+      var _this = this;
       this.$confirm('是否确定禁用此场景?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({type: 'success',message: '禁用成功!'});
+        _this.http.putPlain('disable-scene','/'+val.id).then(res=>{ 
+          console.log(res);
+          _this.$message({type: 'success',message: '禁用成功!'});
+          _this.initData();
+        }).catch(err=>{
+            _this.$message({type: 'error',message: '禁用失败'});   
+        })
       }).catch(() => {
         this.$message({type: 'info',message: '已取消禁用'});          
       });
     },
     //预览场景
     previewClick(val){
-      // window.location.href = val.visitUrl;//预览地址
-      this.$router.push('/iframe_view')
+      console.log(val);
+      this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
+        window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
+        var url = window.location.origin+"/#/scenePreview";
+        setTimeout(() => {
+          window.open(url);
+        }, 50);
+      }).catch(err=>{
+        this.$message({type: 'error',message: '获取详情失败'});  
+      })
     },
     //更多
     moreClick(val){
-      this.$router.push({path:'/caseList',query:{id:val}});
+      console.log(val);
+      this.$router.push({path:'caseList',query:{id:val.terminalId,type:val.terminalType}});
     },
     //日志，通知
     logMore(val){

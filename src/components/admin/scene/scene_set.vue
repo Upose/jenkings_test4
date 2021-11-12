@@ -171,7 +171,7 @@ export default {
   methods:{
     //获取详情
     getDetails(){
-      this.http.getPlain_url('scene-detail','/'+'bceada93-6229-43c0-975f-a039cbf27f1a').then(res=>{
+      this.http.getPlain_url('scene-detail','/'+'5e53edb6-4cfc-4c48-bd86-292249947456').then(res=>{
         console.log('详情',res);
       }).catch(err=>{
 

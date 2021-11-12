@@ -108,38 +108,60 @@ export default {
       this.initData();
     },
     //编辑场景
-    editClick(val){
-      console.log(val);
-      this.$router.push('/sceneSet')
+    editClick(val,terminalType){
+      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:terminalType,t:val.name,scene:val.id}});
     },
     //删除场景
     delClick(val){
+      var _this = this;
       this.$confirm('请谨慎执行删除操作, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({type: 'success',message: '删除成功!'});
+        _this.http.deletePlain('scene-del','/'+val.id).then(res=>{ 
+          console.log(res);
+          _this.$message({type: 'success',message: '删除成功!'});
+          _this.initData();
+        }).catch(err=>{
+            _this.$message({type: 'error',message: '删除失败'});   
+        })
       }).catch(() => {
         this.$message({type: 'info',message: '已取消删除'});          
       });
     },
     //禁用场景
     disableClick(val){
+      var _this = this;
       this.$confirm('是否确定禁用此场景?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({type: 'success',message: '禁用成功!'});
+        _this.http.putPlain('disable-scene','/'+val.id).then(res=>{ 
+          console.log(res);
+          _this.$message({type: 'success',message: '禁用成功!'});
+          _this.initData();
+        }).catch(err=>{
+            _this.$message({type: 'error',message: '禁用失败'});   
+        })
       }).catch(() => {
         this.$message({type: 'info',message: '已取消禁用'});          
       });
     },
     //预览场景
     previewClick(val){
-      this.$router.push('/iframe_view')
-    }
+      console.log(val);
+      this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
+        window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
+        var url = window.location.origin+"/#/scenePreview";
+        setTimeout(() => {
+          window.open(url);
+        }, 50);
+      }).catch(err=>{
+        this.$message({type: 'error',message: '获取详情失败'});  
+      })
+    },
   },
 }
 </script>

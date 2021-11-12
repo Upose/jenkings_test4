@@ -154,6 +154,31 @@ export default {
       });
     });
   },
+  //带token的put方法  --- json
+  putPlain: function (url, data) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: this.postUrl[url]+data,
+        data: data,
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'text/plain',
+          'Authorization': token
+        },
+      }).then(response => {
+        const result = response.data;
+
+        if (result.statusCode == 200) {
+          resolve(result);
+        } else {
+          error(result.message);
+          reject(result);
+        }
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  },
   //带token的get方法  --- plain ；data参数是在调用时拼接好的（如：id=1&name=张三）
   getPlain: function (url, data) {
     var get_url ='';
@@ -283,6 +308,29 @@ export default {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': token
+        },
+      }).then(response => {
+        const result = response.data;
+        if (result.statusCode == 200) {
+          resolve(result);
+        } else {
+          error(result.message);
+          reject(result);
+        }
+      }).catch(err => {
+        reject(err);
+      });
+    });
+  },
+  //带token的delete方法自己拼接  --- json
+  deletePlain: function (url, data) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: this.postUrl[url] + data,
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'text/plain',
           'Authorization': token
         },
       }).then(response => {

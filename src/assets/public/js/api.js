@@ -11,6 +11,7 @@ export default {
         'scene-add': baseURL + '/api/scene-manage/scene', // 添加场景
         'scene-put': baseURL + '/api/scene-manage/scene', // 更新场景
         'scene-del': baseURL + '/api/scene-manage/scene', //删除场景   /{sceneid}
+        'disable-scene': baseURL + '/api/scene-manage/disable-scene', //禁用场景   /{sceneid}
         'app-list-by-service-type': baseURL + '/api/scene-manage/app-list-by-service-type', //按服务类型获取应用列表   /{appservicetype}/{terminaltype}
         'app-widget-list-by-app-id': baseURL + '/api/scene-manage/app-widget-list-by-app-id', //获取应用组件列表   /{appid}
         'terminal-instance-list': baseURL + '/api/terminal/terminal-instance-list', //终端实例列表
