@@ -4,7 +4,7 @@
     <div class="drag-top c-l">
         <h1 class="step-num"><span class="num">1</span><span class="txt">场景信息</span></h1>
         <!-- <div class="search-top"> -->
-        <div class="s-col"><span class="s-txt">{{$route.query.t}}：</span><el-input class="w-saml" v-model="postForm.name" size="medium" placeholder="首页"></el-input></div><!--disabled="disabled"-->
+        <div class="s-col"><span class="s-txt">{{$route.query.t}}：</span><el-input class="w-saml" v-model="postForm.name" size="medium" @input="setName" placeholder="首页"></el-input></div><!--disabled="disabled"-->
         <div class="s-col"><span class="s-txt">服务状态：</span>
           <el-select class="w-saml" v-model="postForm.status" @change="statusClcik" size="medium" placeholder="请选择">
               <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
@@ -55,6 +55,10 @@ export default {
     // console.log(this.dataList);
   },
   methods:{
+    //名称输入事件
+    setName(val){
+      this.$emit('setName',val);
+    },
     //状态选择
     statusClcik(val){
       this.$emit('topCheck',this.postForm);

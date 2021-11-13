@@ -131,12 +131,12 @@ export default {
       apps_set_list:{},//场景内所有的应用模板设置参数。
       grid:null,//拖拽渲染
       postForm:{
-        name:this.$route.query.t,//场景名称，默认终端名称
+        name:'',//场景名称
         templateId:'',//选择模板-左边 风格
         terminalInstanceId:this.$route.query.id,//终端id
         terminalInstanceName:this.$route.query.t,//终端实例名称
         themeColor:'template1',//颜色参数
-        layoutId:'2',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
+        layoutId:'1',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
         headerTemplate:{},//头部模板
         footerTemplate:{},//底部模板
         sceneScreens:[//屏幕数量
@@ -169,6 +169,7 @@ export default {
     getDetails(){
       this.http.getPlain_url('scene-detail','/'+this.$route.query.scene).then(res=>{
         console.log('详情',res);
+        this.postForm = res.data||{};
       }).catch(err=>{
 
       })
@@ -345,9 +346,12 @@ export default {
         }, 50);
       }, 100);
     },
+    //设置场景名字
+    setName(val){
+      this.postForm.name = val||'';
+    },
     //顶部选择的数据
     topCheck(val){
-      this.postForm.name = val.name||'';
       this.postForm.status = val.status||'';
       this.postForm.sceneUsers = val.user_type||[];
       this.postForm.visitorLimitType = val.visitor_type||0;
