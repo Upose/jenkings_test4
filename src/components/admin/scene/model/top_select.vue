@@ -45,16 +45,25 @@ export default {
     return {
       header_footer_show:false,
       postForm:{
+        name:'',
         user_type:[]
       },
       userType: [],
-      user_check_list: []
+      user_check_list: [],//用户类型
     }
   },
   mounted(){
     // console.log(this.dataList);
   },
   methods:{
+    //设置详情
+    setDatils(val){
+      this.postForm.name = val.name;//名称
+      this.postForm.status = val.status;//服务状态
+      this.postForm.sceneUsers = val.sceneUsers;//用户类型
+      this.postForm.visitor_type = val.visitorLimitType;//权限控制
+      this.$forceUpdate();
+    },
     //名称输入事件
     setName(val){
       this.$emit('setName',val);

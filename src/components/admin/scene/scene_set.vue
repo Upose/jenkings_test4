@@ -7,13 +7,13 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck"></topSelect>
+            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" ref="topselect_ref"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
             <div class="drag-l" :class="left_fold?'drag-l-hide':''">
               <div class="drag-l-pad">
-                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+                <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick" ref="leftcheck_ref"></leftCheck>
                 <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
               </div>
             </div><!--左边菜单 end-->
@@ -167,9 +167,51 @@ export default {
   methods:{
     //获取详情
     getDetails(){
+      var _this = this;
       this.http.getPlain_url('scene-detail','/'+this.$route.query.scene).then(res=>{
         console.log('详情',res);
-        this.postForm = res.data||{};
+        if(res.data){
+          _this.$refs.topselect_ref.setDatils(res.data);
+          _this.$refs.leftcheck_ref.setDatils(res.data);
+          _this.$refs.rightCheck_ref.setDatils(res.data);
+          _this.postForm = res.data||{};
+          if(_this.postForm.sceneScreens.length>0){
+            _this.postForm.sceneScreens.forEach((item,index)=>{
+                let matchObj = {
+                'width':'w',
+                'height':'h',
+                'xIndex':'x',
+                'yIndex':'y',
+                }
+                let result = item.sceneApps.map((it,index) => ({
+                  [matchObj.width]: it.width,
+                  [matchObj.height]: it.height,
+                  [matchObj.xIndex]: it.xIndex,
+                  [matchObj.yIndex]: it.yIndex,
+                  appId:it.appId,
+                  appPlateItems:it.appPlateItems,
+                  appWidget:it.appWidget,
+                  id:it.id,
+                  divId:'jl_vip_zt_'+index,
+                  target:it.appWidget.target,
+                  sceneId:it.sceneId,
+                  sceneScreenId:it.sceneScreenId,
+                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems||[])+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
+                }));
+                _this.postForm.sceneScreens[index].sceneApps = result;
+            })
+            _this.screen_list = _this.postForm.sceneScreens;
+            console.log(_this.screen_list);
+            _this.initScree();
+          }
+          if(_this.postForm.layoutId == '1' && _this.postForm.layoutId == '3'){//通屏
+            // this.screen_list
+            
+          }else{//分屏
+
+          }
+        }
+        
       }).catch(err=>{
 
       })
@@ -179,6 +221,7 @@ export default {
       this.grid = GridStack.init(this.opts);
       this.initScree();
     },
+    //初始化拖拽
     initScree(){
       if(this.grid){
         this.grid.removeAll();
@@ -381,7 +424,7 @@ export default {
         if(this.grid){
           this.grid.removeAll();
         }
-        //这个地方要处理一下。
+        //这个地方要处理一下。主要是分屏数量的处理
         // if(val.value == '1' || val.value == '3'){//通屏
         //   this.screen_cu = 0;
         //   this.screen_list = [{sceneApps:[]}];

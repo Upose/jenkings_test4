@@ -70,6 +70,10 @@ export default {
   },
 
   methods:{
+    //设置详情
+    setDatils(val){
+      console.log(val);
+    },
     appDetails(val){
         this.is_add = val.is_add;
         //获取应用组件列表 /{appid}

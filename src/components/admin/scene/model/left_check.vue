@@ -17,7 +17,11 @@
             </div>
         </el-collapse-item>
         <el-collapse-item title="请选择主题色" name="3">
-            <div class="color-temp" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div>
+            <div class="drag-box" :class="themeColor==i.value?'box-active':''" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
+              <i class="el-icon-s-marketing d-b-img"></i>
+              <span class="d-b-txt">{{i.key||'暂无'}}</span>
+            </div>
+            <!-- <div class="color-temp" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div> -->
         </el-collapse-item>
         </el-collapse><!--主题风格 end-->
         <div class="step-three">
@@ -62,9 +66,10 @@ export default {
     return {
       layoutId:'',//布局
       templateId:'',//模板
+      themeColor:'',//颜色模板
       serve_name:'',//应用类型-选择的名称
       appId:'',//当前应用
-      activeCollapse:['1','2'],//左边折叠的数量
+      activeCollapse:['1','2','3'],//左边折叠的数量
       sceneTemplate:[],//模板列表
       apps_list:[],//应用列表
     }
@@ -76,8 +81,16 @@ export default {
     }
   },
   methods:{
+    //设置详情
+    setDatils(val){
+      this.layoutId = val.layoutId;
+      this.templateId = val.templateId;
+      this.themeColor = val.themeColor;
+      this.$forceUpdate();
+    },
     //设置主题色
     setTheme(val){
+      this.themeColor = val.value;
       document.getElementsByTagName("body")[0].setAttribute('class',val.value);
       this.$emit('setTheme',val.value);
     },
@@ -96,6 +109,10 @@ export default {
     getTemplate(id){
       this.http.getPlain('template-list','LayoutId='+id+'&Type=1&PageIndex=1&PageSize=100').then(res=>{
         this.sceneTemplate = res.data.items||[];
+        if(this.sceneTemplate.length>0 && this.templateId==''){//表示第一次进入
+          this.templateId = this.sceneTemplate[0].id;
+          // this.templateClick(this.sceneTemplate[0]);
+        }
       }).catch(err=>{
 
       })
@@ -112,9 +129,6 @@ export default {
         if(this.serve_name == '' && this.apps_list.length>0){
           this.serveClick(this.apps_list[0]);
         }
-        // if(this.apps_list&&this.apps_list.length>0){//默认选中第一个应用
-        //   this.appDetails(this.apps_list[0].appId);
-        // }
       }).catch(err=>{
         console.log(err);
       })
