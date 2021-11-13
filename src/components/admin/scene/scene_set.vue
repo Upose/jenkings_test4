@@ -7,7 +7,7 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" ref="topselect_ref"></topSelect>
+            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" @setName="setName" ref="topselect_ref"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
@@ -370,12 +370,23 @@ export default {
     },
     //保存
     saveClick(){
+      var _this = this;
       this.savePostJson();
       setTimeout(() => {
-        this.http.postJson('scene-add',this.postForm).then(res=>{
-          console.log(res);
-        }).catch(err=>{
-        })
+        if(this.$route.query.scene){
+          console.log('修改');
+          _this.http.putJson('scene-add',_this.postForm).then(res=>{
+            _this.$message({message: '修改成功',type:'success'});
+          }).catch(err=>{
+            _this.$message({message: '修改失败',type:'warning'});
+          })
+        }else{
+          _this.http.postJson('scene-add',_this.postForm).then(res=>{
+            _this.$message({message: '添加成功',type:'success'});
+          }).catch(err=>{
+            _this.$message({message: '添加失败',type:'warning'});
+          })
+        }
       }, 200);
     },
     //预览
@@ -391,6 +402,7 @@ export default {
     },
     //设置场景名字
     setName(val){
+      console.log(val);
       this.postForm.name = val||'';
     },
     //顶部选择的数据
