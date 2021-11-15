@@ -66,7 +66,7 @@ export default {
     return {
       layoutId:'',//布局
       templateId:'',//模板
-      themeColor:'',//颜色模板
+      themeColor:'template1',//颜色模板
       serve_name:'',//应用类型-选择的名称
       appId:'',//当前应用
       activeCollapse:['1','2','3'],//左边折叠的数量
@@ -111,16 +111,16 @@ export default {
         this.sceneTemplate = res.data.items||[];
         if(this.sceneTemplate.length>0 && this.templateId==''){//表示第一次进入
           this.templateId = this.sceneTemplate[0].id;
-          // this.templateClick(this.sceneTemplate[0]);
+          this.templateClick(this.sceneTemplate[0],true);
         }
       }).catch(err=>{
 
       })
     },
     //选择模板
-    templateClick(val){
+    templateClick(val,is_add){
       this.templateId = val.id;
-      this.$emit('templateClick',val)
+      this.$emit('templateClick',{list:val,isadd:is_add})
     },
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype}
     getApps(id){
@@ -136,7 +136,7 @@ export default {
     //应用点击事件
     appDetails(id){
       this.appId = id;
-      this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'});
+      this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'},null);
     },
     /****左边-折叠菜单-点击*****/
     collapseClick(val){

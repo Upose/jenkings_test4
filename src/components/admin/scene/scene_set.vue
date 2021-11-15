@@ -82,7 +82,7 @@ export default {
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
         var set_list = e.target.dataset.set;//设置的配置参数
-        _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
+        _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list},_this);
       }
     });
   },
@@ -196,6 +196,7 @@ export default {
                   target:it.appWidget.target,
                   sceneId:it.sceneId,
                   sceneScreenId:it.sceneScreenId,
+                  widgetCode:it.appWidget.widgetCode,
                   content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems||[])+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
                 }));
                 _this.postForm.sceneScreens[index].sceneApps = result;
@@ -338,22 +339,23 @@ export default {
       this.screen_list[this.screen_cu]['sceneApps'].push(it);
       this.loadRes();
     },
-    //保存和预览时，提交的数据（预览时，需要把参数重新渲染成需要的参数）
-    savePostJson(){
+    //保存和预览时，提交的数据（预览时，需要把参数重新渲染成需要的参数）post_type区分保存还是预览
+    savePostJson(post_type){
+      var _this = this;
       this.saveList();
-      var list = [];
+      var list = [];//
       if(this.screen_list.length>0){
         this.screen_list.forEach((item,index)=>{
           var obj = {
             height:item.height,//屏高
             sceneApps:[],//屏内包含的应用模板
-            orderIndex:index,//当前序号
+            orderIndex:index+1,//当前序号
           };
           if(item.sceneApps && item.sceneApps.length>0){
             item.sceneApps.forEach(it=>{
               obj.sceneApps.push({
                 xIndex: it.x, yIndex: it.y, height: it.h, width: it.w, 
-                target:it.target,
+                target:(post_type == 'save')?_this.substrPath(it.target):it.target,
                 id:it.tempId,
                 appWidget:it.appWidget,
                 appPlateItems:it.appPlateItems,//应用对应的设置
@@ -366,23 +368,33 @@ export default {
         })
       }
       this.postForm['sceneScreens'] = list;
-      console.log(this.postForm);
+    },
+    //截取路径
+    substrPath(val){
+      var num = val.lastIndexOf("/");
+      return val.substr(val.lastIndexOf("/",num-1),100);
     },
     //保存
     saveClick(){
       var _this = this;
-      this.savePostJson();
+      this.savePostJson('save');
       setTimeout(() => {
+        let post_form = JSON.stringify(_this.postForm);
+        let post_obj = JSON.parse(post_form);
+        post_obj.headerTemplate.router = _this.substrPath(post_obj.headerTemplate.router);
+        post_obj.footerTemplate.router = _this.substrPath(post_obj.footerTemplate.router);
+        console.log(this.postForm);
         if(this.$route.query.scene){
-          console.log('修改');
-          _this.http.putJson('scene-add',_this.postForm).then(res=>{
+          _this.http.putJson('scene-add',post_obj).then(res=>{
             _this.$message({message: '修改成功',type:'success'});
+            // window.history.go(-1);
           }).catch(err=>{
             _this.$message({message: '修改失败',type:'warning'});
           })
         }else{
-          _this.http.postJson('scene-add',_this.postForm).then(res=>{
+          _this.http.postJson('scene-add',post_obj).then(res=>{
             _this.$message({message: '添加成功',type:'success'});
+            window.history.go(-2);
           }).catch(err=>{
             _this.$message({message: '添加失败',type:'warning'});
           })
@@ -391,7 +403,7 @@ export default {
     },
     //预览
     scenePreview(){
-      this.savePostJson();
+      this.savePostJson('preview');
       setTimeout(() => {
         window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
         var url = window.location.origin+"/#/scenePreview";
@@ -402,7 +414,6 @@ export default {
     },
     //设置场景名字
     setName(val){
-      console.log(val);
       this.postForm.name = val||'';
     },
     //顶部选择的数据
@@ -426,28 +437,34 @@ export default {
     //选择模板-左边
     templateClick(val){
       console.log(val);
-      this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
-        confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
-      }).then(() => {
-        this.postForm.templateId=val.id||'';
-        //将头部尾部加入到默认数据中；
-        this.postForm.headerTemplate = val.defaultHeaderTemplate||{};
-        this.postForm.footerTemplate = val.defaultFooterTemplate||{};
-        if(this.grid){
-          this.grid.removeAll();
-        }
-        //这个地方要处理一下。主要是分屏数量的处理
-        // if(val.value == '1' || val.value == '3'){//通屏
-        //   this.screen_cu = 0;
-        //   this.screen_list = [{sceneApps:[]}];
-        // }else{//分屏
-        //   this.screen_cu = 0;
-        //   this.screen_list = [{sceneApps:[]},{sceneApps:[]}];
-        // }
-        this.screen_list.forEach(item=>{
-          item['sceneApps'] = [];
+      if(val.isadd){
+        this.postForm.templateId=val.list.id||'';
+        this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
+        this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
+      }else{
+        this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
+          confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
+        }).then(() => {
+          this.postForm.templateId=val.list.id||'';
+          this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
+          this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
+          if(this.grid){
+            this.grid.removeAll();
+          }
+          //这个地方要处理一下。主要是分屏数量的处理
+          // if(val.value == '1' || val.value == '3'){//通屏
+          //   this.screen_cu = 0;
+          //   this.screen_list = [{sceneApps:[]}];
+          // }else{//分屏
+          //   this.screen_cu = 0;
+          //   this.screen_list = [{sceneApps:[]},{sceneApps:[]}];
+          // }
+          this.screen_list.forEach(item=>{
+            item['sceneApps'] = [];
+          })
         })
-      })
+      }
+      
     },
     //设置头部底部
     setHFooter(val){
@@ -469,8 +486,12 @@ export default {
       })
     },
     //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。
-    getAppDetails(val){
-      this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
+    getAppDetails(val,el){
+      if(el){
+        el.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
+      }else{
+        this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
+      }
     },
 
     /****监听中间区域的变化****/
