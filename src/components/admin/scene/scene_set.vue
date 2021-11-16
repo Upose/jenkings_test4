@@ -19,7 +19,7 @@
             </div><!--左边菜单 end-->
 
             <div class="drag-c" id="monitorCenter" :class="isFoldClass()">
-              <div class="screen-btn-drag" v-show="postForm.layoutId=='2' || postForm.layoutId=='4'">
+              <div class="screen-btn-drag" v-show="postForm.layoutId== 2 || postForm.layoutId== 4">
                 <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(0)"></span></el-button>
                 <div class="drag-box-warp" ref="dragBox">
                   <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+var admin_vue = null;
 import scalingPage from "@/components/admin/common/scaling";
 import breadcrumb from "@/components/admin/common/breadcrumb";
 import serviceLMenu from "@/components/admin/common/serviceLMenu";
@@ -67,22 +68,22 @@ export default {
     this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
-    var _this = this;
+    admin_vue = this;
     //监听事件
     document.addEventListener("click",function(e){//点击元素准备修改的时候，需要在当前元素添加一个class，并且移出其他兄弟元素的class
       if(e.target.className == 'jl_vip_zt_del'){//删除按钮
         if(e.target.parentNode.parentNode.parentNode){
-          _this.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
+          admin_vue.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
         }
       }
       if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
         e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
         var cu_id = e.target.parentNode.dataset.id;//当前元素的id
-        _this.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
+        admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
         var appid = e.target.dataset.appid;//应用id
         var appwidgetid = e.target.dataset.appwidgetid;//模板id
         var set_list = e.target.dataset.set;//设置的配置参数
-        _this.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list},_this);
+        admin_vue.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
       }
     });
   },
@@ -136,7 +137,7 @@ export default {
         terminalInstanceId:this.$route.query.id,//终端id
         terminalInstanceName:this.$route.query.t,//终端实例名称
         themeColor:'template1',//颜色参数
-        layoutId:'1',//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
+        layoutId:1,//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
         headerTemplate:{},//头部模板
         footerTemplate:{},//底部模板
         sceneScreens:[//屏幕数量
@@ -177,17 +178,11 @@ export default {
           _this.postForm = res.data||{};
           if(_this.postForm.sceneScreens.length>0){
             _this.postForm.sceneScreens.forEach((item,index)=>{
-                let matchObj = {
-                'width':'w',
-                'height':'h',
-                'xIndex':'x',
-                'yIndex':'y',
-                }
                 let result = item.sceneApps.map((it,index) => ({
-                  [matchObj.width]: it.width,
-                  [matchObj.height]: it.height,
-                  [matchObj.xIndex]: it.xIndex,
-                  [matchObj.yIndex]: it.yIndex,
+                  w: it.width,
+                  h: it.height,
+                  x: it.xIndex,
+                  y: it.yIndex,
                   appId:it.appId,
                   appPlateItems:it.appPlateItems,
                   appWidget:it.appWidget,
@@ -197,7 +192,7 @@ export default {
                   sceneId:it.sceneId,
                   sceneScreenId:it.sceneScreenId,
                   widgetCode:it.appWidget.widgetCode,
-                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems||[])+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
+                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems).replace(/"/g,"'")+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
                 }));
                 _this.postForm.sceneScreens[index].sceneApps = result;
             })
@@ -254,6 +249,8 @@ export default {
             tempId:item.tempId,
             divId:item.divId,//元素渲染id
             appId:item.appId,
+            sceneId:item.sceneId,
+            sceneScreenId:item.sceneScreenId,
             widgetCode:item.widgetCode,
             appWidget:item.appWidget,
             appPlateItems:_this.apps_set_list[item.divId]||item.appPlateItems,//应用对应的设置
@@ -350,13 +347,20 @@ export default {
             height:item.height,//屏高
             sceneApps:[],//屏内包含的应用模板
             orderIndex:index+1,//当前序号
+            id:item.id,//当前序号
+            sceneId:item.sceneId,//当前序号
+            screenName:item.screenName,//当前序号
+            deleteFlag:item.deleteFlag,//当前序号
           };
           if(item.sceneApps && item.sceneApps.length>0){
             item.sceneApps.forEach(it=>{
               obj.sceneApps.push({
                 xIndex: it.x, yIndex: it.y, height: it.h, width: it.w, 
                 target:(post_type == 'save')?_this.substrPath(it.target):it.target,
-                id:it.tempId,
+                id:it.id,
+                tempId:it.tempId,
+                sceneId:it.sceneId,//当前序号
+                sceneScreenId:it.sceneScreenId,//当前序号
                 appWidget:it.appWidget,
                 appPlateItems:it.appPlateItems,//应用对应的设置
                 appId:it.appId,
@@ -383,11 +387,14 @@ export default {
         let post_obj = JSON.parse(post_form);
         post_obj.headerTemplate.router = _this.substrPath(post_obj.headerTemplate.router);
         post_obj.footerTemplate.router = _this.substrPath(post_obj.footerTemplate.router);
-        console.log(this.postForm);
+        if(post_obj.layoutId == 1 || post_obj.layoutId==3){//通屏
+          console.log('删除多余屏幕');
+          post_obj.sceneScreens.splice(1,1);
+        }
         if(this.$route.query.scene){
           _this.http.putJson('scene-add',post_obj).then(res=>{
             _this.$message({message: '修改成功',type:'success'});
-            // window.history.go(-1);
+            window.history.go(-1);
           }).catch(err=>{
             _this.$message({message: '修改失败',type:'warning'});
           })
@@ -409,7 +416,7 @@ export default {
         var url = window.location.origin+"/#/scenePreview";
         setTimeout(() => {
           window.open(url);
-        }, 50);
+        }, 20);
       }, 100);
     },
     //设置场景名字
@@ -486,12 +493,8 @@ export default {
       })
     },
     //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。
-    getAppDetails(val,el){
-      if(el){
-        el.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
-      }else{
-        this.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
-      }
+    getAppDetails(val){
+      admin_vue.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
     },
 
     /****监听中间区域的变化****/

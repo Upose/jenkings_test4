@@ -14,7 +14,7 @@
             </div><!--选择样式 end-->
 
             <div class="select-type">
-            <h2 class="s-title bor-botm">设置内容</h2>
+            <h2 class="s-title bor-botm">设置内容{{availableConfig}}</h2>
             <div class="s-choose">
                <div class="" v-for="(it,i) in set_list" :key="i">
                     <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
@@ -37,7 +37,7 @@
                     </div>
                </div>
                 <button class="s-c-add" @click="addRow()" v-if="this.availableConfig.indexOf('1')!=-1"><i class="el-icon-plus"></i><span>添加</span></button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting"  v-if="isShowBtn()" @click="saveClick()" size="medium">保存</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting"  v-if="isShowBtn()" @click="saveClick('edit')" size="medium">保存</el-button>
             </div>
         </div><!--设置内容 end-->
     </div><!--右边菜单 end-->
@@ -75,21 +75,24 @@ export default {
       console.log(val);
     },
     appDetails(val){
-        this.is_add = val.is_add;
+        var _this = this;
+        console.log(val);
+        _this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
-        this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
-            this.template_list = res.data||[];
+        _this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
+            _this.template_list = res.data||[];
             if(val.is_add){
                 //获取模板列表，默认选中第一个模板
-                if(this.template_list.length>0){
+                if(_this.template_list.length>0){
                     //默认选择添加第一个模板之后，需要将当前渲染的那一个模板id拿到，方便做应用选择。
-                    this.appsTemplate(this.template_list[0],'add');
-                    this.template_check = this.template_list[0].id;
-                    this.$emit('addCompont',{'list':this.template_list[0],'is_add_compont':true});
+                    _this.appsTemplate(_this.template_list[0],'add');
+                    _this.template_check = _this.template_list[0].id;
+                    _this.$emit('addCompont',{'list':_this.template_list[0],'is_add_compont':true});
                 }
-            }else{
-                this.set_list = JSON.parse(val.set_list||'[{}]');
-                this.template_check = val.temp_id;
+            }else{//修改
+                _this.set_list = JSON.parse((val.set_list||'[{}]').replace(/'/g,'"'));
+                _this.template_check = val.temp_id;
+                _this.appsTemplate(_this.template_list[0],'edit');
             }
         }).catch(err=>{
             console.log(err);
@@ -102,17 +105,28 @@ export default {
 
         this.availableConfig = val.availableConfig;//有哪几项设置
         this.sortList = val.sortList;//排序
+        if(!this.set_list[0].sortType){
+            this.set_list[0].sortType = val.sortList[0].value;
+        }
         //获取应用栏目列表 /{appid}
         this.http.getPlain_url('app-plate-list-by-app-id','/'+val.appId).then(res=>{
             this.appPlateList = res.data||[];
+            if(!this.set_list[0].id){
+                this.set_list[0].id = res.data[0].value;
+            }
         }).catch(err=>{
             console.log(err);
         })
         this.topCountList = val.topCountList;//显示条数
-
+        if(!this.set_list[0].topCount){
+            this.set_list[0].topCount = val.topCountList[0].value;
+        }
         if(isAdd == 'add'){
             console.log('应用点击的默认添加第一个模板');
-        }else{
+            setTimeout(()=>{
+                this.saveClick('add');
+            },100)
+        }else{//修改这个地方，稍微有点问题。
             this.$emit('addCompont',{'list':val,'is_add_compont':false});
         }
         this.$forceUpdate();
@@ -136,12 +150,15 @@ export default {
     /**保存的时候，需要将所有的参数循环塞入到对应选择的模板中，塞入到close按钮上一层参数。循环塞入，可能有多层。
         取值时，需要将所有的参数获取，并且也需要循环取多层值。然后根据顺序，默认到页面取的数组中去。、
     */
-    saveClick(){
+    saveClick(val){
         var is_cu_temp = document.getElementsByClassName('mask-layer-active');
         var divId = is_cu_temp[0].parentNode.dataset.id;
         is_cu_temp[0].setAttribute('data-set',JSON.stringify(this.set_list))
         //这里还需要把内容存到要要提交的数据中
         this.$emit('saveTempSet',{'list':this.set_list,'divId':divId});
+        if(val == 'edit'){
+            this.$message({message: '设置成功',type: 'success'});
+        }
     },
   },
 }

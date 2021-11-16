@@ -700,18 +700,18 @@ iframe {
 }
 
 /**新修改*/
-.el-table .cell{
+/deep/.el-table .cell{
   line-height: 22px;
 }
-.el-table .el-table__body td.el-table__cell{
-  padding: 9px 0;
+/deep/.el-table td{
+  padding: 9px 0 !important;
   height: 48px;
 }
-.el-table th.is-leaf{
+/deep/.el-table th.is-leaf{
   color: @6C757D;
   background-color: @F1F3F7;
 }
-.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell{
+/deep/.el-table--striped .el-table__body tr.el-table__row--striped td.el-table__cell{
   background-color: @F8FAFF;
 }
 /****查询顶部****/
