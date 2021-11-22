@@ -385,7 +385,9 @@ export default {
       setTimeout(() => {
         let post_form = JSON.stringify(_this.postForm);
         let post_obj = JSON.parse(post_form);
+        if(post_obj.headerTemplate && post_obj.headerTemplate.router)
         post_obj.headerTemplate.router = _this.substrPath(post_obj.headerTemplate.router);
+        if(post_obj.footerTemplate && post_obj.footerTemplate.router)
         post_obj.footerTemplate.router = _this.substrPath(post_obj.footerTemplate.router);
         if(post_obj.layoutId == 1 || post_obj.layoutId==3){//通屏
           console.log('删除多余屏幕');

@@ -1,16 +1,32 @@
 <!---服务中台-预览页面-->
 <template>
   <div class="html-warp-page" :class="items.themeColor||'template1'">
-    <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
-    <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-      <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)">
-        <div :id="setId()"></div>
+    
+    <template>
+      <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
+      <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
+        <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)">
+          <div :id="setId()"></div>
+        </div>
       </div>
-    </div>
-    <div :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div>
+      <div :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div>
+    </template>
+
+    <template>
+      <div class="left-fixed-template">
+        <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
+        <div class="content">
+          <div class="left-fixed">left</div>
+          <div class="center-fixed">center</div>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 <style lang="less" scoped>
+.left-fixed-template{
+  
+}
 .width_1200{
   width: 1200px;
   margin-left: auto;
