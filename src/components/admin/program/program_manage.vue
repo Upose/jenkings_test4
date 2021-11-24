@@ -12,7 +12,7 @@
           <div class="search-div">
             <el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
           </div>
-          <el-table stripe :data="tableData" border class="admin-table">
+          <!-- <el-table stripe :data="tableData" border class="admin-table">
             <el-table-column prop="id" label="序号" align="center" width="120">
               <template slot-scope="scope">
                 {{scope.$index+1}}
@@ -26,29 +26,26 @@
                 <el-button @click="handleSet(scope.row)" type="text" size="mini" icon="el-icon-setting" round>栏目设置</el-button>
               </template>
             </el-table-column>
-          </el-table>
+          </el-table> -->
 
-          <!-- <el-collapse v-model="tab_name" accordion >
-            <el-collapse-item name="1">
-              <template slot="title">
-                一致性 Consistency<i class="header-icon el-icon-info"></i>
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column type="expand" width="30">
+              <template slot-scope="scope">
+                <div v-for="(item,index) in scope.row.plateList" class="row c-l">
+                  <div class="col1">{{index+1}}</div>
+                  <div class="col2">{{item.name}}</div>
+                  <div class="col3"></div>
+                  <div class="col4">{{item.createTime.slice(0,10)}}</div>
+                  <div class="col5"><el-button @click="handleSet(scope.row)" type="text" size="mini" icon="el-icon-setting" round>栏目设置</el-button></div>
+                </div>
               </template>
-              <div class="row"><span></span></div>
-            </el-collapse-item>
-            <el-collapse-item name="2" title="反馈 Feedback">
-              <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-              <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-            </el-collapse-item>
-            <el-collapse-item name="3" title="效率 Efficiency">
-              <div>简化流程：设计简洁直观的操作流程；</div>
-              <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-              <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-            </el-collapse-item>
-            <el-collapse-item title="可控 Controllability">
-              <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-              <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
-            </el-collapse-item>
-          </el-collapse> -->
+            </el-table-column>
+            <el-table-column label="序号" prop="appName" width="120"></el-table-column>
+            <el-table-column label="栏目名称" prop="content" width="120"></el-table-column>
+            <el-table-column label="应用" prop="content" width="100"></el-table-column>
+            <el-table-column label="创建日期" prop="content" width="100"></el-table-column>
+            <el-table-column label="操作" prop="name"></el-table-column>
+          </el-table>
 
         </div>
         <footerPage class="top20"></footerPage>
@@ -56,7 +53,40 @@
     </el-container>
   </div>
 </template>
-
+<style lang="less" scoped>
+  .row{
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+    &:last-child{
+      border-bottom: none;
+    }
+    .col1,.col2,.col3,.col4,.col5{
+      float: left;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 10px;
+    }
+    .col1{
+      width: 150px;
+      text-align: center;
+    }
+    .col2{
+      width: 120px;
+    }
+    .col3{
+      width: 100px;
+    }
+    .col4{
+      width: 100px;
+    }
+    .col5{
+      width: 100px;
+      .el-button{
+        margin-top: -5px;
+      }
+    }
+  }
+</style>
 <script>
 import footerPage from "@/components/admin/common/footer";
 import breadcrumb from "@/components/admin/common/breadcrumb";
