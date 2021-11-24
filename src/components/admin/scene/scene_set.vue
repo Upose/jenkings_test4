@@ -447,6 +447,7 @@ export default {
     templateClick(val){
       console.log(val);
       if(val.isadd){
+        this.postForm.template=val.list||{};
         this.postForm.templateId=val.list.id||'';
         this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
         this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
@@ -454,7 +455,7 @@ export default {
         this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
           confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
         }).then(() => {
-          this.postForm.templateId=val.list.id||'';
+          this.postForm.template=val.list||{};
           this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
           this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
           if(this.grid){
