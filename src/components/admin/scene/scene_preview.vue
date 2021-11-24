@@ -1,8 +1,8 @@
 <!---服务中台-预览页面-->
 <template>
-  <div class="html-warp-page" :class="items.themeColor||'template1'">
+  <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
     
-    <template>
+    <template v-if="true">
       <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
       <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
         <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)">
@@ -12,9 +12,9 @@
       <div :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div>
     </template>
 
-    <template>
+    <template v-if="false">
       <div class="left-fixed-template">
-        <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
+        <div class="header-prewiew"><div :id="setId()">头部</div></div>
         <div class="content">
           <div class="left-fixed">left</div>
           <div class="center-fixed">center</div>
@@ -25,7 +25,40 @@
 </template>
 <style lang="less" scoped>
 .left-fixed-template{
-  
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 1200px;
+  .header-prewiew,.content,.left-fixed,.center-fixed{
+    border: 1px solid #eee;
+  }
+  .header-prewiew{
+    position: absolute;
+    width: 100%;
+    height: 90px;
+    z-index: 3;
+  }
+  .content{
+    width: 100%;
+    position: absolute;
+    top: 90px;
+    bottom: 0;
+    .left-fixed{
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 350px;
+    }
+    .center-fixed{
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 350px;
+      bottom: 0;
+      overflow-y: auto;
+    }
+  }
 }
 .width_1200{
   width: 1200px;
@@ -38,19 +71,19 @@
 }
 .html-warp-page{
   width: 100%;
+  height: 1%;
   min-height: 100%;
 }
 </style>
 <script>
-import Sortable from "sortablejs";
 export default {
   name: 'index',
   mounted(){
-    this.addStyle(this.items.headerTemplate.router+'/component.css');
-    this.addScript(this.items.headerTemplate.router+'/component.js');
-    this.addStyle(this.items.footerTemplate.router+'/component.css');
-    this.addScript(this.items.footerTemplate.router+'/component.js');
-    console.log(this.items);
+    // this.addStyle(this.items.headerTemplate.router+'/component.css');
+    // this.addScript(this.items.headerTemplate.router+'/component.js');
+    // this.addStyle(this.items.footerTemplate.router+'/component.css');
+    // this.addScript(this.items.footerTemplate.router+'/component.js');
+    // console.log(this.items);
   },
   data () {
     return {
