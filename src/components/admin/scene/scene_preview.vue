@@ -39,7 +39,6 @@ export default {
   name: 'index',
   created(){
     var list = JSON.parse(window.localStorage.getItem('scenePreview'));
-    console.log(list);
     if(list && list.template){
       this.isLock = list.template.isLock;
       this.items = list;
@@ -56,11 +55,12 @@ export default {
             })
           }
       }else{
-        
-        this.addStyle(this.items.headerTemplate.router+'/component.css');
-        this.addScript(this.items.headerTemplate.router+'/component.js');
-        this.addStyle(this.items.footerTemplate.router+'/component.css');
-        this.addScript(this.items.footerTemplate.router+'/component.js');
+        setTimeout(()=>{
+          this.addStyle(this.items.headerTemplate.router+'/component.css');
+          this.addScript(this.items.headerTemplate.router+'/component.js');
+          this.addStyle(this.items.footerTemplate.router+'/component.css');
+          this.addScript(this.items.footerTemplate.router+'/component.js');
+        },100)
       }
     }
   },
@@ -142,7 +142,7 @@ export default {
     position: absolute;
     width: 100%;
     height: 90px;
-    z-index: 3;
+    z-index: 5;
   }
   .content{
     width: 100%;
