@@ -14,7 +14,7 @@
             <span class="d-title">所有状态：</span>
             <el-button :type="Status==1?'primary':''" size="medium" @click="statusClick(1)">启用</el-button>
             <el-button :type="Status==0?'primary':''" size="medium" @click="statusClick(0)">禁用</el-button>
-            <el-button size="medium" icon="el-icon-plus" class="r-btn" @click="addClick()">新建场景</el-button>
+            <el-button size="medium" icon="el-icon-plus" class="r-btn" @click="addClick()" v-if="authShowBtn('场景管理','新建场景')">新建场景</el-button>
           </div>
         </div><!---顶部查询板块 end--->
         <div class="list-content">
@@ -31,10 +31,10 @@
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="el-icon-s-tools" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="editClick(i,item.terminalType)"><i class="el-icon-delete"></i><span>修改</span></li>
-                      <li @click="delClick(i)"><i class="el-icon-delete"></i><span>删除</span></li>
-                      <li @click="previewClick(i)"><i class="el-icon-delete"></i><span>预览</span></li>
-                      <li @click="disableClick(i)"><i class="el-icon-delete"></i><span>禁用</span></li>
+                      <li @click="editClick(i,item.terminalType)" v-if="authShowBtn('场景管理','修改场景')"><i class="el-icon-delete"></i><span>修改</span></li>
+                      <li @click="delClick(i)" v-if="authShowBtn('场景管理','删除场景')"><i class="el-icon-delete"></i><span>删除</span></li>
+                      <li @click="previewClick(i)" v-if="authShowBtn('场景管理','预览场景')"><i class="el-icon-delete"></i><span>预览</span></li>
+                      <li @click="disableClick(i)" v-if="authShowBtn('场景管理','禁用场景')"><i class="el-icon-delete"></i><span>禁用</span></li>
                     </ul>
                   </el-popover>
                   </span>

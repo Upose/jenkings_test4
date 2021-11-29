@@ -15,6 +15,28 @@ Vue.use(VueI18n)
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
 
+Vue.prototype.authShowBtn = function(one_name,two_name){
+  var list = window.localStorage.getItem('menuAuth');
+  var is_show = false;
+  if(list.length>0){
+    for(var i=0;i<list.length;i++){
+      if(one_name == list[i].name){
+        if(list[i].permissionNodes && list[i].permissionNodes.length>0){
+          for(var k=0;k<list[i].permissionNodes.length;k++){
+            if(two_name == list[i].permissionNodes.name){
+              is_show = true;
+            }
+          }
+        }
+      }
+    }
+    return is_show;
+  }
+  if(item.name == '新建场景'){
+    return true;
+  }
+}
+
 const i18n = new VueI18n({
   locale: window.localStorage.getItem('locale')||'zh-CN',
   messages: {

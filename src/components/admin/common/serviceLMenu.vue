@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="s-menu">
-      <div class="s-row" :class="isActive(item.component)?'active':''"  :title="item.name" @click="openPage(item.component)" v-for="(item,index) in dataList" :key="index+'menu'"><i class="el-icon-s-ticket"></i><span>{{item.name}}</span></div>
+      <div class="s-row" :class="isActive(item.router)?'active':''"  :title="item.name" @click="openPage(item.router)" v-for="(item,index) in dataList" :key="index+'menu'"><i class="el-icon-s-ticket"></i><span>{{item.name}}</span></div>
     </div>
   </div>
 </template>
@@ -41,14 +41,20 @@ export default {
     // }).catch(err=>{
 
     // })
+    this.http.getPlain('auth_tree','').then((res) => {
+      this.dataList = res.data||[];
+      window.localStorage.setItem('menuAuth',this.dataList);
+    }).catch((err) => {
+      
+    });
   },
   data () {
     return {
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       dataList:[
-        {icon:'el-icon-warning-outline',name:'场景管理',component:'/caseShow'},
-        {icon:'el-icon-warning-outline',name:'栏目管理',component:'/programManage'},
-        {icon:'el-icon-warning-outline',name:'终端管理',component:'/terminalManage'},
+        // {icon:'el-icon-warning-outline',name:'场景管理',router:'/caseShow'},
+        // {icon:'el-icon-warning-outline',name:'栏目管理',router:'/programManage'},
+        // {icon:'el-icon-warning-outline',name:'终端管理',router:'/terminalManage'},
       ],
     }
   },
