@@ -30,7 +30,6 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
-@import "../../../assets/admin/css/style.less";/**颜色配置 */
   .footer-page{
     text-align: center;
     color: @6C757D;
