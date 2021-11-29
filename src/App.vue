@@ -22,6 +22,7 @@ export default {
     }).catch(err=>{
         console.log(err);
     })
+    this.initData();
   },
   data(){
     return {
@@ -29,6 +30,18 @@ export default {
     }
   },
   methods:{
+    initData(){
+      this.http.getPlain('auth','').then((res) => {
+        
+      }).catch((err) => {
+        
+      });
+      this.http.getPlain('auth_tree','').then((res) => {
+        
+      }).catch((err) => {
+        
+      });
+    },
   },
 }
 </script>

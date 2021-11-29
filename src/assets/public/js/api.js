@@ -5,6 +5,8 @@ var baseURL = 'http://192.168.21.23:5023';//请求前端地址
 export default {
     postUrl: {
         'gettoken':'http://192.168.21.71:8077/api/Auth/AccessToken',//获取token
+        'auth':baseURL+'/api/sys-menu/user-permission-list',//权限菜单-列表
+        'auth_tree':baseURL+'/api/sys-menu/user-permission-tree',//权限-树形
         'scene-overview': baseURL + '/api/scene-manage/scene-overview', //获取场景总览列表
         'scene-list-by-terminal-id': baseURL + '/api/scene-manage/scene-list-by-terminal-id', //按终端获取场景列表
         'scene-detail': baseURL + '/api/scene-manage/scene-detail', //获取场景详情 /{sceneid}
