@@ -9,7 +9,7 @@
         <div class="content" v-if="authShowBtn('终端管理','终端列表')">
           <div class="s-w">
             <span class="m-title"><i class="el-icon-s-platform"></i>已配置终端列表</span>
-            <el-button size="medium" icon="el-icon-plus" class="r-btn" v-if="authShowBtn('终端管理','添加终端实例')" @click="addClick('add','')">新增终端</el-button>
+            <el-button size="medium" icon="el-icon-plus" class="r-btn" v-if="authShowBtn('terminal_add')" @click="addClick('add','')">新增终端</el-button>
           </div>
         </div><!---顶部查询板块 end--->
         <div class="list-content">
@@ -22,8 +22,8 @@
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="el-icon-s-tools" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="addClick('edit',i)" v-if="authShowBtn('终端管理','编辑终端实例')"><i class="el-icon-delete"></i><span>编辑</span></li>
-                      <li @click="delClick(i)" v-if="authShowBtn('终端管理','删除终端实例')"><i class="el-icon-delete"></i><span>删除</span></li>
+                      <li @click="addClick('edit',i)" v-if="authShowBtn('terminal_edit')"><i class="el-icon-delete"></i><span>编辑</span></li>
+                      <li @click="delClick(i)" v-if="authShowBtn('terminal_delete')"><i class="el-icon-delete"></i><span>删除</span></li>
                     </ul>
                   </el-popover>
                   </span>

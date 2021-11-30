@@ -43,7 +43,7 @@ export default {
     // })
     this.http.getPlain('auth_tree','').then((res) => {
       this.dataList = res.data||[];
-      window.localStorage.setItem('menuAuth',this.dataList);
+      window.localStorage.setItem('menuAuth',JSON.stringify(this.dataList));
     }).catch((err) => {
       
     });

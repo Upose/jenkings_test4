@@ -30,10 +30,10 @@
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="el-icon-s-tools" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="editClick(i)"><i class="el-icon-delete"></i><span>修改</span></li>
-                      <li @click="delClick(i)"><i class="el-icon-delete"></i><span>删除</span></li>
-                      <li @click="previewClick(i)"><i class="el-icon-delete"></i><span>预览</span></li>
-                      <li @click="disableClick(i)"><i class="el-icon-delete"></i><span>禁用</span></li>
+                      <li @click="editClick(i)" v-if="authShowBtn('scene-manage_edit')"><i class="el-icon-delete"></i><span>修改</span></li>
+                      <li @click="delClick(i)" v-if="authShowBtn('scene-manage_delete')"><i class="el-icon-delete"></i><span>删除</span></li>
+                      <li @click="previewClick(i)" v-if="authShowBtn('scene-manage_preview')"><i class="el-icon-delete"></i><span>预览</span></li>
+                      <li @click="disableClick(i)" v-if="authShowBtn('scene-manage_disable')"><i class="el-icon-delete"></i><span>禁用</span></li>
                     </ul>
                   </el-popover>
                   </span>
