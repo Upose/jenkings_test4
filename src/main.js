@@ -23,8 +23,10 @@ Vue.prototype.authShowBtn = function(one_name,two_name){
       if(one_name == list[i].name){
         if(list[i].permissionNodes && list[i].permissionNodes.length>0){
           for(var k=0;k<list[i].permissionNodes.length;k++){
-            if(two_name == list[i].permissionNodes.name){
-              is_show = true;
+            if(two_name == list[i].permissionNodes[k].name){
+              if(list[i].permissionNodes[k].permission){
+                is_show = true;
+              }
             }
           }
         }
