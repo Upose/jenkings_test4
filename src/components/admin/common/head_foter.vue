@@ -1,7 +1,7 @@
 <!--头部底部模板选择-->
 <template>
   <div class="tag-box">
-    <el-dialog title="选择头部和底部模板" :visible.sync="dialogBulk" width="600px" :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog append-to-body title="选择头部和底部模板" :visible.sync="dialogBulk" width="600px" :close-on-click-modal="false" :before-close="handleClose">
         <el-form label-width="70px" class="admin-form">
             <div class="form-content">
             <el-form-item label="头部模板" prop="defaultTemplate">
