@@ -179,7 +179,7 @@ export default {
       width: 2px;
       height: 15px;
       position: absolute;
-      right: 0;
+      right: 5px;
       top:13px;
       background-color: @6777EF;
     }
