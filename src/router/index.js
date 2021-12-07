@@ -6,6 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    { path: '/', redirect: '/caseShow' },
     {
       path: '/web',
       name: 'index',
