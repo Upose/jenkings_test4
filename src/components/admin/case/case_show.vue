@@ -129,22 +129,7 @@ export default {
       Status:null,//启用，禁用
       IsSystemScene:null,//是否默认场景
       defalut_img:require('../../../assets/admin/img/upload/s1.png'),
-      dataList:[
-        {
-          "terminalName": "string",
-          "terminalId": "string",
-          "sceneList": [
-            {
-              "id": "string",
-              "name": "string",
-              "cover": "string",
-              "status": 0,
-              "isSystemScene": true,
-              "visitUrl": "string"
-            }
-          ]
-        },
-      ],//列表
+      dataList:[],//列表
     }
   },
   mounted(){
@@ -153,10 +138,10 @@ export default {
   methods:{
     initData(){
       var pars = '?TopCount=16';
-      if(this.Status){
+      if(this.Status || this.Status){
         pars = pars+"&Status="+this.Status;
       }
-      if(this.IsSystemScene){
+      if(this.IsSystemScene || this.IsSystemScene == 0){
         pars = pars+"&IsSystemScene="+this.IsSystemScene;
       }
       this.http.getJsonSelf('scene-overview',pars).then(res=>{ 

@@ -83,11 +83,17 @@ export default {
   },
   methods:{
     initData(){
-      var pas = '?PageSize='+this.pageData.pageSize+"&PageIndex="+this.pageData.pageIndex;
-      if(this.postForm.TerminalId){
-        pas = pas + "&TerminalId="+this.postForm.TerminalId;
+      var pars = 'PageSize='+this.pageData.pageSize+"&PageIndex="+this.pageData.pageIndex;
+      if(this.Status || this.Status == 0){
+        pars = pars+"&Status="+this.Status;
       }
-      this.http.getPlain('scene-list-by-terminal-id',pas).then(res=>{
+      if(this.IsSystemScene || this.IsSystemScene==0){
+        pars = pars+"&IsSystemScene="+this.IsSystemScene;
+      }
+      if(this.postForm.TerminalId){
+        pars = pars + "&TerminalId="+this.postForm.TerminalId;
+      }
+      this.http.getPlain('scene-list-by-terminal-id',pars).then(res=>{
           this.listData = res.data.items||[];
           this.pageData.totalCount = res.data.totalCount;
       }).catch(err=>{
