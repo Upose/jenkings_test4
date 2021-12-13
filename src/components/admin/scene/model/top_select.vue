@@ -28,7 +28,7 @@
         </div> -->
         <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="saveClick()">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="scenePreview()">预览</el-button>
-        <el-button icon="el-icon-download" size="medium" class="s-r-f-r" v-if="this.$route.query.scene">复制链接</el-button>
+        <el-button icon="el-icon-download" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
         <!-- </div> -->
     </div><!--顶部条件筛选 end-->
     <header_footer @hfHide="hfHide" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
@@ -46,7 +46,8 @@ export default {
       header_footer_show:false,
       postForm:{
         name:'',
-        user_type:[]
+        user_type:[],
+        visitUrl:'',
       },
       userType: [],
       user_check_list: [],//用户类型
@@ -62,7 +63,18 @@ export default {
       this.postForm.status = val.status;//服务状态
       this.postForm.sceneUsers = val.sceneUsers;//用户类型
       this.postForm.visitor_type = val.visitorLimitType;//权限控制
+      this.postForm.visitUrl = val.visitUrl;//地址复制
       this.$forceUpdate();
+    },
+    //复制url
+    copyURL(){
+      // if(window.clipboardData){
+      //   window.clipboardData.setData("Text",this.postForm.visitUrl);
+      //   this.$message({message: '复制成功',type:'info'});
+      // }else{
+      //   window.prompt("请按Ctrl+C复制", this.postForm.visitUrl);
+      // }
+      window.prompt("请按Ctrl+C复制", this.postForm.visitUrl);
     },
     //名称输入事件
     setName(val){
