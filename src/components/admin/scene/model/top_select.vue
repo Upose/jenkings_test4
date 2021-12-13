@@ -28,7 +28,7 @@
         </div> -->
         <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="saveClick()">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="scenePreview()">预览</el-button>
-        <el-button icon="el-icon-download" size="medium" class="s-r-f-r">复制链接</el-button>
+        <el-button icon="el-icon-download" size="medium" class="s-r-f-r" v-if="this.$route.query.scene">复制链接</el-button>
         <!-- </div> -->
     </div><!--顶部条件筛选 end-->
     <header_footer @hfHide="hfHide" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>

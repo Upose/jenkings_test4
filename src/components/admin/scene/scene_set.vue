@@ -393,6 +393,20 @@ export default {
           console.log('删除多余屏幕');
           post_obj.sceneScreens.splice(1,1);
         }
+        //表单验证
+        console.log(post_obj);
+        if(!post_obj.name){
+          _this.$message({message: '请设置场景名称',type:'info'});
+          return ;
+        }
+        if(!post_obj.status){
+          _this.$message({message: '请选择服务状态',type:'info'});
+          return ;
+        }
+        if(!post_obj.visitorLimitType && post_obj.visitorLimitType==undefined){
+          _this.$message({message: '请选择权限控制',type:'info'});
+          return ;
+        }
         if(this.$route.query.scene){
           _this.http.putJson('scene-add',post_obj).then(res=>{
             _this.$message({message: '修改成功',type:'success'});
@@ -429,7 +443,7 @@ export default {
     topCheck(val){
       this.postForm.status = val.status||'';
       this.postForm.sceneUsers = val.user_type||[];
-      this.postForm.visitorLimitType = val.visitor_type||0;
+      this.postForm.visitorLimitType = val.visitor_type;
     },
     //保存模板设置参数（条数，栏目，排序规则等）
     saveTempSet(val){
