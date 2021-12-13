@@ -19,6 +19,21 @@ Vue.prototype.backHistory = function(){
   window.history.go(-1);
 }
 
+Vue.prototype.addStyle = function(url){
+  var link=document.createElement("link"); 
+  link.setAttribute("rel", "stylesheet"); 
+  link.setAttribute("type", "text/css"); 
+  link.setAttribute("href", url+'?version='+new Date().getTime());
+  document.getElementsByTagName("body")[0].appendChild(link);
+}
+
+Vue.prototype.addScript = function(url){
+  var js_element=document.createElement("script");
+  js_element.setAttribute("type","text/javascript");
+  js_element.setAttribute("src",url+'?version='+new Date().getTime());
+  document.getElementsByTagName("body")[0].appendChild(js_element);
+}
+
 Vue.prototype.authShowBtn = function(value){
   var list = JSON.parse(window.localStorage.getItem('menuAuth')||'[]');
   var is_show = false;

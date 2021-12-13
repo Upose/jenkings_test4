@@ -612,21 +612,6 @@ export default {
         })
       }
     },
-    //引入css文件
-    addStyle(url){
-      var link=document.createElement("link"); 
-      link.setAttribute("rel", "stylesheet"); 
-      link.setAttribute("type", "text/css"); 
-      link.setAttribute("href", url);
-      document.getElementsByTagName("body")[0].appendChild(link);
-    },
-    //引入js文件
-    addScript(url){
-      var js_element=document.createElement("script");
-      js_element.setAttribute("type","text/javascript");
-      js_element.setAttribute("src",url);
-      document.getElementsByTagName("body")[0].appendChild(js_element);
-    },
   },
 }
 </script>
