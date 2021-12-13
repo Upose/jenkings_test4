@@ -127,7 +127,7 @@ export default {
       this.getList(val.id);
     },
     handleSet(row){
-      window.open(row.visitUrl, "_blank");
+      window.location.href = row.visitUrl;
     },
   },
 }
