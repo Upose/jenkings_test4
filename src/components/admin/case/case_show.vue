@@ -204,7 +204,7 @@ export default {
     //禁用场景
     disableClick(val){
       var _this = this;
-      this.$confirm('是否确定禁用此场景?', '提示', {
+      this.$confirm('禁用后用户无法再访问该场景，是否继续？?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

@@ -147,7 +147,7 @@ export default {
     //二级菜单点击
     menuClick(val,index){
       this.s_index = index;
-      console.log(val);
+      this.getList(val.id);
     },
     handleSet(row){
       this.$router.push({path:'programAdd',query: {id:row.id,}});

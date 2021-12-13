@@ -15,10 +15,10 @@
               <el-form-item label="关键词" prop="keyWords">
                 <el-input v-model="postForm.keyWords" placeholder="请输入关键词"></el-input>
               </el-form-item>
-              <el-form-item label="简要描述">
+              <el-form-item label="简要描述" prop="description">
                 <el-input type="textarea" class="form-textarea" placeholder="请输入简要描述" v-model="postForm.description"></el-input>
               </el-form-item>
-              <el-form-item label="终端类型">
+              <el-form-item label="终端类型" prop="terminalType">
                 <el-radio-group v-model="postForm.terminalType">
                   <el-radio :label="1">PC网站端</el-radio>
                   <el-radio label="2">APP端</el-radio>
@@ -27,9 +27,9 @@
                   <el-radio :label="5">显示屏</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="终端logo" v-model="postForm.logo">
+              <el-form-item label="终端logo" prop="logo">
                 <div class="up-img-form-item">
-                  <div class="up-img-warp">
+                  <div class="up-img-warp" v-if="postForm.logo">
                     <img :src="postForm.logo?(basurl+postForm.logo):default_img">
                   </div>
                   <div class="up-img-warp up-icon" @click="upImg()">
@@ -37,9 +37,9 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="默认图标" v-model="postForm.logo">
+              <el-form-item label="默认图标" prop="icon">
                 <div class="up-img-form-item">
-                  <div class="up-img-warp">
+                  <div class="up-img-warp" v-if="postForm.icon">
                     <img :src="postForm.icon||default_img">
                   </div>
                   <div class="up-img-warp select-icon" @click="selectImg()">
@@ -47,20 +47,20 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="访问路径">
+              <el-form-item label="访问路径" prop="visitUrl">
                 <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径"></el-input>
               </el-form-item>
-              <el-form-item label="服务状态">
+              <el-form-item label="服务状态" prop="status">
                 <el-radio-group v-model="postForm.status">
                   <el-radio :label="1" >正常</el-radio>
                   <el-radio :label="0" >下线</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="备注信息">
+              <el-form-item label="备注信息" prop="remark">
                 <el-input type="textarea" class="form-textarea" placeholder="请输入备注信息" v-model="postForm.remark"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button icon="el-icon-close" size="medium">取消</el-button>
+                <el-button icon="el-icon-close" size="medium" @click="backHistory()">取消</el-button>
                 <el-button icon="el-icon-check" size="medium" type="primary" @click="submitForm('postForm')">保存</el-button>
               </el-form-item>
             </div>
@@ -113,11 +113,37 @@ export default {
       id:this.$route.query.id,//判断是否编辑
       rules: {
           name: [
-              { required: true, message: '请输入内容', trigger: 'blur' }
+              { required: true, message: '请输入内容', trigger: 'blur' },
+              { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
           ],
-          desc: [
-              { required: true, message: '请输入内容', trigger: 'blur' }
-          ]
+          keyWords: [
+              { message: '请输入内容', trigger: 'blur' },
+              { min: 0, max: 100, message: '长度在 0 到 100 个字符', trigger: 'blur' }
+          ],
+          description: [
+              { message: '请输入内容', trigger: 'blur' },
+              { min: 0, max: 200, message: '长度在 0 到 200 个字符', trigger: 'blur' }
+          ],
+          terminalType: [
+              { required: true, message: '请选择类型', trigger: 'change' },
+          ],
+          terminalType: [
+              { required: true, message: '请选择类型', trigger: 'change' },
+          ],
+          icon: [
+              { required: true, message: '请选择', trigger: 'change' },
+          ],
+          status: [
+              { required: true, message: '请选择', trigger: 'change' },
+          ],
+          visitUrl: [
+              { message: '请输入内容', trigger: 'blur' },
+              { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
+          ],
+          remark: [
+              { message: '请输入内容', trigger: 'blur' },
+              { min: 0, max: 200, message: '长度在 0 到 200 个字符', trigger: 'blur' }
+          ],
       },
     }
   },

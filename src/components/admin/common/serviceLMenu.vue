@@ -158,7 +158,7 @@ export default {
         width: 2px;
         height: 15px;
         position: absolute;
-        right: 0;
+        right: 5px;
         top:13px;
         background-color: @6777EF;
       }
@@ -187,6 +187,9 @@ export default {
 }
 /***折叠后菜单**/
 .fold-menu{
+  .header-warp{
+    width:85px;
+  }
   .s-row{
     padding:0;
     font-size: 12px;

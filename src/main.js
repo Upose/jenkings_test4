@@ -15,6 +15,10 @@ Vue.use(VueI18n)
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
 
+Vue.prototype.backHistory = function(){
+  window.history.go(-1);
+}
+
 Vue.prototype.authShowBtn = function(value){
   var list = JSON.parse(window.localStorage.getItem('menuAuth')||'[]');
   var is_show = false;
