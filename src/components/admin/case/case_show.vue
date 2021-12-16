@@ -7,7 +7,7 @@
         <breadcrumb :cuMenu="'服务总览'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
           <div class="s-w c-l">
-            <span class="m-title"><i class="el-icon-s-platform"></i>已使用场景</span>
+            <span class="admin-m-title"><i class="el-icon-s-platform"></i>已使用场景</span>
             <span class="d-title">所有场景：</span>
             <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">默认</el-button>
             <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">自定义</el-button>
@@ -47,7 +47,7 @@
         <!-- <div class="list-content top20">
           <div class="content">
             <div class="s-w">
-              <h1 class="m-title">
+              <h1 class="admin-m-title">
                 <i class="el-icon-s-platform"></i>推荐场景
                 <span class="more-r">更多<i class="el-icon-arrow-right"></i></span>
               </h1>
@@ -75,7 +75,7 @@
         <!-- <div class="log-list c-l">
           <div class="width-5">
             <div class="log-warp">
-              <h1 class="m-title">
+              <h1 class="admin-m-title">
                 <i class="el-icon-s-platform"></i>更新日志
                 <span class="more-r" @click="logMore('log')">更多<i class="el-icon-arrow-right"></i></span>
               </h1>
@@ -92,7 +92,7 @@
 
           <div class="width-5">
             <div class="log-warp">
-              <h1 class="m-title">
+              <h1 class="admin-m-title">
                 <i class="el-icon-s-platform"></i>注意事项
                 <span class="more-r" @click="logMore('notice')">更多<i class="el-icon-arrow-right"></i></span>
               </h1>
@@ -381,7 +381,7 @@ export default {
         border: 1px solid #EBEEF5;
         box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
         border-radius: 3px;
-        .m-title{
+        .admin-m-title{
           height: 60px;
           line-height: 60px;
           padding: 0 20px;

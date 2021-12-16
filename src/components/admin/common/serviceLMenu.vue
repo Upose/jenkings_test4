@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="s-menu">
-      <div class="s-row" :class="isActive(item.router)?'active':''"  :title="item.name" @click="openPage(item.router)" v-for="(item,index) in dataList" :key="index+'menu'"><i class="el-icon-s-ticket"></i><span>{{item.name}}</span></div>
+      <div class="s-row" :class="isActive(item.router)?'active':''"  :title="item.name" @click="openPage(item.router)" v-for="(item,index) in dataList" :key="index+'menu'"><i class="el-icon-caret-right"></i><span>{{item.name}}</span></div>
     </div>
   </div>
 </template>
@@ -74,6 +74,9 @@ export default {
     },
     //是否当前菜单
     isActive(url){
+      if(window.localStorage.getItem('path_url') == undefined){//初始化的时候，第一次进入没有值给一个默认值
+        window.localStorage.setItem('path_url','/caseShow');
+      }
       var cu_href = window.localStorage.getItem('path_url');
       if(url == cu_href){
         return true;

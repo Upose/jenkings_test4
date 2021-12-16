@@ -7,7 +7,7 @@
         <breadcrumb :cuMenu="'服务总览'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
           <div class="s-w c-l">
-            <span class="m-title"><i class="el-icon-s-platform"></i>PC门户端</span>
+            <span class="admin-m-title"><i class="el-icon-s-platform"></i>PC门户端</span>
             <span class="d-title">所有场景：</span>
             <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">默认</el-button>
             <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">自定义</el-button>
