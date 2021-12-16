@@ -89,9 +89,9 @@ export default {
 .admin-form .form-content{
     padding: 0 !important;
     .temp-select{
-        padding: 20px 10px;
+        padding: 10px 10px;
         .d-temp-box{
-            margin:0 10px;
+            margin:10px;
         }
     }
     .m-center{

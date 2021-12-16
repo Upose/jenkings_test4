@@ -1,4 +1,9 @@
 @charset "UTF-8";
+.template0 {
+  filter:Gray;
+  filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);
+  filter: progid:DXImageTransform.Microsoft.MotionBlur(strength=13, direction=310) progid:DXImageTransform.Microsoft.Blur(pixelradius=2) progid:DXImageTransform.Microsoft.Wheel(duration=3);
+}
 .template1 {
   /**外包新增***/
 }
