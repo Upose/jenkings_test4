@@ -75,6 +75,7 @@ export default {
       console.log(val);
     },
     appDetails(val){
+        console.log('---',val);
         var _this = this;
         console.log(val);
         _this.is_add = val.is_add;
@@ -92,7 +93,13 @@ export default {
             }else{//修改
                 _this.set_list = JSON.parse((val.set_list||'[{}]').replace(/'/g,'"'));
                 _this.template_check = val.temp_id;
-                _this.appsTemplate(_this.template_list[0],'edit');
+                var index = 0;
+                _this.template_list.forEach((item,i)=>{
+                    if(item.id == val.temp_id){
+                        index = i;
+                    }
+                })
+                _this.appsTemplate(_this.template_list[index],'edit');
             }
         }).catch(err=>{
             console.log(err);
@@ -100,7 +107,7 @@ export default {
     },
     //选择某个模板
     appsTemplate(val,isAdd){
-        console.log(val);
+        console.log('right',val,isAdd);
         this.template_check = val.id;
 
         this.availableConfig = val.availableConfig;//有哪几项设置
