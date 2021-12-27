@@ -160,7 +160,7 @@ export default {
         ],//分屏
       },
       opts: {//元素初始化高度
-        cellHeight: '10', 
+        cellHeight: 10, 
         cellHeightThrottle: 100,
       },
     }
@@ -183,6 +183,8 @@ export default {
                   h: it.height,
                   x: it.xIndex,
                   y: it.yIndex,
+                  minW:it.width,
+                  minH:it.height,
                   appId:it.appId,
                   appPlateItems:it.appPlateItems,
                   appWidget:it.appWidget,
@@ -244,7 +246,9 @@ export default {
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
           list.push({
-            x: item.x, y: item.y, h: item.h, w: item.w, 
+            x: item.x, y: item.y, h: item.h, w: item.w,
+            minW:item.minW,
+            minH:item.minH,
             target:item.target,
             tempId:item.tempId,
             divId:item.divId,//元素渲染id
@@ -283,6 +287,8 @@ export default {
         this.removeActiveClass('mask-layer');
         let it = {
             x: 0, y: 0, h: data.height, w: data.width, 
+            minW:data.width,
+            minH:data.height,
             target:data.target,
             tempId:data.id,
             divId:component_id,//元素渲染id
@@ -300,9 +306,14 @@ export default {
           var y = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-y');
           var w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-w');
           var h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-h');
+          var min_w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-w');
+          var min_h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-h');
+          console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
-            x: x, y: y, h: h, w: w, 
+            x: x, y: y, h: h, w: w,
+            minW:min_w,
+            minH:min_h,
             target:data.target,
             tempId:data.id,
             divId:component_id,//元素渲染id
