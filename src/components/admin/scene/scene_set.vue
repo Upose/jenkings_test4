@@ -183,8 +183,8 @@ export default {
                   h: it.height,
                   x: it.xIndex,
                   y: it.yIndex,
-                  minW:it.width,
-                  minH:it.height,
+                  minW:it.appWidget.width,
+                  minH:it.appWidget.height,
                   appId:it.appId,
                   appPlateItems:it.appPlateItems,
                   appWidget:it.appWidget,
@@ -245,6 +245,7 @@ export default {
       var list = [];
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
+          console.log(item);
           list.push({
             x: item.x, y: item.y, h: item.h, w: item.w,
             minW:item.minW,
