@@ -31,6 +31,7 @@
         </div>
       </div>
     </template>
+
   </div>
 </template>
 
@@ -45,6 +46,7 @@ export default {
       if(this.isLock){
         this.addStyle(this.items.headerTemplate.router+'/component.css');
         this.addScript(this.items.headerTemplate.router+'/component.js');
+        console.log('全屏');
           if(this.items.sceneScreens){
             this.items.sceneScreens[0].sceneApps.forEach(it=>{
               if(it.xIndex==0){
@@ -55,6 +57,7 @@ export default {
             })
           }
       }else{
+        console.log('非全屏');
         setTimeout(()=>{
           this.addStyle(this.items.headerTemplate.router+'/component.css');
           this.addScript(this.items.headerTemplate.router+'/component.js');
@@ -66,7 +69,7 @@ export default {
   },
   data () {
     return {
-      isLock:false,
+      isLock:false,//是否全屏
       //以下是拖拽参数
       grid:null,
       items:{},
