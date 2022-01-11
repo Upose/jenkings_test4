@@ -11,17 +11,17 @@ export default {
     this.$store.commit('getSession');
     this.$i18n.locale = this.$store.state.language;
     this.skin_template = this.$store.state.skin_template;
-    var list= {
-        "orgId": "",
-        "orgSecret": "",
-        "orgCode": "cqu",
-        "userKey": ""
-    };
-    this.http.postJson('gettoken',list).then(res=>{ 
-      window.localStorage.setItem('token',res.data.token);
-    }).catch(err=>{
-        console.log(err);
-    })
+    // var list= {
+    //     "orgId": "",
+    //     "orgSecret": "",
+    //     "orgCode": "cqu",
+    //     "userKey": ""
+    // };
+    // this.http.postJson('gettoken',list).then(res=>{ 
+    //   window.localStorage.setItem('token',res.data.token);
+    // }).catch(err=>{
+    //     console.log(err);
+    // })
     // this.initData();
   },
   data(){

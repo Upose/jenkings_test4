@@ -6,7 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', redirect: '/caseShow' },
+    { path: '/', redirect: '/admin_caseShow' },
     {
       path: '/web',
       name: 'index',
@@ -22,8 +22,8 @@ export default new Router({
       children:adminRouter.router,
     },
     {
-      path: '/scenePreview',
-      name: 'scenePreview',
+      path: '/admin_scenePreview',
+      name: 'admin_scenePreview',
       component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview')), 'scene'),
       meta: { title: '服务中台-场景预览' , keepAlive:true},
     },

@@ -56,11 +56,11 @@ export default {
       })
     },
     addClick(){
-      this.$router.push('/terminalAdd');
+      this.$router.push('/admin_terminalAdd');
     },
     goSet(val){
       console.log(val);
-      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:val.terminalType,t:val.name}});
+      this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:val.terminalType,t:val.name}});
     },
   },
 }

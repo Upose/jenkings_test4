@@ -37,7 +37,7 @@ export default {
       dataList:[
         {icon:'el-icon-warning-outline',title:'工作台',url:'/librarianWorkbench'},
         {icon:'el-icon-warning-outline',title:'应用中心',url:'/appInfo'},
-        {icon:'el-icon-warning-outline',title:'场景管理',url:'/caseShow'},
+        {icon:'el-icon-warning-outline',title:'场景管理',url:'/admin_caseShow'},
         {icon:'el-icon-warning-outline',title:'用户管理',url:'/tableList'},
         {icon:'el-icon-warning-outline',title:'数据管理',url:'/dataCentre'},
         {icon:'el-icon-warning-outline',title:'运行统计',url:'/tableList'},

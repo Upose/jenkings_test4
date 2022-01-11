@@ -1,6 +1,6 @@
 /***后台管理系统 项目接口地址-服务中台 */
 
-var baseURL = 'http://192.168.21.23:5023';//请求前端地址
+var baseURL = 'http://192.168.21.46:8000/scenemanage';//请求前端地址
 
 export default {
     postUrl: {

@@ -151,11 +151,11 @@ export default {
       })
     },
     addClick(){
-      this.$router.push('/sceneManage');
+      this.$router.push('/admin_sceneManage');
     },
     //编辑场景
     editClick(val,terminalType){
-      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:terminalType,t:val.name,scene:val.id}});
+      this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:terminalType,t:val.name,scene:val.id}});
     },
     //删除场景
     delClick(val){
@@ -210,7 +210,7 @@ export default {
       console.log(val);
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-        var url = window.location.origin+"/#/scenePreview";
+        var url = window.location.origin+"/#/admin_scenePreview";
         setTimeout(() => {
           window.open(url);
         }, 50);
@@ -221,11 +221,11 @@ export default {
     //更多
     moreClick(val){
       console.log(val);
-      this.$router.push({path:'caseList',query:{id:val.terminalId,type:val.terminalType}});
+      this.$router.push({path:'admin_caseList',query:{id:val.terminalId,type:val.terminalType}});
     },
     //日志，通知
     logMore(val){
-      this.$router.push({path:'/logList',query:{tag:val}});
+      this.$router.push({path:'/admin_logList',query:{tag:val}});
     },
   },
 }

@@ -52,9 +52,9 @@ export default {
     return {
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       dataList:[
-        // {icon:'el-icon-warning-outline',name:'场景管理',router:'/caseShow'},
-        // {icon:'el-icon-warning-outline',name:'栏目管理',router:'/programManage'},
-        // {icon:'el-icon-warning-outline',name:'终端管理',router:'/terminalManage'},
+        // {icon:'el-icon-warning-outline',name:'场景管理',router:'/admin_caseShow'},
+        // {icon:'el-icon-warning-outline',name:'栏目管理',router:'/admin_programManage'},
+        // {icon:'el-icon-warning-outline',name:'终端管理',router:'/admin_terminalManage'},
       ],
     }
   },
@@ -75,7 +75,7 @@ export default {
     //是否当前菜单
     isActive(url){
       if(window.localStorage.getItem('path_url') == undefined){//初始化的时候，第一次进入没有值给一个默认值
-        window.localStorage.setItem('path_url','/caseShow');
+        window.localStorage.setItem('path_url','/admin_caseShow');
       }
       var cu_href = window.localStorage.getItem('path_url');
       if(url == cu_href){

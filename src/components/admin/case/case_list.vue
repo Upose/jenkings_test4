@@ -101,7 +101,7 @@ export default {
       })
     },
     addClick(){
-      this.$router.push('/sceneManage');
+      this.$router.push('/admin_sceneManage');
     },
     //启用，禁用状态选择
     statusClick(val){
@@ -115,7 +115,7 @@ export default {
     },
     //编辑场景
     editClick(val){
-      this.$router.push({path:'sceneSet',query: {id:val.id,terminal:this.$route.query.type,t:val.name,scene:val.id}});
+      this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:this.$route.query.type,t:val.name,scene:val.id}});
     },
     //删除场景
     delClick(val){
@@ -160,7 +160,7 @@ export default {
       console.log(val);
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-        var url = window.location.origin+"/#/scenePreview";
+        var url = window.location.origin+"/#/admin_scenePreview";
         setTimeout(() => {
           window.open(url);
         }, 50);

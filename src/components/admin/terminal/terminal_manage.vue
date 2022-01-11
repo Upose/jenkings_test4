@@ -69,9 +69,9 @@ export default {
     },
     addClick(type,val){
       if(type == 'add'){
-        this.$router.push('/terminalAdd')
+        this.$router.push('/admin_terminalAdd')
       }else{
-        this.$router.push({path:'/terminalAdd',query:{id:val.id}})
+        this.$router.push({path:'/admin_terminalAdd',query:{id:val.id}})
       }
     },
     delClick(val){
