@@ -1,6 +1,7 @@
 /***后台管理系统 项目接口地址-服务中台 */
 
 var baseURL = 'http://192.168.21.46:8000/scenemanage';//请求前端地址
+var baseURL_apps = 'http://192.168.21.46:8000/appcenter';//请求前端地址
 
 export default {
     postUrl: {
@@ -29,5 +30,8 @@ export default {
         'dictionary-by-type': baseURL + '/api/scene-manage/dictionary-by-type', //按类型获取下拉框字典 /{dictype}
         'template-list': baseURL + '/api/scene-manage/template-list', //获取模板列表
         'icon_dictionary': baseURL + '/api/terminal/dictionary', //获取图标选择列表
+
+        //权限及头部
+        'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单
     },
 }

@@ -11,7 +11,7 @@
     </div> -->
     <div class="m-box-list" :class="{'logo-collapse-left':$root.collapse}">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="item.title" :name="index" v-for="(item,index) in dataList" :key="index"></el-tab-pane>
+        <el-tab-pane :label="item.appName" :name="index" v-for="(item,index) in dataList" :key="index"></el-tab-pane>
       </el-tabs>
     </div>
     <div class="login-msg-warp">
@@ -34,21 +34,28 @@ export default {
         show:require('@/assets/admin/img/logo.png'),
         hide:require('@/assets/admin/img/logo-text.png'),
       },
-      dataList:[
-        {icon:'el-icon-warning-outline',title:'工作台',url:'/librarianWorkbench'},
-        {icon:'el-icon-warning-outline',title:'应用中心',url:'/appInfo'},
-        {icon:'el-icon-warning-outline',title:'场景管理',url:'/admin_caseShow'},
-        {icon:'el-icon-warning-outline',title:'用户管理',url:'/tableList'},
-        {icon:'el-icon-warning-outline',title:'数据管理',url:'/dataCentre'},
-        {icon:'el-icon-warning-outline',title:'运行统计',url:'/tableList'},
-        {icon:'el-icon-warning-outline',title:'应用开放中心',url:'/appManage'},
-        {icon:'el-icon-warning-outline',title:'新闻发布',url:'/newsProgram'},
-        {icon:'el-icon-warning-outline',title:'文献专题引擎',url:'/specialProgram'},
-        {icon:'el-icon-warning-outline',title:'文献智能推荐',url:'/intelligentManage'},
-        {icon:'el-icon-warning-outline',title:'信息导航',url:'/navigationProgram'},
-        {icon:'el-icon-warning-outline',title:'数据库导航',url:'/databaseNav'},
-      ],
+      dataList:[],
+      // dataList:[
+      //   {icon:'el-icon-warning-outline',appName:'工作台',url:'/admin_librarianWorkbench'},
+      //   {icon:'el-icon-warning-outline',appName:'应用中心',url:'/admin_appInfo'},
+      //   {icon:'el-icon-warning-outline',appName:'场景管理',url:'/admin_admin_caseShow'},
+      //   {icon:'el-icon-warning-outline',appName:'用户管理',url:'/admin_tableList'},
+      //   {icon:'el-icon-warning-outline',appName:'数据管理',url:'/admin_dataCentre'},
+      //   {icon:'el-icon-warning-outline',appName:'运行统计',url:'/admin_tableList'},
+      //   {icon:'el-icon-warning-outline',appName:'应用开放中心',url:'/admin_appManage'},
+      //   {icon:'el-icon-warning-outline',appName:'新闻发布',url:'/admin_newsProgram'},
+      //   {icon:'el-icon-warning-outline',appName:'文献专题引擎',url:'/admin_specialProgram'},
+      //   {icon:'el-icon-warning-outline',appName:'文献智能推荐',url:'/admin_intelligentManage'},
+      //   {icon:'el-icon-warning-outline',appName:'信息导航',url:'/admin_navigationProgram'},
+      //   {icon:'el-icon-warning-outline',appName:'数据库导航',url:'/admin_databaseNav'},
+      // ],
     }
+  },
+  mounted(){
+    this.http.getPlain_url('getmgrtopmenu','').then(res=>{
+      this.dataList = res.data||[];
+    }).catch(err=>{
+    })
   },
   methods:{
     // 侧边栏折叠展开
@@ -58,7 +65,7 @@ export default {
         bus.$emit('collapse', this.$root.collapse);
     },
     handleClick(tab, event) {
-      this.$router.push(this.dataList[this.activeName].url);
+      window.location.href = this.dataList[this.activeName].backendUrl||'#';
     },
     outLogin(){
       this.$store.commit('logout');
