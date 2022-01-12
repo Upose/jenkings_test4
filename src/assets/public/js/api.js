@@ -1,7 +1,7 @@
 /***后台管理系统 项目接口地址-服务中台 */
 
-var baseURL = 'http://192.168.21.46:8000/scenemanage';//请求前端地址
-var baseURL_apps = 'http://192.168.21.46:8000/appcenter';//获取顶部数据-应用中心地址
+var baseURL = process.env.VUE_APP_BASE_API + '/scenemanage';//请求前端地址
+var baseURL_apps = process.env.VUE_APP_BASE_API + '/appcenter';//获取顶部数据-应用中心地址
 
 export default {
     postUrl: {

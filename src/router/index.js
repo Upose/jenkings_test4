@@ -34,16 +34,20 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         let originUrl = localStorage.getItem('COM+');
         localStorage.removeItem('COM+');
-        if (originUrl == null) { next('/404'); return; }
+        if (originUrl == null) { return; }
         let ticketRegex = /\?ticket=([^#]+)#/;
 
         let regexResult = ticketRegex.exec(location.href);
         if (regexResult.length > 1) {
           let ticket = regexResult[1];
-          let ticketHref = `http://192.168.21.43:8021/api/third-part-auth/cas-proxy?ticket=${ticket}&service=${encodeURIComponent(location.origin)}`;
+          let ticketHref = `${process.env.VUE_APP_BASE_API}useridentify/api/third-part-auth/cas-proxy?ticket=${ticket}&service=${encodeURIComponent(originUrl)}`;
           axios({
             url: ticketHref,
-            method: 'get'
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization':'Bearer ' + localStorage.getItem('BasicToken')
+            },
           })
             .then(x => {
 

@@ -133,7 +133,7 @@ class ApplicationBuilder {
                     localStorage.setItem('COM+', current);
 
                     //   window.open(this._casBase + '/cas/login?service=' + encodeURIComponent(window.location.origin),'_blank');
-                    window.location.href = this._casBase + '/cas/login?service=' + encodeURIComponent(window.location.origin)
+                    window.location.href = this._casBase + '/cas/login?service=' + encodeURIComponent(window.location.href.split('#')[0])
                     // window.close();
                 }
                 return Promise.reject(error);
@@ -184,8 +184,7 @@ class ApplicationBuilder {
 }
 new ApplicationBuilder()
     .configureCasBase("http://192.168.21.43:10011")
-    // .configureApiBase('http://192.168.21.43:8011')
-    .configureApiBase('192.168.21.46:8000/usermanage')
+    .configureApiBase('http://192.168.21.46:8000/usermanage')
     .configureOrgInfo({
         orgId: "string",
         orgSecret: 'string',
