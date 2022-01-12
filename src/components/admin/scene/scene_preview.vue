@@ -3,18 +3,18 @@
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
     
     <template v-if="items && !isLock">
-      <div :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
+      <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
       <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
         <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)">
           <div :id="setId()"></div>
         </div>
       </div>
-      <div :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div>
+      <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div><!-- 底部信息-end -->
     </template>
 
     <template v-if="items && isLock">
       <div class="left-fixed-template">
-        <div class="header-prewiew" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div>
+        <div class="header-prewiew" v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
             <div :class="left_menu.widgetCode||left_menu.appWidget.widgetCode" :style="{width:'100%',height:'100%'}">
