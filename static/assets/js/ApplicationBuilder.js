@@ -183,13 +183,13 @@ class ApplicationBuilder {
     }
 }
 new ApplicationBuilder()
-    .configureCasBase("http://192.168.21.43:10011")
-    .configureApiBase('http://192.168.21.46:8000')
+    .configureCasBase("http://192.168.21.43:10011")//登录地址
+    .configureApiBase('http://192.168.21.46:8000')//应用请求地址
     .configureOrgInfo({
         orgId: "string",
         orgSecret: 'string',
         orgCode: "cqu",
-        OrgTokenLink: 'http://192.168.21.46:5002/api/Auth/AccessToken'
+        OrgTokenLink: 'http://192.168.21.46:5002/api/Auth/AccessToken'//获取机构token
     })
     .buildDefaultApplication();
 
