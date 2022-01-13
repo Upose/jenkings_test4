@@ -47,10 +47,10 @@ export default {
       if(this.isLock){
         this.addStyle(this.items.headerTemplate.router+'/component.css');
         this.addScript(this.items.headerTemplate.router+'/component.js');
-        console.log('全屏');
           if(this.items.sceneScreens){
             this.items.sceneScreens[0].sceneApps.forEach(it=>{
-              if(it.xIndex==0){
+              if(it.xIndex==0 && it.widgetCode=='other_left_menu_list'){
+                console.log('全屏');
                 this.left_menu = it;
                 this.addStyle(it.appWidget.target+'/component.css');
                 this.addScript(it.appWidget.target+'/component.js');
