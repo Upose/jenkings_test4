@@ -14,7 +14,7 @@
             </div><!--选择样式 end-->
 
             <div class="select-type">
-            <h2 class="s-title bor-botm">设置内容{{availableConfig}}</h2>
+            <h2 class="s-title bor-botm">设置内容</h2>
             <div class="s-choose">
                <div class="" v-for="(it,i) in set_list" :key="i">
                     <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
@@ -74,10 +74,9 @@ export default {
     setDatils(val){
       console.log(val);
     },
+    //应用详情
     appDetails(val){
-        console.log('---',val);
         var _this = this;
-        console.log(val);
         _this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
         _this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
@@ -91,7 +90,10 @@ export default {
                     _this.$emit('addCompont',{'list':_this.template_list[0],'is_add_compont':true});
                 }
             }else{//修改
-                _this.set_list = JSON.parse((val.set_list||'[{}]').replace(/'/g,'"'));
+                _this.set_list = JSON.parse((val.set_list||"[]").replace(/'/g,'"'));
+                if(_this.set_list.length==0){
+                    _this.set_list = [{topCount:'',sortType:'',id:''}];
+                }
                 _this.template_check = val.temp_id;
                 var index = 0;
                 _this.template_list.forEach((item,i)=>{
