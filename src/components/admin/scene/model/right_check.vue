@@ -72,7 +72,7 @@ export default {
   methods:{
     //设置详情
     setDatils(val){
-      console.log(val);
+    //   console.log(val);
     },
     //应用详情
     appDetails(val){
@@ -164,11 +164,18 @@ export default {
     saveClick(val){
         var is_cu_temp = document.getElementsByClassName('mask-layer-active');
         var divId = is_cu_temp[0].parentNode.dataset.id;
-        is_cu_temp[0].setAttribute('data-set',JSON.stringify(this.set_list))
-        //这里还需要把内容存到要要提交的数据中
-        this.$emit('saveTempSet',{'list':this.set_list,'divId':divId});
+        is_cu_temp[0].setAttribute('data-set',JSON.stringify(this.set_list));
+        is_cu_temp[0].offsetParent.setAttribute('data-set',JSON.stringify(this.set_list));
+        // var cs = is_cu_temp[0].offsetParent.getAttribute('class').replace('jl_vip_zt_vray','');
+        // is_cu_temp[0].offsetParent.setAttribute('class',cs);
+        //将父级的jl_vip_zt_vray去除
+        this.$emit('saveTempSet',{'list':this.set_list,'divId':divId});//这里还需要把内容存到要要提交的数据中
         if(val == 'edit'){
             this.$message({message: '设置成功',type: 'success'});
+            console.log('刷新');
+            setTimeout(() => {
+                this.appDetails({'id':is_cu_temp[0].dataset.appid,'temp_id':is_cu_temp[0].dataset.appwidgetid,'is_add':false,'set_list':JSON.stringify(this.set_list)});//设置成功，重新点击一次让模板刷新；
+            }, 400);
         }
     },
   },
