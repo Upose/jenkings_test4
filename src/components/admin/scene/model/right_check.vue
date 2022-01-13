@@ -76,6 +76,7 @@ export default {
     },
     //应用详情
     appDetails(val){
+        console.log(val);
         var _this = this;
         _this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
@@ -136,6 +137,7 @@ export default {
                 this.saveClick('add');
             },100)
         }else{//修改这个地方，稍微有点问题。
+            val['appPlateItems'] = this.set_list||[];
             this.$emit('addCompont',{'list':val,'is_add_compont':false});
         }
         this.$forceUpdate();

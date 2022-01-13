@@ -194,7 +194,7 @@ export default {
                   sceneId:it.sceneId,
                   sceneScreenId:it.sceneScreenId,
                   widgetCode:it.appWidget.widgetCode,
-                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems).replace(/"/g,"'")+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
+                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems).replace(/\"/g,"'")+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
                 }));
                 _this.postForm.sceneScreens[index].sceneApps = result;
             })
@@ -245,7 +245,6 @@ export default {
       var list = [];
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
-          console.log(item);
           list.push({
             x: item.x, y: item.y, h: item.h, w: item.w,
             minW:item.minW,
@@ -259,7 +258,7 @@ export default {
             widgetCode:item.widgetCode,
             appWidget:item.appWidget,
             appPlateItems:_this.apps_set_list[item.divId]||item.appPlateItems,//应用对应的设置
-            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[])+'"></div><div id="'+item.divId+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+item.divId+'"></div></div>'
           })
         })
       }
@@ -284,7 +283,7 @@ export default {
     },
     //添加组件
     addCompont(val){
-      // console.log(val);
+      console.log(val);
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_'+new Date().getTime();//这里的id要动态
@@ -301,8 +300,8 @@ export default {
             appId:data.appId,
             widgetCode:data.widgetCode,
             appWidget:data,
-            appPlateItems:[],//应用对应的设置
-            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
+            appPlateItems:data.appPlateItems||[],//应用对应的设置
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+component_id+'"></div></div>'
           };
         this.addCompontFlush(it);
       }else{
@@ -324,10 +323,10 @@ export default {
             tempId:data.id,
             divId:component_id,//元素渲染id
             appId:data.appId,
-            appPlateItems:[],//应用对应的设置
+            appPlateItems:data.appPlateItems||[],//应用对应的设置
             widgetCode:data.widgetCode,
             appWidget:data,
-            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'"></div><div id="'+component_id+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+component_id+'"></div></div>'
           };
         this.removeActiveClass('mask-layer');  
         this.addCompontFlush(it);
