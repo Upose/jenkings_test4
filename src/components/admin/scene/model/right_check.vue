@@ -76,7 +76,7 @@ export default {
     },
     //应用详情
     appDetails(val){
-        console.log(val);
+        // console.log(val);
         var _this = this;
         _this.is_add = val.is_add;
         //获取应用组件列表 /{appid}
@@ -110,7 +110,7 @@ export default {
     },
     //选择某个模板
     appsTemplate(val,isAdd){
-        console.log('right',val,isAdd);
+        // console.log('right',val,isAdd);
         this.template_check = val.id;
 
         this.availableConfig = val.availableConfig;//有哪几项设置
