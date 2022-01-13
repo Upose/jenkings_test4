@@ -263,9 +263,14 @@ export default {
           })
         })
       }
-      if(list.length>0){
+      if(this.screen_list.length==1){
         this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
         this.screen_list[this.screen_cu]['sceneApps'] = list;
+      }else{
+        if(list.length>0){
+          this.screen_list[this.screen_cu]['height'] = this.$refs.grid_stack.clientHeight;
+          this.screen_list[this.screen_cu]['sceneApps'] = list;
+        }
       }
     },
     /****删除一屏 */
