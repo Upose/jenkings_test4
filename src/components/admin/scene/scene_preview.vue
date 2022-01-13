@@ -49,7 +49,7 @@ export default {
         this.addScript(this.items.headerTemplate.router+'/component.js');
           if(this.items.sceneScreens){
             this.items.sceneScreens[0].sceneApps.forEach(it=>{
-              if(it.xIndex==0 && it.widgetCode=='other_left_menu_list'){
+              if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
                 console.log('全屏');
                 this.left_menu = it;
                 this.addStyle(it.appWidget.target+'/component.css');
