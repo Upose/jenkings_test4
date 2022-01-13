@@ -41,6 +41,7 @@ export default {
   created(){
     var list = JSON.parse(window.localStorage.getItem('scenePreview'));
     if(list && list.template){
+      document.title = list.name||'预览';
       this.isLock = list.template.isLock;
       this.items = list;
       if(this.isLock){

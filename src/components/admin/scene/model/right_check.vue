@@ -112,20 +112,20 @@ export default {
 
         this.availableConfig = val.availableConfig;//有哪几项设置
         this.sortList = val.sortList;//排序
-        if(!this.set_list[0].sortType){
+        if(this.set_list[0] && !this.set_list[0].sortType){
             this.set_list[0].sortType = val.sortList[0].value;
         }
         //获取应用栏目列表 /{appid}
         this.http.getPlain_url('app-plate-list-by-app-id','/'+val.appId).then(res=>{
             this.appPlateList = res.data||[];
-            if(!this.set_list[0].id){
+            if(this.set_list[0] && !this.set_list[0].id){
                 this.set_list[0].id = res.data[0].value;
             }
         }).catch(err=>{
             console.log(err);
         })
         this.topCountList = val.topCountList;//显示条数
-        if(!this.set_list[0].topCount){
+        if(this.set_list[0] && !this.set_list[0].topCount){
             this.set_list[0].topCount = val.topCountList[0].value;
         }
         if(isAdd == 'add'){

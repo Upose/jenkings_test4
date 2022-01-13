@@ -27,7 +27,7 @@
                 <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
               </div><!--屏幕数量+拖拽 end-->
 
-              <div class="drag-container" ref="dragContainer">
+              <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
                 <div class="drag-content grid-stack" ref="grid_stack"></div>
                 <!-- <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}"></div> -->
               </div><!--拖拽板块-->

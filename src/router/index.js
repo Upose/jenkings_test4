@@ -28,13 +28,20 @@ export default new Router({
       meta: { title: '服务中台-场景预览' , keepAlive:true},
     },
     {
-      path: '*',
+      path: '/404',
       name: '/404',
       component: r => require.ensure([], () => r(require('@/components/404')), 'index'),
+    },
+    {//重定向中间件
+      path: '*',
+      name: 'reset',
       beforeEnter: (to, from, next) => {
         let originUrl = localStorage.getItem('COM+');
         localStorage.removeItem('COM+');
-        if (originUrl == null) { return; }
+        if (originUrl == null) {
+          next('/404');
+          return;
+        }
         let ticketRegex = /\?ticket=([^#]+)#/;
 
         let regexResult = ticketRegex.exec(location.href);
