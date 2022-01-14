@@ -2,17 +2,17 @@
 <template>
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
     
-    <template v-if="items && !isLock">
+    <template v-if="items && !isLock"><!--宽1200通用-->
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
       <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-        <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)">
+        <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
           <div :id="setId()"></div>
         </div>
       </div>
       <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div><!-- 底部信息-end -->
     </template>
 
-    <template v-if="items && isLock">
+    <template v-if="items && isLock"><!--左边固定-->
       <div class="left-fixed-template">
         <div class="header-prewiew" v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
         <div class="content">
@@ -23,7 +23,7 @@
           </div>
           <div class="center-fixed">
             <div class="center-fixed-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-              <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)">
+              <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
                 <div :id="setId()"></div>
               </div>
             </div>
