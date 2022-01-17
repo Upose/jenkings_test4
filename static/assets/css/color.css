@@ -1,4 +1,10 @@
 @charset "UTF-8";
+.jl_vip_zt_empty_data{
+  color: #999;
+  font-size: 12px;
+  text-align: center;
+  line-height: 40px;
+}
 .template0 {
   filter:Gray;
   filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);-webkit-filter: grayscale(100%);
