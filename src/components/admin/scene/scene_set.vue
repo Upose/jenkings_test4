@@ -153,7 +153,7 @@ export default {
               //   target:'http://192.168.21.71:9000/news_sys/temp1',
               //   id:'c13553',
               //   widgetCode:'news_sys_temp1',
-              //   content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del">X</i><div class="mask-layer"></div><div id="c13553"></div></div>'
+              //   content:'<div class="jl_vip_zt_warp news_sys_temp1"><i class="jl_vip_zt_del"></i><div class="mask-layer"></div><div id="c13553"></div></div>'
               // },
             ],
           }
@@ -194,7 +194,7 @@ export default {
                   sceneId:it.sceneId,
                   sceneScreenId:it.sceneScreenId,
                   widgetCode:it.appWidget.widgetCode,
-                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'" data-set="'+JSON.stringify(it.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems).replace(/\"/g,"'")+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
+                  content:'<div class="jl_vip_zt_warp '+it.appWidget.widgetCode+'" data-id="'+('jl_vip_zt_'+index)+'" data-set="'+JSON.stringify(it.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="'+it.appId+'" data-appWidgetId="'+it.appWidget.id+'" data-set="'+JSON.stringify(it.appPlateItems).replace(/\"/g,"'")+'"></div><div id="'+('jl_vip_zt_'+index)+'"></div></div>'
                 }));
                 _this.postForm.sceneScreens[index].sceneApps = result;
             })
@@ -258,7 +258,7 @@ export default {
             widgetCode:item.widgetCode,
             appWidget:item.appWidget,
             appPlateItems:_this.apps_set_list[item.divId]||item.appPlateItems,//应用对应的设置
-            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+item.divId+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+item.divId+'"></div></div>'
           })
         })
       }
@@ -301,7 +301,7 @@ export default {
             widgetCode:data.widgetCode,
             appWidget:data,
             appPlateItems:data.appPlateItems||[],//应用对应的设置
-            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+component_id+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+component_id+'"></div></div>'
           };
         this.addCompontFlush(it);
       }else{
@@ -326,7 +326,7 @@ export default {
             appPlateItems:data.appPlateItems||[],//应用对应的设置
             widgetCode:data.widgetCode,
             appWidget:data,
-            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del">X</i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+component_id+'"></div></div>'
+            content:'<div class="jl_vip_zt_warp '+data.widgetCode+'" data-id="'+component_id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="'+data.appId+'" data-appWidgetId="'+data.id+'" data-set="'+JSON.stringify(data.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+component_id+'"></div></div>'
           };
         this.removeActiveClass('mask-layer');  
         this.addCompontFlush(it);

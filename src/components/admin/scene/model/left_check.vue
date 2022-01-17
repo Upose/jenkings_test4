@@ -4,25 +4,31 @@
     <div class="drag-l-warp">
         <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1>
         <el-collapse v-model="activeCollapse" @change="collapseClick" class="drag-collapse">
-        <el-collapse-item title="请选择布局" name="1">
-            <div class="drag-box" :class="layoutId==i.value?'box-active':''" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
-              <i class="el-icon-s-marketing d-b-img"></i>
-              <span class="d-b-txt">{{i.key||'暂无'}}</span>
+          <el-collapse-item title="请选择布局" name="1">
+            <div class="drag-box-width" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
+              <div class="drag-box" :class="layoutId==i.value?'box-active':''">
+                <i class="el-icon-s-marketing d-b-img"></i>
+                <span class="d-b-txt">{{i.key||'暂无'}}</span>
+              </div>
             </div>
-        </el-collapse-item>
-        <el-collapse-item title="请选择模板" name="2">
-            <div class="drag-box" :class="templateId==i.id?'box-active':''" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
-              <i class="el-icon-s-marketing d-b-img"></i>
-              <span class="d-b-txt">{{i.name||'暂无'}}</span>
+          </el-collapse-item>
+          <el-collapse-item title="请选择模板" name="2">
+              <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
+                <div class="drag-box" :class="templateId==i.id?'box-active':''">
+                  <i class="el-icon-s-marketing d-b-img"></i>
+                  <span class="d-b-txt">{{i.name||'暂无'}}</span>
+                </div>
+              </div>
+          </el-collapse-item>
+          <el-collapse-item title="请选择主题色" name="3">
+            <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
+              <div class="drag-box" :class="themeColor==i.value?'box-active':''">
+                <i class="el-icon-s-marketing d-b-img"></i>
+                <span class="d-b-txt">{{i.key||'暂无'}}</span>
+              </div>
             </div>
-        </el-collapse-item>
-        <el-collapse-item title="请选择主题色" name="3">
-            <div class="drag-box" :class="themeColor==i.value?'box-active':''" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
-              <i class="el-icon-s-marketing d-b-img"></i>
-              <span class="d-b-txt">{{i.key||'暂无'}}</span>
-            </div>
-            <!-- <div class="color-temp" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div> -->
-        </el-collapse-item>
+              <!-- <div class="color-temp" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div> -->
+          </el-collapse-item>
         </el-collapse><!--主题风格 end-->
         <div class="step-three">
         <h1 class="step-num">
@@ -35,10 +41,12 @@
             </el-dropdown>
         </h1>
         <div class="drag-box-warp">
-            <div class="drag-box" :class="appId==i.appId?'box-active':''" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
-            <i class="el-icon-s-marketing d-b-img"></i>
-            <span class="d-b-txt" :title="i.name">{{i.name||''}}</span>
+          <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
+            <div class="drag-box" :class="appId==i.appId?'box-active':''">
+              <i class="el-icon-s-marketing d-b-img"></i>
+              <span class="d-b-txt" :title="i.name">{{i.name||''}}</span>
             </div>
+          </div>
         </div>
         </div>
     </div><!--左边菜单 end-->
@@ -159,28 +167,32 @@ export default {
         margin-top: 29px;
         margin-bottom: 29px;
     }
-    .drag-box{
+    /deep/.el-collapse-item__wrap{
+      margin-left: -5px;
+    }
+    .drag-box-width{
         cursor: pointer;
-        width: 68px;
-        height: 60px;
+        width: 33.333%;
         border-radius: 3px;
         float: left;
-        margin-right: 5px;
-        margin-top: 5px;
-        margin-bottom: 5px;
-        background-color: #f9fafc;
-        &:nth-child(3n+3){
-        margin-right: 0;
+        .drag-box{
+          margin-top: 5px;
+          margin-left: 5px;
+          background-color: #f9fafc;
+          &:hover{
+            background-color: @f3f4ff;
+            .d-b-txt{
+                color: @6777EF;
+                overflow: hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+            }
+          }
         }
-        &:hover{
-        background-color: @f3f4ff;
-        .d-b-txt{
-            color: @6777EF;
-            overflow: hidden;
-            text-overflow:ellipsis;
-            white-space: nowrap;
-        }
-        }
+        // &:nth-child(3n+3){
+        // margin-right: 0;
+        // }
+        
         i.d-b-img{
         padding: 10px;
         font-size: 20px;
