@@ -127,7 +127,18 @@ class ApplicationBuilder {
         if (axios) {
             axios.interceptors.response.use(undefined, error => {
                 // unauth 存在则需要登录
+                // console.log(error.response);
+                // if(error.response.status == 403 && error.response.headers && error.response.headers.unauth==1){
+                //     localStorage.removeItem('token');
+                //     let current = window.location.href;
+                //     localStorage.setItem('COM+', current);
+
+                //     //   window.open(this._casBase + '/cas/login?service=' + encodeURIComponent(window.location.origin),'_blank');
+                //     window.location.href = this._casBase + '/cas/login?service=' + encodeURIComponent(`${window.location.origin}${window.location.pathname}`)
+                //     // window.close();
+                // }
                 if (error.response.status == 403 && error.response.headers.unauth) {
+                    
                     localStorage.removeItem('token');
                     let current = window.location.href;
                     localStorage.setItem('COM+', current);

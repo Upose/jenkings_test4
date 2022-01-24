@@ -8,21 +8,9 @@
 export default {
   name: 'home_sys',
   mounted(){
-    this.$store.commit('getSession');
-    this.$i18n.locale = this.$store.state.language;
-    this.skin_template = this.$store.state.skin_template;
-    // var list= {
-    //     "orgId": "",
-    //     "orgSecret": "",
-    //     "orgCode": "cqu",
-    //     "userKey": ""
-    // };
-    // this.http.postJson('gettoken',list).then(res=>{ 
-    //   window.localStorage.setItem('token',res.data.token);
-    // }).catch(err=>{
-    //     console.log(err);
-    // })
-    // this.initData();
+    // this.$store.commit('getSession');
+    // this.$i18n.locale = this.$store.state.language;
+    // this.skin_template = this.$store.state.skin_template;
   },
   data(){
     return {
@@ -30,14 +18,6 @@ export default {
     }
   },
   methods:{
-    // initData(){
-    //   this.http.getPlain('auth','').then((res) => {
-        
-    //   }).catch((err) => {
-        
-    //   });
-      
-    // },
   },
 }
 </script>

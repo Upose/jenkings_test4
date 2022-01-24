@@ -6,7 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', redirect: '/admin_caseShow' },
+    // { path: '/', redirect: '/admin_caseShow' },
     {
       path: '/web',
       name: 'index',
@@ -36,6 +36,7 @@ export default new Router({
       path: '/',
       name: 'reset',
       beforeEnter: (to, from, next) => {
+        console.log('1111111111111111111111111')
         let originUrl = localStorage.getItem('COM+');
         localStorage.removeItem('COM+');
         if (originUrl == null) {
@@ -46,7 +47,7 @@ export default new Router({
         let regexResult = ticketRegex.exec(location.href);
         if (regexResult.length > 1) {
           let ticket = regexResult[1];
-          let ticketHref = `${process.env.VUE_APP_BASE_API}useridentify/api/third-part-auth/cas-proxy?ticket=${ticket}&service=${encodeURIComponent(originUrl)}`;
+          let ticketHref = `${process.env.VUE_APP_BASE_API}/useridentify/api/third-part-auth/cas-proxy?ticket=${ticket}&service=${encodeURIComponent(originUrl)}`;
           axios({
             url: ticketHref,
             method: 'get',
@@ -63,7 +64,7 @@ export default new Router({
                 localStorage.setItem('token', token);
 
                 window.location.href = originUrl;
-                window.close();
+                // window.close();
                 next(originUrl);
                 return;
               }
