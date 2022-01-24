@@ -39,7 +39,7 @@ export default new Router({
         let originUrl = localStorage.getItem('COM+');
         localStorage.removeItem('COM+');
         if (originUrl == null) {
-          next('/admin_userManager');
+          next('/admin_caseShow');
           return;
         }
         let ticketRegex = /\?ticket=([^#]+)#/;
