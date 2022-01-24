@@ -17,7 +17,7 @@
         <div class="header-prewiew" v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
-            <div :class="left_menu.widgetCode||left_menu.appWidget.widgetCode" :style="{width:'100%',height:'100%'}">
+            <div :class="left_menu.widgetCode||left_menu.appWidget.widgetCode" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')">
               <div :id="setId()"></div>
             </div>
           </div>
@@ -156,6 +156,7 @@ export default {
       overflow-x: hidden;
       .center-fixed-content{
         position: relative;
+        margin-left: 10px;
       }
     }
   }
