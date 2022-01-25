@@ -6,7 +6,7 @@ var baseURL_apps = process.env.VUE_APP_BASE_API + '/appcenter';//获取顶部数
 export default {
     postUrl: {
         'gettoken':'http://192.168.21.71:8077/api/Auth/AccessToken',//获取token
-        'auth':baseURL+'/api/sys-menu/user-permission-list',//权限菜单-列表
+        // 'auth':baseURL+'/api/sys-menu/user-permission-list',//权限菜单-列表
         'auth_tree':baseURL+'/api/sys-menu/user-permission-tree',//权限-树形
         'scene-overview': baseURL + '/api/scene-manage/scene-overview', //获取场景总览列表
         'scene-list-by-terminal-id': baseURL + '/api/scene-manage/scene-list-by-terminal-id', //按终端获取场景列表
@@ -33,5 +33,8 @@ export default {
 
         //权限及头部
         'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单
+        'getbaseinfo': baseURL_apps + '/api/baseinfo/getbaseinfo',//获取当前用户机构基础信息
+        'getuserapppermission': baseURL_apps + '/api/baseinfo/getuserapppermission',//判断用户对指定应用是否有使用权限(前台)
+        'getuserapppermissiontype': baseURL_apps + '/api/baseinfo/getuserapppermissiontype',//根据userkey获取指定应用的权限类型
     },
 }

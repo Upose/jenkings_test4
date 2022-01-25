@@ -41,21 +41,17 @@ export default {
     // }).catch(err=>{
 
     // })
-    this.http.getPlain('auth_tree','').then((res) => {
-      this.dataList = res.data||[];
-      window.localStorage.setItem('menuAuth',JSON.stringify(this.dataList));
-    }).catch((err) => {
-      
-    });
+    
   },
   data () {
     return {
       default_img:require('@/assets/admin/img/upload/user-img.png'),
-      dataList:[
-        // {icon:'el-icon-warning-outline',name:'场景管理',router:'/admin_caseShow'},
-        // {icon:'el-icon-warning-outline',name:'栏目管理',router:'/admin_programManage'},
-        // {icon:'el-icon-warning-outline',name:'终端管理',router:'/admin_terminalManage'},
-      ],
+      dataList:JSON.parse(window.localStorage.getItem('home_sys_menuAuth')||'[]'),
+      // dataList:[
+      //   // {icon:'el-icon-warning-outline',name:'场景管理',router:'/admin_caseShow'},
+      //   // {icon:'el-icon-warning-outline',name:'栏目管理',router:'/admin_programManage'},
+      //   // {icon:'el-icon-warning-outline',name:'终端管理',router:'/admin_terminalManage'},
+      // ],
     }
   },
   methods:{

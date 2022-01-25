@@ -36,7 +36,6 @@ export default new Router({
       path: '/',
       name: 'reset',
       beforeEnter: (to, from, next) => {
-        console.log('1111111111111111111111111')
         let originUrl = localStorage.getItem('COM+');
         localStorage.removeItem('COM+');
         if (originUrl == null) {
