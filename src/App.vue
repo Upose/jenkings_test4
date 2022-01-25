@@ -15,13 +15,6 @@ export default {
     }else{
       this.http.getJson('getbaseinfo').then(res=>{
         if(res.data){
-          this.header_class = res.data.headerFooterInfo.headerTemplateCode||'';
-          this.footer_class = res.data.headerFooterInfo.footerTemplateCode||'';
-          this.addStyle(res.data.headerFooterInfo.headerRouter+'/component.css');
-          this.addScript(res.data.headerFooterInfo.headerRouter+'/component.js');
-
-          this.addStyle(res.data.headerFooterInfo.footerRouter+'/component.css');
-          this.addScript(res.data.headerFooterInfo.footerRouter+'/component.js');
           this.$root.fileUrl = res.data.orgInfo.fileUrl||'';
           window.localStorage.setItem('fileUrl',res.data.orgInfo.fileUrl);
           this.baseInfo = true;
