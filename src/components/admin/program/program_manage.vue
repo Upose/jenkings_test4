@@ -85,7 +85,6 @@ export default {
     getExpends(){
       var appId = this.tableData.map(item => item.appId)
       this.expends = appId;
-      console.log(this.expends);
     },
     getRowKeys(row){
       return row.appId

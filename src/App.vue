@@ -30,7 +30,7 @@ export default {
     }
     var home_sys_menuAuth = window.localStorage.getItem('home_sys_menuAuth');
     if(home_sys_menuAuth && home_sys_menuAuth!='' && home_sys_menuAuth!=undefined && home_sys_menuAuth!=null){
-      console.log('菜单已存在');
+      // console.log('菜单已存在');
     }else{
       this.http.getPlain('auth_tree','').then((res) => {
         window.localStorage.setItem('home_sys_menuAuth',JSON.stringify(res.data));
