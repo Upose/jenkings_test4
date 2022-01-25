@@ -62,7 +62,7 @@ export default {
     collapseChage(){
         this.$root.collapse = !this.$root.collapse;
         console.log();
-        bus.$emit('collapse', this.$root.collapse);
+        this.bus.$emit('collapse', this.$root.collapse);
     },
     handleClick(tab, event) {
       window.location.href = this.dataList[this.activeName].backendUrl||'#';
