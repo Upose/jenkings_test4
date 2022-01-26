@@ -304,7 +304,7 @@ export default {
       this.postForm['sceneScreens'][0]['height'] = this.$refs.grid_stack.clientHeight;
       this.postForm['sceneScreens'][0]['sceneApps'] = list;
       window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
-      var url = window.location.origin+"/#/admin_scenePreview";
+      var url = location.href.split('#')[0]+"/#/admin_scenePreview";
       setTimeout(() => {
         window.open(url);
       }, 200);

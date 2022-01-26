@@ -160,7 +160,7 @@ export default {
       console.log(val);
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-        var url = window.location.origin+"/#/admin_scenePreview";
+        var url = location.href.split('#')[0]+"/#/admin_scenePreview";
         setTimeout(() => {
           window.open(url);
         }, 50);

@@ -445,7 +445,7 @@ export default {
       this.savePostJson('preview');
       setTimeout(() => {
         window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
-        var url = window.location.origin+"/#/admin_scenePreview";
+        var url = location.href.split('#')[0]+"/#/admin_scenePreview";
         setTimeout(() => {
           window.open(url);
         }, 20);
