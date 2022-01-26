@@ -15,49 +15,49 @@
   /**外包新增***/
 }
 .template1 .child_color_hover:hover {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .child_bg_hover_bg:hover {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .child_bg_hover_bg:hover .next-bg {
   background-color: #972C25 !important;
 }
 .template1 .child_bg_hover_bg_active {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .child_bg_hover_bg_active .next-bg {
   background-color: #972C25 !important;
 }
 .template1 .child_color_text_hover:hover {
-  color: #be3c3c !important;
+  color: #DF1A1A !important;
 }
 .template1 .child_color_bg_span_hover span:hover {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .next_hover:hover .n_hover {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .child1_border {
-  border: 1px solid #be3c3c;
+  border: 1px solid #DF1A1A;
 }
 .template1 .child1_border_dotted {
-  border: 1px dotted #be3c3c;
+  border: 1px dotted #DF1A1A;
 }
 .template1 .child1_border_hover:hover {
-  border: 1px solid #be3c3c !important;
+  border: 1px solid #DF1A1A !important;
 }
 .template1 .main_bg {
   background-color: #972C25 !important;
 }
 .template1 .child_bg {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .child1_bg {
   background-color: #eb5f3c !important;
 }
 .template1 .child_border_bottom {
-  border-bottom: 1px solid #be3c3c;
+  border-bottom: 1px solid #DF1A1A;
 }
 .template1 .check_color_bg {
   background-color: #f93549 !important;
@@ -69,13 +69,13 @@
   color: #972C25;
 }
 .template1 .child_text_color {
-  color: #be3c3c !important;
+  color: #DF1A1A !important;
 }
 .template1 .child1_text_color {
   color: #eb5f3c;
 }
 .template1 .box_shadow_hover:hover {
-  box-shadow: 0px 1px 5px #be3c3c !important;
+  box-shadow: 0px 1px 5px #DF1A1A !important;
 }
 .template1 .child_tab_item_hover:hover .rc-mu {
   border-bottom: 40px solid #972C25;
@@ -113,10 +113,10 @@
   background-color: #972C25 !important;
 }
 .template1 .btn_bg_color:hover {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .btn_bg_color2:hover {
-  background-color: #be3c3c !important;
+  background-color: #DF1A1A !important;
 }
 .template1 .tab-bg-active {
   background-color: #972C25 !important;
@@ -151,8 +151,8 @@
   color: #972C25 !important;
 }
 .template1 .text-color-hover2:hover {
-  color: #be3c3c !important;
-  border-color: #be3c3c !important;
+  color: #DF1A1A !important;
+  border-color: #DF1A1A !important;
 }
 .template1 .child-border-color {
   border-color: #972C25 !important;
