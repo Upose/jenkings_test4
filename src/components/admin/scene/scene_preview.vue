@@ -27,6 +27,7 @@
                 <div :id="setId()"></div>
               </div>
             </div>
+            <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div><!-- 底部信息-end -->
           </div>
         </div>
       </div>
@@ -47,6 +48,10 @@ export default {
       if(this.isLock){
         this.addStyle(this.items.headerTemplate.router+'/component.css');
         this.addScript(this.items.headerTemplate.router+'/component.js');
+        setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
+          this.addStyle(this.items.footerTemplate.router+'/component.css');
+          this.addScript(this.items.footerTemplate.router+'/component.js');
+        }, 300);
           if(this.items.sceneScreens){
             this.items.sceneScreens[0].sceneApps.forEach(it=>{
               if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
