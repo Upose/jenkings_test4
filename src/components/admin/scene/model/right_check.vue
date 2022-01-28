@@ -64,6 +64,7 @@ export default {
             topCount:'',//数据条数-（需要参数）
             sortType:'',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
             id:'',//应用栏目标识 -（需要参数）
+            orderIndex:1,
         }
       ],
     }
@@ -93,7 +94,7 @@ export default {
             }else{//修改
                 _this.set_list = JSON.parse((val.set_list||"[]").replace(/'/g,'"'));
                 if(_this.set_list.length==0){
-                    _this.set_list = [{topCount:'',sortType:'',id:''}];
+                    _this.set_list = [{topCount:'',sortType:'',id:'',orderIndex:1}];
                 }
                 _this.template_check = val.temp_id;
                 var index = 0;
@@ -144,10 +145,12 @@ export default {
     },
     //添加一组
     addRow(){
+        var index = this.set_list.length;
         this.set_list.push({
             topCount:'',
             sortType:'',
             id:'',
+            orderIndex:index+1,
         });
     },
     //是否显示保存按钮
