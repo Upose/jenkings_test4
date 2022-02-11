@@ -14,7 +14,7 @@
 
     <template v-if="items && isLock"><!--左边固定-->
       <div class="left-fixed-template">
-        <div class="header-prewiew" v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
+        <div class="header-prewiew"><div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div></div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
             <div :class="left_menu.widgetCode||left_menu.appWidget.widgetCode" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')">
@@ -117,7 +117,7 @@ export default {
     },
     //动态设置模板id
     setId(){
-      return 'jl_vip_zt_'+new Date().getTime();
+      return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
     },
   },
 }
@@ -144,6 +144,7 @@ export default {
     position: absolute;
     top: 90px;
     bottom: 0;
+    z-index:1;
     .left-fixed{
       position: absolute;
       left: 0;
