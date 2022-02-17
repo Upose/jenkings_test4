@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/***暂无数据样式*/
 .jl_vip_zt_empty_data {
   color: #999;
   font-size: 12px;
@@ -77,8 +78,8 @@
 .template1 .box_shadow_hover:hover {
   box-shadow: 0px 1px 5px #a21e1e !important;
 }
-.template1 .child_color3_text_color {
-  color: #eb5f3c !important;
+.template1 .child_color4_text_color {
+  color: #DF1A1A !important;
 }
 .template1 .child_tab_item_hover:hover .rc-mu {
   border-bottom: 40px solid #972C25;
@@ -267,8 +268,8 @@
 .template2 .box_shadow_hover:hover {
   box-shadow: 0px 1px 5px #204370 !important;
 }
-.template2 .child_color3_text_color {
-  color: #eb5f3c !important;
+.template2 .child_color4_text_color {
+  color: #DF1A1A !important;
 }
 .template2 .child_tab_item_hover:hover .rc-mu {
   border-bottom: 40px solid #1d3c65;
@@ -457,8 +458,8 @@
 .template3 .box_shadow_hover:hover {
   box-shadow: 0px 1px 5px #20702d !important;
 }
-.template3 .child_color3_text_color {
-  color: #eb5f3c !important;
+.template3 .child_color4_text_color {
+  color: #DF1A1A !important;
 }
 .template3 .child_tab_item_hover:hover .rc-mu {
   border-bottom: 40px solid #1d652d;
@@ -647,8 +648,8 @@
 .template4 .box_shadow_hover:hover {
   box-shadow: 0px 1px 5px #382070 !important;
 }
-.template4 .child_color3_text_color {
-  color: #eb5f3c !important;
+.template4 .child_color4_text_color {
+  color: #DF1A1A !important;
 }
 .template4 .child_tab_item_hover:hover .rc-mu {
   border-bottom: 40px solid #4b1d65;
