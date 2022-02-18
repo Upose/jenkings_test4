@@ -82,7 +82,7 @@ export default {
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
   color: @6C757D;
   height: 40px;
-  z-index: 20;
+  z-index: 25;
   position: relative;
   background-color: @fff;
   a{
