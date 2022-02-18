@@ -6,7 +6,7 @@
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="'终端管理'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <h1 class="s-b-border-title">终端管理</h1>
-        <div class="content" v-if="authShowBtn('终端管理','终端列表')">
+        <div class="content">
           <div class="s-w">
             <span class="admin-m-title"><i class="el-icon-s-platform"></i>已配置终端列表</span>
             <el-button size="medium" icon="el-icon-plus" class="r-btn" v-if="authShowBtn('terminal_add')" @click="addClick('add','')">新增终端</el-button>
