@@ -40,7 +40,7 @@
               <el-form-item label="默认图标" prop="icon">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.icon">
-                    <img :src="postForm.icon||default_img">
+                    <img :src="$root.fileUrl+postForm.icon">
                   </div>
                   <div class="up-img-warp select-icon" @click="selectImg()">
                     <span>选择图标</span>
@@ -73,8 +73,8 @@
           <p class="el-form-img-box-hint">点击图标即可选中所需要的图标</p>
           <div class="c-l">
             <div class="el-form-img-box" v-for="i in iconList" :key="i" @click="selectImgClick(i)">
-              <img :src="i.value"/>
-              <img src="@/assets/admin/img/icon-select.png" :class="select_img==i?'active':''" v-if="select_img==i"/>
+              <img :src="$root.fileUrl+i.value"/>
+              <img src="@/assets/admin/img/icon-select.png" :class="select_img.key==i.key?'active':''" v-if="select_img.key==i.key"/>
             </div>
           </div>
           <span slot="footer" class="dialog-footer">
@@ -107,7 +107,7 @@ export default {
       dialogSelectimg:false,
       basurl:process.env.VUE_APP_IMG_URL+'/',
       default_img:require("../../../assets/admin/img/icon2.png"),
-      select_img:null,
+      select_img:{},
       iconList:[],//图标列表
       postForm: {},
       id:this.$route.query.id,//判断是否编辑

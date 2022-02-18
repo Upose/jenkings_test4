@@ -103,6 +103,7 @@ let timer = setInterval(() => {
       components: { App },
       data(){
         return{
+          fileUrl:'http://192.168.21.46:6900',
           collapse:false,
         }
       },
