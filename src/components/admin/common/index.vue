@@ -27,8 +27,9 @@ export default {
 
 <style lang="less">
 @import "../../../assets/admin/css/color.less";
-@import "../../../assets/admin/css/style.less";
 @import "../../../assets/admin/font/iconfont.css";
+@import "../../../assets/admin/css/style.less";
+
 /***最后会删除 */
 .color-bg-warp{
   cursor: pointer;
