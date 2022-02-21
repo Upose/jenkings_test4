@@ -84,6 +84,7 @@ export default {
         _this.http.getPlain_url('app-widget-list-by-app-id','/'+val.id).then(res=>{
             _this.template_list = res.data||[];
             if(val.is_add){
+                _this.set_list = [{topCount:'',sortType:'',id:'',orderIndex:1}];
                 //获取模板列表，默认选中第一个模板
                 if(_this.template_list.length>0){
                     //默认选择添加第一个模板之后，需要将当前渲染的那一个模板id拿到，方便做应用选择。
@@ -93,6 +94,7 @@ export default {
                 }
             }else{//修改
                 _this.set_list = JSON.parse((val.set_list||"[]").replace(/'/g,'"'));
+                console.log(_this.set_list);
                 if(_this.set_list.length==0){
                     _this.set_list = [{topCount:'',sortType:'',id:'',orderIndex:1}];
                 }
