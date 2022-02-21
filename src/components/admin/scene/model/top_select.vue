@@ -20,15 +20,15 @@
             <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item"></el-option>
         </el-select>
         </div>
-        <el-button class="default-btn-border" icon="el-icon-setting" size="medium" @click="hfShow()">高级设置</el-button>
+        <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="hfShow()">高级设置</el-button>
         <!-- <div class="s-r-btns">
           <el-button icon="el-icon-download" size="medium">复制链接</el-button>
           <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">保存</el-button>
           <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">预览</el-button>
         </div> -->
-        <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="saveClick()">保存</el-button>
-        <el-button class="default-btn-border s-r-f-r" icon="el-icon-download" type="primary" size="medium" @click="scenePreview()">预览</el-button>
-        <el-button icon="el-icon-download" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="saveClick()">保存</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="scenePreview()">预览</el-button>
+        <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
         <!-- </div> -->
     </div><!--顶部条件筛选 end-->
     <header_footer @hfHide="hfHide" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>

@@ -60,8 +60,8 @@
                 <el-input type="textarea" class="form-textarea" placeholder="请输入备注信息" v-model="postForm.remark"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button icon="el-icon-close" size="medium" @click="backHistory()">取消</el-button>
-                <el-button icon="el-icon-check" size="medium" type="primary" @click="submitForm('postForm')">保存</el-button>
+                <el-button icon="iconfont el-icon-vip-quxiao" size="medium" @click="backHistory()">取消</el-button>
+                <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm('postForm')">保存</el-button>
               </el-form-item>
             </div>
           </el-form>
@@ -78,8 +78,8 @@
             </div>
           </div>
           <span slot="footer" class="dialog-footer">
-            <el-button icon="el-icon-close" size="medium" @click="closeClick()">取消</el-button>
-            <el-button icon="el-icon-check" size="medium" type="primary" @click="submitImg()">确认</el-button>
+            <el-button icon="iconfont el-icon-vip-quxiao" size="medium" @click="closeClick()">取消</el-button>
+            <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitImg()">确认</el-button>
         </span>
         </el-dialog>
         <footerPage class="top20"></footerPage>

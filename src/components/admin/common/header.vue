@@ -15,9 +15,9 @@
       </el-tabs>
     </div>
     <div class="login-msg-warp">
-      <div class="u-img-w"><el-image class="u-img" :src="default_img" :fit="'contain'"></el-image></div>
-      <span class="u-name">user admin</span>
-      <i class="el-icon-warning-outline loginOut" title="退出登录" @click="outLogin()"></i>
+      <div class="u-img-w"><el-image class="u-img" :src="$root.fileUrl+userInfo.photo||default_img" :fit="'contain'"></el-image></div>
+      <span class="u-name">{{userInfo.typeName||''}}</span>
+      <i class="iconfont el-icon-vip-tuichu loginOut" title="退出登录" @click="outLogin()"></i>
     </div>
   </div>
 </template>
@@ -28,6 +28,7 @@ export default {
   name: 'test',
   data () {
     return {
+      userInfo:JSON.parse(window.localStorage.getItem('userInfo')||'{}'),
       activeName:0,
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       logoList:{
@@ -61,7 +62,6 @@ export default {
     // 侧边栏折叠展开
     collapseChage(){
         this.$root.collapse = !this.$root.collapse;
-        console.log();
         this.bus.$emit('collapse', this.$root.collapse);
     },
     handleClick(tab, event) {
@@ -69,7 +69,10 @@ export default {
     },
     outLogin(){
       this.$store.commit('logout');
-      this.$router.push('/login');
+      localStorage.removeItem('token');
+      let current = window.location.href;
+      localStorage.setItem('COM+', current);
+      location.href = 'http://192.168.21.43:10011/cas/logout?service=' + encodeURIComponent(window.location);
     },
   },
 }
@@ -77,7 +80,7 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
-@import "../../../assets/admin/css/style.less";/**颜色配置 */
+@import "../../../assets/admin/css/style.less";
 .header-warp{
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
   color: @6C757D;
@@ -102,7 +105,8 @@ export default {
       height: 100%;
       line-height:40px;
       width: 100%;
-      vertical-align:middle;
+      display: flex;
+      align-items: center;
     }
   }
   .logo-collapse{
@@ -167,6 +171,9 @@ export default {
         width: 30px;
         height: 30px;
         padding: 3px;
+        /deep/.el-image__inner{
+          border-radius: 50%;
+        }
       }
     }
     .u-name{
@@ -174,8 +181,12 @@ export default {
       margin: 0 8px;
     }
     .loginOut{
-      font-size: 24px;
+      cursor: pointer;
+      font-size: 14px;
       vertical-align: middle;
+      &:hover{
+        color: #000;
+      }
     }
   }
 }
@@ -199,3 +210,4 @@ export default {
   height:0;
 }
 </style>
+

@@ -8,7 +8,7 @@
             <div class="s-list">
                 <div class="d-temp-box" v-for="(it,i) in template_list" :key="i" :style="{'background-image':'url('+it.cover+')'}">
                     <span class="temp-name">{{it.name||'无'}}</span>
-                    <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="template_check == it.id?'vip-check':'vip-no-check'"></i> 选用</el-button>
+                    <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="template_check == it.id?'el-icon-vip-check':'el-icon-vip-no-check'"></i> 选用</el-button>
                 </div>
             </div>
             </div><!--选择样式 end-->

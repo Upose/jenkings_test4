@@ -36,7 +36,7 @@
                   <div class="col2">{{item.name}}</div>
                   <div class="col3"></div>
                   <div class="col4">{{item.createTime.slice(0,10)}}</div>
-                  <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="el-icon-setting" round>栏目设置</el-button></div>
+                  <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>栏目设置</el-button></div>
                 </div>
               </template>
             </el-table-column>

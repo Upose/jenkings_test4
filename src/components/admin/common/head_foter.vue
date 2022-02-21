@@ -8,7 +8,7 @@
                 <div class="temp-select c-l">
                     <div class="d-temp-box" :style="{background:'url('+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
                         <span class="temp-name">{{it.name}}</span>
-                        <el-button type="primary" class="button" size="mini" @click="headerClick(it)"><i class="iconfont" :class="it.id==head_check?'vip-check':'vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
+                        <el-button type="primary" class="button" size="mini" @click="headerClick(it)"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
                     </div>
                 </div>
             </el-form-item>
@@ -16,12 +16,12 @@
                 <div class="temp-select c-l">
                     <div class="d-temp-box" :style="{background:'url('+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
                         <span class="temp-name">{{it.name}}</span>
-                        <el-button type="primary" class="button" size="mini" @click="footerClick(it)"><i class="iconfont" :class="it.id==footer_check?'vip-check':'vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>
+                        <el-button type="primary" class="button" size="mini" @click="footerClick(it)"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>
                     </div>
                 </div>
             </el-form-item>
             <el-form-item class="m-center">
-                <el-button icon="el-icon-check" size="medium" type="primary" @click="submitForm()">保存设置</el-button>
+                <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存设置</el-button>
             </el-form-item>
             </div>
         </el-form>

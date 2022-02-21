@@ -94,6 +94,20 @@ router.beforeEach((to, from, next) => {
 
 let timer = setInterval(() => {
   if (axios && axios.defaults && axios.defaults.loaded) {
+    // 获取 应用基础信息 每隔十分钟更新一次信息
+    if (!localStorage.getItem('baseinfo_time_stamp') || (parseInt(localStorage.getItem('baseinfo_time_stamp')) + 10 * 60 * 1000) < new Date().getTime()) {
+      http.getJson('getbaseinfo').then(res => {
+        localStorage.setItem('fileUrl', res.data.orgInfo.fileUrl);
+        localStorage.setItem('headerFooterInfo', JSON.stringify(res.data.headerFooterInfo));
+        localStorage.setItem('orgInfo', JSON.stringify(res.data.orgInfo));
+        localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
+        localStorage.setItem('baseinfo_time_stamp', new Date().getTime());
+        // console.log(res);
+        // this.$root.fileUrl = res.data.orgInfo.fileUrl;
+      }).catch(err => {
+        // this.$message({ type: 'error', message: '获取基础数据失败!' });
+      });
+    }
     clearInterval(timer);
     new Vue({
       el: '#home_sys',

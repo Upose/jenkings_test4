@@ -9,7 +9,7 @@
         <div class="content">
           <div class="s-w">
             <span class="admin-m-title"><i class="el-icon-s-platform"></i>已配置终端列表</span>
-            <el-button size="medium" icon="el-icon-plus" class="r-btn" v-if="authShowBtn('terminal_add')" @click="addClick('add','')">新增终端</el-button>
+            <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" v-if="authShowBtn('terminal_add')" @click="addClick('add','')">新增终端</el-button>
           </div>
         </div><!---顶部查询板块 end--->
         <div class="list-content">
@@ -20,10 +20,10 @@
                   <img src="@/assets/admin/img/upload/s1.png"/>
                   <span class="name">{{i.name||'暂无'}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
-                    <i class="el-icon-s-tools" slot="reference"></i>
+                    <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="addClick('edit',i)" v-if="authShowBtn('terminal_edit')"><i class="el-icon-delete"></i><span>编辑</span></li>
-                      <li @click="delClick(i)" v-if="authShowBtn('terminal_delete')"><i class="el-icon-delete"></i><span>删除</span></li>
+                      <li @click="addClick('edit',i)" v-if="authShowBtn('terminal_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>编辑</span></li>
+                      <li @click="delClick(i)" v-if="authShowBtn('terminal_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                     </ul>
                   </el-popover>
                   </span>
