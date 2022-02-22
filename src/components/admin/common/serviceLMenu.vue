@@ -144,7 +144,7 @@ export default {
     &:hover{
       cursor: pointer;
       width: 245px;
-      z-index: 9;
+      z-index: 20;
       background: #FFFFFF;
       position: relative;
       color: @6777EF !important;
@@ -157,7 +157,7 @@ export default {
         width: 2px;
         height: 15px;
         position: absolute;
-        right: 5px;
+        right: 0;
         top:13px;
         background-color: @6777EF;
       }
@@ -165,7 +165,7 @@ export default {
   }
   .active{
     width: 245px;
-    z-index: 9;
+    z-index: 20;
     background: #FFFFFF;
     position: relative;
     color: @6777EF !important;
@@ -178,7 +178,7 @@ export default {
       width: 2px;
       height: 15px;
       position: absolute;
-      right: 5px;
+      right: 0px;
       top:13px;
       background-color: @6777EF;
     }
@@ -186,9 +186,6 @@ export default {
 }
 /***折叠后菜单**/
 .fold-menu{
-  .header-warp{
-    width:85px;
-  }
   .s-row{
     padding:0;
     font-size: 12px;
@@ -240,3 +237,4 @@ export default {
   }
 }
 </style>
+

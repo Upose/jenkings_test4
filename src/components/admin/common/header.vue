@@ -110,7 +110,7 @@ export default {
     }
   }
   .logo-collapse{
-    width: 65px;
+    width: 80px;
   }
   .m-cut{
     font-size: 24px;
@@ -148,7 +148,7 @@ export default {
     }
   }
   .logo-collapse-left{
-    left:127px;
+    left:140px;
     transition: left .3s ease-in-out;
   }
   
@@ -210,4 +210,3 @@ export default {
   height:0;
 }
 </style>
-

@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "27748935",
+      "name": "收起",
+      "font_class": "shouqi",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "27748936",
+      "name": "展开",
+      "font_class": "zhankai",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "27748937",
+      "name": "使用",
+      "font_class": "shiyong",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "27748938",
+      "name": "信息",
+      "font_class": "xinxi",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "27748939",
+      "name": "管理",
+      "font_class": "guanli",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
       "icon_id": "356446",
       "name": "减号",
       "font_class": "jianhao1",
