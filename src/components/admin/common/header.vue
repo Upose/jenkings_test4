@@ -16,7 +16,7 @@
     </div>
     <div class="login-msg-warp">
       <div class="u-img-w"><el-image class="u-img" v-if="userInfo" :src="$root.fileUrl+userInfo.photo||default_img" :fit="'contain'"></el-image></div>
-      <span class="u-name">{{userInfo.typeName||''}}</span>
+      <span class="u-name">{{userInfo.name||''}}</span>
       <i class="iconfont el-icon-vip-tuichu loginOut" title="退出登录" @click="outLogin()"></i>
     </div>
   </div>
@@ -68,11 +68,17 @@ export default {
       window.location.href = this.dataList[this.activeName].backendUrl||'#';
     },
     outLogin(){
-      this.$store.commit('logout');
-      localStorage.removeItem('token');
-      let current = window.location.href;
-      localStorage.setItem('COM+', current);
-      location.href = 'http://192.168.21.43:10011/cas/logout?service=' + encodeURIComponent(window.location);
+      this.$confirm('是否确认退出?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        localStorage.removeItem('token');
+        let current = window.location.href;
+        localStorage.setItem('COM+', current);
+        location.href = 'http://192.168.21.43:10011/cas/logout?service=' + encodeURIComponent(window.location);
+      }).catch(() => {
+      });
     },
   },
 }
