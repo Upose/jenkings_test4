@@ -1,5 +1,5 @@
 <template>
-  <div id="home_sys" class="admin-warp-app" v-if="baseInfo">
+  <div id="home_sys" class="admin-warp-app">
     <router-view/>
   </div>
 </template>
@@ -8,22 +8,9 @@
 export default {
   name: 'home_sys',
   created(){
-    //获取当前用户机构基础信息
-    var fileUrl = window.localStorage.getItem('fileUrl');
-    if(fileUrl && fileUrl!='' && fileUrl!=undefined && fileUrl!=null){
-      this.baseInfo = true;
-    }else{
-      this.http.getJson('getbaseinfo').then(res=>{
-        if(res.data){
-          this.$root.fileUrl = res.data.orgInfo.fileUrl||'';
-          window.localStorage.setItem('fileUrl',res.data.orgInfo.fileUrl);
-          this.baseInfo = true;
-        }
-      }).catch(err=>{})
-    }
     var home_sys_menuAuth = window.localStorage.getItem('home_sys_menuAuth');
     if(home_sys_menuAuth && home_sys_menuAuth!='' && home_sys_menuAuth!=undefined && home_sys_menuAuth!=null){
-      // console.log('菜单已存在');
+      // console.log('菜单已存在');//这个地方有重新更新菜单的问题
     }else{
       this.http.getPlain('auth_tree','').then((res) => {
         window.localStorage.setItem('home_sys_menuAuth',JSON.stringify(res.data));
@@ -37,7 +24,6 @@ export default {
   },
   data(){
     return {
-      baseInfo:false,
     }
   },
   methods:{

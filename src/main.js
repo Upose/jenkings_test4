@@ -61,50 +61,32 @@ const i18n = new VueI18n({
 })
 
 router.beforeEach((to, from, next) => {
-  // var url = window.location.href;
-  // var token = url.split('token')[1];
-  // if(token){//做重定向处理否则就不管
-  //   window.localStorage.setItem('token',token);
-  //   window.location.replace(url.split('token')[0]);
-  //   window.location.reload();
-  // }else{
-  //   next();
-  // }
   next();
 })
-
-
-// router.beforeEach((to, from, next) => {
-//   var url = window.location.href;
-//   var token = url.split('token')[1];
-//   if(token){//做重定向处理否则就不管
-//     window.localStorage.setItem('token',token);
-//     window.location.replace(url.split('token')[0]);
-//     window.location.reload();
-//   }else{
-//     next();
-//   }
-//   // const token = sessionStorage.getItem('token');
-//   // if (!token && to.path !== '/login') {
-//   //     next('/login');
-//   // } else {
-//   //   next();
-//   // }
-// })
 
 let timer = setInterval(() => {
   if (axios && axios.defaults && axios.defaults.loaded) {
     // 获取 应用基础信息 每隔十分钟更新一次信息
     if (!localStorage.getItem('baseinfo_time_stamp') || (parseInt(localStorage.getItem('baseinfo_time_stamp')) + 10 * 60 * 1000) < new Date().getTime()) {
+      getbaseinfoFun();
+    }else{
+      if(localStorage.getItem('token') && !localStorage.getItem('userInfo')){
+        getbaseinfoFun();
+      }
+    }
+    function getbaseinfoFun(){
       http.getJson('getbaseinfo').then(res => {
-        localStorage.setItem('fileUrl', res.data.orgInfo.fileUrl);
-        localStorage.setItem('headerFooterInfo', JSON.stringify(res.data.headerFooterInfo));
-        localStorage.setItem('orgInfo', JSON.stringify(res.data.orgInfo));
-        localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
-        localStorage.setItem('baseinfo_time_stamp', new Date().getTime());
-        // console.log(res);
-        // this.$root.fileUrl = res.data.orgInfo.fileUrl;
+        if(res.data){
+          localStorage.setItem('fileUrl', res.data.orgInfo.fileUrl);
+          localStorage.setItem('headerFooterInfo', JSON.stringify(res.data.headerFooterInfo));
+          localStorage.setItem('orgInfo', JSON.stringify(res.data.orgInfo));
+          if(res.data && res.data.userInfo){
+            localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
+          }
+          localStorage.setItem('baseinfo_time_stamp', new Date().getTime());
+        }
       }).catch(err => {
+        alert('基础数据获取失败');
         // this.$message({ type: 'error', message: '获取基础数据失败!' });
       });
     }
@@ -117,7 +99,7 @@ let timer = setInterval(() => {
       components: { App },
       data(){
         return{
-          fileUrl:'http://192.168.21.46:6900',
+          fileUrl:localStorage.getItem('fileUrl')||'http://192.168.21.46:6900',
           collapse:false,
         }
       },

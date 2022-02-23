@@ -61,8 +61,8 @@ export default {
   methods:{
     // 侧边栏折叠展开
     collapseChage(){
-        this.$root.collapse = !this.$root.collapse;
-        this.bus.$emit('collapse', this.$root.collapse);
+      this.$root.collapse = !this.$root.collapse;
+      this.bus.$emit('collapse', this.$root.collapse);
     },
     handleClick(tab, event) {
       window.location.href = this.dataList[this.activeName].backendUrl||'#';
@@ -73,7 +73,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        localStorage.removeItem('token');
+        localStorage.clear();
         let current = window.location.href;
         localStorage.setItem('COM+', current);
         location.href = 'http://192.168.21.43:10011/cas/logout?service=' + encodeURIComponent(window.location);
@@ -119,7 +119,7 @@ export default {
     width: 80px;
   }
   .m-cut{
-    font-size: 24px;
+    font-size: 16px;
     vertical-align: middle;
     margin-left:16px;
   }
