@@ -28,7 +28,7 @@ export default {
   name: 'test',
   data () {
     return {
-      userInfo:JSON.parse(window.localStorage.getItem('userInfo')||'{}'),
+      userInfo:{},
       activeName:0,
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       logoList:{
@@ -53,6 +53,7 @@ export default {
     }
   },
   mounted(){
+    this.userInfo = JSON.parse(window.localStorage.getItem('userInfo')||'{}');
     this.http.getPlain_url('getmgrtopmenu','').then(res=>{
       this.dataList = res.data||[];
     }).catch(err=>{

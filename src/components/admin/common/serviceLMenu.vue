@@ -35,8 +35,8 @@ export default {
     // this.http.getPlain('news-user-union-column-permission-list','').then(res=>{
     //   this.dataList = res.data||[];
     //   var path_url = window.localStorage.getItem('path_url');
-    //   if((path_url==undefined || path_url=='' || path_url==null) && this.dataList.length>0){
-    //     this.openPage(this.dataList[0].component);
+    //   if((path_url==undefined || path_url=='' || path_url==null || path_url=='null') && this.dataList.length>0){
+    //     this.openPage(this.dataList[0].router);
     //   }
     // }).catch(err=>{
 

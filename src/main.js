@@ -60,9 +60,9 @@ const i18n = new VueI18n({
   }
 })
 
-router.beforeEach((to, from, next) => {
-  next();
-})
+// router.beforeEach((to, from, next) => {
+//   next();
+// })
 
 let timer = setInterval(() => {
   if (axios && axios.defaults && axios.defaults.loaded) {
