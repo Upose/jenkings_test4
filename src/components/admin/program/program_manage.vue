@@ -107,6 +107,7 @@ export default {
     },
     //根据场景，获取对应的下方列表
     getList(id){
+      this.tableData = [];
       this.http.getJsonSelf('app-plate-list-by-scene-id','/'+id).then(res=>{ 
         this.tableData = res.data||[];
         this.getExpends();
@@ -116,9 +117,14 @@ export default {
     },
     //一级菜单点击
     handleClick(val){
+      this.s_list = this.dataList[val.index].sceneList||[];
       this.m_index = val.index;
       this.s_index = 0;
-      console.log(val.index);//下标
+      if(this.s_list.length>0){
+        this.menuClick(this.s_list[0],0);
+      }else{
+        this.tableData = [];
+      }
     },
     //二级菜单点击
     menuClick(val,index){
