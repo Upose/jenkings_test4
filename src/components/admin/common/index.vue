@@ -1,7 +1,7 @@
 <template>
 <div class="warp">
     <headerpage></headerpage>
-    <div class="admin-warp-content"><router-view></router-view></div>
+    <div class="admin-warp-content" v-if="is_admin_show"><router-view></router-view></div>
     <!-- <footerpage class="footer-page"></footerpage> -->
 </div>
 </template>
@@ -9,12 +9,20 @@
 <script>
 import headerpage from '@/components/admin/common/header'
 import footerpage from '@/components/admin/common/footer'
+
 export default {
   name: 'index',
   components:{headerpage,footerpage},
   data () {
     return {
+      is_admin_show:false,
     }
+  },
+  mounted(){
+    this.http.getPlain('auth_tree','').then((res) => {
+      this.is_admin_show = true;
+      window.localStorage.setItem('home_sys_menuAuth',JSON.stringify(res.data));
+    }).catch((err) => {});
   },
   methods:{
     // skinClick(val){

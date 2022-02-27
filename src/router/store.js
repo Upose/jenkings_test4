@@ -8,8 +8,10 @@ export default new Vuex.Store({
     token: undefined,//token参数
     language:'zh-CN',//语言
     skin_template:'template1',
+    userInfo:{},
   },
   getters: {
+    userInfo: (state) => state.userInfo,
     token: (state) => state.token,
     language: (state) => state.language||'zh-CN',
   },
@@ -17,6 +19,10 @@ export default new Vuex.Store({
     login: (state, data) => {
       state.token = data.token || undefined;
       sessionStorage.setItem('token',data.token);
+    },
+    setUserInfo: (state, data) => {
+      state.userinfo = data || {};
+      localStorage.setItem('userInfo',JSON.stringify(data));
     },
     logout: (state) => {
       state.token = undefined;
@@ -27,11 +33,11 @@ export default new Vuex.Store({
       sessionStorage.setItem('language',data.language);
     },
     setSkinTemplate:(state,data)=>{
-      console.log(state,data);
       state.skin_template = data.skin_template || 'template1';
       sessionStorage.setItem('skin_template',data.skin_template);
     },
     getSession:(state)=>{
+      state.userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
       state.token = sessionStorage.getItem('token') || undefined;
       state.language = sessionStorage.getItem('language') || 'zh-CN';
       state.skin_template = sessionStorage.getItem('skin_template') || 'template1';

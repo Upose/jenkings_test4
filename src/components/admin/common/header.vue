@@ -15,8 +15,8 @@
       </el-tabs>
     </div>
     <div class="login-msg-warp">
-      <div class="u-img-w"><el-image class="u-img" v-if="userInfo" :src="$root.fileUrl+userInfo.photo||default_img" :fit="'contain'"></el-image></div>
-      <span class="u-name">{{userInfo.name||''}}</span>
+      <div class="u-img-w"><el-image class="u-img" v-if="this.$store.state.userInfo" :src="$root.fileUrl+this.$store.state.userInfo.photo||default_img" :fit="'contain'"></el-image></div>
+      <span class="u-name">{{this.$store.state.userInfo.name||''}}</span>
       <i class="iconfont el-icon-vip-tuichu loginOut" title="退出登录" @click="outLogin()"></i>
     </div>
   </div>
@@ -26,9 +26,17 @@
 
 export default {
   name: 'test',
+  watch: {
+    '$store.state.userInfo': {
+      handler (newName, oldName) {
+          console.log(newName)
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   data () {
     return {
-      userInfo:{},
       activeName:0,
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       logoList:{
@@ -53,7 +61,6 @@ export default {
     }
   },
   mounted(){
-    this.userInfo = JSON.parse(window.localStorage.getItem('userInfo')||'{}');
     this.http.getPlain_url('getmgrtopmenu','').then(res=>{
       this.dataList = res.data||[];
     }).catch(err=>{

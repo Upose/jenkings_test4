@@ -70,7 +70,9 @@ let timer = setInterval(() => {
     if (!localStorage.getItem('baseinfo_time_stamp') || (parseInt(localStorage.getItem('baseinfo_time_stamp')) + 10 * 60 * 1000) < new Date().getTime()) {
       getbaseinfoFun();
     }else{
-      if(localStorage.getItem('token') && !localStorage.getItem('userInfo')){
+      if(localStorage.getItem('userInfo') == 'null' || localStorage.getItem('userInfo')==null){
+        getbaseinfoFun();
+      }else if(localStorage.getItem('token') && (localStorage.getItem('userInfo') && !JSON.parse(localStorage.getItem('userInfo')).userKey)){
         getbaseinfoFun();
       }
     }
@@ -81,6 +83,7 @@ let timer = setInterval(() => {
           localStorage.setItem('headerFooterInfo', JSON.stringify(res.data.headerFooterInfo));
           localStorage.setItem('orgInfo', JSON.stringify(res.data.orgInfo));
           if(res.data && res.data.userInfo){
+            store.commit('setUserInfo',res.data.userInfo);
             localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
           }
           localStorage.setItem('baseinfo_time_stamp', new Date().getTime());
