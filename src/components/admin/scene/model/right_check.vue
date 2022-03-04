@@ -196,6 +196,7 @@ export default {
         border-radius:40px 0px 0px 40px;
     }
     .step-num{
+        width: 100%;
         line-height: 60px;
         position: relative;
         &::after{
