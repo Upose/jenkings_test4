@@ -161,7 +161,8 @@ export default {
       },
       opts: {//元素初始化高度
         cellHeight: 10, 
-        cellHeightThrottle: 100,
+        // cellWidth:10,
+        cellHeightThrottle:100,
       },
     }
   },
