@@ -2,7 +2,7 @@
 <template>
   <div class="right-check-page">
     <div class="drag-r-warp">
-        <h1 class="step-num"><span class="num">4</span><span class="txt">应用设置：页头主导航</span></h1>
+        <h1 class="step-num"><span class="num">4</span><span class="txt">应用设置</span></h1>
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
@@ -55,7 +55,6 @@ export default {
       sortList:[],//排序列表
       topCountList:[],//显示条数列表
       appPlateList:[],//栏目列表
-
       template_list:[],//模板列表
       template_check:'',//选择的模板id
 
@@ -73,11 +72,10 @@ export default {
   methods:{
     //设置详情
     setDatils(val){
-    //   console.log(val);
+    // console.log(val);
     },
     //应用详情
     appDetails(val){
-        // console.log(val);
         var _this = this;
         _this.is_add = val.is_add;
         //获取应用组件列表 /{appid}

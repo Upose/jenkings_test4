@@ -530,7 +530,6 @@ export default {
     getAppDetails(val){
       admin_vue.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
     },
-
     /****监听中间区域的变化****/
     monitorCenter(){
       let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
