@@ -183,8 +183,8 @@ export default {
                   h: it.height,
                   x: it.xIndex,
                   y: it.yIndex,
-                  minW:it.appWidget.width,
-                  minH:it.appWidget.height,
+                  minW:10,
+                  minH:10,
                   appId:it.appId,
                   appPlateItems:it.appPlateItems,
                   appWidget:it.appWidget,
@@ -317,8 +317,8 @@ export default {
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
             x: x, y: y, h: h, w: w,
-            minW:min_w,
-            minH:min_h,
+            minW:data.width,
+            minH:data.height,
             target:data.target,
             tempId:data.id,
             divId:component_id,//元素渲染id
