@@ -207,17 +207,36 @@ export default {
     },
     //预览场景
     previewClick(val){
-      console.log(val);
+      console.log(val.id);
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-        var url = location.href.split('#')[0]+"#/admin_scenePreview";
+        var url = '';
+        if(val.id == '26cbabdf-4ae6-4f20-83b6-d42b367ec105'){ //针对重大首页
+          url = location.href.split('#')[0]+"#/admin_scenePreviewCqu";
+        }else if(val.id == 'fa08a926-13ee-4b37-aa15-9a0034308c92' || val.id == '2b2d74db-67fa-443e-aa74-e2bedee9ab09'){//针对图书和期刊频道
+          url = location.href.split('#')[0]+"#/admin_scenePreview_tq";
+        }else{
+          url = location.href.split('#')[0]+"#/admin_scenePreview";//统一预览
+        }
         setTimeout(() => {
           window.open(url);
         }, 50);
+
       }).catch(err=>{
         this.$message({type: 'error',message: '获取详情失败'});  
       })
     },
+    // previewClick(val){
+    //   this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
+    //     window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
+    //     var url = location.href.split('#')[0]+"#/admin_scenePreview";
+    //     setTimeout(() => {
+    //       window.open(url);
+    //     }, 50);
+    //   }).catch(err=>{
+    //     this.$message({type: 'error',message: '获取详情失败'});  
+    //   })
+    // },
     //更多
     moreClick(val){
       console.log(val);

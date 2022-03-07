@@ -444,14 +444,32 @@ export default {
     //预览
     scenePreview(){
       this.savePostJson('preview');
+      var id = this.$route.query.scene||'';
       setTimeout(() => {
         window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
-        var url = location.href.split('#')[0]+"/#/admin_scenePreview";
+        var url = '';
+        if(id == '26cbabdf-4ae6-4f20-83b6-d42b367ec105'){ //针对重大首页
+          url = location.href.split('#')[0]+"#/admin_scenePreviewCqu";
+        }else if(id == 'fa08a926-13ee-4b37-aa15-9a0034308c92' || id == '2b2d74db-67fa-443e-aa74-e2bedee9ab09'){//针对图书和期刊频道
+          url = location.href.split('#')[0]+"#/admin_scenePreview_tq";
+        }else{
+          url = location.href.split('#')[0]+"#/admin_scenePreview";//统一预览
+        }
         setTimeout(() => {
           window.open(url);
-        }, 20);
+        }, 50);
       }, 100);
     },
+    // scenePreview(){
+    //   this.savePostJson('preview');
+    //   setTimeout(() => {
+    //     window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
+    //     var url = location.href.split('#')[0]+"/#/admin_scenePreview";
+    //     setTimeout(() => {
+    //       window.open(url);
+    //     }, 20);
+    //   }, 100);
+    // },
     //设置场景名字
     setName(val){
       this.postForm.name = val||'';

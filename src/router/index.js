@@ -28,6 +28,18 @@ export default new Router({
       meta: { title: '服务中台-场景预览' , keepAlive:true},
     },
     {
+      path: '/admin_scenePreviewCqu',
+      name: 'admin_scenePreviewCqu',
+      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview_cqu')), 'scene'),
+      meta: { title: '服务中台-重大首页预览' , keepAlive:true},
+    },
+    {
+      path: '/admin_scenePreview_tq',
+      name: 'admin_scenePreview_tq',
+      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview_tq')), 'scene'),
+      meta: { title: '服务中台-图书期刊预览' , keepAlive:true},
+    },
+    {
       path: '/404',
       name: '404',
       component: r => require.ensure([], () => r(require('@/components/404')), 'index'),
