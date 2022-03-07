@@ -94,7 +94,7 @@ export default {
     return {
         dialogBulk:true,//模板选择
         top_dialogBulk:false,//头部设置
-        fot_dialogBulk:true,//底部设置
+        fot_dialogBulk:false,//底部设置
         dialogUPimg:false,//图片上传
         coumn_list:[{value:''}],//新增删除栏目列表
         coumn_data_list:[],//栏目下拉选择列表
