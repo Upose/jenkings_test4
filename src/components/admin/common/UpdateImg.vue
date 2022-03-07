@@ -136,19 +136,13 @@ export default {
           formData.append('files', data, "DX.jpg");
           console.log(formData);
           //调用axios上传
-          this.http.postFile('upload', formData).then(res => {
-            this.previews = {};
-            this.input_value = '';
-            this.$forceUpdate();
-            this.$emit('imgUrl', res.data || []);
-
-            // if (res.data && res.status == 0) {
-            //   this.$emit('upImg',res.data||[]);
-            // } else {
-            //   this.parentMessage('error', (res.msg || '无数据'));
-            // }
+          _this.http.postFile('upload', formData).then(res => {
+            _this.previews = {};
+            _this.input_value = '';
+            _this.$forceUpdate();
+            _this.$emit('imgUrl', res.data || []);
           }).then(err => {
-            this.option.img = '';
+            _this.option.img = '';
             console.log(err);
           })
         })
