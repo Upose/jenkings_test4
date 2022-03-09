@@ -197,7 +197,6 @@
           border: 1px solid @E4E6FC;
           width: 100%;
           li{
-            height: 36px;
             width: 100%;
             text-align: center;
             padding: 8px;
@@ -541,8 +540,6 @@
   position: relative;
   img{
     width: 72px;
-    height: 72px;
-    border: 1px solid #fcfcfc;
     display: block;
     border-radius: 5px;
     position: absolute;
@@ -567,7 +564,8 @@
     float: left;
     margin-right: 24px;
     width: 214px;
-    height: 100px;
+    height: 160px;
+    background-size: 100% 100% !important;
     padding: 10px;
     margin-bottom: 24px;
     border-radius: 3px;
@@ -575,7 +573,8 @@
     background-color: @A5B3CC;
     position: relative;
     .temp-name{
-        color: @fff;
+      display: none;
+      color: @fff;
     }
     .button{
       position: absolute;
@@ -607,6 +606,7 @@
     position: absolute;
     padding: 20px;
     right:0;
+    top: 54px;
     color: @6777EF;
     text-align: center;
     font-size: 12px;

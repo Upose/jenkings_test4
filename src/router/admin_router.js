@@ -49,5 +49,11 @@ export default {
         component: r => require.ensure([], () => r(require('@/components/admin/terminal/terminal_add')), 'terminal'),
         meta: { title: '服务中台-终端管理-添加终端' , keepAlive:true},
       },
+      {
+        path: '/admin_headfoot_set',
+        name: 'admin_headfoot_set',
+        component: r => require.ensure([], () => r(require('@/components/admin/headfoot_set/headfoot_set')), 'terminal'),
+        meta: { title: '服务中台-顶部头部设置' , keepAlive:true},
+      },
     ],
 }
