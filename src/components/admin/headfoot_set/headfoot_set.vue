@@ -174,7 +174,7 @@ export default {
         initialFrameHeight: 200,// 初始容器高度
         initialFrameWidth: '100%',// 初始容器宽度
         serverUrl: '',// 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
-        UEDITOR_HOME_URL: '/static/assets/other/UEditor/'
+        UEDITOR_HOME_URL: './static/assets/other/UEditor/'
       },
     }
   },
