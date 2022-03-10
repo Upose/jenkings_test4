@@ -71,6 +71,23 @@
                 <el-form-item label="底部信息" prop="defaultTemplate">
                     <vue-ueditor-wrap v-model="postForm.content" :config="myConfig" class="ueditors"></vue-ueditor-wrap>
                 </el-form-item>
+                <el-form-item label="JS路径" prop="visitUrl">
+                  <div class="btns-colse-warp input-btns">
+                    <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
+                        <el-input v-model="postForm.visitUrl" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
+                          <template slot="append"><el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button></template>
+                        </el-input>
+                        <div class="btns-el-btn" @click="removeCoumn(i)" v-if="(coumn_list.length-1)!=i">
+                        <i class="iconfont el-icon-vip-jianhao1"></i>
+                        <span>删除</span>
+                        </div>
+                        <div class="btns-el-btn" @click="addCoumn" v-if="(coumn_list.length-1)==i">
+                        <i class="iconfont el-icon-vip-tianjia1"></i>
+                        <span>添加</span>
+                        </div>
+                    </div>
+                  </div>
+                </el-form-item>
                 <el-form-item class="m-center">
                     <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
                 </el-form-item>
@@ -136,7 +153,7 @@ export default {
           'lineheight', //行间距 
         ]],
         autoHeightEnabled: false,// 编辑器不自动被内容撑高
-        initialFrameHeight: 240,// 初始容器高度
+        initialFrameHeight: 200,// 初始容器高度
         initialFrameWidth: '100%',// 初始容器宽度
         serverUrl: '',// 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
         UEDITOR_HOME_URL: '/static/assets/other/UEditor/'
@@ -248,6 +265,13 @@ export default {
         }
     }
 }
+/***js路径 */
+.input-btns{
+  width: 100% !important;
+  .el-input-group{
+    width: calc(100% - 40px) !important;
+  }
+}
     //百度富文本样式
     /deep/.edui-default .edui-editor{
       border: 1px solid #eee;
@@ -263,9 +287,9 @@ export default {
         height: 2px;
       }
     }
-    /deep/#edui1_iframeholder{
-      height: 330px !important;
-    }
+    // /deep/#edui1_iframeholder{
+    //   height: 330px !important;
+    // }
     /deep/.edui-default .edui-editor-toolbarbox{
       box-shadow:none;
     }
@@ -277,6 +301,9 @@ export default {
     }
     /deep/.edui-default .edui-editor-bottomContainer td{
       border-top:1px solid #eee;
+    }
+    .form-set-content{
+      padding: 0 !important;
     }
 </style>
 

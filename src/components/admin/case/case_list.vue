@@ -25,7 +25,7 @@
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in listData" :key="i">
                 <div class="r-box-bg">
-                  <img src="@/assets/admin/img/upload/s1.png"/>
+                  <img src="@/assets/admin/img/upload/s1.png" @click="editClick(i)"/>
                   <span class="name">{{i.name}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
@@ -254,6 +254,7 @@ export default {
           }
         }
         img{
+          cursor: pointer;
           width: 100%;
           border-radius: 5px 5px 0px 0px;
         }

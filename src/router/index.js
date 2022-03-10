@@ -58,7 +58,7 @@ export default new Router({
         let regexResult = ticketRegex.exec(location.href);
         if (regexResult.length > 1) {
           let ticket = regexResult[1];
-          let ticketHref = `${process.env.VUE_APP_BASE_API}/useridentify/api/third-part-auth/cas-proxy?ticket=${ticket}&service=${encodeURIComponent(originUrl)}`;
+          let ticketHref = `${window.apiDomainAndPort}/useridentify/api/third-part-auth/cas-proxy?ticket=${ticket}&service=${encodeURIComponent(originUrl)}`;
           axios({
             url: ticketHref,
             method: 'get',
