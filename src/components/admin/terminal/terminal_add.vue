@@ -105,7 +105,7 @@ export default {
     return {
       dialogUPimg:false,
       dialogSelectimg:false,
-      basurl:process.env.VUE_APP_IMG_URL+'/',
+      basurl:window.localStorage.getItem('fileUrl')+'/',
       default_img:require("../../../assets/admin/img/icon2.png"),
       select_img:{},
       iconList:[],//图标列表
