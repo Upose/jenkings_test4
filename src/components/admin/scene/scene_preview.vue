@@ -12,7 +12,7 @@
       <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div><!-- 底部信息-end -->
     </template>
 
-    <template v-if="items && isLock"><!--左边固定-->
+    <template v-if="items && isLock" style="background: #F6F8F9;"><!--左边固定-->
       <div class="left-fixed-template">
         <div class="header-prewiew"><div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div></div><!-- 头部信息-end -->
         <div class="content">
