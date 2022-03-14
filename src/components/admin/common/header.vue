@@ -40,8 +40,8 @@ export default {
       activeName:0,
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       logoList:{
-        show:require('@/assets/admin/img/logo.png'),
-        hide:require('@/assets/admin/img/logo-text.png'),
+        show:window.localStorage.getItem('fileUrl')+'/uploads/cqu/scene/admin-logo-min.png',
+        hide:window.localStorage.getItem('fileUrl')+'/uploads/cqu/scene/admin-logo-text.png',
       },
       dataList:[],
       // dataList:[
