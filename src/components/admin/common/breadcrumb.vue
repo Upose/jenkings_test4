@@ -2,7 +2,7 @@
 <template>
   <div class="breadcrumb-page">
     <el-breadcrumb separator-class="el-icon-arrow-right" :class="fontColor?'fff':'gray'">
-        <!-- <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-s-home"></i></el-breadcrumb-item> -->
+        <el-breadcrumb-item :to="{ path: '/' }"><i class="iconfont el-icon-vip-shouye"></i></el-breadcrumb-item>
         <!-- <el-breadcrumb-item>服务中台</el-breadcrumb-item>  -->
         <el-breadcrumb-item v-for="(item,index) in breadcrumbList" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
