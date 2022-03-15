@@ -133,12 +133,17 @@ export default {
     getApps(id){
       this.http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.$route.query.terminal).then(res=>{
         this.apps_list = res.data||[];
+        this.$emit('getAppsList',this.apps_list);
         if(this.serve_name == '' && this.apps_list.length>0){
           this.serveClick(this.apps_list[0]);
         }
       }).catch(err=>{
         console.log(err);
       })
+    },
+    //设置某个应用选中
+    setAppid(id){
+      this.appId = id;
     },
     //应用点击事件
     appDetails(id){

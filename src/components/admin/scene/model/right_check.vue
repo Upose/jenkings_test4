@@ -2,7 +2,7 @@
 <template>
   <div class="right-check-page">
     <div class="drag-r-warp">
-        <h1 class="step-num"><span class="num">4</span><span class="txt">应用设置</span></h1>
+        <h1 class="step-num"><span class="num">4</span><span class="txt">应用设置:</span><i class="app-name">{{apps_name}}</i></h1>
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
@@ -50,6 +50,7 @@ export default {
   mounted(){},
   data () {
     return {
+      apps_name:'',
       is_add:true,//是点击应用添加，还是点击的渲染模板，true为点击应用
       availableConfig:'',//显示哪几栏设置
       sortList:[],//排序列表
@@ -73,6 +74,9 @@ export default {
     //设置详情
     setDatils(val){
     // console.log(val);
+    },
+    setAppsName(val){
+        this.apps_name = val;
     },
     //应用详情
     appDetails(val){
@@ -307,5 +311,10 @@ export default {
         }
         }
     }
+}
+.app-name{
+    font-size: 14px;
+    color: @6D7CEF;
+    font-style: inherit;
 }
 </style>
