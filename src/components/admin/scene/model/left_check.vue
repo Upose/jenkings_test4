@@ -246,7 +246,7 @@ export default {
     }
     /*****box选中状态 */
     .box-active{
-      background-color: @f3f4ff !important;
+      background-color: #e3e6ff !important;
         .d-b-txt{
             color: @6777EF !important;
         }

@@ -564,10 +564,8 @@ export default {
     getAppDetails(val){
       console.log('应用id：----------------------',val.id);
       admin_vue.$refs.leftcheck_ref.setAppid(val.id);
-      var apps_cu = this.selectApps(val.id);
-      if(apps_cu){
-        admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
-      }
+      var apps_cu = this.selectApps(val.id)||{};
+      admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
       admin_vue.$refs.rightCheck_ref.appDetails({'id':val.id,'temp_id':val.temp_id,'is_add':val.is_add,'set_list':val.set_list});
     },
     /****监听中间区域的变化****/
