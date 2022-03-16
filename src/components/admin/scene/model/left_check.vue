@@ -36,7 +36,7 @@
             <el-dropdown trigger="click" class="r-select">
             <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="(it,i) in (dataList.appServiceType||[])" :key="i" @click.native="serveClick(it)">{{it.key||'暂无'}}</el-dropdown-item>
+                <el-dropdown-item v-for="(it,i) in (dataList.appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
             </el-dropdown-menu>
             </el-dropdown>
         </h1>
@@ -62,7 +62,7 @@ export default {
       deep: true,  // 深度监听
       handler(newVal,oldVal) {
         if(newVal.appServiceType && newVal.appServiceType.length>0){
-          this.serveClick(newVal.appServiceType[0]);
+          this.getApps(newVal.appServiceType[0].value);
         }
         if(newVal.sceneLayout && newVal.sceneLayout.length>0){
           this.layoutClick(newVal.sceneLayout[0]);
@@ -80,13 +80,14 @@ export default {
       activeCollapse:['1','2','3'],//左边折叠的数量
       sceneTemplate:[],//模板列表
       apps_list:[],//应用列表
+      apps_list_all:[],//应用列表-总列表
     }
   },
   mounted(){
-    if(this.dataList.appServiceType && this.dataList.appServiceType.length>0){
-      this.getApps(this.dataList.appServiceType[0].value);
-      this.serve_name = this.dataList.appServiceType[0].key||'';
-    }
+    // if(this.dataList.appServiceType && this.dataList.appServiceType.length>0){
+    //   this.getApps(this.dataList.appServiceType[0].value);
+    //   this.serve_name = this.dataList.appServiceType[0].key||'';
+    // }
   },
   methods:{
     //设置详情
@@ -101,11 +102,7 @@ export default {
       this.themeColor = val.value;
       this.$emit('setTheme',val.value);
     },
-    //应用选择-服务类型点击事件
-    serveClick(val){
-      this.serve_name = val.key;
-      this.getApps(val.value);
-    },
+    
     //选择布局
     layoutClick(val){
       this.layoutId = val.value;
@@ -129,13 +126,50 @@ export default {
       this.templateId = val.id;
       this.$emit('templateClick',{list:val,isadd:is_add})
     },
-    //按服务类型获取应用列表 /{appservicetype}/{terminaltype}
+    //应用选择-服务类型点击事件
+    serveClick(index){
+      var app_type = this.dataList.appServiceType[index]||{};
+      this.apps_list = app_type['list']||[];
+      this.serve_name = app_type.key;
+      console.log(this.dataList.appServiceType);
+    },
+    //根据应用id，查询属于哪个类型及对应下标
+    selectApps(appid){
+      var index = null;
+      this.dataList.appServiceType.forEach((it,i)=>{
+        if(it.list && it.list.length>0){
+          it.list.forEach((t,k)=>{
+            if(t.appId == appid){
+              index = i;
+              return;
+            }
+          })
+        }
+      })
+      return index;
+    },
+    //按服务类型获取应用列表 /{appservicetype}/{terminaltype} -----这里要改成查询全部，不要传id
     getApps(id){
-      this.http.getPlain_url('app-list-by-service-type','/'+id+'/'+this.$route.query.terminal).then(res=>{
-        this.apps_list = res.data||[];
-        this.$emit('getAppsList',this.apps_list);
-        if(this.serve_name == '' && this.apps_list.length>0){
-          this.serveClick(this.apps_list[0]);
+      var _this = this;
+      _this.http.getPlain_url('app-list-by-service-type','/'+0+'/'+this.$route.query.terminal).then(res=>{
+        _this.apps_list_all = res.data||[];
+        _this.$emit('getAppsList',_this.apps_list_all);
+        if(_this.apps_list_all.length>0){
+          _this.apps_list_all.forEach((it,i)=>{
+            _this.dataList.appServiceType.forEach((t,k)=>{
+              if(it.serviceType == t.value){
+                console.log(it.serviceType, t.value)
+                if(!_this.dataList.appServiceType[k]['list']){
+                  _this.dataList.appServiceType[k]['list'] = [];
+                }
+                _this.dataList.appServiceType[k]['list'].push(it);
+              }
+            })
+          })
+          console.log(_this.dataList.appServiceType)
+        }
+        if(_this.serve_name == '' && _this.apps_list_all.length>0){
+          _this.serveClick(0);
         }
       }).catch(err=>{
         console.log(err);
@@ -144,6 +178,11 @@ export default {
     //设置某个应用选中
     setAppid(id){
       this.appId = id;
+      var index = this.selectApps(this.appId);
+      console.log(index);
+      if(index != null){
+        this.serveClick(index);
+      }
     },
     //应用点击事件
     appDetails(id){
