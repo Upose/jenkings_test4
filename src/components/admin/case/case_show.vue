@@ -25,8 +25,7 @@
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in (item.sceneList||[])":key="i+'a'">
                 <div class="r-box-bg">
-                  <!-- <img :src="i.cover||defalut_img"/> -->
-                  <img :src="defalut_img" @click="editClick(i,item.terminalType)"/>
+                  <img :src="fileUrl+i.cover" @click="editClick(i,item.terminalType)"/>
                   <span class="name">{{i.name}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
@@ -129,6 +128,7 @@ export default {
       Status:null,//启用，禁用
       IsSystemScene:null,//是否默认场景
       defalut_img:require('../../../assets/admin/img/upload/s1.png'),
+      fileUrl:window.localStorage.getItem('fileUrl'),
       dataList:[],//列表
     }
   },
@@ -311,6 +311,9 @@ export default {
           }
         }
         img{
+          width: 238px;
+          height: 178px;
+          background: #f5f5f5;
           cursor: pointer;
           width: 100%;
           border-radius: 5px 5px 0px 0px;
