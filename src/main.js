@@ -82,6 +82,7 @@ let timer = setInterval(() => {
           localStorage.setItem('fileUrl', res.data.orgInfo.fileUrl);
           localStorage.setItem('headerFooterInfo', JSON.stringify(res.data.headerFooterInfo));
           localStorage.setItem('orgInfo', JSON.stringify(res.data.orgInfo));
+          localStorage.setItem('urlInfo', JSON.stringify(res.data.urlInfo));
           if(res.data && res.data.userInfo){
             store.commit('setUserInfo',res.data.userInfo);
             localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));

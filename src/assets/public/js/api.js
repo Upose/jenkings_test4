@@ -31,6 +31,14 @@ export default {
         'template-list': baseURL + '/api/scene-manage/template-list', //获取模板列表
         'icon_dictionary': baseURL + '/api/terminal/dictionary', //获取图标选择列表
 
+        //头部底部设置信息
+        'head-template-settings-by-id': baseURL + '/api/header-footer/head-template-settings-by-id', //获取头部模板高级设置项
+        'foot-template-settings-by-id': baseURL + '/api/header-footer/foot-template-settings-by-id', //获取底部模板高级设置项
+        'head-template-settings-update': baseURL + '/api/header-footer/head-template-settings-update', //更新头部模板高级设置项
+        'head-template-settings-add': baseURL + '/api/header-footer/head-template-settings-add', //新增头部模板高级设置项
+        'foot-template-settings-update': baseURL + '/api/header-footer/foot-template-settings-update', //更新底部模板高级设置项
+        'foot-template-settings-add': baseURL + '/api/header-footer/foot-template-settings-add', //新增底部模板高级设置项
+
         //权限及头部
         'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单
         'getbaseinfo': baseURL_apps + '/api/baseinfo/getbaseinfo',//获取当前用户机构基础信息

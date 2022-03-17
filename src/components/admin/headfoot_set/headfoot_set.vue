@@ -27,10 +27,6 @@
                         </div>
                     </div>
                 </el-form-item>
-                <el-form-item>
-                  <el-button icon="iconfont el-icon-vip-quxiao" size="medium" @click="backHistory()">取消</el-button>
-                  <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
-                </el-form-item>
               </div>
             </el-form>
         </div>
@@ -43,34 +39,34 @@
             <div class="form-content form-set-content">
                 <el-form-item label="更换LOGO" prop="logo">
                 <div class="up-img-form-item">
-                  <!-- <div class="up-img-warp" v-if="postForm.logo">
-                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
-                  </div> -->
+                  <div class="up-img-warp" v-if="postForm_head.logo">
+                    <img :src="fileUrl+postForm_head.logo">
+                  </div>
                   <div class="up-img-warp up-icon" @click="upImg()">
                     <span>上传图标</span>
                   </div>
                 </div>
                 </el-form-item>
                 <el-form-item label="展示栏目">
-                    <div class="btns-colse-warp">
-                    <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
+                  <div class="btns-colse-warp">
+                    <div class="btns-select-row" v-for="(it,i) in coumn_list1" :key="i+'b'">
                         <el-select v-model="it.value" placeholder="请选择栏目">
                         <el-option :label="item.value" :value="item.key" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.value||'无'}}</el-option>
                         </el-select>
-                        <div class="btns-el-btn" @click="removeCoumn(i)" v-if="(coumn_list.length-1)!=i">
+                        <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list1.length-1)!=i">
                         <i class="iconfont el-icon-vip-jianhao1"></i>
                         <span>删除</span>
                         </div>
-                        <div class="btns-el-btn" @click="addCoumn" v-if="(coumn_list.length-1)==i">
+                        <div class="btns-el-btn" @click="addCoumn1" v-if="(coumn_list1.length-1)==i">
                         <i class="iconfont el-icon-vip-tianjia1"></i>
                         <span>添加</span>
                         </div>
                     </div>
-                    </div>
-                    <!-- <p class="hint">栏目展示在顶部</p> -->
+                  </div>
+                  <!-- <p class="hint">栏目展示在顶部</p> -->
                 </el-form-item>
                 <el-form-item class="m-center">
-                    <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
+                  <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormHead()">保存</el-button>
                 </el-form-item>
             </div>
         </el-form>
@@ -79,34 +75,38 @@
         <el-form label-width="70px" class="admin-form">
             <div class="form-content form-set-content">
                 <el-form-item label="底部信息" prop="defaultTemplate">
-                    <vue-ueditor-wrap v-model="postForm.content" :config="myConfig" class="ueditors"></vue-ueditor-wrap>
+                    <vue-ueditor-wrap v-model="postForm_fot.content" :config="myConfig" class="ueditors"></vue-ueditor-wrap>
                 </el-form-item>
                 <el-form-item label="JS路径" prop="visitUrl">
-                  
                   <div class="btns-colse-warp input-btns">
-                    <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
-                        <el-input v-model="postForm.visitUrl" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
-                          <template slot="append"><el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button></template>
+                    <div class="btns-select-row" v-for="(it,i) in coumn_list2" :key="i+'b'">
+                        <el-input v-model="it.value" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
+                          <template slot="append">
+                            <div class="up-btn">
+                              <span>上传文件</span>
+                              <input type="file" :id="'file_'+i" multiple="multiple" @change="handleFile">
+                            </div>
+                          </template>
                         </el-input>
-                        <div class="btns-el-btn" @click="removeCoumn(i)" v-if="(coumn_list.length-1)!=i">
-                        <i class="iconfont el-icon-vip-jianhao1"></i>
-                        <span>删除</span>
+                        <div class="btns-el-btn" @click="removeCoumn2(i)" v-if="(coumn_list2.length-1)!=i">
+                          <i class="iconfont el-icon-vip-jianhao1"></i>
+                          <span>删除</span>
                         </div>
-                        <div class="btns-el-btn" @click="addCoumn" v-if="(coumn_list.length-1)==i">
-                        <i class="iconfont el-icon-vip-tianjia1"></i>
-                        <span>添加</span>
+                        <div class="btns-el-btn" @click="addCoumn2" v-if="(coumn_list2.length-1)==i">
+                          <i class="iconfont el-icon-vip-tianjia1"></i>
+                          <span>添加</span>
                         </div>
                     </div>
-                    </div>
+                  </div>
                 </el-form-item>
                 <el-form-item class="m-center">
-                    <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
+                  <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormFot()">保存</el-button>
                 </el-form-item>
             </div>
         </el-form>
     </el-dialog><!--底部设置-->
     <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleCloseImg">
-        <UpdateImg @imgUrl="imgUrl" :imgWidth="100" :imgHeight="100"></UpdateImg>
+      <UpdateImg @imgUrl="imgUrl" :imgWidth="280" :imgHeight="80"></UpdateImg>
     </el-dialog>
   </div>
 </template>
@@ -127,18 +127,20 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb,UpdateImg,VueUeditorWrap},
   data () {
     return {
-      dialogBulk:true,//模板选择
-        top_dialogBulk:false,//头部设置
-        fot_dialogBulk:true,//底部设置
-        dialogUPimg:false,//图片上传
-        coumn_list:[{value:''}],//新增删除栏目列表
-        coumn_data_list:[],//栏目下拉选择列表
-        head_list:[],
-        footer_list:[],
-        head_check:'',
-        footer_check:'',
-        postForm:{},
-        //百度富文本
+      fileUrl:window.localStorage.getItem('fileUrl'),
+      top_dialogBulk:false,//头部设置
+      fot_dialogBulk:false,//底部设置
+      dialogUPimg:false,//图片上传
+      coumn_list1:[{value:''}],//新增删除栏目列表
+      coumn_list2:[{value:''}],//js地址个数
+      coumn_data_list:[],//栏目下拉选择列表
+      head_list:[],
+      footer_list:[],
+      head_check:'',
+      footer_check:'',
+      postForm_head:{},//头部表单
+      postForm_fot:{},//底部表单
+      //百度富文本
       myConfig: {
         toolbars: [[
           'undo', //撤销 
@@ -180,48 +182,87 @@ export default {
   },
   mounted() {
     this.http.getPlain('template-list','Type=2&PageIndex=1&PageSize=100').then(res=>{
-        this.head_list = res.data.items||[];
+      this.head_list = res.data.items||[];
     }).catch(err=>{
-        this.$message({type: 'error',message: '获取失败!'});
+      this.$message({type: 'error',message: '获取失败!'});
     })
     this.http.getPlain('template-list','Type=3&PageIndex=1&PageSize=100').then(res=>{
-        this.footer_list = res.data.items||[];
+      this.footer_list = res.data.items||[];
     }).catch(err=>{
-        this.$message({type: 'error',message: '获取失败!'});
+      this.$message({type: 'error',message: '获取失败!'});
     })
   },
   methods: {
-    /****保存按钮*******/
-    submitForm(){
-        this.$emit('setHFooter',this.postForm);
-        this.$emit('hfHide');
+    /****保存头部设置信息*******/
+    submitFormHead(){
+      var list = [];
+      this.coumn_list1.forEach(item=>{
+        if(item.value) list.push(item.value)
+      })
+      this.postForm_head.displayNavColumn = list||[];
+      console.log(this.postForm_head);
+      this.http.postJson('head-template-settings-update',this.postForm_head).then(res=>{
+        this.$message({type: 'success',message: '保存成功!'});
+      }).catch(err=>{
+        this.$message({type: 'error',message: '保存失败!'});
+      })
     },
-    //模板选择
-    headerClick(val){
-        this.head_check = val.id;
-        this.postForm['headerTemplate'] = val;
+    /****保存底部设置信息*******/
+    submitFormFot(){
+      var list = [];
+      this.coumn_list2.forEach(item=>{
+        if(item.value) list.push(item.value)
+      })
+      this.postForm_fot.jsPath = list||[];
+      console.log(this.postForm_fot);
+      this.http.postJson('foot-template-settings-update',this.postForm_fot).then(res=>{
+        this.$message({type: 'success',message: '保存成功!'});
+      }).catch(err=>{
+        this.$message({type: 'error',message: '保存失败!'});
+      })
     },
-    //模板选择
-    footerClick(val){
-        this.footer_check = val.id;
-        this.postForm['footerTemplate'] = val;
+    //文件上传
+    handleFile(e){
+      var _this = this;
+      let $target = e.target || e.srcElement
+      let file = $target.files[0]
+      if (!file) {
+        return
+      }
+      let formData = new FormData()
+      formData.append('files', file)
+      // 上传限制
+      // let fileSize = file.size
+      // if (fileSize > 52428800) {
+      //   this.$alert('大小不得超过50M')
+      //   return
+      // }
+      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
+        this.$message({type: 'error',message: '请上传js文件!'});
+        return;
+      }
+      var index = parseInt(e.target.id.slice(5,6));
+      this.http.postFile("UploadFile", formData).then((res) => {
+        _this.coumn_list2[index].value = _this.fileUrl+res.data[0];
+      }).catch((err) => {
+        this.$message({type: 'error',message: '上传失败!'});
+      });
     },
     /****取消按钮*******/
     closeClick(){
-        this.$emit('hfHide');
+      this.$emit('hfHide');
     },
     /***x关闭按钮 **/
     handleClose(done){
-        this.$emit('hfHide');
+      this.$emit('hfHide');
     },
     //打开图标上传弹窗
     upImg(){
-        console.log('11');
       this.dialogUPimg = true;
     },
     //获取图片上传返回地址
     imgUrl(val){
-      this.postForm['logo'] = val[0];
+      this.postForm_head['logo'] = val[0];
       this.dialogUPimg = false;
     },
     //图片上传-弹窗关闭
@@ -229,22 +270,58 @@ export default {
       done();
     },
     //删除多栏目投递
-    removeCoumn(index){
-      this.coumn_list.splice(index,1);
+    removeCoumn1(index){
+      this.coumn_list1.splice(index,1);
     },
     //添加多栏目投递
-    addCoumn(){
-      this.coumn_list.push({value:''});
+    addCoumn1(){
+      this.coumn_list1.push({value:''});
+    },
+    //删除js地址
+    removeCoumn2(index){
+      if(this.coumn_list1.length==4){
+        this.$message({type: 'info',message: '只能添加4个栏目!'});
+        return;
+      }
+      this.coumn_list2.splice(index,1);
+    },
+    //添加js地址
+    addCoumn2(){
+      if(this.coumn_list2.length==3){
+        this.$message({type: 'info',message: '只能添加3个js地址!'});
+        return;
+      }
+      this.coumn_list2.push({value:''});
     },
     //编辑-头部
     topEditClick(val){
-        console.log(val);
-        this.top_dialogBulk = true;
+      this.http.getPlain('head-template-settings-by-id','?headtemplateid='+val.id).then(res=>{
+        this.postForm_head = res.data||{};
+        if(this.postForm_head.displayNavColumn && this.postForm_head.displayNavColumn.length>0){
+          this.coumn_list1 = [];
+          this.postForm_head.displayNavColumn.forEach(it => {
+            this.coumn_list1.push({value:it});
+          });
+        }
+      }).catch(err=>{
+          this.$message({type: 'error',message: '获取失败!'});
+      })
+      this.top_dialogBulk = true;
     },
     //编辑-底部
     fotEditClick(val){
-        console.log(val);
-        this.fot_dialogBulk = true;
+      this.http.getPlain('foot-template-settings-by-id','?foottemplateid='+val.id).then(res=>{
+        this.postForm_fot = res.data||{};
+        if(this.postForm_fot.jsPath && this.postForm_fot.jsPath.length>0){
+          this.coumn_list2 = [];
+          this.postForm_fot.jsPath.forEach(it => {
+            this.coumn_list2.push({value:it});
+          });
+        }
+      }).catch(err=>{
+          this.$message({type: 'error',message: '获取失败!'});
+      })
+      this.fot_dialogBulk = true;
     },
   },
 }
@@ -329,5 +406,29 @@ export default {
     }
     .form-set-content{
       padding: 0 !important;
+    }
+    .up-btn{
+      cursor: pointer;
+      position: relative;
+      width: 80px;
+      height: 38px;
+      span,input{
+        position: absolute;
+        width: 80px;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+      input{
+        cursor: pointer;
+        z-index: 2;
+        opacity: 0;
+      }
+      span{
+        cursor: pointer;
+        line-height: 38px;
+        text-align: center;
+        z-index: 1;
+      }
     }
 </style>
