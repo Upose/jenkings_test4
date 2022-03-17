@@ -123,6 +123,23 @@ export default {
     this.bus.$on('collapse', msg => {
       this.$root.collapse = msg;
     })
+    this.http.getPlain('nav-column-list','').then(res=>{
+      this.coumn_data_list = res.data||[];
+    }).catch(err=>{
+      this.$message({type: 'error',message: '获取失败!'});
+    })
+    this.http.getPlain('template-list','Type=2&PageIndex=1&PageSize=100').then(res=>{
+      this.head_list = res.data.items||[];
+    }).catch(err=>{
+      this.$message({type: 'error',message: '获取失败!'});
+    })
+    this.http.getPlain('template-list','Type=3&PageIndex=1&PageSize=100').then(res=>{
+      this.footer_list = res.data.items||[];
+    }).catch(err=>{
+      this.$message({type: 'error',message: '获取失败!'});
+    })
+  },
+  mounted() {
     if(this.$route.query.tid){
       this.topEditClick(this.$route.query.tid);
     }
@@ -185,23 +202,6 @@ export default {
         UEDITOR_HOME_URL: './static/assets/other/UEditor/'
       },
     }
-  },
-  mounted() {
-    this.http.getPlain('nav-column-list','').then(res=>{
-      this.coumn_data_list = res.data||[];
-    }).catch(err=>{
-      this.$message({type: 'error',message: '获取失败!'});
-    })
-    this.http.getPlain('template-list','Type=2&PageIndex=1&PageSize=100').then(res=>{
-      this.head_list = res.data.items||[];
-    }).catch(err=>{
-      this.$message({type: 'error',message: '获取失败!'});
-    })
-    this.http.getPlain('template-list','Type=3&PageIndex=1&PageSize=100').then(res=>{
-      this.footer_list = res.data.items||[];
-    }).catch(err=>{
-      this.$message({type: 'error',message: '获取失败!'});
-    })
   },
   methods: {
     /****保存头部设置信息*******/
