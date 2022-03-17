@@ -12,7 +12,7 @@
                 <el-form-item label="头部模板" prop="defaultTemplate">
                     <div class="temp-select c-l">
                         <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
-                            <span class="edit-btn" @click="topEditClick(it)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
+                            <span class="edit-btn" @click="topEditClick(it.id)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
                             <span class="temp-name">{{it.name}}</span>
                             <!-- <el-button type="primary" class="button" size="mini" @click="headerClick(it)"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button> -->
                         </div>
@@ -21,7 +21,7 @@
                 <el-form-item label="底部模板" prop="defaultTemplate">
                     <div class="temp-select c-l">
                         <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
-                            <span class="edit-btn" @click="fotEditClick(it)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
+                            <span class="edit-btn" @click="fotEditClick(it.id)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
                             <span class="temp-name">{{it.name}}</span>
                             <!-- <el-button type="primary" class="button" size="mini" @click="footerClick(it)"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button> -->
                         </div>
@@ -51,7 +51,7 @@
                   <div class="btns-colse-warp">
                     <div class="btns-select-row" v-for="(it,i) in coumn_list1" :key="i+'b'">
                         <el-select v-model="it.value" placeholder="请选择栏目">
-                        <el-option :label="item.value" :value="item.key" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.value||'无'}}</el-option>
+                        <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
                         </el-select>
                         <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list1.length-1)!=i">
                         <i class="iconfont el-icon-vip-jianhao1"></i>
@@ -123,6 +123,12 @@ export default {
     this.bus.$on('collapse', msg => {
       this.$root.collapse = msg;
     })
+    if(this.$route.query.tid){
+      this.topEditClick(this.$route.query.tid);
+    }
+    if(this.$route.query.fid){
+      this.fotEditClick(this.$route.query.fid);
+    }
   },
   components:{footerPage,serviceLMenu,breadcrumb,UpdateImg,VueUeditorWrap},
   data () {
@@ -181,6 +187,11 @@ export default {
     }
   },
   mounted() {
+    this.http.getPlain('nav-column-list','').then(res=>{
+      this.coumn_data_list = res.data||[];
+    }).catch(err=>{
+      this.$message({type: 'error',message: '获取失败!'});
+    })
     this.http.getPlain('template-list','Type=2&PageIndex=1&PageSize=100').then(res=>{
       this.head_list = res.data.items||[];
     }).catch(err=>{
@@ -200,9 +211,10 @@ export default {
         if(item.value) list.push(item.value)
       })
       this.postForm_head.displayNavColumn = list||[];
-      console.log(this.postForm_head);
       this.http.postJson('head-template-settings-update',this.postForm_head).then(res=>{
         this.$message({type: 'success',message: '保存成功!'});
+        this.postForm_head = {};
+        this.top_dialogBulk = false;
       }).catch(err=>{
         this.$message({type: 'error',message: '保存失败!'});
       })
@@ -214,9 +226,10 @@ export default {
         if(item.value) list.push(item.value)
       })
       this.postForm_fot.jsPath = list||[];
-      console.log(this.postForm_fot);
       this.http.postJson('foot-template-settings-update',this.postForm_fot).then(res=>{
         this.$message({type: 'success',message: '保存成功!'});
+        this.postForm_fot = {};
+        this.fot_dialogBulk = false;
       }).catch(err=>{
         this.$message({type: 'error',message: '保存失败!'});
       })
@@ -295,7 +308,7 @@ export default {
     },
     //编辑-头部
     topEditClick(val){
-      this.http.getPlain('head-template-settings-by-id','?headtemplateid='+val.id).then(res=>{
+      this.http.getPlain('head-template-settings-by-id','?headtemplateid='+val).then(res=>{
         this.postForm_head = res.data||{};
         if(this.postForm_head.displayNavColumn && this.postForm_head.displayNavColumn.length>0){
           this.coumn_list1 = [];
@@ -310,7 +323,7 @@ export default {
     },
     //编辑-底部
     fotEditClick(val){
-      this.http.getPlain('foot-template-settings-by-id','?foottemplateid='+val.id).then(res=>{
+      this.http.getPlain('foot-template-settings-by-id','?foottemplateid='+val).then(res=>{
         this.postForm_fot = res.data||{};
         if(this.postForm_fot.jsPath && this.postForm_fot.jsPath.length>0){
           this.coumn_list2 = [];

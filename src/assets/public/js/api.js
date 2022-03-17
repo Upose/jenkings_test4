@@ -38,6 +38,7 @@ export default {
         'head-template-settings-add': baseURL + '/api/header-footer/head-template-settings-add', //新增头部模板高级设置项
         'foot-template-settings-update': baseURL + '/api/header-footer/foot-template-settings-update', //更新底部模板高级设置项
         'foot-template-settings-add': baseURL + '/api/header-footer/foot-template-settings-add', //新增底部模板高级设置项
+        'nav-column-list': baseURL + '/api/header-footer/nav-column-list', //获取栏目列表
 
         //权限及头部
         'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单

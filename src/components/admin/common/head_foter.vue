@@ -220,13 +220,13 @@ export default {
     },
     //编辑-头部
     topEditClick(val){
-        console.log(val);
-        this.top_dialogBulk = true;
+        this.$router.push({path:'/admin_headfoot_set',query:{tid:val.id}})
+        // this.top_dialogBulk = true;
     },
     //编辑-底部
     fotEditClick(val){
-        console.log(val);
-        this.fot_dialogBulk = true;
+        this.$router.push({path:'/admin_headfoot_set',query:{fid:val.id}})
+        // this.fot_dialogBulk = true;
     },
   },
 }
