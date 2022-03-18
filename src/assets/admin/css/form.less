@@ -576,12 +576,21 @@
     width: 214px;
     height: 160px;
     background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     padding: 10px;
     margin-bottom: 24px;
     border-radius: 3px;
     border: 1px solid @A5B3CC;
     background-color: @A5B3CC;
     position: relative;
+    transition: all .3s;
+    cursor: pointer;
+    &:hover{
+      border: 2px solid #6777ef;
+      box-shadow: 1px 5px 20px #dedede;
+      background-size: 95% 95% !important;
+    }
     .temp-name{
       display: none;
       color: @fff;
@@ -606,6 +615,11 @@
         vertical-align: bottom;
       }
     }
+  }
+  .d-temp-box-check{
+    border: 2px solid #6777ef;
+    box-shadow: 1px 5px 20px #dedede;
+    background-size: 95% 95% !important;
   }
   /**高级设置按钮*/
   .higher-set{

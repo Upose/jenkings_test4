@@ -6,7 +6,7 @@
             <div class="form-content">
             <el-form-item label="头部模板" prop="defaultTemplate">
                 <div class="temp-select c-l">
-                    <div class="d-temp-box"  @click="headerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
+                    <div class="d-temp-box" :class="it.id==head_check?'d-temp-box-check':''" @click="headerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
                         <span class="edit-btn" @click="topEditClick(it)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
                         <span class="temp-name">{{it.name}}</span>
                         <el-button type="primary" class="button" size="mini"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
@@ -15,7 +15,7 @@
             </el-form-item>
             <el-form-item label="底部模板" prop="defaultTemplate">
                 <div class="temp-select c-l">
-                    <div class="d-temp-box" @click="footerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
+                    <div class="d-temp-box" :class="it.id==footer_check?'d-temp-box-check':''" @click="footerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
                         <span class="edit-btn" @click="fotEditClick(it)" ><i class="iconfont el-icon-vip-shezhi-1"></i></span>
                         <span class="temp-name">{{it.name}}</span>
                         <el-button type="primary" class="button" size="mini" @click="footerClick(it)"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>

@@ -9,9 +9,9 @@
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
-                <div class="d-temp-box" v-for="(it,i) in template_list" :key="i" :style="{'background-image':'url('+it.cover+')'}">
+                <div class="d-temp-box" v-for="(it,i) in template_list" :class="template_check == it.id?'d-temp-box-check':''" @click="appsTemplate(it,i)" :key="i" :style="{background:'url('+fileUrl+it.cover+')'}">
                     <span class="temp-name">{{it.name||'无'}}</span>
-                    <el-button type="primary" class="button" size="mini" @click="appsTemplate(it,i)"><i class="iconfont" :class="template_check == it.id?'el-icon-vip-check':'el-icon-vip-no-check'"></i> 选用</el-button>
+                    <el-button type="primary" class="button" size="mini"><i class="iconfont" :class="template_check == it.id?'el-icon-vip-check':'el-icon-vip-no-check'"></i> 选用</el-button>
                 </div>
             </div>
             </div><!--选择样式 end-->
@@ -53,6 +53,7 @@ export default {
   mounted(){},
   data () {
     return {
+      fileUrl:window.localStorage.getItem('fileUrl'),
       apps_name:'',
       is_add:true,//是点击应用添加，还是点击的渲染模板，true为点击应用
       availableConfig:'',//显示哪几栏设置
