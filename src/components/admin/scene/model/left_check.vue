@@ -131,7 +131,6 @@ export default {
       var app_type = this.dataList.appServiceType[index]||{};
       this.apps_list = app_type['list']||[];
       this.serve_name = app_type.key;
-      console.log(this.dataList.appServiceType);
     },
     //根据应用id，查询属于哪个类型及对应下标
     selectApps(appid){
@@ -158,7 +157,6 @@ export default {
           _this.apps_list_all.forEach((it,i)=>{
             _this.dataList.appServiceType.forEach((t,k)=>{
               if(it.serviceType == t.value){
-                console.log(it.serviceType, t.value)
                 if(!_this.dataList.appServiceType[k]['list']){
                   _this.dataList.appServiceType[k]['list'] = [];
                 }
@@ -166,7 +164,6 @@ export default {
               }
             })
           })
-          console.log(_this.dataList.appServiceType)
         }
         if(_this.serve_name == '' && _this.apps_list_all.length>0){
           _this.serveClick(0);
@@ -179,7 +176,6 @@ export default {
     setAppid(id){
       this.appId = id;
       var index = this.selectApps(this.appId);
-      console.log(index);
       if(index != null){
         this.serveClick(index);
       }

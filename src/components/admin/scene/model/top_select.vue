@@ -31,7 +31,7 @@
         <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
         <!-- </div> -->
     </div><!--顶部条件筛选 end-->
-    <header_footer @hfHide="hfHide" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
+    <header_footer @hfHide="hfHide" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
   </div>
 </template>
 
@@ -44,6 +44,7 @@ export default {
   data () {
     return {
       header_footer_show:false,
+      head_fot_data:{footerTemplate:{},headerTemplate:{}},
       postForm:{
         name:'',
         user_type:[],
@@ -59,6 +60,10 @@ export default {
   methods:{
     //设置详情
     setDatils(val){
+      this.head_fot_data={
+        footerTemplate:val.footerTemplate,
+        headerTemplate:val.headerTemplate,
+      }
       this.postForm.name = val.name;//名称
       this.postForm.status = val.status;//服务状态
       this.postForm.sceneUsers = val.sceneUsers;//用户类型

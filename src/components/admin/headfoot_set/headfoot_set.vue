@@ -71,7 +71,7 @@
             </div>
         </el-form>
     </el-dialog><!--头部设置-->
-    <el-dialog append-to-body title="底部设置" :visible.sync="fot_dialogBulk" width="800px" :close-on-click-modal="false">
+    <el-dialog append-to-body title="底部设置" :visible.sync="fot_dialogBulk" width="900px" :close-on-click-modal="false">
         <el-form label-width="70px" class="admin-form">
             <div class="form-content form-set-content">
                 <el-form-item label="底部信息" prop="defaultTemplate">
@@ -84,7 +84,7 @@
                           <template slot="append">
                             <div class="up-btn">
                               <span>上传文件</span>
-                              <input type="file" :id="'file_'+i" multiple="multiple" @change="handleFile">
+                              <input type="file" :id="'file_'+i" multiple="multiple" @change="handleFileJS">
                             </div>
                           </template>
                         </el-input>
@@ -195,6 +195,7 @@ export default {
           'imagecenter', //居中 
           'lineheight', //行间距 
         ]],
+        zIndex:3000,
         autoHeightEnabled: false,// 编辑器不自动被内容撑高
         initialFrameHeight: 200,// 初始容器高度
         initialFrameWidth: '100%',// 初始容器宽度
@@ -235,7 +236,7 @@ export default {
       })
     },
     //文件上传
-    handleFile(e){
+    handleFileJS(e){
       var _this = this;
       let $target = e.target || e.srcElement
       let file = $target.files[0]
@@ -416,6 +417,9 @@ export default {
     }
     /deep/.edui-default .edui-editor-bottomContainer td{
       border-top:1px solid #eee;
+    }
+    /deep/.edui-default .edui-colorpicker-nocolor{
+      height: 20px;
     }
     .form-set-content{
       padding: 0 !important;

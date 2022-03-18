@@ -6,17 +6,17 @@
             <div class="form-content">
             <el-form-item label="头部模板" prop="defaultTemplate">
                 <div class="temp-select c-l">
-                    <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
+                    <div class="d-temp-box"  @click="headerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
                         <span class="edit-btn" @click="topEditClick(it)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
                         <span class="temp-name">{{it.name}}</span>
-                        <el-button type="primary" class="button" size="mini" @click="headerClick(it)"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
+                        <el-button type="primary" class="button" size="mini"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
                     </div>
                 </div>
             </el-form-item>
             <el-form-item label="底部模板" prop="defaultTemplate">
                 <div class="temp-select c-l">
-                    <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
-                        <span class="edit-btn" @click="fotEditClick(it)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
+                    <div class="d-temp-box" @click="footerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
+                        <span class="edit-btn" @click="fotEditClick(it)" ><i class="iconfont el-icon-vip-shezhi-1"></i></span>
                         <span class="temp-name">{{it.name}}</span>
                         <el-button type="primary" class="button" size="mini" @click="footerClick(it)"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>
                     </div>
@@ -28,136 +28,31 @@
             </div>
         </el-form>
     </el-dialog>
-    <el-dialog append-to-body title="头部设置" :visible.sync="top_dialogBulk" width="600px" :close-on-click-modal="false">
-        <el-form label-width="90px" class="admin-form">
-            <div class="form-content">
-                <el-form-item label="更换LOGO" prop="logo">
-                <div class="up-img-form-item">
-                  <!-- <div class="up-img-warp" v-if="postForm.logo">
-                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
-                  </div> -->
-                  <div class="up-img-warp up-icon" @click="upImg()">
-                    <span>上传图标</span>
-                  </div>
-                </div>
-                </el-form-item>
-                <el-form-item label="展示栏目">
-                    <div class="btns-colse-warp">
-                    <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
-                        <el-select v-model="it.value" placeholder="请选择栏目">
-                        <el-option :label="item.value" :value="item.key" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.value||'无'}}</el-option>
-                        </el-select>
-                        <div class="btns-el-btn" @click="removeCoumn(i)" v-if="(coumn_list.length-1)!=i">
-                        <i class="iconfont el-icon-vip-jianhao1"></i>
-                        <span>删除</span>
-                        </div>
-                        <div class="btns-el-btn" @click="addCoumn" v-if="(coumn_list.length-1)==i">
-                        <i class="iconfont el-icon-vip-tianjia1"></i>
-                        <span>添加</span>
-                        </div>
-                    </div>
-                    </div>
-                    <!-- <p class="hint">栏目展示在顶部</p> -->
-                </el-form-item>
-                <el-form-item class="m-center">
-                    <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
-                </el-form-item>
-            </div>
-        </el-form>
-    </el-dialog><!--头部设置-->
-    <el-dialog append-to-body title="底部设置" :visible.sync="fot_dialogBulk" width="800px" :close-on-click-modal="false">
-        <el-form label-width="70px" class="admin-form">
-            <div class="form-content">
-                <el-form-item label="底部信息" prop="defaultTemplate">
-                    <vue-ueditor-wrap v-model="postForm.content" :config="myConfig" class="ueditors"></vue-ueditor-wrap>
-                </el-form-item>
-                <el-form-item label="JS路径" prop="visitUrl">
-                  <div class="btns-colse-warp input-btns">
-                    <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
-                        <el-input v-model="postForm.visitUrl" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
-                          <template slot="append"><el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button></template>
-                        </el-input>
-                        <div class="btns-el-btn" @click="removeCoumn(i)" v-if="(coumn_list.length-1)!=i">
-                        <i class="iconfont el-icon-vip-jianhao1"></i>
-                        <span>删除</span>
-                        </div>
-                        <div class="btns-el-btn" @click="addCoumn" v-if="(coumn_list.length-1)==i">
-                        <i class="iconfont el-icon-vip-tianjia1"></i>
-                        <span>添加</span>
-                        </div>
-                    </div>
-                  </div>
-                </el-form-item>
-                <el-form-item class="m-center">
-                    <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
-                </el-form-item>
-            </div>
-        </el-form>
-    </el-dialog><!--底部设置-->
-    <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleCloseImg">
-        <UpdateImg @imgUrl="imgUrl" :imgWidth="100" :imgHeight="100"></UpdateImg>
-    </el-dialog>
   </div>
 </template>
 
 
 <script>
-import UpdateImg from "@/components/admin/common/UpdateImg";
-import VueUeditorWrap from 'vue-ueditor-wrap'
 export default {
   name: 'index',
-  components:{UpdateImg,VueUeditorWrap},
+  props:['head_fot_data'],
+  created(){
+    this.postForm = this.head_fot_data;
+    if(this.postForm.footerTemplate){
+      this.footer_check = this.postForm.footerTemplate.id||'';
+    }
+    if(this.postForm.headerTemplate){
+      this.head_check = this.postForm.headerTemplate.id||'';
+    }
+  },
   data() {
     return {
         dialogBulk:true,//模板选择
-        top_dialogBulk:false,//头部设置
-        fot_dialogBulk:false,//底部设置
-        dialogUPimg:false,//图片上传
-        coumn_list:[{value:''}],//新增删除栏目列表
-        coumn_data_list:[],//栏目下拉选择列表
         head_list:[],
         footer_list:[],
         head_check:'',
         footer_check:'',
         postForm:{},
-        //百度富文本
-      myConfig: {
-        toolbars: [[
-          'undo', //撤销 
-          'redo', //重做 
-          'bold', //加粗 
-          'indent', //首行缩进 
-          'italic', //斜体 
-          'underline', //下划线 
-          'strikethrough', //删除线 
-          'subscript', //下标 
-          'formatmatch', //格式刷 
-          'removeformat', //清除格式 
-          'unlink', //取消链接 
-          'insertrow', //前插入行 
-          'insertcol', //前插入列 
-          'fontfamily', //字体 
-          'fontsize', //字号 
-          'paragraph', //段落格式 
-          'simpleupload', //单图上传 
-          'link', //超链接
-          'justifyleft', //居左对齐 
-          'justifyright', //居右对齐 
-          'justifycenter', //居中对齐 
-          'justifyjustify', //两端对齐 
-          'forecolor', //字体颜色 
-          'backcolor', //背景色 
-          'insertorderedlist', //有序列表 
-          'insertunorderedlist', //无序列表 
-          'imagecenter', //居中 
-          'lineheight', //行间距 
-        ]],
-        autoHeightEnabled: false,// 编辑器不自动被内容撑高
-        initialFrameHeight: 200,// 初始容器高度
-        initialFrameWidth: '100%',// 初始容器宽度
-        serverUrl: '',// 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
-        UEDITOR_HOME_URL: './static/assets/other/UEditor/'
-      },
     }
   },
   mounted() {
@@ -195,28 +90,6 @@ export default {
     /***x关闭按钮 **/
     handleClose(done){
         this.$emit('hfHide');
-    },
-    //打开图标上传弹窗
-    upImg(){
-        console.log('11');
-      this.dialogUPimg = true;
-    },
-    //获取图片上传返回地址
-    imgUrl(val){
-      this.postForm['logo'] = val[0];
-      this.dialogUPimg = false;
-    },
-    //图片上传-弹窗关闭
-    handleCloseImg(done) {
-      done();
-    },
-    //删除多栏目投递
-    removeCoumn(index){
-      this.coumn_list.splice(index,1);
-    },
-    //添加多栏目投递
-    addCoumn(){
-      this.coumn_list.push({value:''});
     },
     //编辑-头部
     topEditClick(val){
