@@ -2,7 +2,10 @@
 <template>
   <div class="right-check-page">
     <div class="drag-r-warp">
-        <h1 class="step-num"><span class="num">4</span><span class="txt">应用设置:</span><i class="app-name">{{apps_name}}</i></h1>
+        <h1 class="step-num">
+            <div class="title"><span class="num">4</span><span class="txt">应用设置</span></div>
+            <div class="app-name" v-show="apps_name">选中应用：<i class="name">{{apps_name}}</i></div>
+        </h1>
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
@@ -201,17 +204,19 @@ export default {
     }
     .step-num{
         width: 100%;
-        line-height: 60px;
         position: relative;
+        .title{
+            line-height: 50px;
+        }
         &::after{
-        content: '';
-        display: block;
-        position: absolute;
-        height: 1px;
-        left: -20px;
-        right: -20px;
-        bottom: 0;
-        background-color: @EBEEF5;
+            content: '';
+            display: block;
+            position: absolute;
+            height: 1px;
+            left: -20px;
+            right: -20px;
+            bottom: 0;
+            background-color: @EBEEF5;
         }
     }
     .s-title{
@@ -314,7 +319,11 @@ export default {
 }
 .app-name{
     font-size: 14px;
-    color: @6D7CEF;
-    font-style: inherit;
+    margin-bottom: 15px;
+    color: #34395E;
+    .name{
+        color: @6D7CEF;
+        font-style: inherit;
+    }
 }
 </style>
