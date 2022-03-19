@@ -17,7 +17,8 @@
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in dataList" :key="i">
                 <div class="r-box-bg">
-                  <img src="@/assets/admin/img/upload/s1.png"/>
+                  <!-- <img src="@/assets/admin/img/upload/s1.png"/> -->
+                  <img :src="fileUrl+i.icon"/>
                   <span class="name">{{i.name||'暂无'}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
@@ -53,6 +54,7 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb},
   data () {
     return {
+      fileUrl:window.localStorage.getItem('fileUrl'),
       dataList:[],
     }
   },
@@ -151,6 +153,7 @@ export default {
         }
         img{
           width: 100%;
+          height: 178px;
           border-radius: 5px 5px 0px 0px;
         }
         span.name{
