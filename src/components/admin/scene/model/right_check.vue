@@ -9,7 +9,8 @@
         <div class="select-type">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
-                <div class="d-temp-box" v-for="(it,i) in template_list" :class="template_check == it.id?'d-temp-box-check':''" @click="appsTemplate(it,i)" :key="i" :style="{background:'url('+fileUrl+it.cover+')'}">
+                <div class="d-temp-box" v-for="(it,i) in template_list" :class="template_check == it.id?'d-temp-box-check':''" @click="appsTemplate(it,i)" :key="i">
+                    <img :src="fileUrl+it.cover"/>
                     <span class="temp-name">{{it.name||'无'}}</span>
                     <el-button type="primary" class="button" size="mini"><i class="iconfont" :class="template_check == it.id?'el-icon-vip-check':'el-icon-vip-no-check'"></i> 选用</el-button>
                 </div>
@@ -238,14 +239,29 @@ export default {
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 3px;
-            background-color: #A5B3CC;
+            background-color: #f1f3f7;
             border: 1px solid #A5B3CC;
             position: relative;
             background-position: center;
             background-repeat: no-repeat;
             background-size: 100%;
+            &:hover{
+                border: 2px solid #6777ef;
+                box-shadow: 1px 5px 20px #dedede;
+                background-size: 95% 95% !important;
+            }
+            img{
+                position: absolute;
+                z-index: 1;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+            }
             .temp-name{
                 color: @fff;
+                position: relative;
+                z-index: 2;
             }
             .button{
                 position: absolute;
@@ -255,6 +271,7 @@ export default {
                 width: 74px;
                 height: 28px;
                 padding: 6px 14px;
+                z-index: 2;
                 span{
                 line-height: 28px;
                 }
@@ -270,6 +287,11 @@ export default {
                 vertical-align: bottom;
                 }
             }
+        }
+        .d-temp-box-check{
+            border: 2px solid #6777ef;
+            box-shadow: 1px 5px 20px #dedede;
+            background-size: 95% 95% !important;
         }
         /******************设置内容 */
         .s-choose{
