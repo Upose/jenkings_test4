@@ -1,5 +1,6 @@
 .jl_vip_zt_warp{
     position: relative;
+    height: 100%;
 }
 .jl_vip_zt_warp .jl_vip_zt_del{
     cursor: pointer;
