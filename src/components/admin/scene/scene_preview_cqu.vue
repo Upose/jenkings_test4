@@ -10,7 +10,7 @@
         <div :id="setId()"></div>
       </div><!-- 顶部检索-end -->
       
-      <div class="bocy-content" v-for="(it, i) in items.sceneScreens" :key="i" :style="{ height: (it.height-450) + 'px' }" :class="
+      <div class="bocy-content" v-for="(it, i) in items.sceneScreens" :key="i" :style="{ height: (it.height-380) + 'px' }" :class="
           items.layoutId == '3' || items.layoutId == '4' ? 'width_1440' : ''
         ">
         <div v-for="(item, index) in it.sceneApps" :key="index" :class="item.widgetCode || item.appWidget.widgetCode" v-if="isDivShow(item.appWidget.widgetCode)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems || '[{}]')">
@@ -103,7 +103,7 @@ export default {
       var list = {
         width: (100 / 12) * val.width + "%",
         height: val.height * 10 + "px",
-        top: (val.yIndex * 10)-280 + "px",
+        top: (val.yIndex * 10)-180 + "px",
         left: (100 / 12) * val.xIndex + "%",
         position: "absolute",
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
