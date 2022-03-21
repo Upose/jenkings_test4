@@ -134,11 +134,13 @@ var ApplicationBuilder = /** @class */ (function () {
         var _this = this;
         if (axios) {
             axios.interceptors.response.use(undefined, function (error) {
+                console.log(error);
+                debugger
                 if (error.response.status == 403 && error.response.headers.unauth) {
                     localStorage.removeItem('token');
                     var current = window.location.href;
                     localStorage.setItem('COM+', current);
-                    window.location.href = _this._casBase + '/cas/login?service=' + encodeURIComponent(_this.oriinalPart())
+                    window.location.href = _this._casBase + '/cas/login?service=' + encodeURIComponent(_this.oriinalPart())+'&orgcode='+_this._tokenRequestConfigure.orgCode;
                 }
                 return MyPromise.reject(error);
             });
@@ -200,6 +202,7 @@ var ApplicationBuilder = /** @class */ (function () {
     /**配置默认的token请求服务 */
     ApplicationBuilder.prototype.configureOrgInfo = function (orgTokenConfigure) {
         this._tokenRequestConfigure = orgTokenConfigure;
+        window.orgcode = orgTokenConfigure.orgCode;
         return this;
     };
     /**配置api接口的域名和端口部分 */
@@ -234,6 +237,9 @@ var ApplicationBuilder = /** @class */ (function () {
                 .handle403Go2LoginResponse() //当后端返回403的时候，跳转登录页面;
                 .handle410CaptchaRequired() //输入验证码
                 .handle429BlacklistShow(); //到黑名单
+
+
+                window.ApplicationBuilder=_this;
         });
     };
     return ApplicationBuilder;
@@ -434,11 +440,11 @@ MyPromise.all = function (values) {
     });
 };
 new ApplicationBuilder()
-    .configureCasBase("http://192.168.21.43:10011")
+    .configureCasBase("http://192.168.21.46:10011")
     .configureApiBase('http://192.168.21.46:8000')
     .configureOrgInfo({
-    orgId: "string",
-    orgSecret: 'string',
+    orgId: "cqu",
+    orgSecret: 'cqu123',
     orgCode: "cqu",
     OrgTokenLink: 'http://192.168.21.46:5002/api/Auth/AccessToken'
 })

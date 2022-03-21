@@ -32,7 +32,8 @@
                 <!-- <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}"></div> -->
               </div><!--拖拽板块-->
 
-              <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio"></scalingPage><!--缩放组件-->
+              <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio"></scalingPage>
+              <!-- 缩放组件 -->
             </div><!--中间内容 end-->
 
             <div class="drag-r" :class="right_fold?'drag-r-hide':''">

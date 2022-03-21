@@ -116,12 +116,13 @@
         .drag-container{
           width: 100%;
           min-width: 420px;//30%
-          height: 700px;
+          height:calc(100% - 80px);
           overflow-y: auto;
           background-color: @fff;
           padding: 30px;
           .drag-content{
             width: 1200px;
+            height: 100% !important;
             transform-origin: 0 0;
             margin-left: auto;
             margin-right: auto;
