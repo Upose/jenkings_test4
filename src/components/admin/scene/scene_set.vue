@@ -28,7 +28,7 @@
               </div><!--屏幕数量+拖拽 end-->
 
               <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
-                <div class="drag-warp-bg">
+                <div class="drag-warp-bg jl_vip_zt_warp_preview">
                   <!-- <div class="drag-content grid-stack" ref="grid_stack"></div> -->
                   <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num}"></div>
                 </div>

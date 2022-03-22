@@ -124,10 +124,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.jl_vip_zt_warp {
-    position: relative;
-    height: auto !important;
-}
 /****针对固定左边的菜单首页 */
 .left-fixed-template{
   position: relative;

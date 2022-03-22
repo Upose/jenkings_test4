@@ -166,10 +166,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.jl_vip_zt_warp {
-    position: relative;
-    height: auto !important;
-}
 /*****其他通用 */
 .width_1200 {
   width: 1200px;
