@@ -15,11 +15,20 @@
 <script>
 export default {
   name: 'scalingPage',
-  props:['container'],
+  props:['container','width'],
+  watch: {
+   width(newV,oldV) {
+     this.p_width = newV;
+    } 
+  },
+  created(){
+    this.p_width = this.width||1200;
+  },
   data () {
     return {
       proportion:30,
       ratio:'1:1',
+      p_width:1200,
     }
   },
   methods:{
@@ -27,7 +36,7 @@ export default {
       // console.log('宽：'+val);
       var ratio_num = 1;
       if(val && val>0){
-        ratio_num = val/1200;
+        ratio_num = val/this.width;
       }else{
         ratio_num = 1;
       }

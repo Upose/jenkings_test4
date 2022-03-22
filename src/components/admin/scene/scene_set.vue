@@ -29,12 +29,13 @@
 
               <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
                 <div class="drag-warp-bg jl_vip_zt_warp_preview">
-                  <!-- <div class="drag-content grid-stack" ref="grid_stack"></div> -->
-                  <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num}"></div>
+                  <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
+                  <!-- <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num}" v-if="getOs()!='Firefox' && getOs()!='Gecko'"></div>
+                  <div class="drag-content grid-stack" ref="grid_stack" :style="{'transform':'scale('+ratio_num+')'}" v-if="getOs()=='Firefox' || getOs()=='Gecko'"></div> -->
                 </div>
               </div><!--拖拽板块-->
 
-              <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio"></scalingPage>
+              <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio" :width="drag_width"></scalingPage>
               <!-- 缩放组件 -->
             </div><!--中间内容 end-->
 
@@ -112,6 +113,7 @@ export default {
   },
   data () {
     return {
+      drag_width:1200,//用于-计算缩放的宽度，不得小于1200
       drag_height:500,
       ratio_num:1,//缩放比例
       appsList:[],//应用列表
@@ -190,8 +192,14 @@ export default {
     getDetails(){
       var _this = this;
       this.http.getPlain_url('scene-detail','/'+this.$route.query.scene).then(res=>{
-        // console.log('详情',res);
         if(res.data){
+          if(res.data.template && res.data.template.width && res.data.template.width>1200){
+            _this.drag_width = res.data.template.width;
+            setTimeout(() => {
+              var c_height = document.body.clientHeight-104;
+              _this.setHeight(c_height);
+            }, 30);
+          }
           _this.$refs.topselect_ref.setDatils(res.data);
           _this.$refs.leftcheck_ref.setDatils(res.data);
           _this.$refs.rightCheck_ref.setDatils(res.data);
@@ -219,7 +227,6 @@ export default {
                 _this.postForm.sceneScreens[index].sceneApps = result;
             })
             _this.screen_list = _this.postForm.sceneScreens;
-            console.log(_this.screen_list);
             _this.initScree();
           }
           if(_this.postForm.layoutId == '1' && _this.postForm.layoutId == '3'){//通屏
@@ -667,6 +674,24 @@ export default {
             window[item.widgetCode]();
           }
         })
+      }
+    },
+    //检测是否火狐浏览器
+    getOs(){
+      if(navigator.userAgent.indexOf("MSIE")>0) {
+          return "MSIE";
+      }
+      if(navigator.userAgent.indexOf("Firefox")>0){
+          return "Firefox";
+      }
+      if(navigator.userAgent.indexOf("Safari")>0) {
+          return "Safari";
+      }
+      if(navigator.userAgent.indexOf("Camino")>0){
+          return "Camino";
+      }
+      if(navigator.userAgent.indexOf("Gecko")>0){
+          return "Gecko";
       }
     },
   },
