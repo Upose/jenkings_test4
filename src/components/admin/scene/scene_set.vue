@@ -28,8 +28,10 @@
               </div><!--屏幕数量+拖拽 end-->
 
               <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
-                <div class="drag-content grid-stack" ref="grid_stack"></div>
-                <!-- <div class="drag-content grid-stack" :style="{'transform':'scale('+ratio_num+')'}"></div> -->
+                <div class="drag-warp-bg">
+                  <!-- <div class="drag-content grid-stack" ref="grid_stack"></div> -->
+                  <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num}"></div>
+                </div>
               </div><!--拖拽板块-->
 
               <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio"></scalingPage>
