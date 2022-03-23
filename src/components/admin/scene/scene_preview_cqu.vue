@@ -137,14 +137,12 @@ export default {
 
     },
     isDivShow(val){
-        console.log(val);
         var is_show = true;
         if(val == 'cqu_unified_retrieval_sys_temp1'){
             is_show = false;
         }else if(val == 'cqu_friendly_link_temp1'){
             is_show = false;
         }
-        console.log(is_show);
         return is_show;
     },
   },
