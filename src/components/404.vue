@@ -105,5 +105,6 @@ export default {
   background-image: url(../assets/public/img/404.png);
   background-position: center;
   background-repeat: no-repeat;
+  background-position-y: -1px;
 }
 </style>
