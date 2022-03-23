@@ -92,6 +92,12 @@ export default {
   outline: none;
   border: 1px solid #D4D4D4;
 }
+.go-flush,.go-home{
+  cursor: pointer;
+  &:hover{
+    opacity: .8;
+  }
+}
 .txt-left{
   float: left;
   margin-top: 125px;
