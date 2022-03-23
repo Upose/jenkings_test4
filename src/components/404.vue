@@ -10,6 +10,7 @@
         <button class="go-home" @click="window.history.go(-1);">回到首页</button>
       </div>
       <div class="img-404">
+        <img src="@/assets/public/img/404.gif">
       </div>
     </div>
   </div>
