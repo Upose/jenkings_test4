@@ -7,7 +7,7 @@
           <span>抱歉，您访问的页面不存在。</span>
         </div>
         <button class="go-flush" @click="window.history.go(-1);">返回上一页</button>
-        <button class="go-home" @click="window.history.go(-1);">回到首页</button>
+        <button class="go-home" @click="goHome()">回到首页</button>
       </div>
       <div class="img-404">
       </div>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: '404page',
+  name: '505page',
   data () {
     return {}
   },
@@ -28,7 +28,11 @@ export default {
     //     console.log(err);
     // })
   },
-  methods:{},
+  methods:{
+    goHome(){
+
+    }
+  },
 }
 </script>
 
@@ -95,7 +99,7 @@ export default {
   float:right;
   width: 550px;
   height: 500px;
-  background-image: url(../assets/public/img/404.png);
+  background-image: url(../assets/public/img/500.png);
   background-position: center;
   background-repeat: no-repeat;
 }

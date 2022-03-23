@@ -44,6 +44,11 @@ export default new Router({
       name: '404',
       component: r => require.ensure([], () => r(require('@/components/404')), 'index'),
     },
+    {
+      path: '/500',
+      name: '500',
+      component: r => require.ensure([], () => r(require('@/components/500')), 'index'),
+    },
     {//重定向中间件
       path: '/',
       name: 'reset',

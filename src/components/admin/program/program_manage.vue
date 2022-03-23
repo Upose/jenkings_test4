@@ -12,38 +12,22 @@
           <div class="search-div">
             <el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
           </div>
-          <!-- <el-table stripe :data="tableData" border class="admin-table">
-            <el-table-column prop="id" label="序号" align="center" width="120">
-              <template slot-scope="scope">
-                {{scope.$index+1}}
-              </template>
-            </el-table-column>
-            <el-table-column prop="appName" label="应用名称"></el-table-column>
-            <el-table-column prop="content" label="栏目名称"></el-table-column>
-            <el-table-column prop="content" label="创建日期"></el-table-column>
-            <el-table-column prop="content" label="操作">
-              <template slot-scope="scope">
-                <el-button @click="handleSet(scope.row)" type="text" size="mini" icon="el-icon-setting" round>栏目设置</el-button>
-              </template>
-            </el-table-column>
-          </el-table> -->
-
-          <el-table :data="tableData" style="width: 100%" :expand-row-keys="expends" :row-key="getRowKeys">
+          <el-table :data="tableData" style="width: 100%;min-width:700px;" :expand-row-keys="expends" :row-key="getRowKeys">
             <el-table-column type="expand" width="30">
               <template slot-scope="scope">
                 <div v-for="(item,index) in scope.row.plateList" class="row c-l">
                   <div class="col1">{{index+1}}</div>
                   <div class="col2">{{item.name}}</div>
-                  <div class="col3"></div>
+                  <div class="col3">{{item.appName||'-'}}</div>
                   <div class="col4">{{item.createTime.slice(0,10)}}</div>
                   <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>栏目设置</el-button></div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="序号" prop="appName" width="120"></el-table-column>
-            <el-table-column label="栏目名称" prop="content" width="120"></el-table-column>
-            <el-table-column label="应用" prop="content" width="100"></el-table-column>
-            <el-table-column label="创建日期" prop="content" width="100"></el-table-column>
+            <el-table-column label="序号" prop="appName" width="130"></el-table-column>
+            <el-table-column label="栏目名称" prop="content"></el-table-column>
+            <el-table-column label="应用" prop="content"></el-table-column>
+            <el-table-column label="创建日期" prop="content"></el-table-column>
             <el-table-column label="操作" prop="name"></el-table-column>
           </el-table>
 
@@ -167,20 +151,20 @@ export default {
       padding: 0 10px;
     }
     .col1{
-      width: 150px;
+      width: 160px;
       text-align: center;
     }
     .col2{
-      width: 120px;
+      width: calc(25% - 40px);
     }
     .col3{
-      width: 100px;
+      width: calc(25% - 40px);
     }
     .col4{
-      width: 100px;
+      width: calc(25% - 40px);
     }
     .col5{
-      width: 100px;
+      width: calc(25% - 40px);
       .el-button{
         margin-top: -5px;
       }
