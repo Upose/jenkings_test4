@@ -18,15 +18,15 @@
                 <div v-for="(item,index) in scope.row.plateList" class="row c-l">
                   <div class="col1">{{index+1}}</div>
                   <div class="col2">{{item.name}}</div>
-                  <div class="col3">{{item.appName||'-'}}</div>
+                  <!-- <div class="col3">{{item.appName||'-'}}</div> -->
                   <div class="col4">{{item.createTime.slice(0,10)}}</div>
                   <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>栏目设置</el-button></div>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column label="序号" prop="appName" width="130"></el-table-column>
+            <el-table-column label="序号" prop="appName" width="180"></el-table-column>
             <el-table-column label="栏目名称" prop="content"></el-table-column>
-            <el-table-column label="应用" prop="content"></el-table-column>
+            <!-- <el-table-column label="应用" prop="content"></el-table-column> -->
             <el-table-column label="创建日期" prop="content"></el-table-column>
             <el-table-column label="操作" prop="name"></el-table-column>
           </el-table>
@@ -151,20 +151,20 @@ export default {
       padding: 0 10px;
     }
     .col1{
-      width: 160px;
+      width: 210px;
       text-align: center;
     }
     .col2{
-      width: calc(25% - 40px);
+      width: calc(33.333% - 70px);
     }
-    .col3{
-      width: calc(25% - 40px);
-    }
+    // .col3{
+    //   width: calc(33.333% - 40px);
+    // }
     .col4{
-      width: calc(25% - 40px);
+      width: calc(33.333% - 70px);
     }
     .col5{
-      width: calc(25% - 40px);
+      width: calc(33.333% - 70px);
       .el-button{
         margin-top: -5px;
       }
