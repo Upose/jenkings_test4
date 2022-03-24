@@ -7,7 +7,7 @@
           <span>抱歉，您访问的页面不存在。</span>
         </div>
         <button class="go-flush" @click="window.history.go(-1);">返回上一页</button>
-        <button class="go-home" @click="window.history.go(-1);">回到首页</button>
+        <button class="go-home" @click="goHome()">回到首页</button>
       </div>
       <div class="img-404">
         <img src="@/assets/public/img/404.gif">
@@ -19,17 +19,40 @@
 <script>
 export default {
   name: '404page',
+  beforeRouteEnter(to,from,next){
+    if(from.fullPath.indexOf('admin')>-1){
+      this.home = 'admin';
+    }
+    next();
+  },
   data () {
-    return {}
+    return {
+      code:'index',
+      path:'/#/index',
+      home:'web',
+    }
   },
   mounted(){
-    // http.noGet('web','AssetNewest',{}).then(res=>{
-
-    // }).catch(err=>{
-    //     console.log(err);
-    // })
+    if(this.home == 'web'){
+      this.code = 'index';
+      this.path = '/#/index?page=1';
+    }else{
+      this.code = 'workbench'
+      this.path = '/workbench/#/admin_workbench';
+    }
   },
-  methods:{},
+  methods:{
+    linkTo(code, url) {
+      if (url) {
+        let urlInfo = JSON.parse(localStorage.getItem('urlInfo'));
+        let info = urlInfo.find(item => item.code == code);
+        window.location.href = info.path + url;
+      }
+    },
+    goHome(){
+      this.linkTo(this.code,this.path);
+    },
+  },
 }
 </script>
 

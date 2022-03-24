@@ -18,21 +18,40 @@
 
 <script>
 export default {
-  name: '505page',
+  name: '404page',
+  beforeRouteEnter(to,from,next){
+    if(from.fullPath.indexOf('admin')>-1){
+      this.home = 'admin';
+    }
+    next();
+  },
   data () {
-    return {}
+    return {
+      code:'index',
+      path:'/#/index',
+      home:'web',
+    }
   },
   mounted(){
-    // http.noGet('web','AssetNewest',{}).then(res=>{
-
-    // }).catch(err=>{
-    //     console.log(err);
-    // })
+    if(this.home == 'web'){
+      this.code = 'index';
+      this.path = '/#/index?page=1';
+    }else{
+      this.code = 'workbench'
+      this.path = '/workbench/#/admin_workbench';
+    }
   },
   methods:{
+    linkTo(code, url) {
+      if (url) {
+        let urlInfo = JSON.parse(localStorage.getItem('urlInfo'));
+        let info = urlInfo.find(item => item.code == code);
+        window.location.href = info.path + url;
+      }
+    },
     goHome(){
-
-    }
+      this.linkTo(this.code,this.path);
+    },
   },
 }
 </script>
