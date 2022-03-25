@@ -13,7 +13,7 @@ import footerpage from '@/components/admin/common/footer'
 export default {
   name: 'index',
   created(){
-    document.title = '服务中台-'+JSON.parse(localStorage.getItem('orgInfo')).orgName+'图书馆';
+    document.title = '服务中台-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
   },
   components:{headerpage,footerpage},
   data () {

@@ -17,12 +17,12 @@
             <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" @click="addClick()" v-if="authShowBtn('scene-manage_add')">新建场景</el-button>
           </div>
         </div><!---顶部查询板块 end--->
-        <div class="list-content">
+        <div class="list-content" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
           <div class="row" v-for="(item,index) in dataList" :key="index">
             <div class="title">{{item.terminalName||''}}
               <span class="more-r" @click="moreClick(item)">更多<i class="el-icon-arrow-right"></i></span>
             </div>
-            <div class="row-list c-l">
+            <div class="row-list c-l" :class="!loading && (item.sceneList||[]).length==0?'empty-data-admin':''">
               <div class="row-box set-hover" v-for="i in (item.sceneList||[])":key="i+'a'">
                 <div class="r-box-bg">
                   <img :src="fileUrl+i.cover" @click="editClick(i,item.terminalType)"/>
@@ -42,7 +42,7 @@
             </div>
           </div>
         </div><!----已使用场景 end-->
-
+        
         <!-- <div class="list-content top20">
           <div class="content">
             <div class="s-w">
@@ -125,6 +125,7 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb},
   data () {
     return {
+      loading:true,
       Status:null,//启用，禁用
       IsSystemScene:null,//是否默认场景
       defalut_img:require('../../../assets/admin/img/upload/s1.png'),
@@ -145,8 +146,10 @@ export default {
         pars = pars+"&IsSystemScene="+this.IsSystemScene;
       }
       this.http.getJsonSelf('scene-overview',pars).then(res=>{ 
+        this.loading = false;
         this.dataList = res.data||[];
       }).catch(err=>{
+        this.loading = false;
           console.log(err);
       })
     },
@@ -275,6 +278,8 @@ export default {
   }
   /***内容板块***/
   .list-content{
+    min-height: 300px;
+    position: relative;
     background-color: @fff;
     border-radius: 0 0 4px 4px;
     .row{
@@ -354,6 +359,10 @@ export default {
           }
         }
         
+      }
+      .row-list{
+        position: relative;
+        min-height: 150px;
       }
     }
     /**推荐场景**/

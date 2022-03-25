@@ -7,7 +7,7 @@
         <breadcrumb :cuMenu="'场景管理'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <h1 class="s-b-border-title">选择终端 <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" @click="addClick()">添加终端</el-button></h1>
         <div class="content">
-          <div class="c-list c-l">
+          <div class="c-list c-l" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
             <div class="c-l-box" v-for="i in dataList" :key="i">
               <div class="c-l-box-content">
                 <div class="title">
@@ -41,6 +41,7 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb},
   data () {
     return {
+      loading:true,
       dataList:[],
     }
   },
@@ -50,8 +51,10 @@ export default {
   methods:{
     initData(){
       this.http.getPlain('terminal-instance-list','').then(res=>{
+        this.loading = false;
         this.dataList = res.data||[];
       }).catch(err=>{
+        this.loading = false;
           console.log(err);
       })
     },
@@ -71,8 +74,13 @@ export default {
 .content{
   margin-top: 24px;
 }
+/deep/.el-loading-mask{
+  background-color: rgba(255,255,255,0);
+}
   /****查询条件板块****/
 .c-list{
+  position: relative;
+  min-height: 300px;
   margin-left: -10px;
   margin-right: -10px;
   div.c-l-box{

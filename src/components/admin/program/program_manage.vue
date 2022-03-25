@@ -12,7 +12,7 @@
           <div class="search-div">
             <el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
           </div>
-          <el-table :data="tableData" style="width: 100%;min-width:700px;" :expand-row-keys="expends" :row-key="getRowKeys">
+          <el-table :data="tableData" v-loading="loading" style="width: 100%;min-width:700px;" :expand-row-keys="expends" :row-key="getRowKeys">
             <el-table-column type="expand" width="30">
               <template slot-scope="scope">
                 <div v-for="(item,index) in scope.row.plateList" class="row c-l">
@@ -53,6 +53,7 @@ export default {
   data () {
     return {
       tab_name:['1','2','3'],
+      loading:true,
       activeName:'',
       m_index:0,//一级菜单点击位置
       s_index:0,//二级菜单点击位置
@@ -77,6 +78,7 @@ export default {
     initData(){
       var _this = this;
       this.http.getJsonSelf('scene-overview','?TopCount=100').then(res=>{ 
+        _this.loading = false;
         _this.dataList = res.data||[];
         if(_this.dataList.length>0){
           _this.activeName = _this.dataList[0].terminalId;
@@ -86,7 +88,7 @@ export default {
           }
         }
       }).catch(err=>{
-          console.log(err);
+        _this.loading = false;
       })
     },
     //根据场景，获取对应的下方列表

@@ -17,7 +17,7 @@
             <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" @click="addClick()">新建场景</el-button>
           </div>
         </div><!---顶部查询板块 end--->
-        <div class="list-content">
+        <div class="list-content" v-loading="loading" :class="!loading && listData.length==0?'empty-data-admin':''">
           <div class="row">
             <!-- <div class="title">PC门户端
               <span class="more-r">更多<i class="el-icon-arrow-right"></i></span>
@@ -65,6 +65,7 @@ export default {
   components:{footerPage,serviceLMenu,breadcrumb,paging},
   data () {
     return {
+      loading:true,
       Status:null,//启用，禁用
       IsSystemScene:null,//是否默认场景
       defalut_img:require('../../../assets/admin/img/upload/s1.png'),
@@ -95,10 +96,12 @@ export default {
         pars = pars + "&TerminalId="+this.postForm.TerminalId;
       }
       this.http.getPlain('scene-list-by-terminal-id',pars).then(res=>{
-          this.listData = res.data.items||[];
-          this.pageData.totalCount = res.data.totalCount;
+        this.loading = false;
+        this.listData = res.data.items||[];
+        this.pageData.totalCount = res.data.totalCount;
       }).catch(err=>{
-          console.log(err);
+        this.loading = false;
+        console.log(err);
       })
     },
     addClick(){
@@ -219,6 +222,8 @@ export default {
   }
   /***内容板块***/
   .list-content{
+    min-height: 300px;
+    position: relative;
     background-color: @fff;
     border-radius: 0 0 4px 4px;
     .row{

@@ -12,7 +12,7 @@
             <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" v-if="authShowBtn('terminal_add')" @click="addClick('add','')">新增终端</el-button>
           </div>
         </div><!---顶部查询板块 end--->
-        <div class="list-content">
+        <div class="list-content" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
           <div class="row">
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in dataList" :key="i">
@@ -33,7 +33,6 @@
             </div>
           </div>
         </div><!----已配置终端列表 end-->
-
         <footerPage class="top20"></footerPage>
       </el-main>
     </el-container>
@@ -48,12 +47,13 @@ export default {
   name: 'index',
   created(){
     this.bus.$on('collapse', msg => {
-        this.$root.collapse = msg;
+      this.$root.collapse = msg;
     })
   },
   components:{footerPage,serviceLMenu,breadcrumb},
   data () {
     return {
+      loading:true,
       fileUrl:window.localStorage.getItem('fileUrl'),
       dataList:[],
     }
@@ -65,8 +65,9 @@ export default {
     initData(){
       this.http.getPlain('terminal-instance-list','').then(res=>{
           this.dataList = res.data||[];
+          this.loading = false;
       }).catch(err=>{
-          console.log(err);
+        this.loading = false;
       })
     },
     addClick(type,val){
@@ -116,6 +117,8 @@ export default {
     }
     /***内容板块***/
   .list-content{
+    position: relative;
+    min-height: 300px;
     background-color: @fff;
     border-radius: 0 0 4px 4px;
     .row{
