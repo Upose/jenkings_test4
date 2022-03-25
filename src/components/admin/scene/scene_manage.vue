@@ -79,7 +79,6 @@ export default {
 }
   /****查询条件板块****/
 .c-list{
-  position: relative;
   min-height: 300px;
   margin-left: -10px;
   margin-right: -10px;

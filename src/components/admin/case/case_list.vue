@@ -223,7 +223,6 @@ export default {
   /***内容板块***/
   .list-content{
     min-height: 300px;
-    position: relative;
     background-color: @fff;
     border-radius: 0 0 4px 4px;
     .row{
