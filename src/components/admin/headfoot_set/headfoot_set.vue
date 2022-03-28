@@ -390,6 +390,7 @@ export default {
 }
     //百度富文本样式
     /deep/.edui-default .edui-editor{
+      background: #f8f8f8;
       border: 1px solid #eee;
       position: relative;
       &::after{
