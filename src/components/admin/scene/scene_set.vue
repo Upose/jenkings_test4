@@ -207,6 +207,7 @@ export default {
           if(_this.postForm.sceneScreens.length>0){
             _this.postForm.sceneScreens.forEach((item,index)=>{
                 let result = item.sceneApps.map((it,index) => ({
+                  id:it.id,
                   w: it.width,
                   h: it.height,
                   x: it.xIndex,
@@ -272,7 +273,7 @@ export default {
       var list = [];
       if(this.grid.save() && this.grid.save().length){
         this.grid.save().forEach(item=>{
-          list.push({
+          var item_list = {
             x: item.x, y: item.y, h: item.h, w: item.w,
             minW:item.minW,
             minH:item.minH,
@@ -286,7 +287,11 @@ export default {
             appWidget:item.appWidget,
             appPlateItems:_this.apps_set_list[item.divId]||item.appPlateItems,//应用对应的设置
             content:'<div class="jl_vip_zt_warp '+item.widgetCode+'" data-id="'+item.divId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="'+item.appId+'" data-appWidgetId="'+item.tempId+'" data-set="'+JSON.stringify(item.appPlateItems||[]).replace(/\"/g,"'")+'"></div><div id="'+item.divId+'"></div></div>'
-          })
+          }
+          if(item.id){
+            item_list['id'] = item.id;
+          }
+          list.push(item_list)
         })
       }
       if(this.screen_list.length==1){
@@ -397,7 +402,7 @@ export default {
           };
           if(item.sceneApps && item.sceneApps.length>0){
             item.sceneApps.forEach(it=>{
-              obj.sceneApps.push({
+              var it_list = {
                 xIndex: it.x, yIndex: it.y, height: it.h, width: it.w, 
                 target:(post_type == 'save')?_this.substrPath(it.target):it.target,
                 id:it.id,
@@ -408,7 +413,11 @@ export default {
                 appPlateItems:it.appPlateItems,//应用对应的设置
                 appId:it.appId,
                 widgetCode:it.widgetCode,
-              })
+              };
+              if(it.id){
+                it_list['id']=it.id;
+              }
+              obj.sceneApps.push(it_list)
             })
           }
           list.push(obj);
@@ -450,7 +459,7 @@ export default {
           _this.$message({message: '请选择权限控制',type:'info'});
           return ;
         }
-        if(this.$route.query.scene){
+        if(_this.$route.query.scene){
           _this.http.putJson('scene-add',post_obj).then(res=>{
             _this.$message({message: '修改成功',type:'success'});
             window.history.go(-1);

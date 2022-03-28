@@ -31,7 +31,7 @@
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
                     <ul class="hover-menu">
                       <li @click="editClick(i,item.terminalType)" v-if="authShowBtn('scene-manage_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>修改</span></li>
-                      <li @click="delClick(i)" v-if="authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
+                      <li @click="delClick(i)" v-if="!item.isSystemScene && authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                       <li @click="previewClick(i)" v-if="authShowBtn('scene-manage_preview')"><i class="iconfont el-icon-vip-yulan"></i><span>预览</span></li>
                       <li @click="disableClick(i)" v-if="authShowBtn('scene-manage_disable')"><i class="iconfont el-icon-vip-on-min"></i><span>禁用</span></li>
                     </ul>
