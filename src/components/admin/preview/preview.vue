@@ -130,9 +130,6 @@ export default {
   width: 100%;
   height: 100%;
   min-width: 1200px;
-  .header-prewiew,.content,.left-fixed,.center-fixed{
-    // border: 1px solid #eee;
-  }
   .header-prewiew{
     position: absolute;
     width: 100%;
