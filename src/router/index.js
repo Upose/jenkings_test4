@@ -24,19 +24,19 @@ export default new Router({
     {
       path: '/admin_scenePreview',
       name: 'admin_scenePreview',
-      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview')), 'scene'),
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview')), 'scene'),
       meta: { title: '服务中台-场景预览' , keepAlive:true},
     },
     {
       path: '/admin_scenePreviewCqu',
       name: 'admin_scenePreviewCqu',
-      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview_cqu')), 'scene'),
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_cqu')), 'scene'),
       meta: { title: '服务中台-重大首页预览' , keepAlive:true},
     },
     {
       path: '/admin_scenePreview_tq',
       name: 'admin_scenePreview_tq',
-      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_preview_tq')), 'scene'),
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_tq')), 'scene'),
       meta: { title: '服务中台-图书期刊预览' , keepAlive:true},
     },
     {
