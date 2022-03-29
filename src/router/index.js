@@ -40,6 +40,11 @@ export default new Router({
       meta: { title: '服务中台-图书期刊预览' , keepAlive:true},
     },
     {
+      path: '/403',
+      name: '403',
+      component: r => require.ensure([], () => r(require('@/components/403')), 'index'),
+    },
+    {
       path: '/404',
       name: '404',
       component: r => require.ensure([], () => r(require('@/components/404')), 'index'),
