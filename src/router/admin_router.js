@@ -1,4 +1,12 @@
 /***后台路由 */
+async function beforeEnterImplAsync(to, from, next) {
+  let response = await  axios({
+    url:'/appcenter/api/baseinfo/getauthinfo?appcode=scenemanage',
+    method:'get'
+  }).then(x=>x.data);
+  if (response.data.canAdmin) { next(); return }
+  next({ name: '403' })
+}
 export default {
   router: [
     {
@@ -82,5 +90,8 @@ export default {
         keepAlive: true
       },
     },
-  ],
+  ].map(x=>{
+    x.  beforeEnter= beforeEnterImplAsync;
+    return x;
+  })
 }

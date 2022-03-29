@@ -4,13 +4,13 @@
       <div class="txt-left">
         <div class="error-hint">
           <span class="err-title">出错啦！</span>
-          <span>抱歉，您访问的页面不存在。</span>
+          <span>您没有当前页面的访问权限。</span>
         </div>
         <button class="go-flush" @click="goBack()">返回上一页</button>
         <button class="go-home" @click="goHome()">回到首页</button>
       </div>
       <div class="img-404">
-        <img src="@/assets/public/img/404.gif">
+        <img src="@/assets/public/img/403.gif">
       </div>
     </div>
   </div>
@@ -128,7 +128,7 @@ export default {
   float:right;
   width: 550px;
   height: 500px;
-  background-image: url(../assets/public/img/404.png);
+  background-image: url(../assets/public/img/403.png);
   background-position: center;
   background-repeat: no-repeat;
   background-position-y: -1px;
