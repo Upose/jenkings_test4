@@ -134,8 +134,6 @@ var ApplicationBuilder = /** @class */ (function () {
         var _this = this;
         if (axios) {
             axios.interceptors.response.use(undefined, function (error) {
-                console.log(error);
-                debugger
                 if (error.response.status == 403 && error.response.headers.unauth) {
                     localStorage.removeItem('token');
                     var current = window.location.href;

@@ -9,9 +9,10 @@
         <div class="content">
           <div class="c-list c-l" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
             <div class="c-l-box" v-for="i in dataList" :key="i">
-              <div class="c-l-box-content">
+              <div class="c-l-box-content" :style="{background:'#0d29d3 url('+$root.fileUrl+i.icon+') no-repeat center'}">
                 <div class="title">
                   <i class="iconfont el-icon-vip-pcduan"></i>
+                  <img :src="$root.fileUrl+i.logo"/>
                   <span>{{i.name||'暂无'}}</span>
                 </div>
                 <el-button size="mini" round class="go-set" @click="goSet(i)">去设计 <i class="el-icon-arrow-right"></i></el-button>
@@ -92,11 +93,19 @@ export default {
       margin-left: 10px;
       margin-right: 10px;
       border-radius: 5px;
-      background: url(../../../assets/admin/img/scene-bg1.png) no-repeat center 100%;
+      background-size: 100% 100% !important;
       .title{
         color: @fff;
         font-size: 20px;
+        img{
+          width: 50px;
+          height: 50px;
+          vertical-align: middle;
+          margin-right: 16px;
+          border-radius: 5px;
+        }
         i{
+          display: none;
           font-size: 30px;
           vertical-align: middle;
           margin-right: 16px;
