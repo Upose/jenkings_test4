@@ -1,7 +1,8 @@
 <template>
 <div class="warp">
     <headerpage></headerpage>
-    <div class="admin-warp-content" v-if="is_admin_show"><router-view></router-view></div>
+    <div class="admin-warp-content" v-if="post_details && post_menu"><router-view></router-view></div>
+    <div class="admin-warp-content" v-if="!post_details && !post_menu" v-loading="true"></div>
     <!-- <footerpage class="footer-page"></footerpage> -->
 </div>
 </template>
@@ -13,25 +14,46 @@ import footerpage from '@/components/admin/common/footer'
 export default {
   name: 'index',
   created(){
-    document.title = '服务中台-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
+    var _that = this;
+    let appMenu = sessionStorage.getItem('appMenu');
+    let appDetails = sessionStorage.getItem('appDetails');
+    //详情
+    if(!appDetails || appDetails==null || appDetails==undefined || appDetails ==''){
+      _that.http.getPlain('getcurrentappinfo','?appcode=assembly').then((res) => {
+        if(res.data){
+          sessionStorage.setItem('appDetails', JSON.stringify(res.data));
+          document.title = res.data.appName+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
+        }
+        _that.post_details = true;
+      }).catch(err=>{
+        _that.$message({type: 'error',message: '获取应用详情失败!'});
+      })
+    }else{
+       _that.post_details = true;
+      document.title = JSON.parse(appDetails).appName||''+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
+    }
+    //菜单
+    if(!appMenu || appMenu==null || appMenu==undefined || appMenu =='' || appMenu == '[]'){
+      _that.http.getPlain('auth_tree','').then((res) => {
+        let dataList = res.data||[];
+        sessionStorage.setItem('appMenu',JSON.stringify(dataList));
+        _that.post_menu = true;
+      }).catch((err) => {
+        _that.$message({type: 'error',message: '获取菜单失败!'});
+      });
+    }else{
+      _that.post_menu = true;
+    }
   },
   components:{headerpage,footerpage},
   data () {
     return {
-      is_admin_show:false,
+      post_details:false,
+      post_menu:false,
     }
   },
-  mounted(){
-    this.http.getPlain('auth_tree','').then((res) => {
-      this.is_admin_show = true;
-      window.localStorage.setItem('home_sys_menuAuth',JSON.stringify(res.data));
-    }).catch((err) => {});
-  },
   methods:{
-    // skinClick(val){
-    //   document.getElementsByTagName("body")[0].setAttribute('class',val);
-    //   window.localStorage.setItem('template',val);
-    // },
+    
   }
 }
 </script>

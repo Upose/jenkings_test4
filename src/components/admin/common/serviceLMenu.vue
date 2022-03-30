@@ -3,8 +3,8 @@
   <div class="header-warp">
     <div class="m-menu">
       <div class="m-text">
-        <span class="m">服务中台</span>
-        <span class="v">v1.0.0</span>
+        <span class="m">{{appDetails.appName}}</span>
+        <span class="v">{{appDetails.appVersion}}</span>
       </div>
     </div>
     <div class="s-menu">
@@ -32,19 +32,20 @@ export default {
     '$route':'force'
   },
   mounted(){
-    // this.http.getPlain('news-user-union-column-permission-list','').then(res=>{
-    //   this.dataList = res.data||[];
-    //   var path_url = window.localStorage.getItem('path_url');
-    //   if((path_url==undefined || path_url=='' || path_url==null || path_url=='null') && this.dataList.length>0){
-    //     this.openPage(this.dataList[0].router);
-    //   }
-    // }).catch(err=>{
+    var _this = this;
+    let appMenu = sessionStorage.getItem('appMenu');
+    let appDetails = sessionStorage.getItem('appDetails');
 
-    // })
-    
+    if(appDetails && appDetails!=null && appDetails!=undefined && appDetails !=''){
+      _this.appDetails = JSON.parse(appDetails);
+    }
+    if(appMenu && appMenu!=null && appMenu!=undefined && appMenu !='' && appMenu != '[]'){
+      this.dataList = JSON.parse(appMenu);
+    }
   },
   data () {
     return {
+      appDetails:{},//应用详情
       default_img:require('@/assets/admin/img/upload/user-img.png'),
       dataList:JSON.parse(window.localStorage.getItem('home_sys_menuAuth')||'[]'),
       // dataList:[
@@ -55,14 +56,7 @@ export default {
     }
   },
   methods:{
-    handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-        console.log(key, keyPath);
-    },
     openPage(url){
-      window.localStorage.setItem('path_url',url);
       this.$router.push(url);
     },
     force(){
@@ -70,11 +64,8 @@ export default {
     },
     //是否当前菜单
     isActive(url){
-      if(window.localStorage.getItem('path_url') == undefined){//初始化的时候，第一次进入没有值给一个默认值
-        window.localStorage.setItem('path_url','/admin_caseShow');
-      }
-      var cu_href = window.localStorage.getItem('path_url');
-      if(url == cu_href){
+      var cu_url = this.$route.meta.parentRoute;
+      if(url.indexOf(cu_url)>-1){
         return true;
       }else{
         return false;

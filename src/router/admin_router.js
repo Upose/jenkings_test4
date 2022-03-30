@@ -15,7 +15,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/case/case_show')), 'case'),
       meta: {
         title: [{ name: '服务中台', }, { name: '场景管理'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_caseShow'
       },
     },
     {
@@ -24,7 +25,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/case/case_list')), 'case'),
       meta: {
         title: [{ name: '服务中台', }, { name: '场景管理',path:'/admin_caseShow'}, { name: '场景列表'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_caseShow'
       },
     },
     {
@@ -33,7 +35,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/case/log_list')), 'case'),
       meta: {
         title: [{ name: '服务中台', }, { name: '日志列表'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_logList'
       },
     },
     {
@@ -42,7 +45,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_manage')), 'scene'),
       meta: {
         title: [{ name: '服务中台', }, { name: '选择终端'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_caseShow'
       },
     },
     {
@@ -51,7 +55,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_set')), 'scene'),
       meta: {
         title: [{ name: '服务中台', }, { name: '场景管理', path: '/admin_caseShow' }, { name: '场景设置', }],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_caseShow'
       },
     },
     {
@@ -60,7 +65,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/program/program_manage')), 'program'),
       meta: {
         title: [{ name: '服务中台', }, { name: '栏目管理'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_programManage'
       },
     },
     {
@@ -69,7 +75,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/terminal/terminal_manage')), 'terminal'),
       meta: {
         title: [{ name: '服务中台', }, { name: '终端管理'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_terminalManage'
       },
     },
     {
@@ -78,7 +85,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/terminal/terminal_add')), 'terminal'),
       meta: {
         title: [{ name: '服务中台', }, { name: '终端管理', path: '/admin_terminalManage' }, { name: '终端内容', }],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_terminalManage'
       },
     },
     {
@@ -87,7 +95,8 @@ export default {
       component: r => require.ensure([], () => r(require('@/components/admin/headfoot_set/headfoot_set')), 'terminal'),
       meta: {
         title: [{ name: '服务中台', }, { name: '头部底部高级设置'}],
-        keepAlive: true
+        keepAlive: true,
+        parentRoute:'admin_headfoot_set'
       },
     },
   ].map(x=>{

@@ -39,6 +39,7 @@ export default {
         'foot-template-settings-update': baseURL + '/api/header-footer/foot-template-settings-update', //更新底部模板高级设置项
         'foot-template-settings-add': baseURL + '/api/header-footer/foot-template-settings-add', //新增底部模板高级设置项
         'nav-column-list': baseURL + '/api/header-footer/nav-column-list', //获取栏目列表
+        'getcurrentappinfo': baseURL_apps + '/api/baseinfo/getcurrentappinfo',//获取应用名称和版本号
 
         //权限及头部
         'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单
