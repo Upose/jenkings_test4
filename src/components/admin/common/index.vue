@@ -19,7 +19,7 @@ export default {
     let appDetails = sessionStorage.getItem('appDetails');
     //详情
     if(!appDetails || appDetails==null || appDetails==undefined || appDetails ==''){
-      _that.http.getPlain('getcurrentappinfo','?appcode=assembly').then((res) => {
+      _that.http.getPlain('getcurrentappinfo','?appcode=scenemanage').then((res) => {
         if(res.data){
           sessionStorage.setItem('appDetails', JSON.stringify(res.data));
           document.title = res.data.appName+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
