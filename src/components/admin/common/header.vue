@@ -62,7 +62,9 @@ export default {
   },
   mounted(){
     this.http.getPlain_url('getmgrtopmenu','').then(res=>{
-      this.dataList = res.data||[];
+      this.dataList = res.data.appMenuList||[];
+      this.logoList.show = localStorage.getItem('fileUrl')+res.data.simpleLogoUrl;
+      this.logoList.hide = localStorage.getItem('fileUrl')+res.data.logoUrl;
     }).catch(err=>{
     })
   },

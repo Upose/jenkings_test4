@@ -10,18 +10,18 @@
 <script>
 import headerpage from '@/components/admin/common/header'
 import footerpage from '@/components/admin/common/footer'
-
+import store from '@/router/store'
 export default {
   name: 'index',
   created(){
     var _that = this;
-    let appMenu = sessionStorage.getItem('scenemanage_appMenu');
-    let appDetails = sessionStorage.getItem('scenemanage_appDetails');
+    let appMenu = store.state.menuList;
+    let appDetails = store.state.appDetails;
     //详情
     if(!appDetails || appDetails==null || appDetails==undefined || appDetails ==''){
       _that.http.getPlain('getcurrentappinfo','?appcode=scenemanage').then((res) => {
         if(res.data){
-          sessionStorage.setItem('scenemanage_appMenu', JSON.stringify(res.data));
+          store.commit('appDetails',res.data);
           document.title = res.data.appName+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
         }
         _that.post_details = true;
@@ -30,13 +30,13 @@ export default {
       })
     }else{
        _that.post_details = true;
-      document.title = JSON.parse(appDetails).appName||''+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
+      document.title = appDetails.appName||''+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
     }
     //菜单
     if(!appMenu || appMenu==null || appMenu==undefined || appMenu =='' || appMenu == '[]'){
       _that.http.getPlain('auth_tree','').then((res) => {
         let dataList = res.data||[];
-        sessionStorage.setItem('scenemanage_appDetails',JSON.stringify(dataList));
+        store.commit('menuList',dataList);
         _that.post_menu = true;
       }).catch((err) => {
         _that.$message({type: 'error',message: '获取菜单失败!'});

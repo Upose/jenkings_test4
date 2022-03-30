@@ -22,14 +22,13 @@ export default {
   },
   mounted(){
     var _this = this;
-    let appMenu = sessionStorage.getItem('scenemanage_appMenu');
-    let appDetails = sessionStorage.getItem('scenemanage_appDetails');
-
+    let appMenu = this.$store.state.menuList;
+    let appDetails = this.$store.state.appDetails;
     if(appDetails && appDetails!=null && appDetails!=undefined && appDetails !=''){
-      _this.appDetails = JSON.parse(appDetails);
+      _this.appDetails = appDetails;
     }
     if(appMenu && appMenu!=null && appMenu!=undefined && appMenu !='' && appMenu != '[]'){
-      this.dataList = JSON.parse(appMenu);
+      this.dataList = appMenu;
     }
   },
   data () {
