@@ -22,8 +22,8 @@ export default {
   },
   mounted(){
     var _this = this;
-    let appMenu = sessionStorage.getItem('appMenu');
-    let appDetails = sessionStorage.getItem('appDetails');
+    let appMenu = sessionStorage.getItem('scenemanage_appMenu');
+    let appDetails = sessionStorage.getItem('scenemanage_appDetails');
 
     if(appDetails && appDetails!=null && appDetails!=undefined && appDetails !=''){
       _this.appDetails = JSON.parse(appDetails);

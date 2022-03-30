@@ -15,13 +15,13 @@ export default {
   name: 'index',
   created(){
     var _that = this;
-    let appMenu = sessionStorage.getItem('appMenu');
-    let appDetails = sessionStorage.getItem('appDetails');
+    let appMenu = sessionStorage.getItem('scenemanage_appMenu');
+    let appDetails = sessionStorage.getItem('scenemanage_appDetails');
     //详情
     if(!appDetails || appDetails==null || appDetails==undefined || appDetails ==''){
       _that.http.getPlain('getcurrentappinfo','?appcode=scenemanage').then((res) => {
         if(res.data){
-          sessionStorage.setItem('appDetails', JSON.stringify(res.data));
+          sessionStorage.setItem('scenemanage_appMenu', JSON.stringify(res.data));
           document.title = res.data.appName+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
         }
         _that.post_details = true;
@@ -36,7 +36,7 @@ export default {
     if(!appMenu || appMenu==null || appMenu==undefined || appMenu =='' || appMenu == '[]'){
       _that.http.getPlain('auth_tree','').then((res) => {
         let dataList = res.data||[];
-        sessionStorage.setItem('appMenu',JSON.stringify(dataList));
+        sessionStorage.setItem('scenemanage_appDetails',JSON.stringify(dataList));
         _that.post_menu = true;
       }).catch((err) => {
         _that.$message({type: 'error',message: '获取菜单失败!'});

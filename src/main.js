@@ -35,7 +35,7 @@ Vue.prototype.addScript = function(url){
 }
 
 Vue.prototype.authShowBtn = function(value){
-  var list = JSON.parse(sessionStorage.getItem('appMenu')||'[]');
+  var list = JSON.parse(sessionStorage.getItem('scenemanage_appMenu')||'[]');
   var is_show = false;
   if(list.length>0){
     for(var i=0;i<list.length;i++){
