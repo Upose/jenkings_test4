@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import http from "@/assets/public/js/http";
 export default {
   name: 'breadcrumbPage',
   created() {
@@ -25,8 +24,8 @@ export default {
     }
   },
   mounted() {
-    //   this.initData();
     this.breadcrumbList = this.$route.meta.title;
+    this.breadcrumbList.unshift({ name: this.$store.state.appDetails.appName});
   },
   methods: {
     toWorkbench() {
