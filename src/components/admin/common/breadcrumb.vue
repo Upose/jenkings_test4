@@ -25,7 +25,9 @@ export default {
   },
   mounted() {
     this.breadcrumbList = this.$route.meta.title;
-    this.breadcrumbList.unshift({ name: this.$store.state.appDetails.appName});
+    if(this.breadcrumbList.length>0 && this.breadcrumbList[0].name != this.$store.state.appDetails.appName){
+      this.breadcrumbList.unshift({ name: this.$store.state.appDetails.appName});
+    }
   },
   methods: {
     toWorkbench() {
