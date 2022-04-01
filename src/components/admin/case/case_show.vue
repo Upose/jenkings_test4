@@ -361,6 +361,8 @@ export default {
       }
       .row-list{
         min-height: 150px;
+        max-height: 542px;
+        overflow: hidden;
       }
     }
     /**推荐场景**/
