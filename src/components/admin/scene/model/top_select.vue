@@ -73,13 +73,14 @@ export default {
     },
     //复制url
     copyURL(){
-      // if(window.clipboardData){
-      //   window.clipboardData.setData("Text",this.postForm.visitUrl);
-      //   this.$message({message: '复制成功',type:'info'});
-      // }else{
-      //   window.prompt("请按Ctrl+C复制", this.postForm.visitUrl);
-      // }
-      window.prompt("请按Ctrl+C复制", this.postForm.visitUrl);
+      let urlInfo = JSON.parse(localStorage.getItem('urlInfo'));
+      let info = urlInfo.find(item => item.code == 'index');
+      
+      this.http.getPlain_url('scene-url-by-id','/'+this.$route.query.scene).then(res=>{
+        window.prompt("请按Ctrl+C复制", info.path + res.data);
+      }).catch(err=>{
+        this.$message({message: '地址获取失败',type:'error'});
+      })
     },
     //名称输入事件
     setName(val){
