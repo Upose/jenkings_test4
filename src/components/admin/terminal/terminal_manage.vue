@@ -23,7 +23,7 @@
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="addClick('edit',i)" v-if="authShowBtn('terminal_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>编辑</span></li>
+                      <li @click="addClick('edit',i)" v-if="i.isSystemInstance && authShowBtn('terminal_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>编辑</span></li>
                       <li @click="delClick(i)" v-if="authShowBtn('terminal_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                     </ul>
                   </el-popover>
