@@ -85,6 +85,7 @@ export default {
   },
   methods:{
     initData(){
+      this.pageData.totalCount = 0;
       var pars = 'PageSize='+this.pageData.pageSize+"&PageIndex="+this.pageData.pageIndex;
       if(this.Status || this.Status == 0){
         pars = pars+"&Status="+this.Status;
