@@ -78,7 +78,11 @@ export default {
       }
     },
     delClick(val){
-      this.$confirm('请谨慎执行删除操作, 是否继续?', '提示', {
+      var hint_txt = '该终端下没有配置场景，确认是否删除？';
+      if(val.sceneCount && val.sceneCount>0){
+        hint_txt = '该终端下配置有'+val.sceneCount+'个场景，删除终端会同时删除场景，确认是否删除？';
+      }
+      this.$confirm(hint_txt, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

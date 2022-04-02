@@ -84,8 +84,13 @@ export default {
       this.initData();
   },
   methods:{
+    // 分页 页面修改
+    pageChange(data) {
+      this.pageData[data.key] = data.value;
+      this.initData();
+    },
     initData(){
-      this.pageData.totalCount = 0;
+      this.initPageData();
       var pars = 'PageSize='+this.pageData.pageSize+"&PageIndex="+this.pageData.pageIndex;
       if(this.Status || this.Status == 0){
         pars = pars+"&Status="+this.Status;
@@ -104,6 +109,12 @@ export default {
         this.loading = false;
         console.log(err);
       })
+    },
+    initPageData(){
+      this.pageData = {
+        pageIndex:this.pageData.pageIndex,
+        pageSize:50,
+      }
     },
     addClick(){
       this.$router.push('/admin_sceneManage');

@@ -13,7 +13,7 @@
                 <div class="title">
                   <i class="iconfont el-icon-vip-pcduan"></i>
                   <img :src="$root.fileUrl+i.logo"/>
-                  <span>{{i.name||'暂无'}}</span>
+                  <span :title="i.name">{{i.name||'暂无'}}</span>
                 </div>
                 <el-button size="mini" round class="go-set" @click="goSet(i)">去设计 <i class="el-icon-arrow-right"></i></el-button>
               </div>
@@ -112,6 +112,11 @@ export default {
         }
         span{
           vertical-align: middle;
+          width: calc(100% - 75px);
+          display: inline-block;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
       .go-set{
