@@ -139,10 +139,10 @@ export default {
   methods:{
     initData(){
       var pars = '?TopCount=16';
-      if(this.Status || this.Status){
+      if(this.Status || this.Status == 0){
         pars = pars+"&Status="+this.Status;
       }
-      if(this.IsSystemScene || this.IsSystemScene == 0){
+      if(this.IsSystemScene || this.IsSystemScene==0){
         pars = pars+"&IsSystemScene="+this.IsSystemScene;
       }
       this.http.getJsonSelf('scene-overview',pars).then(res=>{ 

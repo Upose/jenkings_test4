@@ -134,7 +134,11 @@ export default {
       margin: 0;
     }
     .search-div{
-      padding: 20px;
+      padding: 10px 20px;
+      .el-button{
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
     }
     /deep/.tabs-check .el-tabs__content{
       display: none;

@@ -64,6 +64,7 @@ export default {
         footerTemplate:val.footerTemplate,
         headerTemplate:val.headerTemplate,
       }
+      console.log(val);
       this.postForm.name = val.name;//名称
       this.postForm.status = val.status;//服务状态
       this.postForm.sceneUsers = val.sceneUsers;//用户类型
