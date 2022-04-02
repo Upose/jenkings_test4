@@ -19,12 +19,13 @@
                 <el-input type="textarea" class="form-textarea" placeholder="请输入简要描述" v-model="postForm.description"></el-input>
               </el-form-item>
               <el-form-item label="终端类型" prop="terminalType">
-                <el-radio-group v-model="postForm.terminalType">
-                  <el-radio :label="1">PC网站端</el-radio>
-                  <el-radio label="2">APP端</el-radio>
-                  <!-- <el-radio :label="3">小程序端</el-radio> -->
+                <el-radio-group v-model="postForm.terminalType" :disabled="id?true:false">
+                  <el-radio v-for="(it,i) in terminal_list" :key="i" :label="it.value">{{it.key}}</el-radio>
+                  <!-- <el-radio :label="1">PC网站端</el-radio>
+                  <el-radio :label="2">APP端</el-radio>
+                  <el-radio :label="3">小程序端</el-radio>
                   <el-radio :label="4">自适应移动端</el-radio>
-                  <el-radio :label="5">显示屏</el-radio>
+                  <el-radio :label="5">显示屏</el-radio> -->
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="终端logo" prop="logo">
@@ -110,6 +111,7 @@ export default {
       select_img:{},
       iconList:[],//图标列表
       postForm: {},
+      terminal_list:[],
       id:this.$route.query.id,//判断是否编辑
       rules: {
           name: [
@@ -153,6 +155,7 @@ export default {
     }
     this.http.getPlain_url('icon_dictionary','').then(res=>{
       this.iconList = res.data.terminalIcon||[];
+      this.terminal_list = res.data.appTerminalType||[];
     }).catch(err=>{
 
     })
