@@ -9,8 +9,8 @@
           <div class="s-w c-l">
             <span class="admin-m-title"><i class="iconfont el-icon-vip-moren"></i>PC门户端</span>
             <span class="d-title">所有场景：</span>
-            <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">默认</el-button>
-            <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">自定义</el-button>
+            <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">默认</el-button>
+            <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">自定义</el-button>
             <span class="d-title">所有状态：</span>
             <el-button :type="Status==1?'primary':''" size="medium" @click="statusClick(1)">启用</el-button>
             <el-button :type="Status==0?'primary':''" size="medium" @click="statusClick(0)">禁用</el-button>
@@ -33,7 +33,7 @@
                       <li @click="editClick(i)" v-if="authShowBtn('scene-manage_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>修改</span></li>
                       <li @click="delClick(i)" v-if="!i.isSystemScene && authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                       <li @click="previewClick(i)" v-if="authShowBtn('scene-manage_preview')"><i class="iconfont el-icon-vip-yulan"></i><span>预览</span></li>
-                      <li @click="disableClick(i)" v-if="authShowBtn('scene-manage_disable')"><i class="iconfont el-icon-vip-on-min"></i><span>禁用</span></li>
+                      <li @click="disableClick(i)" v-if="authShowBtn('scene-manage_disable')"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>{{i.status==1?'禁用':'启用'}}</span></li>
                     </ul>
                   </el-popover>
                   </span>

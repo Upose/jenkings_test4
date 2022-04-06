@@ -7,7 +7,7 @@
         <div class="s-col"><span class="s-txt">名称：</span><el-input class="w-saml" v-model="postForm.name" size="medium" @input="setName" placeholder="首页"></el-input></div><!--disabled="disabled"-->
         <div class="s-col"><span class="s-txt">服务状态：</span>
           <el-select class="w-saml" v-model="postForm.status" @change="statusClcik" size="medium" placeholder="请选择">
-              <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
+            <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
         <div class="s-col"><span class="s-txt">权限控制：</span>
@@ -46,6 +46,7 @@ export default {
       header_footer_show:false,
       head_fot_data:{footerTemplate:{},headerTemplate:{}},
       postForm:{
+        status:null,
         name:'',
         user_type:[],
         visitUrl:'',
@@ -64,7 +65,6 @@ export default {
         footerTemplate:val.footerTemplate,
         headerTemplate:val.headerTemplate,
       }
-      console.log(val);
       this.postForm.name = val.name;//名称
       this.postForm.status = val.status;//服务状态
       this.postForm.sceneUsers = val.sceneUsers;//用户类型

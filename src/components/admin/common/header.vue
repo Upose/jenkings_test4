@@ -26,15 +26,6 @@
 
 export default {
   name: 'test',
-  watch: {
-    '$store.state.userInfo': {
-      handler (newName, oldName) {
-          console.log(newName)
-      },
-      immediate: true,
-      deep: true
-    }
-  },
   data () {
     return {
       activeName:0,

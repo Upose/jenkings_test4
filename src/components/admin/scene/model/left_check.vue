@@ -93,6 +93,7 @@ export default {
     //设置详情
     setDatils(val){
       this.layoutId = val.layoutId;
+      this.layoutClick({value:val.layoutId});
       // this.templateId = val.templateId; 
       this.templateId = val.template.id; //bug修改templateId看接口结构应该是取template.id
       this.themeColor = val.themeColor;

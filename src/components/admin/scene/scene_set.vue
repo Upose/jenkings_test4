@@ -140,7 +140,7 @@ export default {
       postForm:{
         name:'',//场景名称
         templateId:'',//选择模板-左边 风格
-        terminalInstanceId:this.$route.query.id,//终端id
+        terminalInstanceId:this.$route.query.t_id,//终端id
         terminalInstanceName:this.$route.query.t,//终端实例名称
         themeColor:'template1',//颜色参数
         layoutId:1,//布局  1通屏；2分屏；3通屏定宽；4分屏定宽
@@ -529,7 +529,6 @@ export default {
     },
     //选择模板-左边
     templateClick(val){
-      console.log(val);
       if(val.isadd){
         this.postForm.template=val.list||{};
         this.postForm.templateId=val.list.id||'';

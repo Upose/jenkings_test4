@@ -9,8 +9,8 @@
           <div class="s-w c-l">
             <span class="admin-m-title"><i class="iconfont el-icon-vip-moren"></i>已使用场景</span>
             <span class="d-title">所有场景：</span>
-            <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">默认</el-button>
-            <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">自定义</el-button>
+            <el-button :type="IsSystemScene==1?'primary':''" size="medium"  @click="IsSystemSceneClick(1)">默认</el-button>
+            <el-button :type="IsSystemScene==0?'primary':''" size="medium" @click="IsSystemSceneClick(0)">自定义</el-button>
             <span class="d-title">所有状态：</span>
             <el-button :type="Status==1?'primary':''" size="medium" @click="statusClick(1)">启用</el-button>
             <el-button :type="Status==0?'primary':''" size="medium" @click="statusClick(0)">禁用</el-button>
@@ -25,15 +25,15 @@
             <div class="row-list c-l" :class="!loading && (item.sceneList||[]).length==0?'empty-data-admin':''">
               <div class="row-box set-hover" v-for="i in (item.sceneList||[])":key="i+'a'">
                 <div class="r-box-bg">
-                  <img :src="fileUrl+i.cover" @click="editClick(i,item.terminalType)"/>
+                  <img :src="fileUrl+i.cover" @click="editClick(i,item)"/>
                   <span class="name">{{i.name}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
                     <ul class="hover-menu">
-                      <li @click="editClick(i,item.terminalType)" v-if="authShowBtn('scene-manage_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>修改</span></li>
+                      <li @click="editClick(i,item)" v-if="authShowBtn('scene-manage_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>修改</span></li>
                       <li @click="delClick(i)" v-if="!i.isSystemScene && authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                       <li @click="previewClick(i)" v-if="authShowBtn('scene-manage_preview')"><i class="iconfont el-icon-vip-yulan"></i><span>预览</span></li>
-                      <li @click="disableClick(i)" v-if="authShowBtn('scene-manage_disable')"><i class="iconfont el-icon-vip-on-min"></i><span>禁用</span></li>
+                      <li @click="disableClick(i)" v-if="authShowBtn('scene-manage_disable')"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>{{i.status==1?'禁用':'启用'}}</span></li>
                     </ul>
                   </el-popover>
                   </span>
@@ -157,8 +157,8 @@ export default {
       this.$router.push('/admin_sceneManage');
     },
     //编辑场景
-    editClick(val,terminalType){
-      this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:terminalType,t:val.name,scene:val.id}});
+    editClick(val,f_val){
+      this.$router.push({path:'admin_sceneSet',query: {t_id:f_val.terminalId,terminal:f_val.terminalType,scene:val.id}});//scene 场景id
     },
     //删除场景
     delClick(val){

@@ -64,7 +64,7 @@ export default {
     },
     goSet(val){
       console.log(val);
-      this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:val.terminalType,t:val.name}});
+      this.$router.push({path:'admin_sceneSet',query: {t_id:val.id,terminal:val.terminalType,t:val.name}});
     },
   },
 }
