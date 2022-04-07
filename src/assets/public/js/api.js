@@ -31,6 +31,7 @@ export default {
         'dictionary-by-type': baseURL + '/api/scene-manage/dictionary-by-type', //按类型获取下拉框字典 /{dictype}
         'template-list': baseURL + '/api/scene-manage/template-list', //获取模板列表
         'icon_dictionary': baseURL + '/api/terminal/dictionary', //获取图标选择列表
+        'change-scene-status': baseURL + '/api/scene-manage/change-scene-status', //禁用启用
 
         //头部底部设置信息
         'head-template-settings-by-id': baseURL + '/api/header-footer/head-template-settings-by-id', //获取头部模板高级设置项
