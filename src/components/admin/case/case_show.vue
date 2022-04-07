@@ -189,23 +189,28 @@ export default {
       this.IsSystemScene = val;
       this.initData();
     },
-    //禁用场景
+    //禁用-启用 场景
     disableClick(val){
       var _this = this;
-      this.$confirm('禁用后用户无法再访问该场景，是否继续？?', '提示', {
+      var txt ='';
+      if(val.status==1){//当前禁用，执行启用
+        txt = '是否确定启用该场景？';
+      }else{
+        txt = '禁用后用户无法再访问该场景，是否继续？'
+      }
+      this.$confirm(txt, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         _this.http.putPlain('change-scene-status','/'+val.id+'/'+(val.status==1?'0':'1')).then(res=>{ 
-          console.log(res);
-          _this.$message({type: 'success',message: '禁用成功!'});
+          _this.$message({type: 'success',message: '操作成功!'});
           _this.initData();
         }).catch(err=>{
-            _this.$message({type: 'error',message: '禁用失败'});   
+            _this.$message({type: 'error',message: '操作失败'});   
         })
       }).catch(() => {
-        this.$message({type: 'info',message: '已取消禁用'});          
+        this.$message({type: 'info',message: '已取消操作'});          
       });
     },
     //预览场景
