@@ -46,7 +46,7 @@ export default {
       header_footer_show:false,
       head_fot_data:{footerTemplate:{},headerTemplate:{}},
       postForm:{
-        status:null,
+        status:0,
         name:'',
         user_type:[],
         visitUrl:'',

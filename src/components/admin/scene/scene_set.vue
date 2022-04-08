@@ -451,10 +451,6 @@ export default {
           _this.$message({message: '请设置场景名称',type:'info'});
           return ;
         }
-        if(!post_obj.status){
-          _this.$message({message: '请选择服务状态',type:'info'});
-          return ;
-        }
         if(!post_obj.visitorLimitType && post_obj.visitorLimitType==undefined){
           _this.$message({message: '请选择权限控制',type:'info'});
           return ;
@@ -511,7 +507,7 @@ export default {
     },
     //顶部选择的数据
     topCheck(val){
-      this.postForm.status = val.status||'';
+      this.postForm.status = val.status;
       this.postForm.sceneUsers = val.user_type||[];
       this.postForm.visitorLimitType = val.visitor_type;
     },
