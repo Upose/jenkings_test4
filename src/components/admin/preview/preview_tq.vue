@@ -1,4 +1,4 @@
-<!---服务中台-预览页面-->
+<!---服务中台-预览页面-图书期刊频道-->
 <template>
   <div class="html-warp-page" :class="(items && items.themeColor) || 'template1'">
     <template v-if="items && !isLock">

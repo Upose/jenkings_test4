@@ -1,4 +1,4 @@
-<!---服务中台-预览页面-->
+<!---服务中台-预览页面-重大预览页面-->
 <template>
   <div class="html-warp-page" :class="(items && items.themeColor) || 'template1'" style="background:#f5f5f5">
     <template v-if="items">

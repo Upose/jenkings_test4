@@ -6,7 +6,7 @@
         <el-collapse v-model="activeCollapse" @change="collapseClick" class="drag-collapse">
           <el-collapse-item title="请选择布局" name="1">
             <div class="drag-box-width" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
-              <div class="drag-box" :class="layoutId==i.value?'box-active':''">
+              <div class="drag-box" :class="layoutId==i.value?'box-active':''" :title="i.key">
                 <i class="el-icon-s-marketing d-b-img"></i>
                 <span class="d-b-txt">{{i.key||'暂无'}}</span>
               </div>
@@ -14,7 +14,7 @@
           </el-collapse-item>
           <el-collapse-item title="请选择模板" name="2">
               <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
-                <div class="drag-box" :class="templateId==i.id?'box-active':''">
+                <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
                   <i class="el-icon-s-marketing d-b-img"></i>
                   <span class="d-b-txt">{{i.name||'暂无'}}</span>
                 </div>
@@ -22,7 +22,7 @@
           </el-collapse-item>
           <el-collapse-item title="请选择主题色" name="3">
             <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
-              <div class="drag-box" :class="themeColor==i.value?'box-active':''">
+              <div class="drag-box" :class="themeColor==i.value?'box-active':''" :title="i.key">
                 <i class="el-icon-s-marketing d-b-img"></i>
                 <span class="d-b-txt">{{i.key||'暂无'}}</span>
               </div>
@@ -42,9 +42,9 @@
         </h1>
         <div class="drag-box-warp">
           <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
-            <div class="drag-box" :class="appId==i.appId?'box-active':''">
+            <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
               <i class="el-icon-s-marketing d-b-img"></i>
-              <span class="d-b-txt" :title="i.name">{{i.name||''}}</span>
+              <span class="d-b-txt">{{i.name||''}}</span>
             </div>
           </div>
         </div>

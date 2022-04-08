@@ -1,4 +1,4 @@
-<!---服务中台-预览页面-->
+<!---服务中台-预览页面-通用预览和演示站点预览-->
 <template>
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
     
