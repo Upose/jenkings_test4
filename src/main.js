@@ -60,40 +60,8 @@ const i18n = new VueI18n({
   }
 })
 
-// router.beforeEach((to, from, next) => {
-//   next();
-// })
-
 let timer = setInterval(() => {
   if (axios && axios.defaults && axios.defaults.loaded) {
-    // 获取 应用基础信息 每隔十分钟更新一次信息
-    if (!localStorage.getItem('baseinfo_time_stamp') || (parseInt(localStorage.getItem('baseinfo_time_stamp')) + 10 * 60 * 1000) < new Date().getTime()) {
-      getbaseinfoFun();
-    }else{
-      if(localStorage.getItem('userInfo') == 'null' || localStorage.getItem('userInfo')==null){
-        getbaseinfoFun();
-      }else if(localStorage.getItem('token') && (localStorage.getItem('userInfo') && !JSON.parse(localStorage.getItem('userInfo')).userKey)){
-        getbaseinfoFun();
-      }
-    }
-    function getbaseinfoFun(){
-      http.getJson('getbaseinfo').then(res => {
-        if(res.data){
-          localStorage.setItem('fileUrl', res.data.orgInfo.fileUrl);
-          localStorage.setItem('headerFooterInfo', JSON.stringify(res.data.headerFooterInfo));
-          localStorage.setItem('orgInfo', JSON.stringify(res.data.orgInfo));
-          localStorage.setItem('urlInfo', JSON.stringify(res.data.urlInfo));
-          if(res.data && res.data.userInfo){
-            store.commit('setUserInfo',res.data.userInfo);
-            localStorage.setItem('userInfo', JSON.stringify(res.data.userInfo));
-          }
-          localStorage.setItem('baseinfo_time_stamp', new Date().getTime());
-        }
-      }).catch(err => {
-        alert('基础数据获取失败');
-        // this.$message({ type: 'error', message: '获取基础数据失败!' });
-      });
-    }
     clearInterval(timer);
     new Vue({
       el: '#home_sys',
@@ -103,7 +71,7 @@ let timer = setInterval(() => {
       components: { App },
       data(){
         return{
-          fileUrl:localStorage.getItem('fileUrl')||'http://192.168.21.46:6900',
+          fileUrl:'',
           collapse:false,
         }
       },
