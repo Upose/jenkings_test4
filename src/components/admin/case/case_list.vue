@@ -113,7 +113,7 @@ export default {
     initPageData(){
       this.pageData = {
         pageIndex:this.pageData.pageIndex,
-        pageSize:50,
+        pageSize:this.pageData.pageSize,
       }
     },
     addClick(){
