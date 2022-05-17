@@ -451,6 +451,10 @@ export default {
           _this.$message({message: '请设置场景名称',type:'info'});
           return ;
         }
+        if(post_obj.name.length>100){
+          _this.$message({message: '场景名称不得大于100',type:'info'});
+          return;
+        }
         if(!post_obj.visitorLimitType && post_obj.visitorLimitType==undefined){
           _this.$message({message: '请选择权限控制',type:'info'});
           return ;

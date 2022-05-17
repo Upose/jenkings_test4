@@ -16,8 +16,8 @@
           </el-select>
         </div>
         <div class="s-col"><span class="s-txt">用户类型：</span>
-        <el-select v-model="user_check_list" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
-            <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item"></el-option>
+        <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
+            <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
         </el-select>
         </div>
         <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="hfShow()">高级设置</el-button>
@@ -51,8 +51,8 @@ export default {
         user_type:[],
         visitUrl:'',
       },
-      userType: [],
-      user_check_list: [],//用户类型
+      userType: [],//用户类型列表
+      userType_data:[],
     }
   },
   mounted(){
@@ -67,8 +67,14 @@ export default {
       }
       this.postForm.name = val.name;//名称
       this.postForm.status = val.status;//服务状态
-      this.postForm.sceneUsers = val.sceneUsers;//用户类型
+      this.postForm.user_type = val.sceneUsers;//用户类型
+      if(this.postForm.user_type.length>0){
+        this.postForm.user_type.forEach(it=>{
+          this.userType_data.push(it.userSetId);
+        })
+      }
       this.postForm.visitor_type = val.visitorLimitType;//权限控制
+      this.getUserType(this.postForm.visitor_type,true);
       this.postForm.visitUrl = val.visitUrl;//地址复制
       this.$forceUpdate();
     },
@@ -97,8 +103,8 @@ export default {
       if(val.length>0){
         val.forEach(item=>{
           list.push({
-            sceneId:this.$route.query.id,
-            userSetId:item.value,
+            sceneId:this.$route.query.scene,
+            userSetId:item,
           });
         })
       }
@@ -108,15 +114,16 @@ export default {
     //权限控制选择
     visitorLimitTypeCheck(val){
       this.$emit('topCheck',this.postForm);
-      this.getUserType(val);
+      this.getUserType(val,false);
     },
     //获取用户类型
-    getUserType(id){
+    getUserType(id,is_edit){//is_edit:true,表示编辑
+      if(!is_edit){
+        this.postForm.user_type = [];
+        this.userType_data = [];
+      }
       this.http.getPlain_url('dictionary-by-type','/'+id).then(res=>{
         this.userType = res.data||[];
-        if(this.userType.length>0){
-          this.postForm.user_type = this.userType[0].value;
-        }
       }).catch(err=>{
         console.log(err);
       })
@@ -135,6 +142,7 @@ export default {
     },
     //保存
     saveClick(){
+      // console.log(this.postForm,this.value1);return;
       this.$emit('saveClick');
     },
     //预览
@@ -185,5 +193,15 @@ export default {
     float: right;
     margin-top: 13px;
   }
+}
+/deep/.el-tag.el-tag--info .el-select__tags-text{
+  max-width: 100px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/deep/.el-select .el-tag__close.el-icon-close{
+  top: -7px;
 }
 </style>

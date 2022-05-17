@@ -65,7 +65,7 @@ export default {
           this.getApps(newVal.appServiceType[0].value);
         }
         if(newVal.sceneLayout && newVal.sceneLayout.length>0){
-          this.layoutClick(newVal.sceneLayout[0]);
+          this.layoutClick(newVal.sceneLayout[0],true);
         }
       }
     }
@@ -93,7 +93,7 @@ export default {
     //设置详情
     setDatils(val){
       this.layoutId = val.layoutId;
-      this.layoutClick({value:val.layoutId});
+      this.layoutClick({value:val.layoutId},true);
       // this.templateId = val.templateId; 
       this.templateId = val.template.id; //bug修改templateId看接口结构应该是取template.id
       this.themeColor = val.themeColor;
@@ -106,7 +106,11 @@ export default {
     },
     
     //选择布局
-    layoutClick(val){
+    layoutClick(val,is_add){//is_add:true为第一次
+      if(!is_add &&this.$route.query.scene){
+        this.$message({message: '场景修改状态下，布局不能改变',type:'info'});
+        return;
+      }
       this.layoutId = val.value;
       this.$emit('layoutClick',val);
       this.getTemplate(val.value);
