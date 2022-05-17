@@ -1,6 +1,6 @@
 <!---服务中台-预览页面-重大预览页面-->
 <template>
-  <div class="html-warp-page" :class="(items && items.themeColor) || 'template1'" style="background:#f5f5f5">
+  <div class="html-warp-page" :class="(items && items.themeColor) || 'template1'" :style="{background:bg_color}">
     <template v-if="items">
       <!--宽1200通用-->
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode">
@@ -38,7 +38,8 @@ export default {
   },
   data() {
     return {
-      isLock: false, //是否全屏
+      isLock: false, //是否左侧固定模板
+      bg_color:'#fff',//背景颜色
       details: JSON.parse((window.localStorage.getItem('scenePreview')||'{}')), //场景详情
       //以下是拖拽参数
       grid: null,
@@ -62,6 +63,7 @@ export default {
     initData() {
       if (this.details && this.details.template) {
         this.items = this.details;
+        this.bg_color = this.details.backgroundColor||'#fff';
         this.addStyleOverride(this.items.headerTemplate.router);
         this.addScriptOverride(this.items.headerTemplate.router);
         this.addStyleOverride(this.items.footerTemplate.router);

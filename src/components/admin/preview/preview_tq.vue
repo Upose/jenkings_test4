@@ -44,7 +44,7 @@ export default {
   },
   data() {
     return {
-      isLock: false, //是否全屏
+      isLock: false, //是否左侧固定模板
       details: JSON.parse((window.localStorage.getItem('scenePreview')||'{}')), //场景详情
       //以下是拖拽参数
       grid: null,
@@ -65,6 +65,7 @@ export default {
   methods: {
     //初始化数据
     initData() {
+      console.log(this.details);
       if (this.details && this.details.template) {
         this.isLock = this.details.template.isLock;
         this.items = this.details;
