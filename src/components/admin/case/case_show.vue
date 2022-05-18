@@ -18,7 +18,7 @@
           </div>
         </div><!---顶部查询板块 end--->
         <div class="list-content" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
-          <div class="row" v-for="(item,index) in dataList" :key="index">
+          <div class="row" v-for="(item,index) in dataList" :key="index" v-if="(item.sceneList||[]).length>0">
             <div class="title">{{item.terminalName||''}}
               <span class="more-r" @click="moreClick(item)">更多<i class="el-icon-arrow-right"></i></span>
             </div>
