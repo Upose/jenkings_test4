@@ -10,7 +10,7 @@
             <el-tab-pane v-for="(it,i) in dataList" :key="i" :label="it.terminalName" :name="it.terminalId" ></el-tab-pane>
           </el-tabs>
           <div class="search-div">
-            <el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
+            <span class="title">选择场景：</span><el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
           </div>
           <el-table :data="tableData" v-loading="loading" style="width: 100%;min-width:700px;" :expand-row-keys="expends" :row-key="getRowKeys">
             <el-table-column type="expand" width="30">
@@ -20,7 +20,7 @@
                   <div class="col2">{{item.name}}</div>
                   <!-- <div class="col3">{{item.appName||'-'}}</div> -->
                   <div class="col4">{{item.createTime.slice(0,10)}}</div>
-                  <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>栏目设置</el-button></div>
+                  <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>栏目管理</el-button></div>
                 </div>
               </template>
             </el-table-column>
@@ -28,7 +28,7 @@
             <el-table-column label="栏目名称" prop="content"></el-table-column>
             <!-- <el-table-column label="应用" prop="content"></el-table-column> -->
             <el-table-column label="创建日期" prop="content"></el-table-column>
-            <el-table-column label="操作" prop="name"></el-table-column>
+            <el-table-column label="操作" align="center" prop="name"></el-table-column>
           </el-table>
 
         </div>
@@ -135,6 +135,11 @@ export default {
     }
     .search-div{
       padding: 10px 20px;
+      .title{
+        color: #34395E;
+        font-size: 14px;
+        font-weight: bold;
+      }
       .el-button{
         margin-top: 5px;
         margin-bottom: 5px;
@@ -171,6 +176,7 @@ export default {
     }
     .col5{
       width: calc(33.333% - 70px);
+      text-align: center;
       .el-button{
         margin-top: -5px;
       }
