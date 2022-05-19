@@ -9,12 +9,14 @@
         <div class="content">
           <div class="c-list c-l" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
             <div class="c-l-box" v-for="i in dataList" :key="i">
-              <div class="c-l-box-content" :style="{background:'#0d29d3 url('+$root.fileUrl+i.icon+') no-repeat center'}">
+              <div class="c-l-box-content" :class="bgColor(i.terminalType)"><!--terminalType:1是pc，4是手机，5是显示屏-->
+              <!-- <div class="c-l-box-content" :style="{background:'#0d29d3 url('+$root.fileUrl+i.icon+') no-repeat center'}"> -->
                 <div class="title">
                   <i class="iconfont el-icon-vip-pcduan"></i>
-                  <img :src="$root.fileUrl+i.logo"/>
+                  <!-- <img :src="$root.fileUrl+i.logo"/> -->
                   <span :title="i.name">{{i.name||'暂无'}}</span>
                 </div>
+                <div class="img-right"><img :src="$root.fileUrl+i.icon"/></div>
                 <el-button size="mini" round class="go-set" @click="goSet(i)">去设计 <i class="el-icon-arrow-right"></i></el-button>
               </div>
             </div>
@@ -66,6 +68,20 @@ export default {
       console.log(val);
       this.$router.push({path:'admin_sceneSet',query: {t_id:val.id,terminal:val.terminalType,t:val.name}});
     },
+    bgColor(type){
+      if(type == 4){
+        //移动端
+        return 'adaptive';
+      }else if(type == 1){
+        //pc
+        return 'pc';
+      }else if(type == 5){
+        //大屏
+        return 'big';
+      }else{
+        return 'app'
+      }
+    },
   },
 }
 </script>
@@ -89,11 +105,12 @@ export default {
     float: left;
     margin-bottom: 20px;
     .c-l-box-content{
-      padding: 2vw;
+      padding:1.9vw 1.5vw;
       margin-left: 10px;
       margin-right: 10px;
       border-radius: 5px;
       background-size: 100% 100% !important;
+      position: relative;
       .title{
         color: @fff;
         font-size: 20px;
@@ -112,18 +129,48 @@ export default {
         }
         span{
           vertical-align: middle;
-          width: calc(100% - 75px);
-          display: inline-block;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          width: calc(100% - 120px);
+          height: 52px;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          display:-webkit-box;
+          -webkit-box-orient:vertical;
+          -webkit-line-clamp:2; 
+        }
+      }
+      .img-right{
+        position: absolute;
+        right:20px;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        img{
+          max-width: 146px;
+          max-height: 100%;
         }
       }
       .go-set{
-        margin-top: 2vw;
+        margin-top: 20px;
         width: 100px;
       }
     }
   }
+}
+/**pc */
+.pc{
+  background: linear-gradient(91deg, #618AFE 0%, #90B0FF 100%);
+}
+/**app */
+.app{
+  background: linear-gradient(91deg, #FE7B46 0%, #FE9E4A 100%);
+}
+/**大屏 */
+.big{
+  background: linear-gradient(91deg, #41CAD2 0%, #59E1CB 100%);
+}
+/**自适应 */
+.adaptive{
+  background: linear-gradient(91deg, #A482FF 0%, #B4A4FF 100%);
 }
 </style>

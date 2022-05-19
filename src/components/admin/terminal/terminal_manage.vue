@@ -18,7 +18,7 @@
               <div class="row-box set-hover" v-for="i in dataList" :key="i">
                 <div class="r-box-bg">
                   <!-- <img src="@/assets/admin/img/upload/s1.png"/> -->
-                  <img :src="fileUrl+i.icon"/>
+                  <div class="box-bg" :class="bgColor(i.terminalType)"><img :src="fileUrl+i.icon"/></div>
                   <span class="name">{{i.name||'暂无'}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
@@ -96,7 +96,21 @@ export default {
       }).catch(() => {
         this.$message({type: 'info',message: '已取消删除'});          
       });
-    }
+    },
+    bgColor(type){
+      if(type == 4){
+        //移动端
+        return 'adaptive';
+      }else if(type == 1){
+        //pc
+        return 'pc';
+      }else if(type == 5){
+        //大屏
+        return 'big';
+      }else{
+        return 'app'
+      }
+    },
   },
 }
 </script>
@@ -156,11 +170,18 @@ export default {
           &:hover{
             box-shadow: 0px 2px 15px rgba(40, 120, 255, 0.25);
           }
-        }
-        img{
-          width: 100%;
-          height: 178px;
-          border-radius: 5px 5px 0px 0px;
+          .box-bg{
+            width: 100%;
+            height: 178px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px 5px 0px 0px;
+            img{
+              max-width: 100%;
+              max-height: 100%;
+            }
+          }
         }
         span.name{
           display: block;
@@ -200,5 +221,21 @@ export default {
         
       }
     }
+  }
+  /**pc */
+  .pc{
+    background: #E5F1FF;
+  }
+  /**app */
+  .app{
+    background: #FFEDE4;
+  }
+  /**大屏 */
+  .big{
+    background: #E5F8F7;
+  }
+  /**自适应 */
+  .adaptive{
+    background: #F2F0FF;
   }
 </style>
