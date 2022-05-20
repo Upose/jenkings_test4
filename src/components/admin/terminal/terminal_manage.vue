@@ -192,7 +192,10 @@ export default {
           text-align: center;
           position: relative;
           border-radius: 0px 0px 3px 3px;
-          
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          padding: 0 10px;
         }
       }
       /***移入显示设置按钮**/
