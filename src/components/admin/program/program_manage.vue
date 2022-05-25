@@ -20,7 +20,7 @@
                   <div class="col2" :title="item.name">{{item.name}}</div>
                   <!-- <div class="col3">{{item.appName||'-'}}</div> -->
                   <div class="col4">{{item.createTime.slice(0,10)}}</div>
-                  <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>栏目管理</el-button></div>
+                  <div class="col5"><el-button @click="handleSet(item)" type="text" size="mini" icon="iconfont el-icon-vip-shezhi" round>内容管理</el-button></div>
                 </div>
               </template>
             </el-table-column>
