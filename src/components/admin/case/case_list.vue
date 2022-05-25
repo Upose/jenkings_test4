@@ -131,7 +131,11 @@ export default {
     },
     //编辑场景
     editClick(val){
-      this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:this.$route.query.type,t:val.name,scene:val.id}});
+      if(this.authShowBtn('scene-manage_edit')){
+        this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:this.$route.query.type,t:val.name,scene:val.id}});
+      }else{
+        this.previewClick(val);
+      }
     },
     //删除场景
     delClick(val){
@@ -178,7 +182,6 @@ export default {
     },
     //预览场景
     previewClick(val){
-      console.log(val.id);
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
         var url = '';

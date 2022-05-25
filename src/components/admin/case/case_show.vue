@@ -158,7 +158,11 @@ export default {
     },
     //编辑场景
     editClick(val,f_val){
-      this.$router.push({path:'admin_sceneSet',query: {t_id:f_val.terminalId,terminal:f_val.terminalType,scene:val.id}});//scene 场景id
+      if(this.authShowBtn('scene-manage_edit')){
+        this.$router.push({path:'admin_sceneSet',query: {t_id:f_val.terminalId,terminal:f_val.terminalType,scene:val.id}});//scene 场景id
+      }else{
+        this.previewClick(val);
+      }
     },
     //删除场景
     delClick(val){
