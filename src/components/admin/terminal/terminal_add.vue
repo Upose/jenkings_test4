@@ -133,7 +133,7 @@ export default {
               { required: true, message: '请选择类型', trigger: 'change' },
           ],
           icon: [
-              { required: true, message: '请选择', trigger: 'change' },
+              { required: true, message: ' '},
           ],
           status: [
               { required: true, message: '请选择', trigger: 'change' },
@@ -155,6 +155,12 @@ export default {
     }
     this.http.getPlain_url('icon_dictionary','').then(res=>{
       this.iconList = res.data.terminalIcon||[];
+      if(this.iconList.length>0){
+        this.select_img = this.iconList[0];
+        if(!this.id){
+          this.postForm.icon = this.select_img.value;
+        }
+      }
       this.terminal_list = res.data.appTerminalType||[];
     }).catch(err=>{
 
@@ -204,6 +210,7 @@ export default {
     },
     //表单提交
     submitForm(formName) {
+      console.log(this.postForm);
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){
