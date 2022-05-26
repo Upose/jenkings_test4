@@ -20,7 +20,7 @@
                   <!-- <img src="@/assets/admin/img/upload/s1.png"/> -->
                   <div class="box-bg" :class="bgColor(i.terminalType)"><img :src="fileUrl+i.icon"/></div>
                   <span class="name">{{i.name||'暂无'}}
-                  <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
+                  <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible" v-if="authShowBtn('terminal_edit') || (!i.isSystemInstance && authShowBtn('terminal_delete'))">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
                     <ul class="hover-menu">
                       <li @click="addClick('edit',i)" v-if="authShowBtn('terminal_edit')"><i class="iconfont el-icon-vip-bianji"></i><span>编辑</span></li>
