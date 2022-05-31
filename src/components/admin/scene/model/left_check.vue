@@ -129,7 +129,7 @@ export default {
     },
     //选择模板
     templateClick(val,is_add){
-      console.log(val);
+      // console.log(val);
       this.templateId = val.id;
       this.$emit('templateClick',{list:val,isadd:is_add})
     },

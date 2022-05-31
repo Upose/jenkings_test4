@@ -665,21 +665,15 @@ export default {
     loadRes(){
       if(this.screen_list[this.screen_cu]['sceneApps']){
         this.screen_list[this.screen_cu]['sceneApps'].forEach(item=>{
-          var is_yes = false;
-          this.resource_file_list.forEach((it,i)=>{
-            if(it.url == item.target){
-              is_yes = true;
-              return;
-            }
-          })
-          if(!is_yes){
+          let is_list = this.resource_file_list.filter(x=>x.url == item.target);
+          if(is_list.length==0){
             this.resource_file_list.push({url:item.target,widgetCode:item.widgetCode});
-            setTimeout(()=>{
-              this.addStyle(item.target+'/component.css');
-              this.addScript(item.target+'/component.js');
-            },200)
+            this.addStyle(item.target+'/component.css');
+            this.addScript(item.target+'/component.js');
           }else{
-            window[item.widgetCode]();
+            if(window[item.widgetCode]){
+              window[item.widgetCode]();
+            }
           }
         })
       }
