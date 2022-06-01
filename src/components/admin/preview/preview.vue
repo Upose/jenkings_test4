@@ -174,6 +174,7 @@ export default {
   margin-right: auto;
 }
 .bocy-content{
+  min-height: calc(100vh - 400px);
   position: relative;
   min-width: 1200px;//最小宽度
 }
