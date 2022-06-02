@@ -17,7 +17,7 @@
               <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
                 <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
                   <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
-                  <img :src="fileUrl+i.icon" class="img-cover">
+                  <img :src="fileUrl+i.cover" class="img-cover">
                   <span class="d-b-txt">{{i.name||'暂无'}}</span>
                 </div>
               </div>
