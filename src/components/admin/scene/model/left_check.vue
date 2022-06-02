@@ -7,7 +7,8 @@
           <el-collapse-item title="请选择布局" name="1">
             <div class="drag-box-width" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
               <div class="drag-box" :class="layoutId==i.value?'box-active':''" :title="i.key">
-                <i class="el-icon-s-marketing d-b-img"></i>
+                <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
+                <img :src="fileUrl+i.icon" class="img-cover">
                 <span class="d-b-txt">{{i.key||'暂无'}}</span>
               </div>
             </div>
@@ -15,7 +16,8 @@
           <el-collapse-item title="请选择模板" name="2">
               <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
                 <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
-                  <i class="el-icon-s-marketing d-b-img"></i>
+                  <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
+                  <img :src="fileUrl+i.icon" class="img-cover">
                   <span class="d-b-txt">{{i.name||'暂无'}}</span>
                 </div>
               </div>
@@ -23,7 +25,8 @@
           <el-collapse-item title="请选择主题色" name="3">
             <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
               <div class="drag-box" :class="themeColor==i.value?'box-active':''" :title="i.key">
-                <i class="el-icon-s-marketing d-b-img"></i>
+                <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
+                <img :src="fileUrl+i.icon" class="img-cover">
                 <span class="d-b-txt">{{i.key||'暂无'}}</span>
               </div>
             </div>
@@ -43,7 +46,8 @@
         <div class="drag-box-warp">
           <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
             <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
-              <i class="el-icon-s-marketing d-b-img"></i>
+              <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
+              <img :src="fileUrl+i.icon" class="img-cover">
               <span class="d-b-txt">{{i.name||''}}</span>
             </div>
           </div>
@@ -81,6 +85,7 @@ export default {
       sceneTemplate:[],//模板列表
       apps_list:[],//应用列表
       apps_list_all:[],//应用列表-总列表
+      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   mounted(){
@@ -225,6 +230,7 @@ export default {
         .drag-box{
           margin-top: 5px;
           margin-left: 5px;
+          padding: 1px;
           background-color: #f9fafc;
           &:hover{
             background-color: @f3f4ff;
@@ -241,11 +247,18 @@ export default {
         // }
         
         i.d-b-img{
-        padding: 10px;
-        font-size: 20px;
-        text-align: center;
-        display: block;
-        color: @f28102;
+          padding: 10px;
+          font-size: 20px;
+          text-align: center;
+          display: block;
+          color: @f28102;
+        }
+        .img-cover{
+          width: 20px;
+          height: 20px;
+          display: block;
+          margin:10px auto;
+          border-radius:1px;
         }
         .d-b-txt{
         font-size: 12px;
