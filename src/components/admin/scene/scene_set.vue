@@ -22,7 +22,7 @@
               <div class="screen-btn-drag" v-show="postForm.layoutId== 2 || postForm.layoutId== 4">
                 <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(0)"></span></el-button>
                 <div class="drag-box-warp" ref="dragBox">
-                  <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
+                  <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index+1}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
                 </div>
                 <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
               </div><!--屏幕数量+拖拽 end-->
