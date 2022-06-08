@@ -6,18 +6,18 @@
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode">
         <div :id="setId()" :data-init="items.headerTemplate.router"></div>
       </div><!-- 头部信息-end -->
-      <div :class="top_model.widgetCode||top_model.appWidget.widgetCode" :style="{width:'100%',height:'180px'}" :data-set="JSON.stringify(top_model.appPlateItems||'[{}]')">
+      <div :class="isWidgetCode(top_model)" :style="{width:'100%',height:'180px'}" :data-set="JSON.stringify(top_model.appPlateItems||'[{}]')">
         <div :id="setId()"></div>
       </div><!-- 顶部检索-end -->
       
       <div class="bocy-content" v-for="(it, i) in items.sceneScreens" :key="i" :style="{ height: (it.height-380) + 'px' }" :class="
           items.layoutId == '3' || items.layoutId == '4' ? 'width_1440' : ''
         ">
-        <div v-for="(item, index) in it.sceneApps" :key="index" :class="item.widgetCode || item.appWidget.widgetCode" v-if="isDivShow(item.appWidget.widgetCode)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems || '[{}]')">
-          <div :id="setId()" :data-init="item.appWidget.target"></div>
+        <div v-for="(item, index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="isDivShow(item.appWidget?(item.appWidget.widgetCode||''):'')" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems || '[{}]')">
+          <div :id="setId()" :data-init="item.appWidget?(item.appWidget.target||''):''"></div>
         </div>
       </div>
-      <div :class="bottom_model.widgetCode||bottom_model.appWidget.widgetCode" :style="{width:'100%',height:'200px'}" :data-set="JSON.stringify(bottom_model.appPlateItems||'[{}]')">
+      <div :class="isWidgetCode(bottom_model)" :style="{width:'100%',height:'200px'}" :data-set="JSON.stringify(bottom_model.appPlateItems||'[{}]')">
         <div :id="setId()"></div>
       </div><!-- 底部链接-end -->
       <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode">
@@ -73,14 +73,18 @@ export default {
               if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='cqu_unified_retrieval_sys_temp1'){
                 console.log('头部检索');
                 this.top_model = it;
-                this.addStyle(it.appWidget.target+'/component.css');
-                this.addScript(it.appWidget.target+'/component.js');
+                if(it.appWidget && it.appWidget.target){
+                  this.addStyle(it.appWidget.target+'/component.css');
+                  this.addScript(it.appWidget.target+'/component.js');
+                }
               }
               if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='cqu_friendly_link_temp1'){
                 console.log('底部链接');
                 this.bottom_model = it;
-                this.addStyle(it.appWidget.target+'/component.css');
-                this.addScript(it.appWidget.target+'/component.js');
+                if(it.appWidget && it.appWidget.target){
+                  this.addStyle(it.appWidget.target+'/component.css');
+                  this.addScript(it.appWidget.target+'/component.js');
+                }
               }
             })
           }
@@ -99,6 +103,18 @@ export default {
           this.$message({ type: "error", message: err.errors||"获取详情失败" });
         });
     },
+    //判断是否为空
+    isWidgetCode(item){
+      if(item.widgetCode){
+        return item.widgetCode;
+      }else{
+        if(item.appWidget && item.appWidget.widgetCode){
+          return item.appWidget.widgetCode;
+        }else{
+          return {};
+        }
+      }
+    },
     //初始化模板
     styleRender(val) {
       //css 渲染
@@ -112,11 +128,10 @@ export default {
       };
       // this.addStyle(val.appWidget.target + "/component.css");
       // this.addScript(val.appWidget.target + "/component.js");
-
-      this.addStyleOverride(val.appWidget.target);
-      this.addScriptOverride(val.appWidget.target);
-
-
+      if(val.appWidget && val.appWidget.target){
+        this.addStyleOverride(val.appWidget.target);
+        this.addScriptOverride(val.appWidget.target);
+      }
       return list;
     },
     //动态设置模板id

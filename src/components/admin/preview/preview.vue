@@ -5,7 +5,7 @@
     <template v-if="items && !isLock"><!--宽1200通用-->
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
       <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-        <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
+        <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
           <div :id="setId()"></div>
         </div>
       </div>
@@ -17,13 +17,13 @@
         <div class="header-prewiew"><div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div></div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
-            <div :class="left_menu.widgetCode||left_menu.appWidget.widgetCode" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')">
+            <div :class="isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')">
               <div :id="setId()"></div>
             </div>
           </div>
           <div class="center-fixed">
             <div class="center-fixed-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-              <div v-for="(item,index) in it.sceneApps" :key="index" :class="item.widgetCode||item.appWidget.widgetCode" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
+              <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
                 <div :id="setId()"></div>
               </div>
             </div>
@@ -58,8 +58,10 @@ export default {
               if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
                 console.log('全屏');
                 this.left_menu = it;
-                this.addStyle(it.appWidget.target+'/component.css');
-                this.addScript(it.appWidget.target+'/component.js');
+                if(it.appWidget && it.appWidget.target){
+                  this.addStyle(it.appWidget.target+'/component.css');
+                  this.addScript(it.appWidget.target+'/component.js');
+                }
               }
             })
           }
@@ -100,9 +102,23 @@ export default {
         position: 'absolute',
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
-      this.addStyle(val.appWidget.target+'/component.css');
-      this.addScript(val.appWidget.target+'/component.js');
+      if(val.appWidget && val.appWidget.target){
+        this.addStyle(val.appWidget.target+'/component.css');
+        this.addScript(val.appWidget.target+'/component.js');
+      }
       return list;
+    },
+    //判断是否为空
+    isWidgetCode(item){
+      if(item.widgetCode){
+        return item.widgetCode;
+      }else{
+        if(item.appWidget && item.appWidget.widgetCode){
+          return item.appWidget.widgetCode;
+        }else{
+          return {};
+        }
+      }
     },
     styleRender_full(val){//css 渲染
       var list = {
@@ -113,8 +129,10 @@ export default {
         position: 'absolute',
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
-      this.addStyle(val.appWidget.target+'/component.css');
-      this.addScript(val.appWidget.target+'/component.js');
+      if(val.appWidget && val.appWidget.target){
+        this.addStyle(val.appWidget.target+'/component.css');
+        this.addScript(val.appWidget.target+'/component.js');
+      }
       return list;
     },
     //动态设置模板id

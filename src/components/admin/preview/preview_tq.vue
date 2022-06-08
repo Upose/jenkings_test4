@@ -6,15 +6,15 @@
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode">
         <div :id="setId()" :data-init="items.headerTemplate.router"></div>
       </div>
-      <div :class="top_menu.widgetCode||top_menu.appWidget.widgetCode" :style="{width:'100%',height:'220px'}" :data-set="JSON.stringify(top_menu.appPlateItems||'[{}]')">
+      <div :class="isWidgetCode(top_menu)" :style="{width:'100%',height:'220px'}" :data-set="JSON.stringify(top_menu.appPlateItems||'[{}]')">
             <div :id="setId()"></div>
         </div>
       <!-- 头部信息-end -->
       <div class="bocy-content" v-for="(it, i) in items.sceneScreens" :key="i" :style="{ height: (it.height-210) + 'px' }" :class="
           items.layoutId == '3' || items.layoutId == '4' ? 'width_1200' : ''
         ">
-        <div v-for="(item, index) in it.sceneApps" :key="index" :class="item.widgetCode || item.appWidget.widgetCode" v-if="isDivShow(item.appWidget.widgetCode)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems || '[{}]')">
-          <div :id="setId()" :data-init="item.appWidget.target"></div>
+        <div v-for="(item, index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="isDivShow(item.appWidget?(item.appWidget.widgetCode||''):'')" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems || '[{}]')">
+          <div :id="setId()" :data-init="item.appWidget?(item.appWidget.target||''):''"></div>
         </div>
       </div>
       <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode">
@@ -78,8 +78,10 @@ export default {
               if(it.xIndex==0 && it.appWidget && (it.appWidget.widgetCode=='unified_retrieval_sys_temp3' || it.appWidget.widgetCode=='unified_retrieval_sys_temp4')){
                 // console.log('图书，期刊频道特殊模板');
                 this.top_menu = it;
-                this.addStyle(it.appWidget.target+'/component.css');
-                this.addScript(it.appWidget.target+'/component.js');
+                if(it.appWidget && it.appWidget.target){
+                  this.addStyle(it.appWidget.target+'/component.css');
+                  this.addScript(it.appWidget.target+'/component.js');
+                }
               }
             })
           }
@@ -98,6 +100,18 @@ export default {
           this.$message({ type: "error", message: err.errors||"获取详情失败" });
         });
     },
+    //判断是否为空
+    isWidgetCode(item){
+      if(item.widgetCode){
+        return item.widgetCode;
+      }else{
+        if(item.appWidget && item.appWidget.widgetCode){
+          return item.appWidget.widgetCode;
+        }else{
+          return {};
+        }
+      }
+    },
     //初始化模板
     styleRender(val) {
       //css 渲染
@@ -109,13 +123,10 @@ export default {
         position: "absolute",
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
-      // this.addStyle(val.appWidget.target + "/component.css");
-      // this.addScript(val.appWidget.target + "/component.js");
-
-      this.addStyleOverride(val.appWidget.target);
-      this.addScriptOverride(val.appWidget.target);
-
-
+      if(val.appWidget && val.appWidget.target){
+        this.addStyleOverride(val.appWidget.target);
+        this.addScriptOverride(val.appWidget.target);
+      }
       return list;
     },
     styleRender_full(val) {
@@ -128,10 +139,10 @@ export default {
         position: "absolute",
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
-      // this.addStyle(val.appWidget.target + "/component.css");
-      // this.addScript(val.appWidget.target + "/component.js");
-      this.addStyleOverride(val.appWidget.target);
-      this.addScriptOverride(val.appWidget.target);
+      if(val.appWidget && val.appWidget.target){
+        this.addStyleOverride(val.appWidget.target);
+        this.addScriptOverride(val.appWidget.target);
+      }
       return list;
     },
     //动态设置模板id
