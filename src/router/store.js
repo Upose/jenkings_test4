@@ -11,6 +11,7 @@ export default new Vuex.Store({
     userInfo:{},
     menuList:[],//后台左侧菜单
     appDetails:null,//应用信息
+    baseinfo:{},
   },
   getters: {
     userInfo: (state) => state.userInfo,
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     language: (state) => state.language||'zh-CN',
   },
   mutations: {
+    baseinfo: (state, data) => {
+      state.baseinfo = data;
+    },
     menuList: (state, data) => {
       state.menuList = data;
     },
