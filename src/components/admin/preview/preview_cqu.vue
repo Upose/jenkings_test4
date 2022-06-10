@@ -129,8 +129,10 @@ export default {
       // this.addStyle(val.appWidget.target + "/component.css");
       // this.addScript(val.appWidget.target + "/component.js");
       if(val.appWidget && val.appWidget.target){
-        this.addStyleOverride(val.appWidget.target);
+        setTimeout(() => {
+          this.addStyleOverride(val.appWidget.target);
         this.addScriptOverride(val.appWidget.target);
+        }, 250);
       }
       return list;
     },

@@ -72,7 +72,7 @@ export default {
           this.addScript(this.items.headerTemplate.router+'/component.js');
           this.addStyle(this.items.footerTemplate.router+'/component.css');
           this.addScript(this.items.footerTemplate.router+'/component.js');
-        },200)
+        },250)
       }
     }
   },
