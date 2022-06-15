@@ -10,13 +10,13 @@
             <h1 class="s-b-border-title">{{id?'编辑终端':'添加终端'}}</h1>
             <div class="form-content">
               <el-form-item label="终端名称" prop="name">
-                <el-input v-model="postForm.name" placeholder="请输入终端名称"></el-input>
+                <el-input v-model="postForm.name" placeholder="请输入终端名称" maxlength="50" minlength="2" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="关键词" prop="keyWords">
-                <el-input v-model="postForm.keyWords" placeholder="请输入关键词"></el-input>
+                <el-input v-model="postForm.keyWords" placeholder="请输入关键词" maxlength="100" minlength="0" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="简要描述" prop="description">
-                <el-input type="textarea" class="form-textarea" placeholder="请输入简要描述" v-model="postForm.description"></el-input>
+                <el-input type="textarea" class="form-textarea" placeholder="请输入简要描述" v-model="postForm.description" maxlength="200" minlength="0" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="终端类型" prop="terminalType">
                 <el-radio-group v-model="postForm.terminalType" :disabled="id?true:false">
@@ -49,7 +49,7 @@
                 </div>
               </el-form-item>
               <el-form-item label="访问路径" prop="visitUrl">
-                <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径"></el-input>
+                <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径" maxlength="50" minlength="2" show-word-limit></el-input>
               </el-form-item>
               <el-form-item label="服务状态" prop="status">
                 <el-radio-group v-model="postForm.status">
@@ -58,7 +58,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="备注信息" prop="remark">
-                <el-input type="textarea" class="form-textarea" placeholder="请输入备注信息" v-model="postForm.remark"></el-input>
+                <el-input type="textarea" class="form-textarea" placeholder="请输入备注信息" maxlength="200" minlength="0" show-word-limit v-model="postForm.remark"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button icon="iconfont el-icon-vip-quxiao" size="medium" @click="backHistory()">取消</el-button>
