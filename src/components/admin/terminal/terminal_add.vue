@@ -21,11 +21,6 @@
               <el-form-item label="终端类型" prop="terminalType">
                 <el-radio-group v-model="postForm.terminalType" :disabled="id?true:false">
                   <el-radio v-for="(it,i) in terminal_list" :key="i" :label="it.value">{{it.key}}</el-radio>
-                  <!-- <el-radio :label="1">PC网站端</el-radio>
-                  <el-radio :label="2">APP端</el-radio>
-                  <el-radio :label="3">小程序端</el-radio>
-                  <el-radio :label="4">自适应移动端</el-radio>
-                  <el-radio :label="5">显示屏</el-radio> -->
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="终端logo" prop="logo">
@@ -210,7 +205,6 @@ export default {
     },
     //表单提交
     submitForm(formName) {
-      console.log(this.postForm);
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){
