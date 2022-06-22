@@ -15,10 +15,13 @@
               <el-option v-for="item in dataList.visitorLimitType" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
-        <div class="s-col"><span class="s-txt">用户类型：</span>
-        <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
-            <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
-        </el-select>
+        <div class="s-col" v-if="postForm.visitor_type"><span class="s-txt">{{dataList.visitorLimitType.filter(x=>x.value==postForm.visitor_type)[0].key}}：</span>
+          <!-- <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
+              <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
+          </el-select> 多选-->
+          <el-select v-model="userType_one" @change="userClcik" size="medium" placeholder="请选择">
+              <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
+          </el-select>
         </div>
         <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="hfShow()">高级设置</el-button>
         <!-- <div class="s-r-btns">
@@ -52,7 +55,8 @@ export default {
         visitUrl:'',
       },
       userType: [],//用户类型列表
-      userType_data:[],
+      userType_data:[],//多选
+      userType_one:'',
     }
   },
   mounted(){
@@ -71,9 +75,11 @@ export default {
       if(this.postForm.user_type.length>0){
         this.postForm.user_type.forEach(it=>{
           this.userType_data.push(it.userSetId);
+          this.userType_one = it.userSetId;
         })
       }
       this.postForm.visitor_type = val.visitorLimitType;//权限控制
+      console.log(this.postForm.visitor_type);
       this.getUserType(this.postForm.visitor_type,true);
       this.postForm.visitUrl = val.visitUrl;//地址复制
       this.$forceUpdate();
@@ -84,10 +90,26 @@ export default {
       let info = urlInfo.find(item => item.code == 'index');
       
       this.http.getPlain_url('scene-url-by-id','/'+this.$route.query.scene).then(res=>{
-        window.prompt("请按Ctrl+C复制", info.path + res.data);
+        // if(prompt("请按Ctrl+C复制", info.path + res.data)){}
+        this.clipboardCopy(info.path + res.data);
       }).catch(err=>{
         this.$message({message: '地址获取失败',type:'error'});
       })
+    },
+    //插件-复制
+    clipboardCopy(txt){
+      let transfer = document.createElement('input');//创建控件
+      document.body.appendChild(transfer);
+      transfer.style.cssText = 'position: fixed;opacity:0;'
+      transfer.value = txt;  // 这里表示想要复制的内容
+      transfer.focus();
+      transfer.select();
+      if (document.execCommand('copy')) {
+        document.execCommand('copy');
+      }
+      transfer.blur();
+      this.$message({message: '复制成功',type:'success'});
+      document.body.removeChild(transfer);//删除控件
     },
     //名称输入事件
     setName(val){
@@ -99,22 +121,28 @@ export default {
     },
     //用户类型
     userClcik(val){
+      console.log(val);
       var list = [];
-      if(val.length>0){
-        val.forEach(item=>{
-          list.push({
-            sceneId:this.$route.query.scene,
-            userSetId:item,
-          });
-        })
-      }
+      //多选
+      // if(val.length>0){
+      //   val.forEach(item=>{
+      //     list.push({
+      //       sceneId:this.$route.query.scene,
+      //       userSetId:item,
+      //     });
+      //   })
+      // }
+      //单选
+      list.push({sceneId:this.$route.query.scene,userSetId:val});
       this.postForm.user_type = list;
       this.$emit('topCheck',this.postForm);
     },
     //权限控制选择
     visitorLimitTypeCheck(val){
+      console.log(val);
       this.$emit('topCheck',this.postForm);
       this.getUserType(val,false);
+      this.$forceUpdate()
     },
     //获取用户类型
     getUserType(id,is_edit){//is_edit:true,表示编辑

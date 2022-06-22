@@ -7,7 +7,7 @@
             <el-form-item label="头部模板" prop="defaultTemplate">
                 <div class="temp-select c-l">
                     <div class="d-temp-box" :class="it.id==head_check?'d-temp-box-check':''" @click="headerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'">
-                        <span class="edit-btn" @click="topEditClick(it)"><i class="iconfont el-icon-vip-shezhi-1"></i></span>
+                        <span class="edit-btn" @click.stop="topEditClick(it)"><i class="iconfont el-icon-vip-shezhi"></i></span>
                         <span class="temp-name">{{it.name}}</span>
                         <el-button type="primary" class="button" size="mini"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
                     </div>
@@ -16,7 +16,7 @@
             <el-form-item label="底部模板" prop="defaultTemplate">
                 <div class="temp-select c-l">
                     <div class="d-temp-box" :class="it.id==footer_check?'d-temp-box-check':''" @click="footerClick(it)" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'a'">
-                        <span class="edit-btn" @click="fotEditClick(it)" ><i class="iconfont el-icon-vip-shezhi-1"></i></span>
+                        <span class="edit-btn" @click.stop="fotEditClick(it)" ><i class="iconfont el-icon-vip-shezhi"></i></span>
                         <span class="temp-name">{{it.name}}</span>
                         <el-button type="primary" class="button" size="mini" @click="footerClick(it)"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>
                     </div>
@@ -117,14 +117,16 @@ export default {
             .edit-btn{
                 cursor: pointer;
                 position: absolute;
-                right: 10px;
-                top: 10px;
+                right: 0;
+                top: 0;
                 font-size: 18px;
                 line-height: 14px;
-                color: #999;
-                &:hover{
-                    color: #000;
-                }
+                color: #fff;
+                width: 36px;
+                height: 35px;
+                padding-left:13px;
+                padding-top: 5px;
+                background: url(../../../assets/admin/img/set-btn-bg.png) no-repeat right;
             }
         }
     }

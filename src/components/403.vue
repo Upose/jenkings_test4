@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       path:'',
-      home:'admin',
+      home:'web',
     }
   },
   mounted(){

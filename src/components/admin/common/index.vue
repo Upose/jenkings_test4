@@ -19,7 +19,7 @@ export default {
     let appDetails = store.state.appDetails;
     //详情
     if(!appDetails || appDetails==null || appDetails==undefined || appDetails ==''){
-      _that.http.getPlain('getcurrentappinfo','?appcode=scenemanage').then((res) => {
+      _that.http.getPlain('getcurrentappinfo','appcode=scenemanage').then((res) => {
         if(res.data){
           store.commit('appDetails',res.data);
           document.title = res.data.appName+'-'+JSON.parse(localStorage.getItem('orgInfo')).orgName;
