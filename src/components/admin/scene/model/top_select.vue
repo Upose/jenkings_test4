@@ -3,7 +3,6 @@
   <div class="admin-warp-page">
     <div class="drag-top c-l">
         <h1 class="step-num"><span class="num">1</span><span class="txt">场景信息</span></h1>
-        <!-- <div class="search-top"> -->
         <div class="s-col"><span class="s-txt">名称：</span><el-input class="w-saml" v-model="postForm.name" size="medium" @input="setName" placeholder="首页"></el-input></div><!--disabled="disabled"-->
         <div class="s-col"><span class="s-txt">服务状态：</span>
           <el-select class="w-saml" v-model="postForm.status" @change="statusClcik" size="medium" placeholder="请选择">
@@ -12,29 +11,23 @@
         </div>
         <div class="s-col"><span class="s-txt">权限控制：</span>
           <el-select class="w-saml" v-model="postForm.visitor_type" @change="visitorLimitTypeCheck" size="medium" placeholder="请选择">
-              <el-option v-for="item in dataList.visitorLimitType" :key="item.value" :label="item.key" :value="item.value"></el-option>
+              <el-option v-for="item in (dataList.visitorLimitType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
-        <div class="s-col" v-if="postForm.visitor_type"><span class="s-txt">{{dataList.visitorLimitType.filter(x=>x.value==postForm.visitor_type)[0].key}}：</span>
+        <div class="s-col" v-if="visitor_type(postForm.visitor_type)"><span class="s-txt">{{visitorLimitTypeText(dataList.visitorLimitType)}}：</span>
           <!-- <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
               <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select> 多选-->
           <el-select v-model="userType_one" @change="userClcik" size="medium" placeholder="请选择">
-              <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
+              <el-option v-for="item in (userType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
-        <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="hfShow()">高级设置</el-button>
-        <!-- <div class="s-r-btns">
-          <el-button icon="el-icon-download" size="medium">复制链接</el-button>
-          <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">保存</el-button>
-          <el-button class="default-btn-border" icon="el-icon-download" type="primary" size="medium">预览</el-button>
-        </div> -->
-        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="saveClick()">保存</el-button>
-        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="scenePreview()">预览</el-button>
+        <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="header_footer_show = true">高级设置</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
         <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
-        <!-- </div> -->
     </div><!--顶部条件筛选 end-->
-    <header_footer @hfHide="hfHide" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
+    <header_footer @hfHide="header_footer_show = false" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
   </div>
 </template>
 
@@ -58,9 +51,6 @@ export default {
       userType_data:[],//多选
       userType_one:'',
     }
-  },
-  mounted(){
-    // console.log(this.dataList);
   },
   methods:{
     //设置详情
@@ -136,11 +126,13 @@ export default {
       list.push({sceneId:this.$route.query.scene,userSetId:val});
       this.postForm.user_type = list;
       this.$emit('topCheck',this.postForm);
+      if(this.$route.query.scene)this.$emit('getDetailsGroup');
     },
     //权限控制选择
     visitorLimitTypeCheck(val){
       console.log(val);
       this.$emit('topCheck',this.postForm);
+      this.userType_one = '';
       this.getUserType(val,false);
       this.$forceUpdate()
     },
@@ -160,22 +152,22 @@ export default {
     setHFooter(val){
       this.$emit('setHFooter',val);
     },
-    //隐藏头部尾部
-    hfHide(){
-      this.header_footer_show = false;
+    //是否显示用户选择框
+    visitor_type(val){
+      if(val==0 || val ==1){
+        return false;
+      }else{
+        return true;
+      }
     },
-    //显示头部尾部
-    hfShow(){
-      this.header_footer_show = true;
-    },
-    //保存
-    saveClick(){
-      // console.log(this.postForm,this.value1);return;
-      this.$emit('saveClick');
-    },
-    //预览
-    scenePreview(){
-      this.$emit('scenePreview');
+    //权限-用户字段名称
+    visitorLimitTypeText(val){
+      var name = '';
+      var t = (val||[]).filter(x=>x.value==this.postForm.visitor_type);
+      if(t && t.length>0){
+        name = t[0].key;
+      }
+      return name;
     },
   },
 }

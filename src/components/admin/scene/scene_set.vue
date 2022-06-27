@@ -7,7 +7,7 @@
         <!-- <breadcrumb :cuMenu="'栏目管理'"></breadcrumb>面包屑导航- -->
         <div class="content">
           <div class="drag-top">
-            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" @setName="setName" ref="topselect_ref"></topSelect>
+            <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" @setName="setName" @getDetailsGroup="getDetailsGroup" ref="topselect_ref"></topSelect>
           </div><!--顶部条件筛选 end-->
 
           <div class="drag-content" :style="{'min-height':drag_height+'px'}">
@@ -192,18 +192,23 @@ export default {
     getDetails(){
       var _this = this;
       this.http.getPlain_url('scene-detail','/'+this.$route.query.scene).then(res=>{
-        if(res.data){
-          if(res.data.template && res.data.template.width && res.data.template.width>1200){
-            _this.drag_width = res.data.template.width;
+        if(res.data)this.detailsRender(res.data);
+      }).catch(err=>{})
+    },
+    //详情渲染
+    detailsRender(data){
+      var _this = this;
+      if(data.template && data.template.width && data.template.width>1200){
+            _this.drag_width = data.template.width;
             setTimeout(() => {
               var c_height = document.body.clientHeight-104;
               _this.setHeight(c_height);
             }, 30);
           }
-          _this.$refs.topselect_ref.setDatils(res.data);
-          _this.$refs.leftcheck_ref.setDatils(res.data);
-          _this.$refs.rightCheck_ref.setDatils(res.data);
-          _this.postForm = res.data||{};
+          _this.$refs.topselect_ref.setDatils(data);
+          _this.$refs.leftcheck_ref.setDatils(data);
+          _this.$refs.rightCheck_ref.setDatils(data);
+          _this.postForm = data||{};
           if(_this.postForm.sceneScreens.length>0){
             _this.postForm.sceneScreens.forEach((item,index)=>{
                 let result = item.sceneApps.map((it,index) => ({
@@ -236,11 +241,6 @@ export default {
           }else{//分屏
 
           }
-        }
-        
-      }).catch(err=>{
-
-      })
     },
     //初始化模板，需要将当前模板的数据渲染到模板上，且在切换模板的时候，要重新save保存一下当前模板的数据到当前屏。
     initGrid(){
@@ -677,6 +677,27 @@ export default {
           }
         })
       }
+    },
+    //获取分组详情
+    getDetailsGroup(){
+      var userS = [];
+      if(this.postForm.sceneUsers && this.postForm.sceneUsers.length>0){
+        this.postForm.sceneUsers.forEach(it=>{
+          userS.push(it.userSetId);
+        })
+      }
+      this.http.getPlain_url('scene-detail-group','/'+this.postForm.sceneGroupId+'/'+this.postForm.visitorLimitType+'/'+userS.join(';')).then(res=>{
+        if(res.data){
+          var form = res.data;
+          form.name = this.postForm.name;
+          form.status = this.postForm.status;
+          form.sceneUsers = this.postForm.sceneUsers;
+          form.visitorLimitType = this.postForm.visitorLimitType;
+          this.detailsRender(form);
+        }
+      }).catch(err=>{
+        console.log(err);
+      })
     },
     //检测是否火狐浏览器
     getOs(){
