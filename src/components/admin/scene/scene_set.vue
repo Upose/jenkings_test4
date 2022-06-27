@@ -48,7 +48,6 @@
 
           </div>
         </div><!---顶部查询板块 end--->
-        <!-- <footerPage class="top20"></footerPage> -->
       </el-main>
     </el-container>
   </div>
@@ -343,9 +342,9 @@ export default {
           var y = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-y');
           var w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-w');
           var h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-h');
-          var min_w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-w');
-          var min_h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-h');
-          console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
+          // var min_w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-w');
+          // var min_h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-h');
+          // console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
             x: x, y: y, h: h, w: w,
@@ -442,11 +441,10 @@ export default {
         if(post_obj.footerTemplate && post_obj.footerTemplate.router)
         post_obj.footerTemplate.router = _this.substrPath(post_obj.footerTemplate.router);
         if(post_obj.layoutId == 1 || post_obj.layoutId==3){//通屏
-          console.log('删除多余屏幕');
+          // console.log('删除多余屏幕');
           post_obj.sceneScreens.splice(1,1);
         }
         //表单验证
-        console.log(post_obj);
         if(!post_obj.name){
           _this.$message({message: '请设置场景名称',type:'info'});
           return ;
@@ -495,16 +493,6 @@ export default {
         }, 50);
       }, 100);
     },
-    // scenePreview(){
-    //   this.savePostJson('preview');
-    //   setTimeout(() => {
-    //     window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
-    //     var url = location.href.split('#')[0]+"/#/admin_scenePreview";
-    //     setTimeout(() => {
-    //       window.open(url);
-    //     }, 20);
-    //   }, 100);
-    // },
     //设置场景名字
     setName(val){
       this.postForm.name = val||'';
@@ -580,7 +568,6 @@ export default {
     },
     //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。
     getAppDetails(val){
-      console.log('应用id：----------------------',val.id);
       admin_vue.$refs.leftcheck_ref.setAppid(val.id);
       var apps_cu = this.selectApps(val.id)||{};
       admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
@@ -591,15 +578,9 @@ export default {
       let MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
       let element = document.querySelector('#monitorCenter')
       this.observer = new MutationObserver((objList) => {
-        // console.log('obj List:', objList)
         let width = element.offsetWidth
-        if (this.recordOldValue && width === this.recordOldValue.width) {
-          return
-        }
-        this.recordOldValue = {
-          width
-        }
-        // console.log('obj width:', width)
+        if (this.recordOldValue && width === this.recordOldValue.width) return;
+        this.recordOldValue = {width}
       })
       this.observer.observe(element, { attributes: true, childList: true, subtree: true })
     },
