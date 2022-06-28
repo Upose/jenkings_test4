@@ -131,6 +131,9 @@ export default {
     //权限控制选择
     visitorLimitTypeCheck(val){
       console.log(val);
+      if(val==0 || val == 1){
+        this.$emit('getDetailsGroup');
+      }
       this.$emit('topCheck',this.postForm);
       this.userType_one = '';
       this.getUserType(val,false);
