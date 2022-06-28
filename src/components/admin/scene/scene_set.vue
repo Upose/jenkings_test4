@@ -677,7 +677,6 @@ export default {
           form.status = this.postForm.status;
           form.sceneUsers = this.postForm.sceneUsers;
           form.visitorLimitType = this.postForm.visitorLimitType;
-          form.id = this.postForm.id;
           this.detailsRender(form);
         }
       }).catch(err=>{
