@@ -208,7 +208,7 @@ export default {
           _this.$refs.leftcheck_ref.setDatils(data);
           _this.$refs.rightCheck_ref.setDatils(data);
           _this.postForm = data||{};
-          if(_this.postForm.sceneScreens.length>0){
+          if(_this.postForm.sceneScreens && _this.postForm.sceneScreens.length>0){
             _this.postForm.sceneScreens.forEach((item,index)=>{
                 let result = item.sceneApps.map((it,index) => ({
                   id:it.id,
@@ -232,6 +232,9 @@ export default {
                 _this.postForm.sceneScreens[index].sceneApps = result;
             })
             _this.screen_list = _this.postForm.sceneScreens;
+            _this.initScree();
+          }else{
+            _this.screen_list = [{sceneApps:[]}];
             _this.initScree();
           }
           if(_this.postForm.layoutId == '1' && _this.postForm.layoutId == '3'){//通屏
@@ -674,6 +677,7 @@ export default {
           form.status = this.postForm.status;
           form.sceneUsers = this.postForm.sceneUsers;
           form.visitorLimitType = this.postForm.visitorLimitType;
+          form.id = this.postForm.id;
           this.detailsRender(form);
         }
       }).catch(err=>{
