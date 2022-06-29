@@ -663,14 +663,15 @@ export default {
       }
     },
     //获取分组详情
-    getDetailsGroup(){
-      var userS = [];
-      if(this.postForm.sceneUsers && this.postForm.sceneUsers.length>0){
-        this.postForm.sceneUsers.forEach(it=>{
-          userS.push(it.userSetId);
-        })
+    getDetailsGroup(data){
+      var pas = '/'+this.postForm.sceneGroupId;
+      if(data.visitorLimitType){
+        pas = pas+'/'+data.visitorLimitType;
       }
-      this.http.getPlain_url('scene-detail-group','/'+this.postForm.sceneGroupId+'/'+this.postForm.visitorLimitType+'/'+userS.join(';')).then(res=>{
+      if(data.userS){
+        pas = pas+'/'+data.userS;
+      }
+      this.http.getPlain_url(data.postUrl,pas).then(res=>{
         if(res.data){
           var form = res.data;
           form.name = this.postForm.name;

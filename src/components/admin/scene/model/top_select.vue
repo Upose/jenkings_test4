@@ -126,13 +126,31 @@ export default {
       list.push({sceneId:this.$route.query.scene,userSetId:val});
       this.postForm.user_type = list;
       this.$emit('topCheck',this.postForm);
-      if(this.$route.query.scene)this.$emit('getDetailsGroup');
+      if(this.$route.query.scene){
+        var userS = [];
+        if(this.postForm.user_type && this.postForm.user_type.length>0){
+          this.postForm.user_type.forEach(it=>{
+            userS.push(it.userSetId);
+          })
+        }
+        this.$emit('getDetailsGroup',{visitorLimitType:this.postForm.visitor_type,userS:userS.join(';'),postUrl:'scene-detail-group'});
+      }
     },
     //权限控制选择
     visitorLimitTypeCheck(val){
       console.log(val);
+      //情况用户类型
+      this.postForm.user_type = [];
+      this.userType_one = '';
+
       if(val==0 || val == 1){
-        this.$emit('getDetailsGroup');
+        var userS = [];
+        if(this.postForm.user_type && this.postForm.user_type.length>0){
+          this.postForm.user_type.forEach(it=>{
+            userS.push(it.userSetId);
+          })
+        }
+        this.$emit('getDetailsGroup',{visitorLimitType:'',userS:userS.join(';'),postUrl:'scene-detail'});
       }
       this.$emit('topCheck',this.postForm);
       this.userType_one = '';
