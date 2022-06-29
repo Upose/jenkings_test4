@@ -61,13 +61,13 @@ export default {
       }
       this.postForm.name = val.name;//名称
       this.postForm.status = val.status;//服务状态
-      this.postForm.user_type = val.sceneUsers;//用户类型
-      if(this.postForm.user_type.length>0){
-        this.postForm.user_type.forEach(it=>{
-          this.userType_data.push(it.userSetId);
-          this.userType_one = it.userSetId;
-        })
-      }
+      // this.postForm.user_type = val.sceneUsers;//用户类型
+      // if(this.postForm.user_type.length>0){
+      //   this.postForm.user_type.forEach(it=>{
+      //     this.userType_data.push(it.userSetId);
+      //     this.userType_one = it.userSetId;
+      //   })
+      // }
       this.postForm.visitor_type = val.visitorLimitType;//权限控制
       console.log(this.postForm.visitor_type);
       this.getUserType(this.postForm.visitor_type,true);
