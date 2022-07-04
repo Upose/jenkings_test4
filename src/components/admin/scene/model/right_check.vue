@@ -22,7 +22,7 @@
             <div class="s-choose">
                <div class="" v-for="(it,i) in set_list" :key="i">
                     <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                        <h2 class="s-title">绑定栏目 <!--<span class="s-edit" @click="addRow()">添加</span>--></h2>
+                        <h2 class="s-title">绑定栏目 <span class="s-edit" v-if="i!=0" @click="removeRow(i)">删除</span></h2>
                         <el-select class="w-saml" v-model="it.id" size="medium" placeholder="请选择">
                             <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                         </el-select>
@@ -161,6 +161,11 @@ export default {
             id:'',
             orderIndex:index+1,
         });
+    },
+    //删除一组
+    removeRow(index){
+        this.set_list.splice(index,1);
+        this.saveClick('edit');
     },
     //是否显示保存按钮
     isShowBtn(){
