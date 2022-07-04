@@ -84,6 +84,7 @@ export default {
       activeCollapse:['1','2','3'],//左边折叠的数量
       sceneTemplate:[],//模板列表
       apps_list:[],//应用列表
+      apps_list_index:0,//应用列表-下标
       apps_list_all:[],//应用列表-总列表
       fileUrl: window.localStorage.getItem('fileUrl'),
     }
@@ -137,29 +138,37 @@ export default {
       this.templateId = val.id;
       this.$emit('templateClick',{list:val,isadd:is_add})
     },
-    //应用选择-服务类型点击事件
-    serveClick(index){
+    //应用选择-服务类型点击事件 index 应用分组的下标
+    serveClick(index){ 
+      console.log(index);
+      this.apps_list_index = index;
       var app_type = this.dataList.appServiceType[index]||{};
       this.apps_list = app_type['list']||[];
       this.serve_name = app_type.key;
+      
     },
     //根据应用id，查询属于哪个类型及对应下标
     selectApps(appid){
-      var index = null;
-      this.dataList.appServiceType.forEach((it,i)=>{
-        if(it.list && it.list.length>0){
-          it.list.forEach((t,k)=>{
-            if(t.appId == appid){
-              index = i;
-              return;
-            }
-          })
-        }
-      })
-      return index;
+      var s = this.apps_list.findIndex(x=>x.appId == appid);
+      if(s>-1){
+        this.serveClick(this.apps_list_index);return;
+      }else{
+        var index = null;
+        this.dataList.appServiceType.forEach((it,i)=>{
+          if(it.list && it.list.length>0){
+            it.list.forEach((t,k)=>{
+              if(t.appId == appid){
+                index = i;
+                return;
+              }
+            })
+          }
+        })
+        return index;
+      }
     },
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype} -----这里要改成查询全部，不要传id
-    getApps(id){
+    getApps(){
       var _this = this;
       _this.http.getPlain_url('app-list-by-service-type','/'+0+'/'+this.$route.query.terminal).then(res=>{
         _this.apps_list_all = res.data||[];
@@ -167,7 +176,7 @@ export default {
         if(_this.apps_list_all.length>0){
           _this.apps_list_all.forEach((it,i)=>{
             _this.dataList.appServiceType.forEach((t,k)=>{
-              if(it.serviceType == t.value){
+              if(it.serviceType.indexOf(t.value)>-1){
                 if(!_this.dataList.appServiceType[k]['list']){
                   _this.dataList.appServiceType[k]['list'] = [];
                 }
