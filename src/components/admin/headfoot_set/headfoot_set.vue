@@ -324,7 +324,7 @@ export default {
     },
     //编辑-底部
     fotEditClick(val){
-      this.http.getPlain('foot-template-settings-by-id','?foottemplateid='+val).then(res=>{
+      this.http.getPlain('foot-template-settings-by-id','foottemplateid='+val).then(res=>{
         this.postForm_fot = res.data||{};
         if(this.postForm_fot.jsPath && this.postForm_fot.jsPath.length>0){
           this.coumn_list2 = [];
