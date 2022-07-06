@@ -182,6 +182,7 @@ export default {
 }
 .bocy-content {
   position: relative;
+  margin: 15px auto;
   min-width: 1200px; //最小宽度
 }
 .html-warp-page {
