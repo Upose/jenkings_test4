@@ -484,7 +484,7 @@ export default {
       setTimeout(() => {
         window.localStorage.setItem('scenePreview',JSON.stringify(this.postForm));
         var url = '';
-        if(id == '26cbabdf-4ae6-4f20-83b6-d42b367ec105'){ //针对重大首页
+        if(id == '17ba1766-683e-4f18-a340-91ab2ee846c2'){ //针对重大首页
           url = location.href.split('#')[0]+"#/admin_scenePreviewCqu";
         }else if(id == 'c67f511b-1a3a-4607-8d3e-7adee2a2359d' || id == 'bd920f5c-f7bd-4051-9874-b1d251b04464'){//针对图书和期刊频道
           url = location.href.split('#')[0]+"#/admin_scenePreview_tq";

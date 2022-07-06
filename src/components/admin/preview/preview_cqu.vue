@@ -6,11 +6,11 @@
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode">
         <div :id="setId()" :data-init="items.headerTemplate.router"></div>
       </div><!-- 头部信息-end -->
-      <div :class="isWidgetCode(top_model)" :style="{width:'100%',height:'180px'}" :data-set="JSON.stringify(top_model.appPlateItems||'[{}]')">
+      <div :class="isWidgetCode(top_model)" :style="{width:'100%',height:'130px'}" :data-set="JSON.stringify(top_model.appPlateItems||'[{}]')">
         <div :id="setId()"></div>
       </div><!-- 顶部检索-end -->
       
-      <div class="bocy-content" v-for="(it, i) in items.sceneScreens" :key="i" :style="{ height: (it.height-380) + 'px' }" :class="
+      <div class="bocy-content" v-for="(it, i) in items.sceneScreens" :key="i" :style="{ height: (it.height-330) + 'px' }" :class="
           items.layoutId == '3' || items.layoutId == '4' ? 'width_1440' : ''
         ">
         <div v-for="(item, index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="isDivShow(item.appWidget?(item.appWidget.widgetCode||''):'')" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems || '[{}]')">
@@ -63,7 +63,7 @@ export default {
     initData() {
       if (this.details && this.details.template) {
         this.items = this.details;
-        this.bg_color = this.details.backgroundColor||'#fff';
+        this.bg_color = this.details.template.backgroundColor||'#fff';
         this.addStyleOverride(this.items.headerTemplate.router);
         this.addScriptOverride(this.items.headerTemplate.router);
         this.addStyleOverride(this.items.footerTemplate.router);
@@ -121,7 +121,7 @@ export default {
       var list = {
         width: (100 / 12) * val.width + "%",
         height: val.height * 10 + "px",
-        top: (val.yIndex * 10)-180 + "px",
+        top: (val.yIndex * 10)-130 + "px",
         left: (100 / 12) * val.xIndex + "%",
         position: "absolute",
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
