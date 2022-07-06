@@ -35,16 +35,6 @@ export default {
       },
     },
     {
-      path: '/admin_logList',
-      name: 'admin_logList',
-      component: r => require.ensure([], () => r(require('@/components/admin/case/log_list')), 'case'),
-      meta: {
-        title: [{ name: '日志列表'}],
-        keepAlive: true,
-        parentRoute:'admin_logList'
-      },
-    },
-    {
       path: '/admin_sceneManage',
       name: 'admin_sceneManage',
       component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_manage')), 'scene'),

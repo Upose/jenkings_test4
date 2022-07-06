@@ -19,9 +19,6 @@
         </div><!---顶部查询板块 end--->
         <div class="list-content" v-loading="loading" :class="!loading && listData.length==0?'empty-data-admin':''">
           <div class="row">
-            <!-- <div class="title">PC门户端
-              <span class="more-r">更多<i class="el-icon-arrow-right"></i></span>
-            </div> -->
             <div class="row-list c-l">
               <div class="row-box set-hover" v-for="i in listData" :key="i">
                 <div class="r-box-bg">
@@ -41,7 +38,7 @@
               </div>
             </div>
           </div>
-            <paging :pagedata="pageData" @pagechange="pageChange" v-if="pageData.totalCount"></paging>
+          <paging :pagedata="pageData" @pagechange="pageChange" v-if="pageData.totalCount"></paging>
         </div><!----场景列表 end-->
         
         <footerPage class="top20"></footerPage>
@@ -199,134 +196,12 @@ export default {
         this.$message({type: 'error',message: '获取详情失败'});  
       })
     },
-    // previewClick(val){
-    //   this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
-    //     window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-    //     var url = location.href.split('#')[0]+"#/admin_scenePreview";
-    //     setTimeout(() => {
-    //       window.open(url);
-    //     }, 50);
-    //   }).catch(err=>{
-    //     this.$message({type: 'error',message: '获取详情失败'});  
-    //   })
-    // },
   },
 }
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/admin/css/color.less";/**颜色配置 */
-.paging-page{
-  padding-top:0;
-  padding-bottom:20px;
-}
-  /****查询条件板块****/
-  .content{
-    background-color: @fff;
-    border-radius: 4px 4px 0 0 ;
-    .s-w{
-      min-height: 60px;
-      line-height: 57px;
-      padding: 0 20px;
-      border-bottom: 1px solid @EBEEF5;
-      .d-title{
-        color: @34395E;
-        font-size: 14px;
-        margin-left: 20px;
-      }
-      .r-btn{
-        float: right;
-        margin-top: 14px;
-      }
-    }
-  }
-  /***内容板块***/
-  .list-content{
-    min-height: 300px;
-    background-color: @fff;
-    border-radius: 0 0 4px 4px;
-    .row{
-      padding: 10px;
-      .title{
-        color: @34395E;
-        font-size: 14px;
-        font-weight: bold;
-        line-height: 20px;
-        position: relative;
-        margin-left: 15px;
-        margin-right: 15px;
-        padding-left: 14px;
-        &::after{
-          position: absolute;
-          left: 0;
-          top: 8px;
-          content: '';
-          width: 5px;
-          height: 5px;
-          background-color: @6677EF;
-          border-radius: 50%;
-        }
-      }
-      .row-box{
-        width:16.6666%;
-        width: 268px;
-        float: left;
-        padding: 15px;
-        .r-box-bg{
-          box-shadow: 0px 2px 15px rgba(40, 120, 255, 0.1);
-          &:hover{
-            box-shadow: 0px 2px 15px rgba(40, 120, 255, 0.25);
-          }
-        }
-        img{
-          width: 238px;
-          height: 178px;
-          background: #f5f5f5;
-          cursor: pointer;
-          width: 100%;
-          border-radius: 5px 5px 0px 0px;
-        }
-        span.name{
-          display: block;
-          height: 60px;
-          color: @34395E;
-          font-size: 14px;
-          line-height: 60px;
-          text-align: center;
-          position: relative;
-          border-radius: 0px 0px 3px 3px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          padding: 0 10px;
-        }
-      }
-      /***移入显示设置按钮**/
-      .set-hover{
-        i{
-          cursor: pointer;
-          display: none;
-          position: absolute;
-          background: @F5F6FB;
-          height: 44px;
-          width: 44px;
-          right: 5px;
-          top: 10px;
-          line-height: 44px;
-          border-radius: 50%;
-          font-size: 15px;
-          &:active{
-            color: @6777EF;
-          }
-        }
-        &:hover{
-          i{
-            display: block !important;
-          }
-        }
-        
-      }
-    }
-  }
+@import "../../../assets/admin/css/color.less";
+@import "../../../assets/admin/css/case/case.less";
 
 </style>

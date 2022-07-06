@@ -1,16 +1,18 @@
 <!--左边菜单-->
 <template>
   <div class="header-warp">
+
     <div class="m-menu">
       <div class="m-text">
         <span class="m">{{appDetails.appName}}</span>
         <span class="v" @click="openLog(appDetails.logUrl)">{{appDetails.appVersion}}</span>
       </div>
-    </div>
+    </div><!--应用信息-->
+
     <div class="s-menu">
       <div class="s-row" :class="isActive(item.router)?'active':''"  :title="item.name" @click="openPage(item.router)" v-for="(item,index) in dataList" :key="index+'menu'"><i class="iconfont el-icon-vip-daohanglanmu"></i><span>{{item.name}}</span></div>
-      <!-- <div class="s-row" :class="isActive(item.router)?'active':''"  :title="item.name" v-if="item.name!='终端管理'" @click="openPage(item.router)" v-for="(item,index) in dataList" :key="index+'menu'"><i class="iconfont el-icon-vip-daohanglanmu"></i><span>{{item.name}}</span></div> -->
-    </div>
+    </div><!--菜单信息-->
+    
   </div>
 </template>
 
@@ -36,18 +38,15 @@ export default {
     return {
       appDetails:{},//应用详情
       default_img:require('@/assets/admin/img/upload/user-img.png'),
-      dataList:JSON.parse(window.localStorage.getItem('home_sys_menuAuth')||'[]'),
-      // dataList:[
-      //   // {icon:'el-icon-warning-outline',name:'场景管理',router:'/admin_caseShow'},
-      //   // {icon:'el-icon-warning-outline',name:'栏目管理',router:'/admin_programManage'},
-      //   // {icon:'el-icon-warning-outline',name:'终端管理',router:'/admin_terminalManage'},
-      // ],
+      dataList:[],
     }
   },
   methods:{
+    //跳转日志
     openLog(url){
       window.location.href = url;
     },
+    //打开页面
     openPage(url){
       this.$router.push(url).catch(err=>{});
     },
@@ -68,8 +67,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/admin/css/color.less";/**颜色配置 */
-@import "../../../assets/admin/css/style.less";/**颜色配置 */
+@import "../../../assets/admin/css/color.less";
 .m-menu{
   padding-left: 20px;
   padding-top: 22px;

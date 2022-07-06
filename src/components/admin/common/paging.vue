@@ -1,7 +1,6 @@
 <!--分页-->
 <template>
   <div class="paging-page">
-    <!--<el-pagination background layout="total,prev, pager, next" :total="100"></el-pagination>-->
     <el-pagination background 
       @size-change="SizeChange"
       @current-change="CurrentChange"
@@ -28,32 +27,27 @@ export default {
   mounted(){
     // 如果每页条数设置小于50 条数下拉选择框增加当前条数
     if(this.pagedata.pageSize < 50){
-      // let sizeList = [50,100,150,200];
-      // sizeList.unshift(this.pagedata.pageSize);
-      // this.pageSizes = sizeList;
       this.pageSizes = [10,20,50,100,150,200];
     }else{
       this.pageSizes = [50,100,150,200];
     }
   },
   methods:{
-      SizeChange(val) {
-        // console.log(`每页 ${val} 条`);
-        // this.pagedata.pageSize = val;
-        this.$emit('pagechange',{key:'pageSize',value:val})
-      },
-      CurrentChange(val) {
-        // console.log(`当前页: ${val}`);
-        this.pagedata.pageIndex = val;
-        this.$emit('pagechange',{key:'pageIndex',value:val})
-      },
+    //切换显示条数
+    SizeChange(val) {
+      this.$emit('pagechange',{key:'pageSize',value:val})
+    },
+    //点击当前页码
+    CurrentChange(val) {
+      this.pagedata.pageIndex = val;
+      this.$emit('pagechange',{key:'pageIndex',value:val})
+    },
   },
 }
 </script>
 
 <style lang="less" scoped>
-@import "../../../assets/admin/css/color.less";/**颜色配置 */
-@import "../../../assets/admin/css/style.less";/**颜色配置 */
+@import "../../../assets/admin/css/color.less";
 .paging-page{
   padding-top: 20px;
   text-align: right;

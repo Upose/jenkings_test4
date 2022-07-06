@@ -2,23 +2,23 @@
   <div class="header-warp">
     <div class="logo-w" :class="{'logo-collapse':$root.collapse}">
       <a href="javascript:;"><img :src="$root.collapse?logoList.show:logoList.hide"></a>
-    </div>
+    </div><!--logo板块-->
+
     <a href="javascript:;" class="m-cut" @click="collapseChage"><i class="iconfont" :class="$root.collapse?'el-icon-vip-zhankai':'el-icon-vip-shouqi'"></i></a>
-    <!-- <div class="m-box-list">
-      <a href="javascript:;" class="m-box" @click="openPage(item.url)" v-for="(item,index) in dataList" :key="index">
-        <span class="name">{{item.title}}</span>
-      </a>
-    </div> -->
+    <!--开启关闭左侧菜单按钮-->
+
     <div class="m-box-list" :class="{'logo-collapse-left':$root.collapse}">
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="item.appName" :name="index" v-for="(item,index) in dataList" :key="index"></el-tab-pane>
       </el-tabs>
-    </div>
+    </div><!--顶部导航菜单-->
+
     <div class="login-msg-warp">
       <div class="u-img-w"><el-image class="u-img" v-if="userInfo" :src="$root.fileUrl+userInfo.photo||default_img" :fit="'contain'"></el-image></div>
       <span class="u-name">{{userInfo.name||''}}</span>
       <i class="iconfont el-icon-vip-tuichu loginOut" title="退出登录" @click="outLogin()"></i>
-    </div>
+    </div><!--右侧用户信息/退出登录板块-->
+
   </div>
 </template>
 
@@ -36,20 +36,6 @@ export default {
         hide:window.localStorage.getItem('fileUrl')+'/uploads/cqu/scene/admin-logo-text.png',
       },
       dataList:[],
-      // dataList:[
-      //   {icon:'el-icon-warning-outline',appName:'工作台',backendUrl:'/admin_librarianWorkbench'},
-      //   {icon:'el-icon-warning-outline',appName:'应用中心',backendUrl:'/admin_appInfo'},
-      //   {icon:'el-icon-warning-outline',appName:'场景管理',backendUrl:'/admin_admin_caseShow'},
-      //   {icon:'el-icon-warning-outline',appName:'用户管理',backendUrl:'/admin_tableList'},
-      //   {icon:'el-icon-warning-outline',appName:'数据管理',backendUrl:'/admin_dataCentre'},
-      //   {icon:'el-icon-warning-outline',appName:'运行统计',backendUrl:'/admin_tableList'},
-      //   {icon:'el-icon-warning-outline',appName:'应用开放中心',backendUrl:'/admin_appManage'},
-      //   {icon:'el-icon-warning-outline',appName:'新闻发布',backendUrl:'/admin_newsProgram'},
-      //   {icon:'el-icon-warning-outline',appName:'文献专题引擎',backendUrl:'/admin_specialProgram'},
-      //   {icon:'el-icon-warning-outline',appName:'文献智能推荐',backendUrl:'/admin_intelligentManage'},
-      //   {icon:'el-icon-warning-outline',appName:'信息导航',backendUrl:'/admin_navigationProgram'},
-      //   {icon:'el-icon-warning-outline',appName:'数据库导航',backendUrl:'/admin_databaseNav'},
-      // ],
     }
   },
   mounted(){
@@ -58,8 +44,7 @@ export default {
       this.dataList = res.data.appMenuList||[];
       this.logoList.show = localStorage.getItem('fileUrl')+res.data.simpleLogoUrl;
       this.logoList.hide = localStorage.getItem('fileUrl')+res.data.logoUrl;
-    }).catch(err=>{
-    })
+    }).catch(err=>{})
   },
   methods:{
     // 侧边栏折叠展开
@@ -67,9 +52,11 @@ export default {
       this.$root.collapse = !this.$root.collapse;
       this.bus.$emit('collapse', this.$root.collapse);
     },
+    //菜单点击事件
     handleClick(tab, event) {
       window.location.href = this.dataList[this.activeName].backendUrl||'#';
     },
+    //退出登录
     outLogin(){
       this.$confirm('是否确认退出?', '提示', {
         confirmButtonText: '确定',
