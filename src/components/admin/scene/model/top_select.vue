@@ -175,7 +175,7 @@ export default {
     },
     //是否显示用户选择框
     visitor_type(val){
-      if(val==0 || val ==1){
+      if(val==null || val=='' || val==0 || val ==1){
         return false;
       }else{
         return true;
