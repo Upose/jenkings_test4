@@ -6,24 +6,24 @@
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="id?'编辑终端':'添加终端'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
-          <el-form :model="postForm" :rules="rules" ref="postForm" label-width="95px" class="admin-form">
+          <el-form :model="postForm" label-suffix="：" :rules="rules" ref="postForm" label-width="95px" class="admin-form">
             <h1 class="s-b-border-title">{{id?'编辑终端':'添加终端'}}</h1>
             <div class="form-content">
-              <el-form-item label="终端名称：" prop="name">
+              <el-form-item label="终端名称" prop="name">
                 <el-input v-model="postForm.name" placeholder="请输入终端名称" maxlength="50" minlength="2" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="关键词：" prop="keyWords">
+              <el-form-item label="关键词" prop="keyWords">
                 <el-input v-model="postForm.keyWords" placeholder="请输入关键词" maxlength="100" minlength="0" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="简要描述：" prop="description">
+              <el-form-item label="简要描述" prop="description">
                 <el-input type="textarea" class="form-textarea" placeholder="请输入简要描述" v-model="postForm.description" maxlength="200" minlength="0" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="终端类型：" prop="terminalType">
+              <el-form-item label="终端类型" prop="terminalType">
                 <el-radio-group v-model="postForm.terminalType" :disabled="id?true:false">
                   <el-radio v-for="(it,i) in terminal_list" :key="i" :label="it.value">{{it.key}}</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="终端logo：" prop="logo">
+              <el-form-item label="终端logo" prop="logo">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.logo">
                     <img :src="postForm.logo?(basurl+postForm.logo):default_img">
@@ -33,7 +33,7 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="默认图标：" prop="icon">
+              <el-form-item label="默认图标" prop="icon">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.icon">
                     <img :src="$root.fileUrl+postForm.icon">
@@ -43,16 +43,16 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="访问路径：" prop="visitUrl">
+              <el-form-item label="访问路径" prop="visitUrl">
                 <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径" maxlength="50" minlength="2" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="服务状态：" prop="status">
+              <el-form-item label="服务状态" prop="status">
                 <el-radio-group v-model="postForm.status">
                   <el-radio :label="1" >正常</el-radio>
                   <el-radio :label="0" >下线</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="备注信息：" prop="remark">
+              <el-form-item label="备注信息" prop="remark">
                 <el-input type="textarea" class="form-textarea" placeholder="请输入备注信息" maxlength="200" minlength="0" show-word-limit v-model="postForm.remark"></el-input>
               </el-form-item>
               <el-form-item>
