@@ -264,7 +264,7 @@ export default {
                 top: 0;
             }
             .temp-name{
-                color: @fff;
+                color: @707070;
                 position: relative;
                 z-index: 2;
             }
