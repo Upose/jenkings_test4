@@ -267,6 +267,7 @@ export default {
                 color: @707070;
                 position: relative;
                 z-index: 2;
+                text-shadow: 1px 0px 1px #cad0ff;
             }
             .button{
                 position: absolute;
