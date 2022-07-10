@@ -1,4 +1,4 @@
-<!---服务中台-栏目管理-->
+<!---服务中台-场景-顶部信息-->
 <template>
   <div class="admin-warp-page">
     <div class="drag-top c-l">
