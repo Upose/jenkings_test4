@@ -35,16 +35,6 @@ export default {
       },
     },
     {
-      path: '/admin_sceneManage',
-      name: 'admin_sceneManage',
-      component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_manage')), 'scene'),
-      meta: {
-        title: [{ name: '选择终端'}],
-        keepAlive: true,
-        parentRoute:'admin_caseShow'
-      },
-    },
-    {
       path: '/admin_sceneSet',
       name: 'admin_sceneSet',
       component: r => require.ensure([], () => r(require('@/components/admin/scene/scene_set')), 'scene'),
@@ -72,6 +62,16 @@ export default {
         title: [{ name: '终端管理'}],
         keepAlive: true,
         parentRoute:'admin_terminalManage'
+      },
+    },
+    {
+      path: '/admin_sceneManage',
+      name: 'admin_sceneManage',
+      component: r => require.ensure([], () => r(require('@/components/admin/terminal/scene_manage')), 'scene'),
+      meta: {
+        title: [{ name: '选择终端'}],
+        keepAlive: true,
+        parentRoute:'admin_caseShow'
       },
     },
     {
