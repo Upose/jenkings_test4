@@ -38,7 +38,7 @@
                   <div class="up-img-warp" v-if="postForm.icon">
                     <img :src="$root.fileUrl+postForm.icon">
                   </div>
-                  <div class="up-img-warp select-icon" @click="selectImg()">
+                  <div v-if="postForm.terminalType!=1&&!id" class="up-img-warp select-icon" @click="selectImg()">
                     <span>选择图标</span>
                   </div>
                 </div>
