@@ -38,7 +38,7 @@
                   <div class="up-img-warp" v-if="postForm.icon">
                     <img :src="$root.fileUrl+postForm.icon">
                   </div>
-                  <div v-if="postForm.terminalType!=1&&!id" class="up-img-warp select-icon" @click="selectImg()">
+                  <div v-if="isSowImg()" class="up-img-warp select-icon" @click="selectImg()">
                     <span>选择图标</span>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default {
     this.http.getPlain_url('icon_dictionary','').then(res=>{
       this.iconList = res.data.terminalIcon||[];
       if(this.iconList.length>0){
-        this.select_img = this.iconList[0];
+        this.select_img = this.iconList[1];
         if(!this.id){
           this.postForm.icon = this.select_img.value;
         }
@@ -202,6 +202,14 @@ export default {
     //图片上传-弹窗关闭
     handleClose(done) {
       done();
+    },
+    //判断是否编辑下PC，编辑下PC，不允许修改上传图标
+    isSowImg(){
+      if(this.id){
+        if(this.postForm.terminalType == 1)return false;
+      }else{
+        return true;
+      }
     },
     //表单提交
     submitForm(formName) {
