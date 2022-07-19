@@ -67,7 +67,7 @@ export default {
     {
       path: '/admin_sceneManage',
       name: 'admin_sceneManage',
-      component: r => require.ensure([], () => r(require('@/components/admin/terminal/scene_manage')), 'scene'),
+      component: r => require.ensure([], () => r(require('@/components/admin/terminal/terminal_sel')), 'scene'),
       meta: {
         title: [{ name: '选择终端'}],
         keepAlive: true,
