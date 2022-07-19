@@ -6,12 +6,42 @@
       <el-main class="admin-content" :class="{'content-collapse':$root.collapse}">
           
         <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" @setName="setName" @getDetailsGroup="getDetailsGroup" ref="topselect_ref"></topSelect>
-        <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @getAppsList="getAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick" ref="leftcheck_ref"></leftCheck>
-        <div class="drag-warp-bg jl_vip_zt_warp_preview">
-          <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
-        </div>
-        <rightCheck ref="rightCheck_ref" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+        
+        <div class="drag-content" :style="{'min-height':drag_height+'px'}">
+          <div class="drag-l" :class="left_fold?'drag-l-hide':''">
+            <div class="drag-l-pad">
+              <leftCheck :dataList="left_list" @getAppDetails="getAppDetails" @getAppsList="getAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick" ref="leftcheck_ref"></leftCheck>
+              <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
+            </div>
+          </div><!--左边菜单 end-->
 
+          <div class="drag-c" id="monitorCenter" :class="isFoldClass()">
+            <div class="screen-btn-drag" v-show="postForm.layoutId== 2 || postForm.layoutId== 4">
+              <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(0)"></span></el-button>
+              <div class="drag-box-warp" ref="dragBox">
+                <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index+1}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
+              </div>
+              <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
+            </div><!--屏幕数量+拖拽 end-->
+
+            <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
+              <div class="drag-warp-bg jl_vip_zt_warp_preview">
+                <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
+              </div>
+            </div><!--拖拽板块-->
+
+            <scalingPage class="scaling-right" ref="scalingRef" @getRatio="getRatio" :width="drag_width"></scalingPage>
+            <!-- 缩放组件 -->
+          </div><!--中间内容 end-->
+
+          <div class="drag-r" :class="right_fold?'drag-r-hide':''">
+            <div class="drag-r-pad">
+              <rightCheck ref="rightCheck_ref" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+              <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
+            </div>
+          </div><!--右边菜单 end-->
+
+          </div>
       </el-main>
     </el-container>
   </div>

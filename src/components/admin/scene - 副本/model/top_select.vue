@@ -1,5 +1,6 @@
 <!---服务中台-场景-顶部信息-->
 <template>
+  <div class="admin-warp-page">
     <div class="drag-top c-l">
         <h1 class="step-num"><span class="num">1</span><span class="txt">场景信息</span></h1>
         <div class="s-col"><span class="s-txt">名称：</span><el-input class="w-saml" v-model="postForm.name" size="medium" @input="setName" placeholder="首页"></el-input></div><!--disabled="disabled"-->
@@ -25,9 +26,9 @@
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
         <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
-        <header_footer @hfHide="header_footer_show = false" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
     </div><!--顶部条件筛选 end-->
-    
+    <header_footer @hfHide="header_footer_show = false" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
+  </div>
 </template>
 
 <script>
