@@ -67,7 +67,7 @@ export default {
     //terminal 表示pc或者手机等类型，用于场景应用查询
     goSet(val){
       console.log(val);
-      this.$router.push({path:'admin_sceneSet',query: {t_id:val.id,terminal:val.terminalType}});
+      this.$router.push({path:'admin_sceneSet',query: {tid:val.id,type:val.terminalType}});
     },
     bgColor(type){
       if(type == 4){

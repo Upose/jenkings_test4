@@ -4,11 +4,11 @@
     <el-container>
       <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu></serviceLMenu></el-aside>
       <el-main class="admin-content" :class="{'content-collapse':$root.collapse}">
-          
-        <topSelect :dataList="top_list" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @topCheck="topCheck" @setName="setName" @getDetailsGroup="getDetailsGroup" ref="topselect_ref"></topSelect>
+
+        <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
        
        <div class="drag-content" :style="{'min-height':drag_height+'px'}">
-        <leftCheck ref="leftcheck_ref" :dataList="left_list" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @getAppsList="getAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+        <leftCheck ref="leftcheck_ref" :dataList="left_list" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
         
         
         <div class="drag-c" :class="isFoldClass()">
@@ -22,7 +22,17 @@
 
           <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
             <div class="drag-warp-bg jl_vip_zt_warp_preview">
+              
+              <div class="jl_vip_zt_warp_hf" style="height:80px" :style="{'zoom':ratio_num,'width':drag_width+'px'}">
+                <div class="mask-layer head"></div><div :class="'cqu_header_sys_temp1'" id="jl_vip_zt_header_warp"><div id="jl_vip_zt_header"></div></div>
+              </div>
+
               <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
+
+              <div class="jl_vip_zt_warp_hf" style="height:90px" :style="{'zoom':ratio_num,'width':drag_width+'px'}">
+                <div class="mask-layer foot"></div><div :class="'footer_sys_temp1'" id="jl_vip_zt_footer_warp"><div id="jl_vip_zt_footer"></div></div>
+              </div>
+
             </div>
           </div><!--拖拽板块-->
 
@@ -55,5 +65,23 @@ export default {
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
 @import "../../../assets/web/css/color.less";
+.jl_vip_zt_warp_hf{
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+#jl_vip_zt_header_warp,#jl_vip_zt_header_warp{
+  position: absolute;
+  z-index: 1;
+}
+.mask-layer{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 10;
+  background-color: rgba(0,0,0,0);
+}
 </style>
 

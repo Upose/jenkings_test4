@@ -2,18 +2,18 @@
 <template>
     <div class="drag-top c-l">
         <h1 class="step-num"><span class="num">1</span><span class="txt">场景信息</span></h1>
-        <div class="s-col"><span class="s-txt">名称：</span><el-input class="w-saml" v-model="postForm.name" size="medium" @input="setName" placeholder="首页"></el-input></div><!--disabled="disabled"-->
+        <div class="s-col"><span class="s-txt">名称：</span><el-input class="w-saml" v-model="postForm.name" size="medium" placeholder="首页"></el-input></div><!--disabled="disabled"-->
         <div class="s-col"><span class="s-txt">服务状态：</span>
-          <el-select class="w-saml" v-model="postForm.status" @change="statusClcik" size="medium" placeholder="请选择">
+          <el-select class="w-saml" v-model="postForm.status" size="medium" placeholder="请选择">
             <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
         <div class="s-col"><span class="s-txt">权限控制：</span>
-          <el-select class="w-saml" v-model="postForm.visitor_type" @change="visitorLimitTypeCheck" size="medium" placeholder="请选择">
+          <el-select class="w-saml" v-model="postForm.visitorLimitType" @change="visitorLimitTypeCheck" size="medium" placeholder="请选择">
               <el-option v-for="item in (dataList.visitorLimitType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
-        <div class="s-col" v-if="visitor_type(postForm.visitor_type)"><span class="s-txt">{{visitorLimitTypeText(dataList.visitorLimitType)}}：</span>
+        <div class="s-col" v-if="visitorLimitType(postForm.visitorLimitType)"><span class="s-txt">{{visitorLimitTypeText(dataList.visitorLimitType)}}：</span>
           <!-- <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
               <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select> 多选-->
@@ -34,19 +34,18 @@
 import header_footer from "../../common/head_foter";
 export default {
   name: 'index',
-  props:['dataList'],
+  props:['dataList','postForm'],
   components:{header_footer},
+  watch: {
+    'postForm.name'(nval, oval) {
+      this.$forceUpdate();
+    }
+  },
   data () {
     return {
       id:this.$route.query.id,
       header_footer_show:false,
       head_fot_data:{footerTemplate:{},headerTemplate:{}},
-      postForm:{
-        status:0,
-        name:'',
-        user_type:[],
-        visitUrl:'',
-      },
       userType: [],//用户类型列表
       userType_data:[],//多选
       userType_one:'',
@@ -59,20 +58,6 @@ export default {
         footerTemplate:val.footerTemplate,
         headerTemplate:val.headerTemplate,
       }
-      this.postForm.name = val.name;//名称
-      this.postForm.status = val.status;//服务状态
-      // this.postForm.user_type = val.sceneUsers;//用户类型
-      // if(this.postForm.user_type.length>0){
-      //   this.postForm.user_type.forEach(it=>{
-      //     this.userType_data.push(it.userSetId);
-      //     this.userType_one = it.userSetId;
-      //   })
-      // }
-      this.postForm.visitor_type = val.visitorLimitType;//权限控制
-      console.log(this.postForm.visitor_type);
-      this.getUserType(this.postForm.visitor_type,true);
-      this.postForm.visitUrl = val.visitUrl;//地址复制
-      this.$forceUpdate();
     },
     //复制url
     copyURL(){
@@ -101,59 +86,36 @@ export default {
       this.$message({message: '复制成功',type:'success'});
       document.body.removeChild(transfer);//删除控件
     },
-    //名称输入事件
-    setName(val){
-      this.$emit('setName',val);
-    },
-    //状态选择
-    statusClcik(val){
-      this.$emit('topCheck',this.postForm);
-    },
+
     //用户类型
     userClcik(val){
-      console.log(val);
-      var list = [];
-      //多选
-      // if(val.length>0){
-      //   val.forEach(item=>{
-      //     list.push({
-      //       sceneId:this.$route.query.scene,
-      //       userSetId:item,
-      //     });
-      //   })
-      // }
-      //单选
-      list.push({sceneId:this.id,userSetId:val});
-      this.postForm.user_type = list;
-      this.$emit('topCheck',this.postForm);
+      this.postForm.sceneUsers = [{sceneId:this.id,userSetId:val}]
       if(this.id){
         var userS = [];
-        if(this.postForm.user_type && this.postForm.user_type.length>0){
-          this.postForm.user_type.forEach(it=>{
+        if(this.postForm.sceneUsers && this.postForm.sceneUsers.length>0){
+          this.postForm.sceneUsers.forEach(it=>{
             userS.push(it.userSetId);
           })
         }
-        this.$emit('getDetailsGroup',{visitorLimitType:this.postForm.visitor_type,userS:userS.join(';'),postUrl:'scene-detail-group'});
+        this.$emit('getDetailsGroup',{visitorLimitType:this.postForm.visitorLimitType,userS:userS.join(';'),postUrl:'scene-detail-group'});
       }
     },
     //权限控制选择
     visitorLimitTypeCheck(val){
-      console.log(val);
       //情况用户类型
-      this.postForm.user_type = [];
       this.userType_one = '';
 
       if(val==0 || val == 1){
         var userS = [];
-        if(this.postForm.user_type && this.postForm.user_type.length>0){
-          this.postForm.user_type.forEach(it=>{
+        if(this.postForm.sceneUsers && this.postForm.sceneUsers.length>0){
+          this.postForm.sceneUsers.forEach(it=>{
             userS.push(it.userSetId);
           })
         }
         this.$emit('getDetailsGroup',{visitorLimitType:'',userS:userS.join(';'),postUrl:'scene-detail'});
       }
-      this.$emit('topCheck',this.postForm);
       this.userType_one = '';
+      this.postForm.sceneUsers = [];
       this.getUserType(val,false);
       this.$forceUpdate()
     },
@@ -174,7 +136,7 @@ export default {
       this.$emit('setHFooter',val);
     },
     //是否显示用户选择框
-    visitor_type(val){
+    visitorLimitType(val){
       if(val==null || val=='' || val==0 || val ==1){
         return false;
       }else{
@@ -184,7 +146,7 @@ export default {
     //权限-用户字段名称
     visitorLimitTypeText(val){
       var name = '';
-      var t = (val||[]).filter(x=>x.value==this.postForm.visitor_type);
+      var t = (val||[]).filter(x=>x.value==this.postForm.visitorLimitType);
       if(t && t.length>0){
         name = t[0].key;
       }

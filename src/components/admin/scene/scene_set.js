@@ -21,6 +21,7 @@ export default {
         }
       }
       if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
+        console.log(e.target.className);
         e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
         var cu_id = e.target.parentNode.dataset.id;//当前元素的id
         admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
@@ -100,7 +101,7 @@ export default {
   },
   methods:{
     //获取应用列表
-    getAppsList(list){
+    setAppsList(list){
       this.appsList = list;
     },
     //通过应用id-在已存在的应用列表中-查询应用基础信息
@@ -117,7 +118,10 @@ export default {
     //获取详情
     getDetails(){
       this.http.getPlain_url('scene-detail','/'+this.id).then(res=>{
-        if(res.data)this.detailsRender(res.data);
+        if(res.data){
+            this.detailsRender(res.data);
+            this.loadHeadFoot();
+        }
       }).catch(err=>{})
     },
     //详情渲染
@@ -132,7 +136,6 @@ export default {
           }
           _this.$refs.topselect_ref.setDatils(data);
           _this.$refs.leftcheck_ref.setDatils(data);
-          _this.$refs.rightCheck_ref.setDatils(data);
           _this.postForm = data||{};
           if(_this.postForm.sceneScreens && _this.postForm.sceneScreens.length>0){
             _this.postForm.sceneScreens.forEach((item,index)=>{
@@ -413,16 +416,6 @@ export default {
         window.open(url);
       }, 100);
     },
-    //设置场景名字
-    setName(val){
-      this.postForm.name = val||'';
-    },
-    //顶部选择的数据
-    topCheck(val){
-      this.postForm.status = val.status;
-      this.postForm.sceneUsers = val.user_type||[];
-      this.postForm.visitorLimitType = val.visitor_type;
-    },
     //保存模板设置参数（条数，栏目，排序规则等）
     saveTempSet(val){
       this.apps_set_list[val.divId] = val.list||[];
@@ -564,5 +557,13 @@ export default {
         console.log(err);
       })
     },
+    //加载头部底部
+    loadHeadFoot(){
+        console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);
+        this.addStyle(this.postForm.footerTemplate.router+'/component.css');
+        this.addScript(this.postForm.footerTemplate.router+'/component.js');
+        this.addStyle(this.postForm.headerTemplate.router+'/component.css');
+        this.addScript(this.postForm.headerTemplate.router+'/component.js');
+    }
   },
 }

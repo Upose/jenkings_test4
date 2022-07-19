@@ -174,7 +174,7 @@ export default {
       var _this = this;
       _this.http.getPlain_url('app-list-by-service-type','/'+0+'/'+this.$route.query.type).then(res=>{
         _this.apps_list_all = res.data||[];
-        _this.$emit('getAppsList',_this.apps_list_all);
+        _this.$emit('setAppsList',_this.apps_list_all);
         if(_this.apps_list_all.length>0){
           _this.apps_list_all.forEach((it,i)=>{
             _this.dataList.appServiceType.forEach((t,k)=>{

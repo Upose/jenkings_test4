@@ -60,7 +60,7 @@ export default {
   data () {
     return {
       fileUrl:window.localStorage.getItem('fileUrl'),
-      apps_name:'',
+      apps_name:'',//应用名称
       right_fold:false,
       is_add:true,//是点击应用添加，还是点击的渲染模板，true为点击应用
       availableConfig:'',//显示哪几栏设置
@@ -82,10 +82,7 @@ export default {
   },
 
   methods:{
-    //设置详情
-    setDatils(val){
-    // console.log(val);
-    },
+    //显示当前组件属于哪个应用
     setAppsName(val){
         this.apps_name = val;
     },
@@ -112,7 +109,6 @@ export default {
                 }
             }else{//修改
                 _this.set_list = JSON.parse((val.set_list||"[]").replace(/'/g,'"'));
-                console.log(_this.set_list);
                 if(_this.set_list.length==0){
                     _this.set_list = [{topCount:'',sortType:'',id:'',orderIndex:1}];
                 }
