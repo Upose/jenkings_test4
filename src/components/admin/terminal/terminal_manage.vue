@@ -18,7 +18,7 @@
               <div class="row-box set-hover" v-for="i in dataList" :key="i">
                 <div class="r-box-bg">
                   <!-- <img src="@/assets/admin/img/upload/s1.png"/> -->
-                  <div class="box-bg" :class="bgColor(i.terminalType)"><img :src="fileUrl+i.icon"/></div>
+                  <div class="box-bg cursor" @click="addClick('edit',i)" :class="bgColor(i.terminalType)"><img :src="fileUrl+i.icon"/></div>
                   <span class="name">{{i.name||'暂无'}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible" v-if="authShowBtn('terminal_edit') || (!i.isSystemInstance && authShowBtn('terminal_delete'))">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>

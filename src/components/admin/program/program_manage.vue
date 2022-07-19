@@ -118,7 +118,7 @@ export default {
       this.getList(val.id);
     },
     handleSet(row){
-      window.location.href = row.visitUrl;
+      window.open(row.visitUrl);
     },
   },
 }
