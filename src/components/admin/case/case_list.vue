@@ -126,10 +126,10 @@ export default {
       this.IsSystemScene = val;
       this.initData();
     },
-    //编辑场景
+    //编辑场景 tid:终端id，type：终端类型 ，id:场景id
     editClick(val){
       if(this.authShowBtn('scene-manage_edit')){
-        this.$router.push({path:'admin_sceneSet',query: {id:val.id,terminal:this.$route.query.type,t:val.name,scene:val.id}});
+        this.$router.push({path:'admin_sceneSet',query: {tid:val.id,type:this.$route.query.type,id:val.id}});
       }else{
         this.previewClick(val);
       }

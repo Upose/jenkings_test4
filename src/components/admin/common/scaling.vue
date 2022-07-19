@@ -15,7 +15,7 @@
 <script>
 export default {
   name: 'scalingPage',
-  props:['container','width'],
+  props:['width'],
   watch: {
    width(newV,oldV) {
      this.p_width = newV;
@@ -32,8 +32,8 @@ export default {
     }
   },
   methods:{
+    //获取高度
     getHeight(val){
-      // console.log('宽：'+val);
       var ratio_num = 1;
       if(val && val>0){
         ratio_num = val/this.width;
@@ -42,28 +42,29 @@ export default {
       }
       this.setRatio(ratio_num);
     },
-    /***减小 */
+    //缩小
     minusClick(){
       if(this.proportion>30){
         var num = (Math.floor(this.proportion/10)*10) - 10;
         this.setRatio(num/100);
       }
     },
-    /***放大 */
+    //放大
     addClick(){
       if(this.proportion<100){
         var num = (Math.floor(this.proportion/10)*10) + 10;
         this.setRatio(num/100);
       }
     },
-    /****还原 */
+    //还原 1:1
     restoreClcik(){
       this.setRatio(1);
       this.proportion = 100;
     },
+    //设置比例
     setRatio(val){
       if(val>0.3){
-        this.$emit('getRatio',val);
+        this.$emit("update:ratio_num",val);
         this.proportion = val*100;
       }
     },

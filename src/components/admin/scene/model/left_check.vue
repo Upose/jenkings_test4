@@ -1,60 +1,60 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
-  <div class="left-check-page">
-    <div class="drag-l-warp">
-        <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1>
-        <el-collapse v-model="activeCollapse" @change="collapseClick" class="drag-collapse">
-          <el-collapse-item title="请选择布局" name="1">
-            <div class="drag-box-width" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
-              <div class="drag-box" :class="layoutId==i.value?'box-active':''" :title="i.key">
-                <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
-                <img :src="fileUrl+i.icon" class="img-cover">
-                <span class="d-b-txt">{{i.key||'暂无'}}</span>
-              </div>
-            </div>
-          </el-collapse-item>
-          <el-collapse-item title="请选择模板" name="2">
-              <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
-                <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
-                  <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
-                  <img :src="fileUrl+i.cover" class="img-cover">
-                  <span class="d-b-txt">{{i.name||'暂无'}}</span>
+<div class="drag-l" :class="left_fold?'drag-l-hide':''">
+  <div class="drag-l-pad">
+      <div class="left-check-page">
+        <div class="drag-l-warp">
+            <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1>
+            <el-collapse v-model="activeCollapse" class="drag-collapse">
+              <el-collapse-item title="请选择布局" name="1">
+                <div class="drag-box-width" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
+                  <div class="drag-box" :class="layoutId==i.value?'box-active':''" :title="i.key">
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.key||'暂无'}}</span>
+                  </div>
                 </div>
-              </div>
-          </el-collapse-item>
-          <el-collapse-item title="请选择主题色" name="3">
-            <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
-              <div class="drag-box" :class="themeColor==i.value?'box-active':''" :title="i.key">
-                <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
-                <img :src="fileUrl+i.icon" class="img-cover">
-                <span class="d-b-txt">{{i.key||'暂无'}}</span>
-              </div>
+              </el-collapse-item><!--布局 end-->
+              <el-collapse-item title="请选择模板" name="2">
+                  <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
+                    <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
+                      <img :src="fileUrl+i.cover" class="img-cover">
+                      <span class="d-b-txt">{{i.name||'暂无'}}</span>
+                    </div>
+                  </div>
+              </el-collapse-item><!--模板 end-->
+              <el-collapse-item title="请选择主题色" name="3">
+                <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
+                  <div class="drag-box" :class="themeColor==i.value?'box-active':''" :title="i.key">
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.key||'暂无'}}</span>
+                  </div>
+                </div>
+              </el-collapse-item><!--主题色 end-->
+            </el-collapse>
+            <div class="step-three">
+              <h1 class="step-num">
+                  <span class="num">3</span><span class="txt">应用选择</span>
+                  <el-dropdown trigger="click" class="r-select">
+                  <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
+                  <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item v-for="(it,i) in (dataList.appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
+                  </el-dropdown-menu>
+                  </el-dropdown>
+              </h1><!--选择应用类型 end-->
+              <div class="drag-box-warp">
+                <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
+                  <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.name||''}}</span>
+                  </div>
+                </div>
+              </div><!--应用列表 end-->
             </div>
-              <!-- <div class="color-temp" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">{{i.key||'红色'}}</div> -->
-          </el-collapse-item>
-        </el-collapse><!--主题风格 end-->
-        <div class="step-three">
-        <h1 class="step-num">
-            <span class="num">3</span><span class="txt">应用选择</span>
-            <el-dropdown trigger="click" class="r-select">
-            <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
-            <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item v-for="(it,i) in (dataList.appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
-            </el-dropdown-menu>
-            </el-dropdown>
-        </h1>
-        <div class="drag-box-warp">
-          <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
-            <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
-              <!-- <i class="el-icon-s-marketing d-b-img"></i> -->
-              <img :src="fileUrl+i.icon" class="img-cover">
-              <span class="d-b-txt">{{i.name||''}}</span>
-            </div>
-          </div>
         </div>
-        </div>
-    </div><!--左边菜单 end-->
+      </div>
+      <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
   </div>
+</div>
 </template>
 
 <script>
@@ -76,6 +76,8 @@ export default {
   },
   data () {
     return {
+      id:this.$route.query.id,
+      left_fold:false,
       layoutId:'',//布局
       templateId:'',//模板
       themeColor:'template1',//颜色模板
@@ -90,10 +92,6 @@ export default {
     }
   },
   mounted(){
-    // if(this.dataList.appServiceType && this.dataList.appServiceType.length>0){
-    //   this.getApps(this.dataList.appServiceType[0].value);
-    //   this.serve_name = this.dataList.appServiceType[0].key||'';
-    // }
   },
   methods:{
     //设置详情
@@ -109,10 +107,14 @@ export default {
       this.themeColor = val.value;
       this.$emit('setTheme',val.value);
     },
-    
+    /***左边折叠 */
+    leftFold(){
+      this.left_fold = !this.left_fold;
+      this.$emit("update:left_fold",this.left_fold);
+    },
     //选择布局
     layoutClick(val,is_add){//is_add:true为第一次
-      if(!is_add &&this.$route.query.scene){
+      if(!is_add &&this.id){
         this.$message({message: '场景修改状态下，布局不能改变',type:'info'});
         return;
       }
@@ -140,7 +142,7 @@ export default {
     },
     //应用选择-服务类型点击事件 index 应用分组的下标
     serveClick(index){ 
-      console.log(index);
+      // console.log(index);
       this.apps_list_index = index;
       var app_type = this.dataList.appServiceType[index]||{};
       this.apps_list = app_type['list']||[];
@@ -170,7 +172,7 @@ export default {
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype} -----这里要改成查询全部，不要传id
     getApps(){
       var _this = this;
-      _this.http.getPlain_url('app-list-by-service-type','/'+0+'/'+this.$route.query.terminal).then(res=>{
+      _this.http.getPlain_url('app-list-by-service-type','/'+0+'/'+this.$route.query.type).then(res=>{
         _this.apps_list_all = res.data||[];
         _this.$emit('getAppsList',_this.apps_list_all);
         if(_this.apps_list_all.length>0){
@@ -205,10 +207,6 @@ export default {
       this.appId = id;
       this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'});
     },
-    /****左边-折叠菜单-点击*****/
-    collapseClick(val){
-      //console.log(val);
-    },
   },
 }
 </script>
@@ -216,6 +214,7 @@ export default {
 <style lang="less" scoped>
 @import "../../../../assets/admin/css/color.less";/**颜色配置 */
 @import "../../../../assets/admin/css/style.less";
+@import "../scene_set.less";
 .drag-l-warp{
     left: 0;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
@@ -294,17 +293,6 @@ export default {
         .step-num{
         width: 100%;
         }
-    }
-    .color-temp{
-      cursor: pointer;
-      border: 1px solid @EBEEF5;
-      margin-top: 10px;
-      border-radius: 3px;
-      padding: 2px 5px;
-      color: @34395E;
-      &:hover{
-        background-color:@f3f4ff;
-      }
     }
     }
     /*****box选中状态 */

@@ -24,7 +24,7 @@
         <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="header_footer_show = true">高级设置</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
-        <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="this.$route.query.scene" @click="copyURL()">复制链接</el-button>
+        <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
         <header_footer @hfHide="header_footer_show = false" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
     </div><!--顶部条件筛选 end-->
     
@@ -38,6 +38,7 @@ export default {
   components:{header_footer},
   data () {
     return {
+      id:this.$route.query.id,
       header_footer_show:false,
       head_fot_data:{footerTemplate:{},headerTemplate:{}},
       postForm:{
@@ -78,7 +79,7 @@ export default {
       let urlInfo = JSON.parse(localStorage.getItem('urlInfo'));
       let info = urlInfo.find(item => item.code == 'index');
       
-      this.http.getPlain_url('scene-url-by-id','/'+this.$route.query.scene).then(res=>{
+      this.http.getPlain_url('scene-url-by-id','/'+this.id).then(res=>{
         // if(prompt("请按Ctrl+C复制", info.path + res.data)){}
         this.clipboardCopy(info.path + res.data);
       }).catch(err=>{
@@ -122,10 +123,10 @@ export default {
       //   })
       // }
       //单选
-      list.push({sceneId:this.$route.query.scene,userSetId:val});
+      list.push({sceneId:this.id,userSetId:val});
       this.postForm.user_type = list;
       this.$emit('topCheck',this.postForm);
-      if(this.$route.query.scene){
+      if(this.id){
         var userS = [];
         if(this.postForm.user_type && this.postForm.user_type.length>0){
           this.postForm.user_type.forEach(it=>{

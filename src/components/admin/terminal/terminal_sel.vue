@@ -64,9 +64,10 @@ export default {
     addClick(){
       this.$router.push('/admin_terminalAdd');
     },
+    //terminal 表示pc或者手机等类型，用于场景应用查询
     goSet(val){
       console.log(val);
-      this.$router.push({path:'admin_sceneSet',query: {t_id:val.id,terminal:val.terminalType,t:val.name}});
+      this.$router.push({path:'admin_sceneSet',query: {t_id:val.id,terminal:val.terminalType}});
     },
     bgColor(type){
       if(type == 4){
