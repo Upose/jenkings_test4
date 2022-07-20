@@ -8,30 +8,31 @@
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
        
        <div class="drag-content" :style="{'min-height':drag_height+'px'}">
-        <leftCheck ref="leftcheck_ref" :dataList="left_list" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+        <leftCheck ref="leftcheck_ref" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
         
         
         <div class="drag-c" :class="isFoldClass()">
           <div class="screen-btn-drag" v-show="postForm.layoutId== 2 || postForm.layoutId== 4">
-            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(0)"></span></el-button>
+            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏</el-button>
             <div class="drag-box-warp" ref="dragBox">
-              <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0">第{{index+1}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
+              <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">第{{index+1}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
             </div>
+            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==(screen_list.length-1)?'s-b-active':''" @click="screenClick(screen_list.length-1)">尾屏</el-button>
             <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
-          </div><!--屏幕数量+拖拽 end-->
+          </div><!--屏幕数量+拖拽排序 end-->
 
           <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
             <div class="drag-warp-bg jl_vip_zt_warp_preview">
               
-              <div class="jl_vip_zt_warp_hf" style="height:80px" :style="{'zoom':ratio_num,'width':drag_width+'px'}">
+              <div class="jl_vip_zt_warp_hf head" style="height:80px" :style="{'zoom':ratio_num,'width':drag_width+'px'}">
                 <div class="mask-layer head"></div><div :class="'cqu_header_sys_temp1'" id="jl_vip_zt_header_warp"><div id="jl_vip_zt_header"></div></div>
-              </div>
+              </div><!--头部 end-->
 
-              <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
+              <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div><!--拖拽区域-->
 
-              <div class="jl_vip_zt_warp_hf" style="height:90px" :style="{'zoom':ratio_num,'width':drag_width+'px'}">
+              <div class="jl_vip_zt_warp_hf foot" style="height:90px" :style="{'zoom':ratio_num,'width':drag_width+'px'}">
                 <div class="mask-layer foot"></div><div :class="'footer_sys_temp1'" id="jl_vip_zt_footer_warp"><div id="jl_vip_zt_footer"></div></div>
-              </div>
+              </div><!--底部 end-->
 
             </div>
           </div><!--拖拽板块-->
@@ -41,7 +42,11 @@
         </div><!--中间内容 end-->
 
 
-        <rightCheck ref="rightCheck_ref" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+        <rightCheck ref="rightCheck_ref" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+
+        <advanced></advanced><!--高级设置-->
+        <headerSet></headerSet><!--头部设置-->
+        <footerSet></footerSet><!--底部设置-->
 
        </div>
       </el-main>

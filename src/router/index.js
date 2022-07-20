@@ -54,6 +54,18 @@ export default new Router({
       name: '500',
       component: r => require.ensure([], () => r(require('@/components/500')), 'index'),
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/test')), 'scene'),
+      meta: { title: '测试' , keepAlive:true},
+    },
+    {
+      path: '/test1',
+      name: 'test',
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/test1')), 'scene'),
+      meta: { title: '测试' , keepAlive:true},
+    },
     {//重定向中间件
       path: '/',
       name: 'reset',

@@ -1,14 +1,20 @@
 var admin_vue = null;
-import Sortable from "sortablejs";
-import serviceLMenu from "@/components/admin/common/serviceLMenu";
-import topSelect from "./model/top_select";
-import leftCheck from "./model/left_check";
-import rightCheck from "./model/right_check";
-import scalingPage from "@/components/admin/common/scaling";
+import Sortable from "sortablejs";//拖拽更换屏顺序插件
+import serviceLMenu from "@/components/admin/common/serviceLMenu";//菜单
+
+import topSelect from "./model/top_select";//顶部
+import leftCheck from "./model/left_check";//左侧
+import rightCheck from "./model/right_check";//右侧
+
+import advanced from "./model/advanced";//高级设置
+import headerSet from "./model/headerSet";//头部设置
+import footerSet from "./model/footerSet";//底部设置
+
+import scalingPage from "@/components/admin/common/scaling";//缩放
 
 export default {
   name: 'index',
-  components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck},
+  components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck,advanced,headerSet,footerSet},
   created(){
     this.$root.collapse = true;//默认不展开左侧导航栏目菜单
 
@@ -21,14 +27,24 @@ export default {
         }
       }
       if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
-        console.log(e.target.className);
-        e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
-        var cu_id = e.target.parentNode.dataset.id;//当前元素的id
-        admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
-        var appid = e.target.dataset.appid;//应用id
-        var appwidgetid = e.target.dataset.appwidgetid;//模板id
-        var set_list = e.target.dataset.set;//设置的配置参数
-        admin_vue.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
+        if(e.target.className.indexOf('head')>-1){
+          console.log('选择的头部');
+          admin_vue.removeActiveClass('head');
+        }else if(e.target.className.indexOf('foot')>-1){
+          console.log('选择的底部');
+          admin_vue.removeActiveClass('foot');
+        }else{
+          console.log('选择的组件');
+          e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
+          var cu_id = e.target.parentNode.dataset.id;//当前元素的id
+          admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
+          var appid = e.target.dataset.appid;//应用id
+          var appwidgetid = e.target.dataset.appwidgetid;//模板id
+          var set_list = e.target.dataset.set;//设置的配置参数
+          admin_vue.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
+        }
+        
+        
       }
     });
   },
@@ -182,6 +198,10 @@ export default {
     },
     /****新增一屏 */
     addScreen(){
+      if(this.screen_list.length==10){
+        this.$message({message: '最多只能添加10屏',type:'info'});
+        return false;
+      }
       this.screen_list.push({sceneApps:[]});
     },
     /****点击第几屏 */
@@ -298,7 +318,13 @@ export default {
             var element = class_list[index];
             var el_id = element.parentNode.dataset.id;
             if(el_id!= cu_id){
-              element.setAttribute('class','mask-layer');
+              if(element.className.indexOf('head')>-1){
+                element.setAttribute('class','mask-layer head');
+              }else if(element.className.indexOf('foot')>-1){
+                element.setAttribute('class','mask-layer foot');
+              }else{
+                element.setAttribute('class','mask-layer');
+              }
             }
           }
         }
