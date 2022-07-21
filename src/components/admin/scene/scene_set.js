@@ -6,14 +6,11 @@ import topSelect from "./model/top_select";//顶部
 import leftCheck from "./model/left_check";//左侧
 import rightCheck from "./model/right_check";//右侧
 
-import advanced from "./model/advanced";//高级设置
-import footerSet from "./model/footerSet";//底部设置
-
 import scalingPage from "@/components/admin/common/scaling";//缩放
 
 export default {
   name: 'index',
-  components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck,advanced,footerSet},
+  components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck},
   created(){
     this.$root.collapse = true;//默认不展开左侧导航栏目菜单
 

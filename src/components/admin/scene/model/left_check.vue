@@ -14,6 +14,7 @@
                   </div>
                 </div>
               </el-collapse-item><!--布局 end-->
+
               <el-collapse-item title="请选择模板" name="2">
                   <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
                     <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
@@ -22,6 +23,7 @@
                     </div>
                   </div>
               </el-collapse-item><!--模板 end-->
+
               <el-collapse-item title="请选择主题色" name="3">
                 <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
                   <div class="drag-box" :class="themeColor==i.value?'box-active':''" :title="i.key">
@@ -30,6 +32,25 @@
                   </div>
                 </div>
               </el-collapse-item><!--主题色 end-->
+
+              <el-collapse-item title="模板/屏配置" name="4">
+                <div class="model-set-w c-l">
+                  <div class="menu-name">
+                    <el-input placeholder="请输入内容" size="medium" @input="menuInput">
+                      <template slot="prepend">菜单名称：</template>
+                    </el-input>
+                  </div>
+                  <div class="up-img w50" :style="{'background-image':'url('+''+')'}">
+                    <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
+                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                  </div>
+                  <div class="up-img w50" :style="{'background-image':'url('+''+')'}">
+                    <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
+                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                  </div>
+                </div>
+              </el-collapse-item><!--模板/屏配置 end-->
+
             </el-collapse>
             <div class="step-three">
               <h1 class="step-num">
@@ -41,7 +62,7 @@
                   </el-dropdown-menu>
                   </el-dropdown>
               </h1><!--选择应用类型 end-->
-              <div class="drag-box-warp">
+              <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
                   <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
                     <img :src="fileUrl+i.icon" class="img-cover">
@@ -83,7 +104,7 @@ export default {
       themeColor:'template1',//颜色模板
       serve_name:'',//应用类型-选择的名称
       appId:'',//当前应用
-      activeCollapse:['1','2','3'],//左边折叠的数量
+      activeCollapse:['1','2','3','4'],//左边折叠的数量
       sceneTemplate:[],//模板列表
       apps_list:[],//应用列表
       apps_list_index:0,//应用列表-下标
@@ -101,6 +122,10 @@ export default {
       this.templateId = val.template?val.template.id:'';
       this.themeColor = val.themeColor;
       this.$forceUpdate();
+    },
+    //菜单名称输入事件
+    menuInput(e){
+      console.log(e);
     },
     //设置主题色
     setTheme(val){
@@ -207,99 +232,34 @@ export default {
       this.appId = id;
       this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'});
     },
+    //文件上传
+    handleFileJS(e) {
+      var _this = this;
+      let $target = e.target || e.srcElement
+      let file = $target.files[0]
+      if (!file) {
+        return
+      }
+      let formData = new FormData()
+      formData.append('files', file)
+      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
+        this.$message({ type: 'error', message: '请上传js文件!' });
+        return;
+      }
+      var index = parseInt(e.target.id.slice(5, 6));
+      this.http.postFile("UploadFile", formData).then((res) => {
+       console.log(res);
+      }).catch((err) => {
+        this.$message({ type: 'error', message: '上传失败!' });
+      });
+    },
   },
 }
 </script>
 
 <style lang="less" scoped>
-@import "../../../../assets/admin/css/color.less";/**颜色配置 */
+@import "../../../../assets/admin/css/color.less";
 @import "../../../../assets/admin/css/style.less";
 @import "../scene_set.less";
-.drag-l-warp{
-    left: 0;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
-    .cut-btn{
-        left: 255px;
-        border-radius: 0px 40px 40px 0px;
-    }
-    .step-num{
-        margin-top: 29px;
-        margin-bottom: 29px;
-    }
-    /deep/.el-collapse-item__wrap{
-      margin-left: -5px;
-    }
-    .drag-box-width{
-        cursor: pointer;
-        width: 33.333%;
-        border-radius: 3px;
-        float: left;
-        .drag-box{
-          margin-top: 5px;
-          margin-left: 5px;
-          padding: 1px;
-          background-color: #f9fafc;
-          &:hover{
-            background-color: @f3f4ff;
-            .d-b-txt{
-                color: @6777EF;
-                overflow: hidden;
-                text-overflow:ellipsis;
-                white-space: nowrap;
-            }
-          }
-        }
-        // &:nth-child(3n+3){
-        // margin-right: 0;
-        // }
-        
-        i.d-b-img{
-          padding: 10px;
-          font-size: 20px;
-          text-align: center;
-          display: block;
-          color: @f28102;
-        }
-        .img-cover{
-          width: 20px;
-          height: 20px;
-          display: block;
-          margin:10px auto;
-          border-radius:1px;
-        }
-        .d-b-txt{
-        font-size: 12px;
-        color: @34395E;
-        text-align: center;
-        display: block;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-        }
-    }
-    .step-three{
-        height: 70px;
-        position: relative;
-        &::after{
-        content: '';
-        display: block;
-        position: absolute;
-        height: 1px;
-        left: -20px;
-        right: -20px;
-        bottom: 0;
-        background-color: @EBEEF5;
-        }
-        .step-num{
-        width: 100%;
-        }
-    }
-    }
-    /*****box选中状态 */
-    .box-active{
-      background-color: #e3e6ff !important;
-        .d-b-txt{
-            color: @6777EF !important;
-        }
-    }
+@import "./model.less";
 </style>

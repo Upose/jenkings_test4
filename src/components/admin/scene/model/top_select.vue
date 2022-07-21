@@ -25,17 +25,17 @@
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
         <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
-        <header_footer @hfHide="header_footer_show = false" :head_fot_data="head_fot_data" @setHFooter="setHFooter" v-if="header_footer_show"></header_footer>
+        <advanced @hfHide="header_footer_show = false" v-if="header_footer_show"></advanced>
     </div><!--顶部条件筛选 end-->
     
 </template>
 
 <script>
-import header_footer from "../../common/head_foter";
+import advanced from "./advanced.vue";//高级设置
 export default {
   name: 'index',
   props:['dataList','postForm'],
-  components:{header_footer},
+  components:{advanced},
   watch: {
     'postForm.name'(nval, oval) {
       this.$forceUpdate();
