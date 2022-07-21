@@ -23,11 +23,11 @@
           <div class="select-type">
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="model-set-w r-model-w c-l">
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium">底部高级设置</el-button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium">头部高级设置</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="footSetShow()">底部高级设置</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="headSetShow()">头部高级设置</el-button>
                 <div class="up-img w100" :style="{'background-image':'url('+''+')'}">
-                    <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
-                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                  <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
+                  <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                 </div>
             </div><!--组件配置 end-->
 
@@ -63,8 +63,8 @@
       </div>
       <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
     </div>
-    <headerSet></headerSet>
-    <footerSet></footerSet>
+    <headerSet v-if="headerSet" @hfHide="hfHide"></headerSet>
+    <footerSet v-if="footerSet" @hfHide="hfHide"></footerSet>
   </div>
   <!--右边菜单 end-->
 </template>
@@ -80,6 +80,8 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       apps_name: '',//应用名称
+      headerSet:false,
+      footerSet:false,
       right_fold: false,
       is_add: true,//是点击应用添加，还是点击的渲染模板，true为点击应用
       availableConfig: '',//显示哪几栏设置
@@ -220,6 +222,19 @@ export default {
           this.appDetails({ 'id': is_cu_temp[0].dataset.appid, 'temp_id': is_cu_temp[0].dataset.appwidgetid, 'is_add': false, 'set_list': JSON.stringify(this.set_list) });//设置成功，重新点击一次让模板刷新；
         }, 400);
       }
+    },
+    //头部高级设置
+    headSetShow(){
+      this.headerSet = true;
+    },
+    //底部高级设置
+    footSetShow(){
+      this.footerSet = true;
+    },
+    hfHide(){
+      console.log('隐藏头部底部');
+      this.headerSet = false;
+      this.footerSet = false;
     },
     //文件上传
     handleFileJS(e) {

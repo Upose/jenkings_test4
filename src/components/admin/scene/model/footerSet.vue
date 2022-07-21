@@ -3,11 +3,30 @@
 -->
 <template>
   <div class="tag-box">
-    <el-dialog append-to-body title="选择头部和底部模板" :visible.sync="dialogBulk" width="600px" :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="800px" :close-on-click-modal="false" :before-close="handleClose">
         <el-form label-width="70px" class="admin-form">
         <div class="form-set-content">
           <el-form-item label="底部信息" prop="defaultTemplate">
-            富文本信息
+            <textarea id="mytextarea" v-model="postForm_fot.content"></textarea>
+          </el-form-item>
+          <el-form-item label="底部信息" prop="defaultTemplate">
+            <editor
+       api-key="no-api-key"
+       :init="{
+         height: 500,
+         menubar: false,
+         plugins: [
+           'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+           'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+           'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+         ],
+         toolbar:
+           'undo redo | casechange blocks | bold italic backcolor | \
+           alignleft aligncenter alignright alignjustify | \
+           bullist numlst checklist outdent indent | removeformat | a11ycheck code table help'
+       }"
+       initial-value="Welcome to TinyMCE Vue"
+     />
           </el-form-item>
           <el-form-item label="JS路径" prop="visitUrl">
             <div class="btns-colse-warp input-btns">
@@ -45,11 +64,52 @@
 export default {
   name: 'index',
   props:[],
+  beforeDestroy() {
+    // 销毁组件前销毁编辑器
+    window.tinymce.get('mytextarea').destroy();
+  },
+  mounted(){
+    //tinymce 编辑器
+    setTimeout(() => {
+      tinymce.init({
+        selector: '#mytextarea',
+        language: 'zh_CN',
+        height: 400,
+        plugins: 'image',
+        // toolbar: 'code bullist numlist emoticons charmap hr insertdatetime link | help fullscreen image', 
+        plugins: 'image,wordcount,charmap,code,hr,lists,advlist,emoticons,fullscreen,help,insertdatetime,link',
+        images_upload_handler: (blobInfo, success, failure) => { // 图片上传
+          console.log(blobInfo, success, failure);
+          this.handleImgUpload(blobInfo, success, failure)
+        }
+      });
+      tinymce.activeEditor.on('paste', function(e) {
+        setTimeout(() => {
+          var html = null;
+          e.path.forEach(item=>{
+            if(item.tagName == 'body' || item.tagName=='BODY'){
+              html = item.innerHTML;
+              var img_data = [];
+              html.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, function (match, capture) {
+                img_data.push(capture);
+              });
+              _this.img_list = img_data;
+              console.log(img_data);
+            }
+          })
+        }, 50);
+      });
+    }, 100);
+    
+    // tinymce.activeEditor.setContent(this.postForm.content)
+    // tinyMCE.activeEditor.getContent()||'';//获取富文本信息
+  },
   data() {
     return {
-        dialogBulk:true,//模板选择
-        jsList:[{}],
-        fileUrl: window.localStorage.getItem('fileUrl'),
+      dialogBulk:true,//模板选择
+      jsList:[{}],
+      postForm_fot:{},
+      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   methods: {
@@ -64,6 +124,25 @@ export default {
         return;
       }
       this.jsList.push({ value: '' });
+    },
+    /****保存底部设置信息*******/
+    submitFormFot() {
+      var list = [];
+      this.jsList.forEach(item => {
+        if (item.value) list.push(item.value)
+      })
+      this.postForm_fot.jsPath = list || [];
+      this.http.postJson('foot-template-settings-update', this.postForm_fot).then(res => {
+        this.$message({ type: 'success', message: '保存成功!' });
+        this.postForm_fot = {};
+        this.fot_dialogBulk = false;
+      }).catch(err => {
+        this.$message({ type: 'error', message: '保存失败!' });
+      })
+    },
+    /***x关闭按钮 **/
+    handleClose(done) {
+      this.$emit('hfHide');
     },
     //文件上传
     handleFileJS(e) {

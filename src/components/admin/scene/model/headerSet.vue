@@ -3,89 +3,116 @@
 -->
 <template>
   <div class="tag-box">
-    <el-dialog append-to-body title="选择头部和底部模板" :visible.sync="dialogBulk" width="600px" :close-on-click-modal="false" :before-close="handleClose">
-        <el-form label-width="70px" class="admin-form">
+    <el-dialog append-to-body title="头部高级设置" :visible.sync="dialogBulk" width="630px" :close-on-click-modal="false" :before-close="handleClose">
+      <el-form label-width="90px" class="admin-form">
         <div class="form-set-content">
-          <el-form-item label="底部信息" prop="defaultTemplate">
-            富文本信息
+          <el-form-item label="更换LOGO" prop="logo">
+            <div class="up-img-form-item">
+              <div class="up-img-warp" v-if="postForm_head.logo">
+                <img :src="fileUrl+postForm_head.logo">
+              </div>
+              <div class="up-img-warp up-icon" @click="upImg()">
+                <span>上传图标</span>
+              </div>
+            </div>
           </el-form-item>
-          <el-form-item label="JS路径" prop="visitUrl">
-            <div class="btns-colse-warp input-btns">
-              <div class="btns-select-row" v-for="(it,i) in jsList" :key="i+'b'">
-                <el-input v-model="it.value" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
-                  <template slot="append">
-                    <div class="up-btn">
-                      <span>点击上传</span>
-                      <input type="file" :id="'file_'+i" multiple="multiple" @change="handleFileJS">
-                    </div>
-                  </template>
-                </el-input>
-                <div class="btns-el-btn" @click="removeCoumn2(i)" v-if="(jsList.length-1)!=i">
+          <el-form-item label="展示栏目">
+            <div class="btns-colse-warp">
+              <div class="btns-select-row" v-for="(it,i) in coumn_list1" :key="i+'b'">
+                <el-select v-model="it.value" placeholder="请选择栏目">
+                  <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
+                </el-select>
+                <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list1.length-1)!=i">
                   <i class="iconfont el-icon-vip-jianhao1"></i>
                   <span>删除</span>
                 </div>
-                <div class="btns-el-btn" @click="addCoumn2" v-if="(jsList.length-1)==i">
+                <div class="btns-el-btn" @click="addCoumn1" v-if="(coumn_list1.length-1)==i">
                   <i class="iconfont el-icon-vip-tianjia1"></i>
                   <span>添加</span>
                 </div>
               </div>
             </div>
+            <!-- <p class="hint">栏目展示在顶部</p> -->
           </el-form-item>
           <el-form-item class="m-center">
-            <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormFot()">保存</el-button>
+            <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormHead()">保存</el-button>
           </el-form-item>
         </div>
       </el-form>
+    </el-dialog>
+    <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleCloseImg">
+      <UpdateImg @imgUrl="imgUrl" :imgWidth="280" :imgHeight="80"></UpdateImg>
     </el-dialog>
   </div>
 </template>
 
 
 <script>
+import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
-  props:[],
+  components: { UpdateImg },
+  props: [],
+  mounted(){
+    this.http.getPlain('template-list', 'Type=2&PageIndex=1&PageSize=100').then(res => {
+      this.head_list = res.data.items || [];
+    }).catch(err => {
+      this.$message({ type: 'error', message: '获取失败!' });
+    })
+  },
   data() {
     return {
-        dialogBulk:true,//模板选择
-        jsList:[{}],
-        fileUrl: window.localStorage.getItem('fileUrl'),
+      fileUrl: window.localStorage.getItem('fileUrl'),
+      dialogBulk: true,//模板选择
+      dialogUPimg: false,//图片上传
+      jsList: [{}],
+      head_list: [],
+      coumn_data_list: [],//栏目下拉选择列表
+      coumn_list1: [{ value: '' }],//新增删除栏目列表
+      postForm_head: {},//头部表单
+      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   methods: {
-    //删除js地址
-    removeCoumn2(index) {
-      this.jsList.splice(index, 1);
+    //打开图标上传弹窗
+    upImg() {
+      this.dialogUPimg = true;
     },
-    //添加js地址
-    addCoumn2() {
-      if (this.jsList.length == 3) {
-        this.$message({ type: 'info', message: '只能添加3个js地址!' });
-        return;
-      }
-      this.jsList.push({ value: '' });
+    //获取图片上传返回地址
+    imgUrl(val) {
+      this.postForm_head['logo'] = val[0];
+      this.dialogUPimg = false;
     },
-    //文件上传
-    handleFileJS(e) {
-      var _this = this;
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
-        return;
-      }
-      var index = parseInt(e.target.id.slice(5, 6));
-      this.http.postFile("UploadFile", formData).then((res) => {
-        _this.jsList[index].value = _this.fileUrl + res.data[0];
-        this.$forceUpdate();
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
+    //图片上传-弹窗关闭
+    handleCloseImg(done) {
+      done();
+    },
+    //删除多栏目投递
+    removeCoumn1(index) {
+      this.coumn_list1.splice(index, 1);
+    },
+    //添加多栏目投递
+    addCoumn1() {
+      this.coumn_list1.push({ value: '' });
+    },
+    /***x关闭按钮 **/
+    handleClose(done) {
+      this.$emit('hfHide');
+    },
+    /****保存头部设置信息*******/
+    submitFormHead() {
+      var list = [];
+      this.coumn_list1.forEach(item => {
+        if (item.value) list.push(item.value)
+      })
+      this.postForm_head.displayNavColumn = list || [];
+      this.http.postJson('head-template-settings-update', this.postForm_head).then(res => {
+        this.$message({ type: 'success', message: '保存成功!' });
+        this.postForm_head = {};
+        this.top_dialogBulk = false;
+      }).catch(err => {
+        this.$message({ type: 'error', message: '保存失败!' });
+      })
     },
   },
 }
@@ -96,38 +123,38 @@ export default {
 @import "../../../../assets/admin/css/form.less";
 /***js路径 */
 .input-btns {
-    width: 100% !important;
+  width: 100% !important;
 
-    .el-input-group {
-        width: calc(100% - 40px) !important;
-    }
+  .el-input-group {
+    width: calc(100% - 40px) !important;
+  }
 }
 .up-btn {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
+  width: 80px;
+  height: 38px;
+
+  span,
+  input {
+    position: absolute;
     width: 80px;
-    height: 38px;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 
-    span,
-    input {
-        position: absolute;
-        width: 80px;
-        height: 100%;
-        top: 0;
-        left: 0;
-    }
+  input {
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+  }
 
-    input {
-        cursor: pointer;
-        z-index: 2;
-        opacity: 0;
-    }
-
-    span {
-        cursor: pointer;
-        line-height: 38px;
-        text-align: center;
-        z-index: 1;
-    }
+  span {
+    cursor: pointer;
+    line-height: 38px;
+    text-align: center;
+    z-index: 1;
+  }
 }
 </style>
