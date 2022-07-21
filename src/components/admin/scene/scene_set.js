@@ -70,6 +70,9 @@ export default {
   data () {
     return {
       id:this.$route.query.id,//场景id
+      advanced:true,//高级设置
+      headerSet:false,//头部设置
+      footerSet:false,//底部设置
       drag_width:1200,//用于-计算缩放的宽度，不得小于1200
       drag_height:500,//最低高度
       ratio_num:1,//缩放比例
