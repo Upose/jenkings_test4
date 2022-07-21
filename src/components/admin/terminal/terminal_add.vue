@@ -23,6 +23,9 @@
                   <el-radio v-for="(it,i) in terminal_list" :key="i" :label="it.value">{{it.key}}</el-radio>
                 </el-radio-group>
               </el-form-item>
+              <el-form-item label="黑白模式">
+                <el-switch :active-value="1" :inactive-value="0" v-model="postForm.commemorate"></el-switch>
+              </el-form-item>
               <el-form-item label="终端logo" prop="logo">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.logo">

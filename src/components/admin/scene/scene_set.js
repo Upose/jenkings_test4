@@ -7,14 +7,13 @@ import leftCheck from "./model/left_check";//左侧
 import rightCheck from "./model/right_check";//右侧
 
 import advanced from "./model/advanced";//高级设置
-import headerSet from "./model/headerSet";//头部设置
 import footerSet from "./model/footerSet";//底部设置
 
 import scalingPage from "@/components/admin/common/scaling";//缩放
 
 export default {
   name: 'index',
-  components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck,advanced,headerSet,footerSet},
+  components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck,advanced,footerSet},
   created(){
     this.$root.collapse = true;//默认不展开左侧导航栏目菜单
 
@@ -71,7 +70,6 @@ export default {
     return {
       id:this.$route.query.id,//场景id
       advanced:true,//高级设置
-      headerSet:false,//头部设置
       footerSet:false,//底部设置
       drag_width:1200,//用于-计算缩放的宽度，不得小于1200
       drag_height:500,//最低高度
