@@ -23,9 +23,9 @@
           <div class="select-type">
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="model-set-w r-model-w c-l">
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" @click="footSetShow()">底部高级设置</el-button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" @click="headSetShow()">头部高级设置</el-button>
-                <div v-if="template_check&&!is_hf" class="up-img w100" :style="{'background-image':'url('+''+')'}">
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" @click="footSetShow()">底部高级设置</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" @click="headSetShow()">头部高级设置</el-button>
+                <div v-if="template_check" class="up-img w100" :style="{'background-image':'url('+''+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                 </div>
@@ -178,9 +178,9 @@ export default {
     },
     //选择某个模板
     appsTemplate(val, isAdd) {
-      if(this.template_check == val.id)return;
+      if(this.template_check == val.id && this.is_hf) return;//这里是为了头尾，选择模板时已经选择的，不要再做下面的操作
       this.template_check = val.id;
-      
+      /***********************针对头部底部 start */
       if(this.is_hf){
         var obj = {};
         if(this.is_hf=='foot'){
@@ -201,9 +201,12 @@ export default {
         }
         setTimeout(() => {
           this.updateHF();
-        }, 100);
+        }, 50);
         return;
       }
+      /***********************针对头部底部 end */
+
+      
       this.availableConfig = val.availableConfig;//有哪几项设置
       this.sortList = val.sortList;//排序
       if (this.set_list[0] && !this.set_list[0].sortType) {

@@ -74,6 +74,9 @@ export default {
   margin-right: auto;
 }
 #jl_vip_zt_header_warp,#jl_vip_zt_header_warp{
+  width: 100%;
+  left: 0;
+  top: 0;
   position: absolute;
   z-index: 1;
 }
