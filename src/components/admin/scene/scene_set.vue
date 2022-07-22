@@ -57,6 +57,7 @@ import scene_set from "./scene_set";
 export default {
   components:scene_set.components,
   data:scene_set.data,
+  beforeDestroy:scene_set.beforeDestroy,
   created:scene_set.created,
   destroyed:scene_set.destroyed,
   mounted:scene_set.mounted,

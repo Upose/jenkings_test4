@@ -16,17 +16,27 @@
               </div>
             </div>
           </el-form-item>
+          <el-form-item label="更换背景" prop="logo">
+          <div class="up-img-form-item">
+            <div class="up-img-warp" v-if="postForm_head.bgImg">
+              <img :src="fileUrl+postForm_head.bgImg">
+            </div>
+            <div class="up-img-warp up-icon" @click="upImg()">
+              <span>上传背景图</span>
+            </div>
+          </div>
+        </el-form-item>
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
-              <div class="btns-select-row" v-for="(it,i) in coumn_list1" :key="i+'b'">
+              <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
                 <el-select v-model="it.value" placeholder="请选择栏目">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
                 </el-select>
-                <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list1.length-1)!=i">
+                <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list.length-1)!=i">
                   <i class="iconfont el-icon-vip-jianhao1"></i>
                   <span>删除</span>
                 </div>
-                <div class="btns-el-btn" @click="addCoumn1" v-if="(coumn_list1.length-1)==i">
+                <div class="btns-el-btn" @click="addCoumn1" v-if="(coumn_list.length-1)==i">
                   <i class="iconfont el-icon-vip-tianjia1"></i>
                   <span>添加</span>
                 </div>
@@ -52,7 +62,7 @@ import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
   components: { UpdateImg },
-  props: [],
+  props: ['data'],
   mounted(){
     this.http.getPlain('template-list', 'Type=2&PageIndex=1&PageSize=100').then(res => {
       this.head_list = res.data.items || [];
@@ -68,7 +78,7 @@ export default {
       jsList: [{}],
       head_list: [],
       coumn_data_list: [],//栏目下拉选择列表
-      coumn_list1: [{ value: '' }],//新增删除栏目列表
+      coumn_list: [{ value: '' }],//新增删除栏目列表
       postForm_head: {},//头部表单
       fileUrl: window.localStorage.getItem('fileUrl'),
     }
@@ -87,24 +97,26 @@ export default {
     handleCloseImg(done) {
       done();
     },
-    //删除多栏目投递
-    removeCoumn1(index) {
-      this.coumn_list1.splice(index, 1);
-    },
-    //添加多栏目投递
-    addCoumn1() {
-      this.coumn_list1.push({ value: '' });
-    },
     /***x关闭按钮 **/
     handleClose(done) {
       this.$emit('hfHide');
     },
+    //删除多栏目投递
+    removeCoumn1(index) {
+      this.coumn_list.splice(index, 1);
+    },
+    //添加多栏目投递
+    addCoumn1() {
+      if(this.coumn_list.length==10)return;
+      this.coumn_list.push({ value: '' });
+    },
     /****保存头部设置信息*******/
     submitFormHead() {
       var list = [];
-      this.coumn_list1.forEach(item => {
+      this.coumn_list.forEach(item => {
         if (item.value) list.push(item.value)
       })
+      this.postForm_head[id] = this.data.id||'';
       this.postForm_head.displayNavColumn = list || [];
       this.http.postJson('head-template-settings-update', this.postForm_head).then(res => {
         this.$message({ type: 'success', message: '保存成功!' });

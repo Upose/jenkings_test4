@@ -4,7 +4,7 @@
 <template>
   <div class="tag-box">
     <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="800px" :close-on-click-modal="false" :before-close="handleClose">
-        <el-form label-width="70px" class="admin-form">
+      <el-form label-width="70px" class="admin-form">
         <el-form-item label="更换背景" prop="logo">
           <div class="up-img-form-item">
             <div class="up-img-warp" v-if="postForm_fot.logo">
@@ -14,6 +14,24 @@
               <span>上传背景图</span>
             </div>
           </div>
+        </el-form-item>
+        <el-form-item label="展示栏目">
+          <div class="btns-colse-warp">
+            <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
+              <el-select v-model="it.value" placeholder="请选择栏目">
+                <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
+              </el-select>
+              <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list.length-1)!=i">
+                <i class="iconfont el-icon-vip-jianhao1"></i>
+                <span>删除</span>
+              </div>
+              <div class="btns-el-btn" @click="addCoumn1" v-if="(coumn_list.length-1)==i">
+                <i class="iconfont el-icon-vip-tianjia1"></i>
+                <span>添加</span>
+              </div>
+            </div>
+          </div>
+          <!-- <p class="hint">栏目展示在顶部</p> -->
         </el-form-item>
         <div class="form-set-content">
           <el-form-item label="底部信息" prop="defaultTemplate">
@@ -36,13 +54,15 @@
 import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
-  props:[],
+  props: ['data'],
   components: { UpdateImg },
   beforeDestroy() {
-    // 销毁组件前销毁编辑器
-    window.tinymce.get('mytextarea').destroy();
+    window.tinymce.get('mytextarea').destroy();// 销毁组件前销毁编辑器
   },
-  mounted(){
+  created() {
+
+  },
+  mounted() {
     //tinymce 编辑器
     setTimeout(() => {
       tinymce.init({
@@ -57,11 +77,11 @@ export default {
           this.handleImgUpload(blobInfo, success, failure)
         }
       });
-      tinymce.activeEditor.on('paste', function(e) {
+      tinymce.activeEditor.on('paste', function (e) {
         setTimeout(() => {
           var html = null;
-          e.path.forEach(item=>{
-            if(item.tagName == 'body' || item.tagName=='BODY'){
+          e.path.forEach(item => {
+            if (item.tagName == 'body' || item.tagName == 'BODY') {
               html = item.innerHTML;
               var img_data = [];
               html.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, function (match, capture) {
@@ -74,15 +94,17 @@ export default {
         }, 50);
       });
     }, 100);
-    
+
     // tinymce.activeEditor.setContent(this.postForm.content)
     // tinyMCE.activeEditor.getContent()||'';//获取富文本信息
   },
   data() {
     return {
-      dialogBulk:true,//模板选择
+      dialogBulk: true,//模板选择
       dialogUPimg: false,//图片上传
-      postForm_fot:{},
+      postForm_fot: {},
+      coumn_data_list: [],//栏目下拉选择列表
+      coumn_list: [{ value: '' }],//新增删除栏目列表
       fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
@@ -100,8 +122,18 @@ export default {
     handleCloseImg(done) {
       done();
     },
+    //删除多栏目投递
+    removeCoumn1(index) {
+      this.coumn_list.splice(index, 1);
+    },
+    //添加多栏目投递
+    addCoumn1() {
+      if(this.coumn_list.length==3)return;
+      this.coumn_list.push({ value: '' });
+    },
     /****保存底部设置信息*******/
     submitFormFot() {
+      this.postForm_fot[id] = this.data.id || '';
       this.http.postJson('foot-template-settings-update', this.postForm_fot).then(res => {
         this.$message({ type: 'success', message: '保存成功!' });
         this.postForm_fot = {};
@@ -123,38 +155,44 @@ export default {
 @import "../../../../assets/admin/css/form.less";
 /***js路径 */
 .input-btns {
-    width: 100% !important;
+  width: 100% !important;
 
-    .el-input-group {
-        width: calc(100% - 40px) !important;
-    }
+  .el-input-group {
+    width: calc(100% - 40px) !important;
+  }
+}
+.btns-colse-warp {
+  width: 690px !important;
+}
+.el-select {
+  width: 613px !important;
 }
 .up-btn {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
+  width: 80px;
+  height: 38px;
+
+  span,
+  input {
+    position: absolute;
     width: 80px;
-    height: 38px;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 
-    span,
-    input {
-        position: absolute;
-        width: 80px;
-        height: 100%;
-        top: 0;
-        left: 0;
-    }
+  input {
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+  }
 
-    input {
-        cursor: pointer;
-        z-index: 2;
-        opacity: 0;
-    }
-
-    span {
-        cursor: pointer;
-        line-height: 38px;
-        text-align: center;
-        z-index: 1;
-    }
+  span {
+    cursor: pointer;
+    line-height: 38px;
+    text-align: center;
+    z-index: 1;
+  }
 }
 </style>

@@ -1,3 +1,4 @@
+var rxjs = window.rxjs;
 var admin_vue = null;
 import Sortable from "sortablejs";//拖拽更换屏顺序插件
 import serviceLMenu from "@/components/admin/common/serviceLMenu";//菜单
@@ -11,40 +12,14 @@ import scalingPage from "@/components/admin/common/scaling";//缩放
 export default {
   name: 'index',
   components:{serviceLMenu,scalingPage,topSelect,leftCheck,rightCheck},
+  beforeDestroy() {
+    document.removeEventListener('click',this.documentFun)
+  },
   created(){
     this.$root.collapse = true;//默认不展开左侧导航栏目菜单
 
     admin_vue = this;
-    //监听事件
-    document.addEventListener("click",function(e){//点击元素准备修改的时候，需要在当前元素添加一个class，并且移出其他兄弟元素的class
-      if(e.target.className == 'jl_vip_zt_del'){//删除按钮
-        if(e.target.parentNode.parentNode.parentNode){
-          admin_vue.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
-        }
-      }
-      if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
-        if(e.target.className.indexOf('head')>-1){
-          console.log('选择的头部');
-          admin_vue.$refs.rightCheck_ref.getHFlist('header');
-          admin_vue.removeActiveClass('head');
-        }else if(e.target.className.indexOf('foot')>-1){
-          console.log('选择的底部');
-          admin_vue.$refs.rightCheck_ref.getHFlist('foot');
-          admin_vue.removeActiveClass('foot');
-        }else{
-          console.log('选择的组件');
-          e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
-          var cu_id = e.target.parentNode.dataset.id;//当前元素的id
-          admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
-          var appid = e.target.dataset.appid;//应用id
-          var appwidgetid = e.target.dataset.appwidgetid;//模板id
-          var set_list = e.target.dataset.set;//设置的配置参数
-          admin_vue.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
-        }
-        
-        
-      }
-    });
+    document.addEventListener("click",this.documentFun);
   },
   mounted(){
     if(this.id){
@@ -120,6 +95,33 @@ export default {
     }
   },
   methods:{
+    documentFun(e){
+      if(e.target.className == 'jl_vip_zt_del'){//删除按钮
+        if(e.target.parentNode.parentNode.parentNode){
+          admin_vue.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
+        }
+      }
+      if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
+        if(e.target.className.indexOf('head')>-1){
+          console.log('选择的头部');
+          admin_vue.$refs.rightCheck_ref.getHFlist('header');
+          admin_vue.removeActiveClass('head');
+        }else if(e.target.className.indexOf('foot')>-1){
+          console.log('选择的底部');
+          admin_vue.$refs.rightCheck_ref.getHFlist('foot');
+          admin_vue.removeActiveClass('foot');
+        }else{
+          console.log('选择的组件');
+          e.target.setAttribute('class','mask-layer mask-layer-active');//设置选中样式
+          var cu_id = e.target.parentNode.dataset.id;//当前元素的id
+          admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
+          var appid = e.target.dataset.appid;//应用id
+          var appwidgetid = e.target.dataset.appwidgetid;//模板id
+          var set_list = e.target.dataset.set;//设置的配置参数
+          admin_vue.getAppDetails({'id':appid,'temp_id':appwidgetid,'is_add':false,'set_list':set_list});
+        }
+      }
+    },
     //获取应用列表
     setAppsList(list){
       this.appsList = list;

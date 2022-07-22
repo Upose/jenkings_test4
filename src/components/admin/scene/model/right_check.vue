@@ -23,9 +23,9 @@
           <div class="select-type">
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="model-set-w r-model-w c-l">
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" @click="footSetShow()">底部高级设置</el-button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" @click="headSetShow()">头部高级设置</el-button>
-                <div v-if="template_check" class="up-img w100" :style="{'background-image':'url('+''+')'}">
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
+                <div v-if="template_check && !is_hf" class="up-img w100" :style="{'background-image':'url('+''+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                 </div>
@@ -107,6 +107,7 @@ export default {
   methods: {
     //获取头部底部模板
     getHFlist(val){
+      this.availableConfig = '';
       this.is_hf = val;
       this.http.getPlain_url('app-widget-list-by-app-id', '/' + val).then(res => {
         this.template_list = res.data || [];
