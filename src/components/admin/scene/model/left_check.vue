@@ -81,7 +81,7 @@
 <script>
 export default {
   name: 'index',
-  props:['dataList'],
+  props:['dataList','handles','postForm'],
   watch: {
     dataList: {
       deep: true,  // 深度监听
@@ -93,7 +93,7 @@ export default {
           this.layoutClick(newVal.sceneLayout[0],true);
         }
       }
-    }
+    },
   },
   created(){
     // layout-options

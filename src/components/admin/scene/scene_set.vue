@@ -42,7 +42,7 @@
         </div><!--中间内容 end-->
 
 
-        <rightCheck ref="rightCheck_ref" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+        <rightCheck ref="rightCheck_ref" :handles="handles" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
 
         <footerSet v-if="footerSet"></footerSet><!--底部高级设置-->
 

@@ -25,9 +25,11 @@ export default {
       if(e.target.className.indexOf('mask-layer')>-1){//单击场景中的模板
         if(e.target.className.indexOf('head')>-1){
           console.log('选择的头部');
+          admin_vue.$refs.rightCheck_ref.getHFlist('header');
           admin_vue.removeActiveClass('head');
         }else if(e.target.className.indexOf('foot')>-1){
           console.log('选择的底部');
+          admin_vue.$refs.rightCheck_ref.getHFlist('foot');
           admin_vue.removeActiveClass('foot');
         }else{
           console.log('选择的组件');
@@ -68,7 +70,7 @@ export default {
       id:this.$route.query.id,//场景id
       advanced:true,//高级设置
       footerSet:false,//底部设置
-      drag_width:1200,//用于-计算缩放的宽度，不得小于1200
+      drag_width:1200,//用于-计算缩放的宽度，不得小于1200，这里取的模板宽度
       drag_height:500,//最低高度
       ratio_num:1,//缩放比例
       appsList:[],//应用列表
@@ -111,6 +113,10 @@ export default {
         // cellWidth:10,
         cellHeightThrottle:100,
       },
+      //////////////////////新参数////////////////////////////////////////////////////////////////
+      handles:{
+        hf_option:null,//参数：header-头部，foot-底部
+      },//操作参数，如点击头部底部等，触发子页面值
     }
   },
   methods:{

@@ -23,9 +23,9 @@
           <div class="select-type">
             <h2 class="s-title bor-botm">设置内容</h2>
             <div class="model-set-w r-model-w c-l">
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="footSetShow()">底部高级设置</el-button>
-                <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="headSetShow()">头部高级设置</el-button>
-                <div class="up-img w100" :style="{'background-image':'url('+''+')'}">
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" @click="footSetShow()">底部高级设置</el-button>
+                <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" @click="headSetShow()">头部高级设置</el-button>
+                <div v-if="template_check&&!is_hf" class="up-img w100" :style="{'background-image':'url('+''+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                 </div>
@@ -75,10 +75,12 @@ import footerSet from "./footerSet";//底部设置
 export default {
   name: 'index',
   mounted() { },
+  props:['postForm'],
   components:{headerSet,footerSet},
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
+      is_hf:null,//是否头部底部组件 有值为头部底部，无值为应用组件
       apps_name: '',//应用名称
       headerSet:false,
       footerSet:false,
@@ -103,6 +105,18 @@ export default {
   },
 
   methods: {
+    //获取头部底部模板
+    getHFlist(val){
+      this.is_hf = val;
+      this.http.getPlain_url('app-widget-list-by-app-id', '/' + val).then(res => {
+        this.template_list = res.data || [];
+        if(val=='foot'){
+          this.template_check = this.postForm.footerTemplate.id||'';
+        }else{
+          this.template_check = this.postForm.headerTemplate.id||'';
+        }
+      })
+    },
     //显示当前组件属于哪个应用
     setAppsName(val) {
       this.apps_name = val;
@@ -114,6 +128,7 @@ export default {
     },
     //应用详情
     appDetails(val) {
+      this.is_hf = null;
       var _this = this;
       _this.is_add = val.is_add;
       //获取应用组件列表 /{appid}
