@@ -42,12 +42,15 @@ export default {
         'foot-template-settings-update': baseURL + '/api/header-footer/foot-template-settings-update', //更新底部模板高级设置项
         'foot-template-settings-add': baseURL + '/api/header-footer/foot-template-settings-add', //新增底部模板高级设置项
         'nav-column-list': baseURL + '/api/header-footer/nav-column-list', //获取栏目列表
-        'getcurrentappinfo': baseURL_apps + '/api/baseinfo/getcurrentappinfo',//获取应用名称和版本号
+        
+        //新接口
+        'layout-options':baseURL + '/api/scene-manage/scene-layout-options',//获取场景编辑下的-布局、模板、主题色
 
         //权限及头部
         'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单
         'getbaseinfo': baseURL_apps + '/api/baseinfo/getbaseinfo',//获取当前用户机构基础信息
         'getuserapppermission': baseURL_apps + '/api/baseinfo/getuserapppermission',//判断用户对指定应用是否有使用权限(前台)
         'getuserapppermissiontype': baseURL_apps + '/api/baseinfo/getuserapppermissiontype',//根据userkey获取指定应用的权限类型
+        'getcurrentappinfo': baseURL_apps + '/api/baseinfo/getcurrentappinfo',//获取应用名称和版本号
     },
 }

@@ -203,5 +203,7 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "../../../assets/admin/css/case/case.less";
-
+.row-list{
+  max-height: inherit !important;
+}
 </style>

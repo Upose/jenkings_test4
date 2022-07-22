@@ -95,6 +95,12 @@ export default {
       }
     }
   },
+  created(){
+    // layout-options
+    this.http.getPlain('layout-options','').then(res=>{
+      console.log(res.data.sceneLayout);
+    })
+  },
   data () {
     return {
       id:this.$route.query.id,
@@ -111,8 +117,6 @@ export default {
       apps_list_all:[],//应用列表-总列表
       fileUrl: window.localStorage.getItem('fileUrl'),
     }
-  },
-  mounted(){
   },
   methods:{
     //设置详情
