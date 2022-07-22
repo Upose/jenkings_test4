@@ -126,6 +126,21 @@ export default {
       this.right_fold = !this.right_fold;
       this.$emit("update:right_fold", this.right_fold);
     },
+    //更新头尾（注意：这里还差一个判断，已经加载过的js和css文件不要重复加载）
+    updateHF(){
+      var jlist = {};
+      if(this.is_hf == 'foot'){
+        jlist = this.postForm.footerTemplate
+      }else{
+        jlist = this.postForm.headerTemplate
+      }
+      this.addStyle(jlist.router+'/component.css');
+      this.addScript(jlist.router+'/component.js');
+      if(window[jlist.templateCode]){
+        window[jlist.templateCode]();
+        this.$forceUpdate();
+      }
+    },
     //应用详情
     appDetails(val) {
       this.is_hf = null;
@@ -163,9 +178,32 @@ export default {
     },
     //选择某个模板
     appsTemplate(val, isAdd) {
-      // console.log('right',val,isAdd);
+      if(this.template_check == val.id)return;
       this.template_check = val.id;
+      
+      if(this.is_hf){
+        var obj = {};
+        if(this.is_hf=='foot'){
+          this.postForm.footerTemplate
+        }else{
+          this.postForm.headerTemplate
+        }
+        obj.id = val.id;
+        obj.router = val.target;
+        obj.templateCode = val.widgetCode;
 
+        if(this.is_hf=='foot'){
+          this.postForm.footerTemplate = obj;
+          document.getElementById('jl_vip_zt_footer_warp').innerHTML='<div id="jl_vip_zt_footer"></div>';
+        }else{
+          this.postForm.headerTemplate = obj;
+          document.getElementById('jl_vip_zt_header_warp').innerHTML='<div id="jl_vip_zt_header"></div>';
+        }
+        setTimeout(() => {
+          this.updateHF();
+        }, 100);
+        return;
+      }
       this.availableConfig = val.availableConfig;//有哪几项设置
       this.sortList = val.sortList;//排序
       if (this.set_list[0] && !this.set_list[0].sortType) {

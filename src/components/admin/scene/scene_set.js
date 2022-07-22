@@ -587,6 +587,10 @@ export default {
         console.log(err);
       })
     },
+    //刷新页面
+    refreshPage(){
+      this.$forceUpdate();
+    },
     //加载头部底部
     loadHeadFoot(){
         console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);

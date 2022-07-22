@@ -12,7 +12,7 @@
           <el-form-item label="应用场景" prop="status">
             <el-radio-group v-model="postForm.status">
               <el-radio :label="1" >当前场景</el-radio>
-              <el-radio :label="0" >全局场景</el-radio>
+              <el-radio :label="0" >全局应用</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="JS路径" prop="visitUrl">

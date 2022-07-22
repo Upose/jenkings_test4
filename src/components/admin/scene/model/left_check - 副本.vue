@@ -96,20 +96,15 @@ export default {
     },
   },
   created(){
-    //获取模板等信息
+    // layout-options
     this.http.getPlain('layout-options','').then(res=>{
       console.log(res.data.sceneLayout);
-      this.allList = res.data.sceneLayout||[];
-      if(this.allList.length>0)this.cu_options = this.allList[0];
     })
   },
   data () {
     return {
-      allList:[],
-      cu_options:{},
-
       id:this.$route.query.id,
-      left_fold:false,//开启关闭左侧菜单
+      left_fold:false,
       layoutId:'',//布局
       templateId:'',//模板
       themeColor:'template1',//颜色模板
@@ -141,7 +136,11 @@ export default {
       this.themeColor = val.value;
       this.$emit('setTheme',val.value);
     },
-    
+    /***左边折叠 */
+    leftFold(){
+      this.left_fold = !this.left_fold;
+      this.$emit("update:left_fold",this.left_fold);
+    },
     //选择布局
     layoutClick(val,is_add){//is_add:true为第一次
       if(!is_add &&this.id){
@@ -169,31 +168,6 @@ export default {
       // console.log(val);
       this.templateId = val.id;
       this.$emit('templateClick',{list:val,isadd:is_add})
-    },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /***左边折叠 */
-    leftFold(){
-      this.left_fold = !this.left_fold;
-      this.$emit("update:left_fold",this.left_fold);
     },
     //应用选择-服务类型点击事件 index 应用分组的下标
     serveClick(index){ 
