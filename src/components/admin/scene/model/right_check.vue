@@ -25,9 +25,15 @@
             <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
-                <div v-if="template_check && !is_hf" class="up-img w100" :style="{'background-image':'url('+''+')'}">
+                <div v-if="template_check && !is_hf" class="up-img w100" :style="{'background-image':'url('+(configParameter.bgImg||'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                </div>
+                <div class="row-switch" v-if="template_check && !is_hf">
+                  <span class="title">组件全屏：</span>
+                  <el-tooltip class="item" effect="dark" content="组件宽度为全屏时此设置生效" placement="top">
+                    <el-switch :active-value="1" :inactive-value="0" v-model="configParameter.fullScreen"></el-switch>
+                  </el-tooltip>
                 </div>
             </div><!--组件配置 end-->
 
@@ -81,6 +87,7 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       is_hf:null,//是否头部底部组件 有值为头部底部，无值为应用组件
+      configParameter:{},//组件背景+是否全屏展示
       apps_name: '',//应用名称
       headerSet:false,
       footerSet:false,
@@ -92,7 +99,6 @@ export default {
       appPlateList: [],//栏目列表
       template_list: [],//模板列表
       template_check: '',//选择的模板id
-
       set_list: [ //这里为了渲染有哪几栏，有哪些设置参数
         {
           topCount: '',//数据条数-（需要参数）
