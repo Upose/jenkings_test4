@@ -98,7 +98,7 @@ export default {
           topCount: '',//数据条数-（需要参数）
           sortType: '',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
           id: '',//应用栏目标识 -（需要参数）
-          orderIndex: 1,
+          orderIndex: 1,//排序标识
         }
       ],
     }
