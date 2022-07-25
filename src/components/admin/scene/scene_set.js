@@ -455,37 +455,17 @@ export default {
     saveTempSet(val){
       this.apps_set_list[val.divId] = val.list||[];
     },
-    //设置主题颜色
-    setTheme(val){
-      this.postForm.themeColor=val;
-    },
-    //选择布局
-    layoutClick(val){
-      this.postForm.layoutId = val.value;
-    },
     //选择模板-左边
     templateClick(val){
-      if(val.isadd){
-        this.postForm.template=val.list||{};
-        this.postForm.templateId=val.list.id||'';
-        this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
-        this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
-      }else{
-        this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
-          confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
-        }).then(() => {
-          this.postForm.template=val.list||{};
-          this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
-          this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
-          if(this.grid){
-            this.grid.removeAll();
-          }
-          this.screen_list.forEach(item=>{
-            item['sceneApps'] = [];
-          })
-        })
+      this.postForm.template=val.list||{};
+      this.postForm.headerTemplate = val.list.defaultHeaderTemplate||{};
+      this.postForm.footerTemplate = val.list.defaultFooterTemplate||{};
+      if(this.grid){
+        this.grid.removeAll();
       }
-      
+      this.screen_list.forEach(item=>{
+        item['sceneApps'] = [];
+      })
     },
     //设置头部底部
     setHFooter(val){
@@ -598,11 +578,14 @@ export default {
     },
     //加载头部底部
     loadHeadFoot(){
-        console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);
+        // console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);
         this.addStyle(this.postForm.footerTemplate.router+'/component.css');
         this.addScript(this.postForm.footerTemplate.router+'/component.js');
         this.addStyle(this.postForm.headerTemplate.router+'/component.css');
         this.addScript(this.postForm.headerTemplate.router+'/component.js');
-    }
+    },
+    sub(){
+      console.log(this.postForm)
+    },
   },
 }

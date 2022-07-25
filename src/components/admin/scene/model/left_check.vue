@@ -7,8 +7,8 @@
             <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1>
             <el-collapse v-model="activeCollapse" class="drag-collapse">
               <el-collapse-item title="请选择布局" name="1">
-                <div class="drag-box-width" v-for="i in (dataList.sceneLayout||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
-                  <div class="drag-box" :class="layoutId==i.value?'box-active':''" :title="i.key">
+                <div class="drag-box-width" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
+                  <div class="drag-box" :class="postForm.layoutId==i.value?'box-active':''" :title="i.key">
                     <img :src="fileUrl+i.icon" class="img-cover">
                     <span class="d-b-txt">{{i.key||'暂无'}}</span>
                   </div>
@@ -25,8 +25,8 @@
               </el-collapse-item><!--模板 end-->
 
               <el-collapse-item title="请选择主题色" name="3">
-                <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((dataList.sceneThemeColor||[]))">
-                  <div class="drag-box" :class="themeColor==i.value?'box-active':''" :title="i.key">
+                <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
+                  <div class="drag-box" :class="(postForm.themeColor||'template1')==i.value?'box-active':''" :title="i.key">
                     <img :src="fileUrl+i.icon" class="img-cover">
                     <span class="d-b-txt">{{i.key||'暂无'}}</span>
                   </div>
@@ -98,25 +98,21 @@ export default {
   created(){
     //获取模板等信息
     this.http.getPlain('layout-options','').then(res=>{
-      console.log(res.data.sceneLayout);
       this.allList = res.data.sceneLayout||[];
-      if(this.allList.length>0)this.cu_options = this.allList[0];
+      this.initLeftData();
     })
   },
   data () {
     return {
       allList:[],
-      cu_options:{},
-
       id:this.$route.query.id,
       left_fold:false,//开启关闭左侧菜单
-      layoutId:'',//布局
       templateId:'',//模板
-      themeColor:'template1',//颜色模板
       serve_name:'',//应用类型-选择的名称
       appId:'',//当前应用
       activeCollapse:['1','2','3','4'],//左边折叠的数量
       sceneTemplate:[],//模板列表
+      sceneThemeColor:[],//颜色列表
       apps_list:[],//应用列表
       apps_list_index:0,//应用列表-下标
       apps_list_all:[],//应用列表-总列表
@@ -126,11 +122,30 @@ export default {
   methods:{
     //设置详情
     setDatils(val){
-      this.layoutId = val.layoutId;
-      this.layoutClick({value:val.layoutId},true);
-      this.templateId = val.template?val.template.id:'';
-      this.themeColor = val.themeColor;
+      this.templateId = (val.template&&val.template.id)?val.template.id:'';
+      this.initLeftData();
       this.$forceUpdate();
+    },
+    //初始化数据
+    initLeftData(){
+      if(this.templateId){ //表示编辑状态
+        var s1 = this.allList.filter(x=>x.value == this.postForm.layoutId);
+        if(s1 && s1.length>0){
+          this.sceneTemplate = s1[0].sceneTemplate||[];
+          var s2 = this.sceneTemplate.filter(y=>y.id == this.templateId);
+          if(s2 && s2.length>0){
+            console.log(s1,s2);
+            this.sceneThemeColor = s2[0].sceneThemeColor||[];
+          }
+        }
+      }else{ //表示新增状态
+        if(this.allList.length>0){
+          if(this.allList[0] && this.allList[0].sceneTemplate && this.allList[0].sceneTemplate.length>0){
+            this.sceneTemplate = this.allList[0].sceneTemplate||[];
+            this.$forceUpdate();
+          }
+        };
+      }
     },
     //菜单名称输入事件
     menuInput(e){
@@ -138,37 +153,38 @@ export default {
     },
     //设置主题色
     setTheme(val){
-      this.themeColor = val.value;
-      this.$emit('setTheme',val.value);
+      this.postForm.themeColor=val.value;
     },
-    
     //选择布局
     layoutClick(val,is_add){//is_add:true为第一次
       if(!is_add &&this.id){
         this.$message({message: '场景修改状态下，布局不能改变',type:'info'});
         return;
       }
-      this.layoutId = val.value;
-      this.$emit('layoutClick',val);
-      this.getTemplate(val.value);
-    },
-    //获取模板列表
-    getTemplate(id){
-      this.http.getPlain('template-list','LayoutId='+id+'&Type=1&PageIndex=1&PageSize=100').then(res=>{
-        this.sceneTemplate = res.data.items||[];
-        if(this.sceneTemplate.length>0 && this.templateId==''){//表示第一次进入
-          this.templateId = this.sceneTemplate[0].id;
-          this.templateClick(this.sceneTemplate[0],true);
-        }
-      }).catch(err=>{
-
-      })
+      this.sceneTemplate = val.sceneTemplate||[];
+      this.postForm.layoutId = val.value;
     },
     //选择模板
     templateClick(val,is_add){
-      // console.log(val);
-      this.templateId = val.id;
-      this.$emit('templateClick',{list:val,isadd:is_add})
+      if(this.templateId=='' && !this.templateId){
+        this.sceneThemeColor = val.sceneThemeColor||[];
+        this.templateId = val.id;
+        if(this.sceneThemeColor.length>0){
+          this.postForm.themeColor = this.sceneThemeColor[0].value||'template1';
+        }
+        this.$emit('templateClick',{list:val,isadd:is_add})
+      }else{
+        this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
+          confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
+        }).then(() => {
+          this.sceneThemeColor = val.sceneThemeColor||[];
+          this.templateId = val.id;
+          if(this.sceneThemeColor.length>0){
+            this.postForm.themeColor = this.sceneThemeColor[0].value||'template1';
+          }
+          this.$emit('templateClick',{list:val,isadd:is_add})
+        });
+      }
     },
 
 

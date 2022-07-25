@@ -6,13 +6,14 @@
 -->
 <template>
   <div class="tag-box">
-    <el-dialog append-to-body title="高级设置" :visible.sync="dialogBulk" width="600px" :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog append-to-body title="高级设置" :visible.sync="dialogBulk" width="700px" :close-on-click-modal="false" :before-close="handleClose">
         <el-form label-width="70px" class="admin-form">
         <div class="form-set-content">
-          <el-form-item label="应用场景" prop="status">
+          <!--postForm.isSystemScene:默认场景 postForm.sceneType==1：门户首页 -->
+          <el-form-item label="应用场景" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
             <el-radio-group v-model="postForm.status">
-              <el-radio :label="1" >当前场景</el-radio>
-              <el-radio :label="0" >全局应用</el-radio>
+              <el-radio :label="0" >当前场景</el-radio>
+              <el-radio :label="1" >全局应用</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="JS路径" prop="visitUrl">
@@ -38,7 +39,7 @@
             </div>
           </el-form-item>
           <el-form-item class="m-center">
-            <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormFot()">保存</el-button>
+            <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormJs()">保存</el-button>
           </el-form-item>
         </div>
       </el-form>
@@ -50,11 +51,10 @@
 <script>
 export default {
   name: 'index',
-  props:[],
+  props:['postForm'],
   data() {
     return {
         dialogBulk:true,//模板选择
-        postForm:{},
         jsList:[{}],
         fileUrl: window.localStorage.getItem('fileUrl'),
     }
@@ -71,6 +71,10 @@ export default {
         return;
       }
       this.jsList.push({ value: '' });
+    },
+    //保存设置
+    submitFormJs(){
+
     },
     //文件上传
     handleFileJS(e) {

@@ -64,8 +64,13 @@ export default {
     //设置比例
     setRatio(val){
       if(val>0.3){
-        this.$emit("update:ratio_num",val);
-        this.proportion = val*100;
+        if(val>1){
+          this.$emit("update:ratio_num",1);
+          this.proportion = 100;
+        }else{
+          this.$emit("update:ratio_num",val);
+          this.proportion = val*100;
+        }
       }
     },
   },
