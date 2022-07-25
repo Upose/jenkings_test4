@@ -81,7 +81,7 @@
 <script>
 export default {
   name: 'index',
-  props:['dataList','handles','postForm'],
+  props:['dataList','postForm'],
   watch: {
     dataList: {
       deep: true,  // 深度监听

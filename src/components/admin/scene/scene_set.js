@@ -89,10 +89,6 @@ export default {
         cellHeight: 10,
         cellHeightThrottle:100,
       },
-      //////////////////////新参数////////////////////////////////////////////////////////////////
-      handles:{
-        hf_option:null,//参数：header-头部，foot-底部
-      },//操作参数，如点击头部底部等，触发子页面值
     }
   },
   methods:{
