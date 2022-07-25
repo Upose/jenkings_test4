@@ -167,24 +167,23 @@ export default {
     //选择模板
     templateClick(val,is_add){
       if(this.templateId=='' && !this.templateId){
-        this.sceneThemeColor = val.sceneThemeColor||[];
-        this.templateId = val.id;
-        if(this.sceneThemeColor.length>0){
-          this.postForm.themeColor = this.sceneThemeColor[0].value||'template1';
-        }
-        this.$emit('templateClick',{list:val,isadd:is_add})
+        this.templateLoad(val,is_add);
       }else{
         this.$confirm('此操作将清空现有布局, 是否继续?', '提示', {
           confirmButtonText: '确定',cancelButtonText: '取消',type: 'warning'
         }).then(() => {
-          this.sceneThemeColor = val.sceneThemeColor||[];
-          this.templateId = val.id;
-          if(this.sceneThemeColor.length>0){
-            this.postForm.themeColor = this.sceneThemeColor[0].value||'template1';
-          }
-          this.$emit('templateClick',{list:val,isadd:is_add})
+          this.templateLoad(val,is_add);
         });
       }
+    },
+    //模板数据渲染
+    templateLoad(val,is_add){
+      this.sceneThemeColor = val.sceneThemeColor||[];
+      this.templateId = val.id;
+      if(this.sceneThemeColor.length>0){
+        this.postForm.themeColor = this.sceneThemeColor[0].value||'template1';
+      }
+      this.$emit('templateClick',{list:val,isadd:is_add})
     },
 
 
