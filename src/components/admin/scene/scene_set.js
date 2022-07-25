@@ -25,7 +25,10 @@ export default {
       this.getDetails();
     }
     document.getElementsByTagName("body")[0].setAttribute('class',(window.localStorage.getItem('template')||'template1'));//颜色初始化
-    this.initGrid();
+    setTimeout(() => {
+      this.initGrid();
+      this.loadHeadFoot();
+    }, 500);
     this.initData();
     this.setHeight(document.body.clientHeight-104);
     this.$nextTick(()=>{
@@ -139,7 +142,6 @@ export default {
       this.http.getPlain_url('scene-detail','/'+this.id).then(res=>{
         if(res.data){
           this.detailsRender(res.data);
-          this.loadHeadFoot();
         }
       }).catch(err=>{})
     },
@@ -572,11 +574,14 @@ export default {
     },
     //加载头部底部
     loadHeadFoot(){
-        console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);
-        this.addStyle(this.postForm.footerTemplate.router+'/component.css');
-        this.addScript(this.postForm.footerTemplate.router+'/component.js');
-        this.addStyle(this.postForm.headerTemplate.router+'/component.css');
-        this.addScript(this.postForm.headerTemplate.router+'/component.js');
+        if(this.postForm.footerTemplate && this.postForm.footerTemplate.router){
+          this.addStyle(this.postForm.footerTemplate.router+'/component.css');
+          this.addScript(this.postForm.footerTemplate.router+'/component.js');
+        }
+        if(this.postForm.headerTemplate && this.postForm.headerTemplate.router){
+          this.addStyle(this.postForm.headerTemplate.router+'/component.css');
+          this.addScript(this.postForm.headerTemplate.router+'/component.js');
+        }
     },
     sub(){
       console.log(this.postForm)

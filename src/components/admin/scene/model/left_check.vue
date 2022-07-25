@@ -134,7 +134,6 @@ export default {
           this.sceneTemplate = s1[0].sceneTemplate||[];
           var s2 = this.sceneTemplate.filter(y=>y.id == this.templateId);
           if(s2 && s2.length>0){
-            console.log(s1,s2);
             this.sceneThemeColor = s2[0].sceneThemeColor||[];
           }
         }

@@ -201,10 +201,10 @@ export default {
 
         if(this.is_hf=='foot'){
           this.postForm.footerTemplate = obj;
-          document.getElementById('jl_vip_zt_footer_warp').innerHTML='<div id="jl_vip_zt_footer"></div>';
+          document.getElementById('jl_vip_zt_footer_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
         }else{
           this.postForm.headerTemplate = obj;
-          document.getElementById('jl_vip_zt_header_warp').innerHTML='<div id="jl_vip_zt_header"></div>';
+          document.getElementById('jl_vip_zt_header_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
         }
         setTimeout(() => {
           this.updateHF();
