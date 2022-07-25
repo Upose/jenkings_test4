@@ -6,6 +6,12 @@
     <el-dialog append-to-body title="头部高级设置" :visible.sync="dialogBulk" width="630px" :close-on-click-modal="false" :before-close="handleClose">
       <el-form label-width="90px" class="admin-form">
         <div class="form-set-content">
+          <el-form-item label="更换背景" prop="logo">
+            <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.bgImg||'')+')'}">
+              <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+            </div>
+          </el-form-item>
           <el-form-item label="更换LOGO" prop="logo">
             <div class="up-img-form-item">
               <div class="up-img-warp" v-if="postForm_head.logo">
@@ -16,16 +22,6 @@
               </div>
             </div>
           </el-form-item>
-          <el-form-item label="更换背景" prop="logo">
-          <div class="up-img-form-item">
-            <div class="up-img-warp" v-if="postForm_head.bgImg">
-              <img :src="fileUrl+postForm_head.bgImg">
-            </div>
-            <div class="up-img-warp up-icon" @click="upImg()">
-              <span>上传背景图</span>
-            </div>
-          </div>
-        </el-form-item>
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
               <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
@@ -118,6 +114,27 @@ export default {
       })
       
     },
+    //文件上传
+    handleFileJS(e) {
+      var _this = this;
+      let $target = e.target || e.srcElement
+      let file = $target.files[0]
+      if (!file) {
+        return
+      }
+      let formData = new FormData()
+      formData.append('files', file)
+      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
+        this.$message({ type: 'error', message: '请上传js文件!' });
+        return;
+      }
+      var index = parseInt(e.target.id.slice(5, 6));
+      this.http.postFile("UploadFile", formData).then((res) => {
+       console.log(res);
+      }).catch((err) => {
+        this.$message({ type: 'error', message: '上传失败!' });
+      });
+    },
   },
 }
 </script>
@@ -125,6 +142,7 @@ export default {
 <style lang="less" scoped>
 @import "../../../../assets/admin/css/color.less";
 @import "../../../../assets/admin/css/form.less";
+@import "./model.less";
 /***js路径 */
 .input-btns {
   width: 100% !important;
@@ -159,6 +177,12 @@ export default {
     line-height: 38px;
     text-align: center;
     z-index: 1;
+  }
+}
+.up-img{
+  margin-left: 0 !important;
+  span{
+    line-height: 14px !important;
   }
 }
 </style>

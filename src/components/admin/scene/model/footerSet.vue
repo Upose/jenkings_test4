@@ -6,15 +6,11 @@
     <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="800px" :close-on-click-modal="false" :before-close="handleClose">
       <el-form label-width="70px" class="admin-form">
         <el-form-item label="更换背景" prop="logo">
-          <div class="up-img-form-item">
-            <div class="up-img-warp" v-if="postForm_fot.logo">
-              <img :src="fileUrl+postForm_fot.logo">
+            <div class="up-img w100" :style="{'background-image':'url('+(postForm_fot.bgImg||'')+')'}">
+              <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
             </div>
-            <div class="up-img-warp up-icon" @click="upImg()">
-              <span>上传背景图</span>
-            </div>
-          </div>
-        </el-form-item>
+          </el-form-item>
         <el-form-item label="展示栏目">
           <div class="btns-colse-warp">
             <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
@@ -147,6 +143,27 @@ export default {
     handleClose(done) {
       this.$emit('hfHide');
     },
+    //文件上传
+    handleFileJS(e) {
+      var _this = this;
+      let $target = e.target || e.srcElement
+      let file = $target.files[0]
+      if (!file) {
+        return
+      }
+      let formData = new FormData()
+      formData.append('files', file)
+      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
+        this.$message({ type: 'error', message: '请上传js文件!' });
+        return;
+      }
+      var index = parseInt(e.target.id.slice(5, 6));
+      this.http.postFile("UploadFile", formData).then((res) => {
+       console.log(res);
+      }).catch((err) => {
+        this.$message({ type: 'error', message: '上传失败!' });
+      });
+    },
   },
 }
 </script>
@@ -194,6 +211,12 @@ export default {
     line-height: 38px;
     text-align: center;
     z-index: 1;
+  }
+}
+.up-img{
+  margin-left: 0 !important;
+  span{
+    line-height: 14px !important;
   }
 }
 </style>
