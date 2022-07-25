@@ -54,13 +54,17 @@
 import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
-  props: ['data'],
+  props: ['postForm'],
   components: { UpdateImg },
   beforeDestroy() {
     window.tinymce.get('mytextarea').destroy();// 销毁组件前销毁编辑器
   },
   created() {
-
+    this.http.getPlain('nav-column-list', '').then(res => {
+      this.coumn_data_list = res.data || [];
+    }).catch(err => {
+      this.$message({ type: 'error', message: '获取失败!' });
+    })
   },
   mounted() {
     //tinymce 编辑器
@@ -133,13 +137,10 @@ export default {
     },
     /****保存底部设置信息*******/
     submitFormFot() {
-      this.postForm_fot[id] = this.data.id || '';
-      this.http.postJson('foot-template-settings-update', this.postForm_fot).then(res => {
-        this.$message({ type: 'success', message: '保存成功!' });
-        this.postForm_fot = {};
-        this.fot_dialogBulk = false;
-      }).catch(err => {
-        this.$message({ type: 'error', message: '保存失败!' });
+      console.log(this.postForm);return;
+      var list = [];
+      this.coumn_list.forEach(item => {
+        if (item.value) list.push(item.value)
       })
     },
     /***x关闭按钮 **/

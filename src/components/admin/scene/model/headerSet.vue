@@ -62,10 +62,10 @@ import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
   components: { UpdateImg },
-  props: ['data'],
-  mounted(){
-    this.http.getPlain('template-list', 'Type=2&PageIndex=1&PageSize=100').then(res => {
-      this.head_list = res.data.items || [];
+  props: ['postForm'],
+  created(){
+    this.http.getPlain('nav-column-list', '').then(res => {
+      this.coumn_data_list = res.data || [];
     }).catch(err => {
       this.$message({ type: 'error', message: '获取失败!' });
     })
@@ -76,7 +76,6 @@ export default {
       dialogBulk: true,//模板选择
       dialogUPimg: false,//图片上传
       jsList: [{}],
-      head_list: [],
       coumn_data_list: [],//栏目下拉选择列表
       coumn_list: [{ value: '' }],//新增删除栏目列表
       postForm_head: {},//头部表单
@@ -112,19 +111,12 @@ export default {
     },
     /****保存头部设置信息*******/
     submitFormHead() {
+      console.log(this.postForm);return;
       var list = [];
       this.coumn_list.forEach(item => {
         if (item.value) list.push(item.value)
       })
-      this.postForm_head[id] = this.data.id||'';
-      this.postForm_head.displayNavColumn = list || [];
-      this.http.postJson('head-template-settings-update', this.postForm_head).then(res => {
-        this.$message({ type: 'success', message: '保存成功!' });
-        this.postForm_head = {};
-        this.top_dialogBulk = false;
-      }).catch(err => {
-        this.$message({ type: 'error', message: '保存失败!' });
-      })
+      
     },
   },
 }

@@ -44,8 +44,6 @@
 
         <rightCheck ref="rightCheck_ref" :handles="handles" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
 
-        <footerSet v-if="footerSet"></footerSet><!--底部高级设置-->
-
        </div>
       </el-main>
     </el-container>

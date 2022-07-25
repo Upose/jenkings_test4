@@ -31,7 +31,7 @@
                 </div>
                 <div class="row-switch" v-if="template_check && !is_hf">
                   <span class="title">组件全屏：</span>
-                  <el-tooltip class="item" effect="dark" content="组件宽度为全屏时此设置生效" placement="top">
+                  <el-tooltip class="item" effect="dark" content="组件宽度为100%时此设置生效" placement="top">
                     <el-switch :active-value="1" :inactive-value="0" v-model="configParameter.fullScreen"></el-switch>
                   </el-tooltip>
                 </div>
@@ -69,8 +69,8 @@
       </div>
       <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
     </div>
-    <headerSet v-if="headerSet" @hfHide="hfHide"></headerSet>
-    <footerSet v-if="footerSet" @hfHide="hfHide"></footerSet>
+    <headerSet v-if="headerSet" :postForm="postForm" @hfHide="hfHide" ></headerSet>
+    <footerSet v-if="footerSet" :postForm="postForm" @hfHide="hfHide"></footerSet>
   </div>
   <!--右边菜单 end-->
 </template>
@@ -279,8 +279,7 @@ export default {
       //将父级的jl_vip_zt_vray去除
       this.$emit('saveTempSet', { 'list': this.set_list, 'divId': divId });//这里还需要把内容存到要要提交的数据中
       if (val == 'edit') {
-        this.$message({ message: '设置成功', type: 'success' });
-        console.log('刷新');
+        //刷新
         setTimeout(() => {
           this.appDetails({ 'id': is_cu_temp[0].dataset.appid, 'temp_id': is_cu_temp[0].dataset.appwidgetid, 'is_add': false, 'set_list': JSON.stringify(this.set_list) });//设置成功，重新点击一次让模板刷新；
         }, 400);

@@ -1,4 +1,3 @@
-var rxjs = window.rxjs;
 var admin_vue = null;
 import Sortable from "sortablejs";//拖拽更换屏顺序插件
 import serviceLMenu from "@/components/admin/common/serviceLMenu";//菜单
@@ -84,8 +83,12 @@ export default {
         ],//分屏
       },
       opts: {//元素初始化高度
+        resizable: {
+          handles: 'e,se,s,sw,w'
+        },
         cellHeight: 10, 
-        // cellWidth:10,
+        // column:100,
+        // cellWidth:120,
         cellHeightThrottle:100,
       },
       //////////////////////新参数////////////////////////////////////////////////////////////////
