@@ -83,12 +83,10 @@ export default {
         ],//分屏
       },
       opts: {//元素初始化高度
-        resizable: {
-          handles: 'e,se,s,sw,w'
-        },
-        cellHeight: 10, 
-        // column:100,
-        // cellWidth:120,
+        // resizable: {
+        //   handles: 'e,se,s,sw,w'
+        // },
+        cellHeight: 10,
         cellHeightThrottle:100,
       },
       //////////////////////新参数////////////////////////////////////////////////////////////////
@@ -144,8 +142,8 @@ export default {
     getDetails(){
       this.http.getPlain_url('scene-detail','/'+this.id).then(res=>{
         if(res.data){
-            this.detailsRender(res.data);
-            this.loadHeadFoot();
+          this.detailsRender(res.data);
+          this.loadHeadFoot();
         }
       }).catch(err=>{})
     },
@@ -578,7 +576,7 @@ export default {
     },
     //加载头部底部
     loadHeadFoot(){
-        // console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);
+        console.log(this.postForm.footerTemplate,this.postForm.footerTemplate);
         this.addStyle(this.postForm.footerTemplate.router+'/component.css');
         this.addScript(this.postForm.footerTemplate.router+'/component.js');
         this.addStyle(this.postForm.headerTemplate.router+'/component.css');
