@@ -104,6 +104,7 @@ export default {
   },
   data () {
     return {
+      fileUrl: window.localStorage.getItem('fileUrl'),
       allList:[],
       id:this.$route.query.id,
       left_fold:false,//开启关闭左侧菜单
@@ -116,7 +117,6 @@ export default {
       apps_list:[],//应用列表
       apps_list_index:0,//应用列表-下标
       apps_list_all:[],//应用列表-总列表
-      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   methods:{
@@ -184,6 +184,7 @@ export default {
       }
       this.$emit('templateClick',{list:val,isadd:is_add})
     },
+
 
 
 
@@ -286,11 +287,10 @@ export default {
       }
       let formData = new FormData()
       formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
+      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG'&& file.type !== 'image/gif') {
+        this.$message({ type: 'error', message: '请上传图片文件!' });
         return;
       }
-      var index = parseInt(e.target.id.slice(5, 6));
       this.http.postFile("UploadFile", formData).then((res) => {
        console.log(res);
       }).catch((err) => {

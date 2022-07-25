@@ -4,7 +4,7 @@
     
     <template v-if="items && !isLock"><!--宽1200通用-->
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
-      <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px',width:items.template.width+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
+      <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
         <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
           <div :id="setId()"></div>
         </div>

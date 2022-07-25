@@ -6,7 +6,7 @@
     <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="800px" :close-on-click-modal="false" :before-close="handleClose">
       <el-form label-width="70px" class="admin-form">
         <el-form-item label="更换背景" prop="logo">
-            <div class="up-img w100" :style="{'background-image':'url('+(postForm_fot.bgImg||'')+')'}">
+            <div class="up-img w100" :style="{'background-image':'url('+fileUrl+(postForm_fot.footerBgImg||'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
               <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
             </div>
@@ -100,12 +100,16 @@ export default {
   },
   data() {
     return {
+      fileUrl: window.localStorage.getItem('fileUrl'),
       dialogBulk: true,//模板选择
       dialogUPimg: false,//图片上传
-      postForm_fot: {},
+      postForm_fot: {
+        footerBgImg:'',//背景图片
+        footerDisplayNavColumn:[],//栏目列表
+        content:'',
+      },
       coumn_data_list: [],//栏目下拉选择列表
       coumn_list: [{ value: '' }],//新增删除栏目列表
-      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   methods: {
@@ -133,11 +137,14 @@ export default {
     },
     /****保存底部设置信息*******/
     submitFormFot() {
-      console.log(this.postForm);return;
-      var list = [];
+      this.postForm_fot.footerDisplayNavColumn = [];
       this.coumn_list.forEach(item => {
-        if (item.value) list.push(item.value)
+        if (item.value) this.postForm_fot.footerDisplayNavColumn.push(item.value)
       })
+      this.postForm.footerTemplate.content = tinyMCE.activeEditor.getContent()||'';
+      this.postForm.footerTemplate.footerBgImg = this.postForm_fot.footerBgImg||'';
+      this.postForm.footerTemplate.footerDisplayNavColumn = this.postForm_fot.footerDisplayNavColumn||[];
+      this.$emit('hfHide');
     },
     /***x关闭按钮 **/
     handleClose(done) {
@@ -153,13 +160,12 @@ export default {
       }
       let formData = new FormData()
       formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
+      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG'&& file.type !== 'image/gif') {
+        this.$message({ type: 'error', message: '请上传图片文件!' });
         return;
       }
-      var index = parseInt(e.target.id.slice(5, 6));
       this.http.postFile("UploadFile", formData).then((res) => {
-       console.log(res);
+        this.postForm_fot.footerBgImg = res.data[0]||'';
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });
@@ -171,6 +177,7 @@ export default {
 <style lang="less" scoped>
 @import "../../../../assets/admin/css/color.less";
 @import "../../../../assets/admin/css/form.less";
+@import "./model.less";
 /***js路径 */
 .input-btns {
   width: 100% !important;

@@ -7,7 +7,7 @@
       <el-form label-width="90px" class="admin-form">
         <div class="form-set-content">
           <el-form-item label="更换背景" prop="logo">
-            <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.bgImg||'')+')'}">
+            <div class="up-img w100" :style="{'background-image':'url('+fileUrl+(postForm_head.headerBgImg||'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
               <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
             </div>
@@ -74,8 +74,11 @@ export default {
       jsList: [{}],
       coumn_data_list: [],//栏目下拉选择列表
       coumn_list: [{ value: '' }],//新增删除栏目列表
-      postForm_head: {},//头部表单
-      fileUrl: window.localStorage.getItem('fileUrl'),
+      postForm_head: {
+        headerBgImg:'',//头部背景
+        displayNavColumn:[],//栏目
+        logo:'',//logo
+      },//头部表单
     }
   },
   methods: {
@@ -107,12 +110,14 @@ export default {
     },
     /****保存头部设置信息*******/
     submitFormHead() {
-      console.log(this.postForm);return;
-      var list = [];
+      this.postForm_head.displayNavColumn = [];
       this.coumn_list.forEach(item => {
-        if (item.value) list.push(item.value)
+        if (item.value) this.postForm_head.displayNavColumn.push(item.value)
       })
-      
+      this.postForm.headerTemplate.logo = this.postForm_head.logo||'';
+      this.postForm.headerTemplate.headerBgImg = this.postForm_head.headerBgImg||'';
+      this.postForm.headerTemplate.displayNavColumn = this.postForm_head.displayNavColumn||[];
+      this.$emit('hfHide');
     },
     //文件上传
     handleFileJS(e) {
@@ -124,13 +129,12 @@ export default {
       }
       let formData = new FormData()
       formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
+      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG'&& file.type !== 'image/gif') {
+        this.$message({ type: 'error', message: '请上传图片文件!' });
         return;
       }
-      var index = parseInt(e.target.id.slice(5, 6));
       this.http.postFile("UploadFile", formData).then((res) => {
-       console.log(res);
+       this.postForm_head.headerBgImg = res.data[0]||'';
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });

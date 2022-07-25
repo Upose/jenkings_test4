@@ -277,7 +277,7 @@ export default {
       // var cs = is_cu_temp[0].offsetParent.getAttribute('class').replace('jl_vip_zt_vray','');
       // is_cu_temp[0].offsetParent.setAttribute('class',cs);
       //将父级的jl_vip_zt_vray去除
-      this.$emit('saveTempSet', { 'list': this.set_list, 'divId': divId });//这里还需要把内容存到要要提交的数据中
+      this.$emit('saveTempSet', { 'list': this.set_list,'configParameter':this.configParameter, 'divId': divId });//这里还需要把内容存到要要提交的数据中
       if (val == 'edit') {
         //刷新
         setTimeout(() => {
@@ -308,11 +308,10 @@ export default {
       }
       let formData = new FormData()
       formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
+      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG'&& file.type !== 'image/gif') {
+        this.$message({ type: 'error', message: '请上传图片文件!' });
         return;
       }
-      var index = parseInt(e.target.id.slice(5, 6));
       this.http.postFile("UploadFile", formData).then((res) => {
        console.log(res);
       }).catch((err) => {
