@@ -135,18 +135,12 @@ export default {
     },
     //更新头尾（注意：这里还差一个判断，已经加载过的js和css文件不要重复加载）
     updateHF(){
-      var jlist = {};
       if(this.is_hf == 'foot'){
-        jlist = this.postForm.footerTemplate
+        this.$emit('loadHeadFoot','foot');
       }else{
-        jlist = this.postForm.headerTemplate
+        this.$emit('loadHeadFoot','header');
       }
-      this.addStyle(jlist.router+'/component.css');
-      this.addScript(jlist.router+'/component.js');
-      if(window[jlist.templateCode]){
-        window[jlist.templateCode]();
-        this.$forceUpdate();
-      }
+      
     },
     //应用详情
     appDetails(val) {
@@ -293,10 +287,23 @@ export default {
     footSetShow(){
       this.footerSet = true;
     },
-    hfHide(){
+    hfHide(val){
       console.log('隐藏头部底部');
-      this.headerSet = false;
-      this.footerSet = false;
+      var templateCode = '';
+      if(this.is_hf=='foot'){
+        this.footerSet = false;
+        if(val){
+          templateCode = this.postForm.footerTemplate.templateCode;
+          document.getElementById('jl_vip_zt_footer_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
+        }
+      }else{
+        this.headerSet = false;
+        if(val){
+          templateCode = this.postForm.headerTemplate.templateCode;
+          document.getElementById('jl_vip_zt_header_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
+        }
+      }
+      if(val)this.$emit('refreshHF',templateCode);
     },
     //文件上传
     handleFileJS(e) {

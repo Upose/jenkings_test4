@@ -25,13 +25,21 @@
             <div class="drag-warp-bg jl_vip_zt_warp_preview">
               
               <div class="jl_vip_zt_warp_hf head" v-if="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode" style="height:80px" :style="{'zoom':ratio_num}">
-                <div class="mask-layer head"></div><div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp"><div id="jl_vip_zt_header"></div></div>
+                <div class="mask-layer head"></div><div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
+                  logo:postForm.headerTemplate.logo||'',
+                  headerBgImg:postForm.headerTemplate.headerBgImg||'',
+                  displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
+                })"><div id="jl_vip_zt_header"></div></div>
               </div><!--头部 end-->
 
               <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div><!--拖拽区域-->
 
               <div class="jl_vip_zt_warp_hf foot" v-if="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode" style="height:90px" :style="{'zoom':ratio_num}">
-                <div class="mask-layer foot"></div><div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp"><div id="jl_vip_zt_footer"></div></div>
+                <div class="mask-layer foot"></div><div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
+                  content:postForm.footerTemplate.content||'',
+                  footerBgImg:postForm.footerTemplate.footerBgImg||'',
+                  footerDisplayNavColumn:postForm.footerTemplate.footerDisplayNavColumn||'',
+                })"><div id="jl_vip_zt_footer"></div></div>
               </div><!--底部 end-->
 
             </div>
@@ -42,7 +50,7 @@
         </div><!--中间内容 end-->
 
 
-        <rightCheck ref="rightCheck_ref" :handles="handles" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+        <rightCheck ref="rightCheck_ref" @loadHeadFoot="loadHeadFoot" @refreshHF="refreshHF" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
 
        </div>
       </el-main>

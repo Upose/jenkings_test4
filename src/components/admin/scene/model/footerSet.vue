@@ -94,9 +94,17 @@ export default {
         }, 50);
       });
     }, 100);
-
-    // tinymce.activeEditor.setContent(this.postForm.content)
-    // tinyMCE.activeEditor.getContent()||'';//获取富文本信息
+    if(this.postForm.footerTemplate){
+      setTimeout(()=>{tinymce.activeEditor.setContent(this.postForm.footerTemplate.content);},150)
+      this.postForm_fot.footerBgImg = this.postForm.footerTemplate.footerBgImg||'';
+      this.postForm_fot.footerDisplayNavColumn = this.postForm.footerTemplate.footerDisplayNavColumn||[];
+      if(this.postForm_fot.footerDisplayNavColumn.length>0){
+        this.coumn_list = [];
+        this.postForm_fot.footerDisplayNavColumn.forEach(it=>{
+          this.coumn_list.push({value:it});
+        })
+      }
+    }
   },
   data() {
     return {
@@ -144,11 +152,12 @@ export default {
       this.postForm.footerTemplate.content = tinyMCE.activeEditor.getContent()||'';
       this.postForm.footerTemplate.footerBgImg = this.postForm_fot.footerBgImg||'';
       this.postForm.footerTemplate.footerDisplayNavColumn = this.postForm_fot.footerDisplayNavColumn||[];
-      this.$emit('hfHide');
+      this.$emit('hfHide',true);
+      console.log(this.postForm);
     },
     /***x关闭按钮 **/
     handleClose(done) {
-      this.$emit('hfHide');
+      this.$emit('hfHide',false);
     },
     //文件上传
     handleFileJS(e) {

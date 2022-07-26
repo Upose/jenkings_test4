@@ -66,6 +66,19 @@ export default {
       this.$message({ type: 'error', message: '获取失败!' });
     })
   },
+  mounted(){
+    if(this.postForm.headerTemplate){
+      this.postForm_head.logo = this.postForm.headerTemplate.logo||'';
+      this.postForm_head.headerBgImg = this.postForm.headerTemplate.headerBgImg||'';
+      this.postForm_head.displayNavColumn = this.postForm.headerTemplate.displayNavColumn||[];
+      if(this.postForm_head.displayNavColumn.length>0){
+        this.coumn_list = [];
+        this.postForm_head.displayNavColumn.forEach(it=>{
+          this.coumn_list.push({value:it});
+        })
+      }
+    }
+  },
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
@@ -97,7 +110,7 @@ export default {
     },
     /***x关闭按钮 **/
     handleClose(done) {
-      this.$emit('hfHide');
+      this.$emit('hfHide',false);
     },
     //删除多栏目投递
     removeCoumn1(index) {
@@ -117,7 +130,8 @@ export default {
       this.postForm.headerTemplate.logo = this.postForm_head.logo||'';
       this.postForm.headerTemplate.headerBgImg = this.postForm_head.headerBgImg||'';
       this.postForm.headerTemplate.displayNavColumn = this.postForm_head.displayNavColumn||[];
-      this.$emit('hfHide');
+      this.$emit('hfHide',true);
+      console.log(this.postForm);
     },
     //文件上传
     handleFileJS(e) {

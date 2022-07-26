@@ -69,6 +69,7 @@ export default {
       },
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       resource_file_list: [],//资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
+      
       apps_set_list: {},//场景内所有的应用模板设置参数-栏目列表。
       apps_set_obj: {},//场景内所有的应用模板设置参数-背景图片和是否全屏。
       grid: null,//拖拽渲染
@@ -537,6 +538,7 @@ export default {
     },
     //加载资源文件
     loadRes() {
+      console.log('加载资源');
       if (this.screen_list[this.screen_cu]['sceneApps']) {
         this.screen_list[this.screen_cu]['sceneApps'].forEach(item => {
           let is_list = this.resource_file_list.filter(x => x.url == item.target);
@@ -574,23 +576,56 @@ export default {
         console.log(err);
       })
     },
-    //刷新页面
-    refreshPage() {
-      this.$forceUpdate();
+    //刷新头部底部
+    refreshHF(val){
+      console.log('进来了11');
+      setTimeout(() => {
+        if (window[val]) {
+          window[val]();
+        }
+      }, 200);
     },
-    //加载头部底部
-    loadHeadFoot() {
-      if (this.postForm.footerTemplate && this.postForm.footerTemplate.router) {
-        this.addStyle(this.postForm.footerTemplate.router + '/component.css');
-        this.addScript(this.postForm.footerTemplate.router + '/component.js');
-      }
-      if (this.postForm.headerTemplate && this.postForm.headerTemplate.router) {
+    //加载头
+    loadHead(){
+      let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.headerTemplate.templateCode);
+      console.log(is_list,this.resource_file_list);
+      if (is_list.length == 0) {
+        this.resource_file_list.push({ url: this.postForm.headerTemplate.router, widgetCode: this.postForm.headerTemplate.templateCode });
         this.addStyle(this.postForm.headerTemplate.router + '/component.css');
         this.addScript(this.postForm.headerTemplate.router + '/component.js');
+      } else {
+        if (window[this.postForm.headerTemplate.templateCode]) {
+          window[this.postForm.headerTemplate.templateCode]();
+        }
+      }
+    },
+    loadFoot(){
+      let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.footerTemplate.templateCode);
+      console.log(is_list,this.resource_file_list);
+      if (is_list.length == 0) {
+        this.resource_file_list.push({ url: this.postForm.footerTemplate.router, widgetCode: this.postForm.footerTemplate.templateCode });
+        this.addStyle(this.postForm.footerTemplate.router + '/component.css');
+        this.addScript(this.postForm.footerTemplate.router + '/component.js');
+      } else {
+        if (window[this.postForm.footerTemplate.templateCode]) {
+          window[this.postForm.footerTemplate.templateCode]();
+        }
+      }
+    },
+    //加载头部底部
+    loadHeadFoot(val) {
+      console.log('进来了22');
+      if(!val){
+        this.loadHead();
+        this.loadFoot();
+      }else if(val == 'foot'){
+        this.loadFoot();
+      }else{
+        this.loadHead();
       }
     },
     sub() {
-      console.log(this.postForm)
+      console.log(JSON.stringify(this.postForm))
     },
   },
 }
