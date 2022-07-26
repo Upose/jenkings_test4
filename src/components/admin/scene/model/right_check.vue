@@ -273,7 +273,6 @@ export default {
       is_cu_temp[0].setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-obj', JSON.stringify(this.configParameter));
-      debugger
       // var cs = is_cu_temp[0].offsetParent.getAttribute('class').replace('jl_vip_zt_vray','');
       // is_cu_temp[0].offsetParent.setAttribute('class',cs);
       //将父级的jl_vip_zt_vray去除

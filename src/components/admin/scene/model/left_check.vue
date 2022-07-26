@@ -24,7 +24,7 @@
                   </div>
               </el-collapse-item><!--模板 end-->
 
-              <el-collapse-item title="请选择主题色" name="3">
+              <el-collapse-item title="请选择主题色" name="3" v-if="(sceneThemeColor||[]).length>0">
                 <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
                   <div class="drag-box" :class="(postForm.themeColor||'template1')==i.value?'box-active':''" :title="i.key">
                     <img :src="fileUrl+i.icon" class="img-cover">
@@ -34,7 +34,15 @@
               </el-collapse-item><!--主题色 end-->
 
               <el-collapse-item title="模板/屏配置" name="4">
-                <div class="model-set-w c-l">
+                
+                <div class="model-set-w c-l" v-if="postForm.layoutId==1">
+                  <div class="up-img w100 ml0" :style="{'background-image':'url('+''+')'}">
+                    <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
+                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                  </div>
+                </div><!--通屏配置 end-->
+
+                <div class="model-set-w c-l" v-if="postForm.layoutId==2">
                   <div class="menu-name">
                     <el-input placeholder="请输入内容" size="medium" @input="menuInput">
                       <template slot="prepend">菜单名称：</template>
@@ -48,7 +56,8 @@
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
                     <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                   </div>
-                </div>
+                </div><!--通屏配置 end-->
+
               </el-collapse-item><!--模板/屏配置 end-->
 
             </el-collapse>
@@ -89,11 +98,14 @@ export default {
         if(newVal.appServiceType && newVal.appServiceType.length>0){
           this.getApps(newVal.appServiceType[0].value);
         }
-        if(newVal.sceneLayout && newVal.sceneLayout.length>0){
-          this.layoutClick(newVal.sceneLayout[0],true);
-        }
+        // if(newVal.sceneLayout && newVal.sceneLayout.length>0){
+        //   this.layoutClick(newVal.sceneLayout[0],true);
+        // }
       }
     },
+  },
+  mounted(){
+    console.log(this.postForm.layoutId);
   },
   created(){
     //获取模板等信息
@@ -184,27 +196,6 @@ export default {
       }
       this.$emit('templateClick',{list:val,isadd:is_add})
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /***左边折叠 */
     leftFold(){
       this.left_fold = !this.left_fold;

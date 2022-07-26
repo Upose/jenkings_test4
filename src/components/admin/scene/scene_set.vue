@@ -49,7 +49,6 @@
           <!-- 缩放组件 -->
         </div><!--中间内容 end-->
 
-
         <rightCheck ref="rightCheck_ref" @loadHeadFoot="loadHeadFoot" @refreshHF="refreshHF" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
 
        </div>

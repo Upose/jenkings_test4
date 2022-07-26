@@ -590,7 +590,7 @@ export default {
     //加载头
     loadHead(){
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.headerTemplate.templateCode);
-      if (is_list.length == 0) {
+      if (is_list.length == 0 && this.postForm.headerTemplate.router) {
         this.resource_file_list.push({ url: this.postForm.headerTemplate.router, widgetCode: this.postForm.headerTemplate.templateCode });
         this.addStyle(this.postForm.headerTemplate.router + '/component.css');
         this.addScript(this.postForm.headerTemplate.router + '/component.js');
@@ -602,7 +602,7 @@ export default {
     },
     loadFoot(){
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.footerTemplate.templateCode);
-      if (is_list.length == 0) {
+      if (is_list.length == 0 && this.postForm.footerTemplate.router) {
         this.resource_file_list.push({ url: this.postForm.footerTemplate.router, widgetCode: this.postForm.footerTemplate.templateCode });
         this.addStyle(this.postForm.footerTemplate.router + '/component.css');
         this.addScript(this.postForm.footerTemplate.router + '/component.js');
