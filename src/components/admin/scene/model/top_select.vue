@@ -131,10 +131,6 @@ export default {
         console.log(err);
       })
     },
-    //设置头部底部
-    setHFooter(val){
-      this.$emit('setHFooter',val);
-    },
     //是否显示用户选择框
     visitorLimitType(val){
       if(val==null || val=='' || val==0 || val ==1){

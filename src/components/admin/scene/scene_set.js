@@ -474,11 +474,6 @@ export default {
         item['sceneApps'] = [];
       })
     },
-    //设置头部底部
-    setHFooter(val) {
-      this.postForm['headerTemplate'] = val.headerTemplate;
-      this.postForm['footerTemplate'] = val.footerTemplate;
-    },
     //初始化页面数据 - 获取本页下拉框参数
     initData() {
       this.http.getPlain('dictionary', '').then(res => {
