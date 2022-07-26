@@ -5,7 +5,7 @@
     <template v-if="items && !isLock"><!--宽1200通用-->
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
       <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-        <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
+        <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
           <div :id="setId()"></div>
         </div>
       </div>
@@ -17,13 +17,13 @@
         <div class="header-prewiew"><div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div></div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
-            <div :class="isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')">
+            <div :class="isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')" :data-obj="JSON.stringify(left_menu.configParameter||'{}')">
               <div :id="setId()"></div>
             </div>
           </div>
           <div class="center-fixed">
             <div class="center-fixed-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-              <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')">
+              <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
                 <div :id="setId()"></div>
               </div>
             </div>

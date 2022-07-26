@@ -120,7 +120,8 @@ export default {
           var appid = e.target.dataset.appid;//应用id
           var appwidgetid = e.target.dataset.appwidgetid;//模板id
           var set_list = e.target.dataset.set;//设置的配置参数
-          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list });
+          var configParameter = e.target.dataset.obj;//设置的配置参数
+          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list,'configParameter':configParameter });
         }
       }
     },
@@ -271,6 +272,7 @@ export default {
     addCompont(val) {
       console.log(val);
       var data = val.list;//模板参数
+      console.log(val);
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
       if (is_add) {
@@ -310,6 +312,7 @@ export default {
             tempId: data.id,
             divId: component_id,//元素渲染id
             appId: data.appId,
+            configParameter: data.configParameter || {},
             appPlateItems: data.appPlateItems || [],//应用对应的设置
             widgetCode: data.widgetCode,
             appWidget: data,
@@ -457,6 +460,7 @@ export default {
     saveTempSet(val) {
       this.apps_set_list[val.divId] = val.list || [];
       this.apps_set_obj[val.divId] = val.configParameter || {};
+      console.log(this.apps_set_obj);
     },
     //选择模板-左边
     templateClick(val) {
@@ -491,7 +495,7 @@ export default {
       admin_vue.$refs.leftcheck_ref.setAppid(val.id);
       var apps_cu = this.selectApps(val.id) || {};
       admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
-      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list });
+      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list,'configParameter':val.configParameter });
     },
     /***拖拽更换屏顺序**/
     dragSort() {
@@ -538,10 +542,9 @@ export default {
     },
     //加载资源文件
     loadRes() {
-      console.log('加载资源');
       if (this.screen_list[this.screen_cu]['sceneApps']) {
         this.screen_list[this.screen_cu]['sceneApps'].forEach(item => {
-          let is_list = this.resource_file_list.filter(x => x.url == item.target);
+          let is_list = this.resource_file_list.filter(x => x.widgetCode == item.widgetCode);
           if (is_list.length == 0) {
             this.resource_file_list.push({ url: item.target, widgetCode: item.widgetCode });
             this.addStyle(item.target + '/component.css');
@@ -578,7 +581,6 @@ export default {
     },
     //刷新头部底部
     refreshHF(val){
-      console.log('进来了11');
       setTimeout(() => {
         if (window[val]) {
           window[val]();
@@ -588,7 +590,6 @@ export default {
     //加载头
     loadHead(){
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.headerTemplate.templateCode);
-      console.log(is_list,this.resource_file_list);
       if (is_list.length == 0) {
         this.resource_file_list.push({ url: this.postForm.headerTemplate.router, widgetCode: this.postForm.headerTemplate.templateCode });
         this.addStyle(this.postForm.headerTemplate.router + '/component.css');
@@ -601,7 +602,6 @@ export default {
     },
     loadFoot(){
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.footerTemplate.templateCode);
-      console.log(is_list,this.resource_file_list);
       if (is_list.length == 0) {
         this.resource_file_list.push({ url: this.postForm.footerTemplate.router, widgetCode: this.postForm.footerTemplate.templateCode });
         this.addStyle(this.postForm.footerTemplate.router + '/component.css');
@@ -614,7 +614,6 @@ export default {
     },
     //加载头部底部
     loadHeadFoot(val) {
-      console.log('进来了22');
       if(!val){
         this.loadHead();
         this.loadFoot();

@@ -25,14 +25,14 @@
             <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
-                <div v-if="template_check && !is_hf" class="up-img w100" :style="{'background-image':'url('+(configParameter.bgImg||'')+')'}">
+                <div v-if="template_check && !is_hf" class="up-img w100" :style="{'background-image':'url('+fileUrl+(configParameter.bgImg||'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                 </div>
                 <div class="row-switch" v-if="template_check && !is_hf">
                   <span class="title">组件全屏：</span>
                   <el-tooltip class="item" effect="dark" content="组件宽度为100%时此设置生效" placement="top">
-                    <el-switch :active-value="1" :inactive-value="0" v-model="configParameter.fullScreen"></el-switch>
+                    <el-switch :active-value="true" :inactive-value="false" v-model="configParameter.fullScreen"></el-switch>
                   </el-tooltip>
                 </div>
             </div><!--组件配置 end-->
@@ -87,7 +87,10 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       is_hf:null,//是否头部底部组件 有值为头部底部，无值为应用组件
-      configParameter:{},//组件背景+是否全屏展示
+      configParameter:{
+        bgImg:'',
+        fullScreen:false
+      },//组件背景+是否全屏展示
       apps_name: '',//应用名称
       headerSet:false,
       footerSet:false,
@@ -140,7 +143,6 @@ export default {
       }else{
         this.$emit('loadHeadFoot','header');
       }
-      
     },
     //应用详情
     appDetails(val) {
@@ -161,6 +163,7 @@ export default {
           }
         } else {//修改
           _this.set_list = JSON.parse((val.set_list || "[]").replace(/'/g, '"'));
+          _this.configParameter = JSON.parse((val.configParameter || "{}").replace(/'/g, '"'));
           if (_this.set_list.length == 0) {
             _this.set_list = [{ topCount: '', sortType: '', id: '', orderIndex: 1 }];
           }
@@ -233,6 +236,7 @@ export default {
         }, 100)
       } else {//修改这个地方，稍微有点问题。
         val['appPlateItems'] = this.set_list || [];
+        val['configParameter'] = this.configParameter || {};
         this.$emit('addCompont', { 'list': val, 'is_add_compont': false });
       }
       this.$forceUpdate();
@@ -268,6 +272,8 @@ export default {
       var divId = is_cu_temp[0].parentNode.dataset.id;
       is_cu_temp[0].setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-set', JSON.stringify(this.set_list));
+      is_cu_temp[0].offsetParent.setAttribute('data-obj', JSON.stringify(this.configParameter));
+      debugger
       // var cs = is_cu_temp[0].offsetParent.getAttribute('class').replace('jl_vip_zt_vray','');
       // is_cu_temp[0].offsetParent.setAttribute('class',cs);
       //将父级的jl_vip_zt_vray去除
@@ -275,7 +281,7 @@ export default {
       if (val == 'edit') {
         //刷新
         setTimeout(() => {
-          this.appDetails({ 'id': is_cu_temp[0].dataset.appid, 'temp_id': is_cu_temp[0].dataset.appwidgetid, 'is_add': false, 'set_list': JSON.stringify(this.set_list) });//设置成功，重新点击一次让模板刷新；
+          this.appDetails({ 'id': is_cu_temp[0].dataset.appid, 'temp_id': is_cu_temp[0].dataset.appwidgetid, 'is_add': false, 'set_list': JSON.stringify(this.set_list),'configParameter': JSON.stringify(this.configParameter) });//设置成功，重新点击一次让模板刷新；
         }, 400);
       }
     },
@@ -320,7 +326,8 @@ export default {
         return;
       }
       this.http.postFile("UploadFile", formData).then((res) => {
-       console.log(res);
+       this.configParameter.bgImg = res.data[0]||'';
+       console.log(this.configParameter.bgImg);
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });
