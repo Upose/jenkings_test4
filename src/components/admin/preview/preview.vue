@@ -3,18 +3,32 @@
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'" :style="{background:bg_color}">
     
     <template v-if="items && !isLock"><!--宽1200通用-->
-      <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div><!-- 头部信息-end -->
-      <div class="bocy-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
-        <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
-          <div :id="setId()"></div>
+      <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
+        logo:items.headerTemplate.logo||'',
+        headerBgImg:items.headerTemplate.headerBgImg||'',
+        displayNavColumn:items.headerTemplate.displayNavColumn||'',
+      })"><div :id="setId()"></div></div><!-- 头部信息-end -->
+      <div class="scene-warp-bg" v-for="(it,i) in items.sceneScreens" :style="{'background-image':'url('+fileUrl+(it.bgImg||'')+')'}">
+        <div class="bocy-content" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
+          <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
+            <div :id="setId()"></div>
+          </div>
         </div>
       </div>
-      <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div><!-- 底部信息-end -->
+      <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode" :data-set="JSON.stringify({
+        content:items.footerTemplate.content||'',
+        footerBgImg:items.footerTemplate.footerBgImg||'',
+        footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
+      })"><div :id="setId()"></div></div><!-- 底部信息-end -->
     </template>
 
     <template v-if="items && isLock"><!--左边固定-->
       <div class="left-fixed-template">
-        <div class="header-prewiew"><div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode"><div :id="setId()"></div></div></div><!-- 头部信息-end -->
+        <div class="header-prewiew"><div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
+        logo:items.headerTemplate.logo||'',
+        headerBgImg:items.headerTemplate.headerBgImg||'',
+        displayNavColumn:items.headerTemplate.displayNavColumn||'',
+      })"><div :id="setId()"></div></div></div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
             <div :class="isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')" :data-obj="JSON.stringify(left_menu.configParameter||'{}')">
@@ -27,7 +41,11 @@
                 <div :id="setId()"></div>
               </div>
             </div>
-            <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode"><div :id="setId()"></div></div><!-- 底部信息-end -->
+            <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode" :data-set="JSON.stringify({
+        content:items.footerTemplate.content||'',
+        footerBgImg:items.footerTemplate.footerBgImg||'',
+        footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
+      })"><div :id="setId()"></div></div><!-- 底部信息-end -->
           </div>
         </div>
       </div>
@@ -78,6 +96,7 @@ export default {
   },
   data () {
     return {
+      fileUrl: window.localStorage.getItem('fileUrl'),
       isLock:false,//是否左侧固定模板
       bg_color:'#fff',//背景颜色
       //以下是拖拽参数
@@ -190,6 +209,9 @@ export default {
   width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+.scene-warp-bg{
+  background-size: 100% 100%;
 }
 .bocy-content{
   min-height: calc(100vh - 400px);

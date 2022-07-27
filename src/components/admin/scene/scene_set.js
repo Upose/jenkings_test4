@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      fileUrl: window.localStorage.getItem('fileUrl'),
       id: this.$route.query.id,//场景id
       advanced: true,//高级设置
       footerSet: false,//底部设置
@@ -357,6 +358,9 @@ export default {
         this.screen_list.forEach((item, index) => {
           var obj = {
             height: item.height,//屏高
+            bgImg: item.bgImg||'',
+            icon: item.icon||'',
+            menuName: item.menuName||'',
             sceneApps: [],//屏内包含的应用模板
             orderIndex: index + 1,//当前序号
             id: item.id,
@@ -582,6 +586,15 @@ export default {
         }
       }, 200);
     },
+    //刷新页面
+    sceneLeftBG(val){
+      if(val.type == 'bgt' || val.type =='bgf'){
+        this.screen_list[this.screen_cu].bgImg = val.url;
+      }else if(val.type == 'tb'){
+        this.screen_list[this.screen_cu].icon = val.url;
+      }
+      this.$forceUpdate();
+    },
     //加载头
     loadHead(){
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.headerTemplate.templateCode);
@@ -619,7 +632,7 @@ export default {
       }
     },
     sub() {
-      console.log(JSON.stringify(this.postForm))
+      console.log(this.postForm)
     },
   },
 }

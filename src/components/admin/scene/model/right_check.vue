@@ -326,7 +326,6 @@ export default {
       }
       this.http.postFile("UploadFile", formData).then((res) => {
        this.configParameter.bgImg = res.data[0]||'';
-       console.log(this.configParameter.bgImg);
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });

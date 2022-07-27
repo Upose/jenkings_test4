@@ -8,11 +8,11 @@
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
        
        <div class="drag-content" :style="{'min-height':drag_height+'px'}">
-        <leftCheck ref="leftcheck_ref" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+        <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" :screen_cu="screen_cu" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
         
         
         <div class="drag-c" :class="isFoldClass()">
-          <div class="screen-btn-drag" v-show="postForm.layoutId== 2 || postForm.layoutId== 4">
+          <div class="screen-btn-drag" v-show="postForm.layoutId== 2 && postForm.template">
             <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏</el-button>
             <div class="drag-box-warp" ref="dragBox">
               <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">第{{index+1}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
@@ -23,25 +23,25 @@
 
           <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
             <div class="drag-warp-bg jl_vip_zt_warp_preview">
-              
-              <div class="jl_vip_zt_warp_hf head" v-if="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode" style="height:80px" :style="{'zoom':ratio_num}">
-                <div class="mask-layer head"></div><div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
-                  logo:postForm.headerTemplate.logo||'',
-                  headerBgImg:postForm.headerTemplate.headerBgImg||'',
-                  displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
-                })"><div id="jl_vip_zt_header"></div></div>
-              </div><!--头部 end-->
+              <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
+              <div class="scene-warp-bg" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">
+                <div class="jl_vip_zt_warp_hf head" v-if="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode" style="height:80px" :style="{'zoom':ratio_num}">
+                  <div class="mask-layer head"></div><div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
+                    logo:postForm.headerTemplate.logo||'',
+                    headerBgImg:postForm.headerTemplate.headerBgImg||'',
+                    displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
+                  })"><div id="jl_vip_zt_header"></div></div>
+                </div><!--头部 end-->
+                <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div><!--拖拽区域-->
 
-              <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div><!--拖拽区域-->
-
-              <div class="jl_vip_zt_warp_hf foot" v-if="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode" style="height:90px" :style="{'zoom':ratio_num}">
-                <div class="mask-layer foot"></div><div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
-                  content:postForm.footerTemplate.content||'',
-                  footerBgImg:postForm.footerTemplate.footerBgImg||'',
-                  footerDisplayNavColumn:postForm.footerTemplate.footerDisplayNavColumn||'',
-                })"><div id="jl_vip_zt_footer"></div></div>
-              </div><!--底部 end-->
-
+                <div class="jl_vip_zt_warp_hf foot" v-if="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode" style="height:90px" :style="{'zoom':ratio_num}">
+                  <div class="mask-layer foot"></div><div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
+                    content:postForm.footerTemplate.content||'',
+                    footerBgImg:postForm.footerTemplate.footerBgImg||'',
+                    footerDisplayNavColumn:postForm.footerTemplate.footerDisplayNavColumn||'',
+                  })"><div id="jl_vip_zt_footer"></div></div>
+                </div><!--底部 end-->
+              </div>
             </div>
           </div><!--拖拽板块-->
 

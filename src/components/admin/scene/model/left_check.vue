@@ -33,16 +33,16 @@
                 </div>
               </el-collapse-item><!--主题色 end-->
 
-              <el-collapse-item title="模板/屏配置" name="4">
+              <el-collapse-item title="模板/屏配置" name="4" v-if="templateId">
                 
-                <div class="model-set-w c-l" v-if="postForm.layoutId==1">
-                  <div class="up-img w100 ml0" :style="{'background-image':'url('+''+')'}">
+                <div class="model-set-w c-l" v-show="postForm.layoutId==1">
+                  <div class="up-img w100 ml0" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
-                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                    <input type="file" multiple="multiple" @change="handleFileJS($event,'bgt')">
                   </div>
                 </div><!--通屏配置 end-->
 
-                <div class="model-set-w c-l" v-if="postForm.layoutId==2">
+                <div class="model-set-w c-l" v-show="postForm.layoutId==2">
                   <div class="menu-name">
                     <el-input placeholder="请输入内容" size="medium" @input="menuInput">
                       <template slot="prepend">菜单名称：</template>
@@ -50,17 +50,18 @@
                   </div>
                   <div class="up-img w50" :style="{'background-image':'url('+''+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
-                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                    <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">
                   </div>
                   <div class="up-img w50" :style="{'background-image':'url('+''+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
-                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                    <input type="file" multiple="multiple" @change="handleFileJS($event,'tb')">
                   </div>
                 </div><!--通屏配置 end-->
 
               </el-collapse-item><!--模板/屏配置 end-->
 
             </el-collapse>
+
             <div class="step-three">
               <h1 class="step-num">
                   <span class="num">3</span><span class="txt">应用选择</span>
@@ -80,6 +81,7 @@
                 </div>
               </div><!--应用列表 end-->
             </div>
+
         </div>
       </div>
       <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
@@ -90,7 +92,7 @@
 <script>
 export default {
   name: 'index',
-  props:['dataList','postForm'],
+  props:['dataList','screen_cu','postForm'],
   watch: {
     dataList: {
       deep: true,  // 深度监听
@@ -105,7 +107,7 @@ export default {
     },
   },
   mounted(){
-    console.log(this.postForm.layoutId);
+    console.log(this.screen_cu);
   },
   created(){
     //获取模板等信息
@@ -269,8 +271,7 @@ export default {
       this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'});
     },
     //文件上传
-    handleFileJS(e) {
-      var _this = this;
+    handleFileJS(e,val) {
       let $target = e.target || e.srcElement
       let file = $target.files[0]
       if (!file) {
@@ -283,7 +284,13 @@ export default {
         return;
       }
       this.http.postFile("UploadFile", formData).then((res) => {
-       console.log(res);
+        switch(val){
+          case 'bgt': this.postForm.sceneScreens[this.screen_cu].bgImg = res.data[0]||'';break;
+          case 'bgf': this.postForm.sceneScreens[this.screen_cu].bgImg = res.data[0]||'';break;
+          case 'tb': this.postForm.sceneScreens[this.screen_cu].icon = res.data[0]||'';break;
+        }
+        this.$forceUpdate();
+        this.$emit('sceneLeftBG',{type:val,url:(res.data[0]||'')})
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });
