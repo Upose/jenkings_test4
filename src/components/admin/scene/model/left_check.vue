@@ -44,15 +44,15 @@
 
                 <div class="model-set-w c-l" v-show="postForm.layoutId==2">
                   <div class="menu-name">
-                    <el-input placeholder="请输入内容" size="medium" @input="menuInput">
+                    <el-input placeholder="请输入内容" size="medium" v-model="postForm.sceneScreens[screen_cu].menuName">
                       <template slot="prepend">菜单名称：</template>
                     </el-input>
                   </div>
-                  <div class="up-img w50" :style="{'background-image':'url('+''+')'}">
+                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">
                   </div>
-                  <div class="up-img w50" :style="{'background-image':'url('+''+')'}">
+                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].icon||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'tb')">
                   </div>
@@ -159,10 +159,6 @@ export default {
           }
         };
       }
-    },
-    //菜单名称输入事件
-    menuInput(e){
-      console.log(e);
     },
     //设置主题色
     setTheme(val){
