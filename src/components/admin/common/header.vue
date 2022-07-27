@@ -4,7 +4,7 @@
       <a href="javascript:;"><img :src="$root.collapse?logoList.show:logoList.hide"></a>
     </div><!--logo板块-->
 
-    <a href="javascript:;" class="m-cut" @click="collapseChage"><i class="iconfont" :class="$root.collapse?'el-icon-vip-zhankai':'el-icon-vip-shouqi'"></i></a>
+    <!-- <a href="javascript:;" class="m-cut" @click="collapseChage"><i class="iconfont" :class="$root.collapse?'el-icon-vip-zhankai':'el-icon-vip-shouqi'"></i></a> -->
     <!--开启关闭左侧菜单按钮-->
 
     <div class="m-box-list" :class="{'logo-collapse-left':$root.collapse}">
@@ -96,7 +96,7 @@ export default {
     transition: width .3s ease-in-out;
     a{
       color: #fff;
-      margin-left: 10px;
+      margin-left: 25px;
       display: block;
       height: 100%;
       line-height:40px;
@@ -107,6 +107,9 @@ export default {
   }
   .logo-collapse{
     width: 80px;
+    a{
+      margin-left: 4px;
+    }
   }
   .m-cut{
     font-size: 16px;
@@ -119,7 +122,8 @@ export default {
     height: 100%;
     vertical-align:middle;
     position: absolute;
-    left: 300px;
+    // left: 300px;
+    left: 240px;
     right: 200px;
     transition: left .3s ease-in-out;
     .m-box{
@@ -144,7 +148,7 @@ export default {
     }
   }
   .logo-collapse-left{
-    left:140px;
+    left:115px;
     transition: left .3s ease-in-out;
   }
   

@@ -21,7 +21,7 @@ export default {
       meta: {
         title: [{ name: '场景管理'}],
         keepAlive: true,
-        parentRoute:'admin_caseShow'
+        parentRoute:'/admin_caseShow'
       },
     },
     {
@@ -31,7 +31,7 @@ export default {
       meta: {
         title: [{ name: '场景管理',path:'/admin_caseShow'}, { name: '场景列表'}],
         keepAlive: true,
-        parentRoute:'admin_caseShow'
+        parentRoute:'/admin_caseShow'
       },
     },
     {
@@ -41,7 +41,7 @@ export default {
       meta: {
         title: [{ name: '场景管理', path: '/admin_caseShow' }, { name: '场景设置', }],
         keepAlive: true,
-        parentRoute:'admin_caseShow'
+        parentRoute:'/admin_caseShow'
       },
     },
     {
@@ -51,7 +51,7 @@ export default {
       meta: {
         title: [{ name: '栏目管理'}],
         keepAlive: true,
-        parentRoute:'admin_programManage'
+        parentRoute:'/admin_programManage'
       },
     },
     {
@@ -61,7 +61,7 @@ export default {
       meta: {
         title: [{ name: '终端管理'}],
         keepAlive: true,
-        parentRoute:'admin_terminalManage'
+        parentRoute:'/admin_terminalManage'
       },
     },
     {
@@ -71,7 +71,7 @@ export default {
       meta: {
         title: [{ name: '选择终端'}],
         keepAlive: true,
-        parentRoute:'admin_caseShow'
+        parentRoute:'/admin_caseShow'
       },
     },
     {
@@ -81,7 +81,7 @@ export default {
       meta: {
         title: [{ name: '终端管理', path: '/admin_terminalManage' }, { name: '终端内容', }],
         keepAlive: true,
-        parentRoute:'admin_terminalManage'
+        parentRoute:'/admin_terminalManage'
       },
     },
     //admin_headfoot_set  删除
@@ -92,7 +92,7 @@ export default {
       meta: {
         title: [{ name: '头部底部高级设置'}],
         keepAlive: true,
-        parentRoute:'admin_headfoot_set'
+        parentRoute:'/admin_headfoot_set'
       },
     },
   ].map(x=>{
