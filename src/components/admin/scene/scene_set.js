@@ -212,7 +212,14 @@ export default {
         this.$message({ message: '最多只能添加10屏', type: 'info' });
         return false;
       }
-      this.screen_list.push({ sceneApps: [] });
+      //如果选中的是尾屏，将当前选中值重新设置
+      if(this.screen_cu == (this.screen_list.length-1)){
+        this.screen_cu = this.screen_cu+1;
+      }
+      //添加屏时，始终将尾屏放到最后
+      var last_sceen = this.screen_list[this.screen_list.length-1];
+      this.screen_list[this.screen_list.length-1] = { sceneApps: [] };
+      this.screen_list.push(last_sceen);
     },
     /****点击第几屏 */
     screenClick(val) {

@@ -11,14 +11,14 @@
         <div class="form-set-content">
           <!--postForm.isSystemScene:默认场景 postForm.sceneType==1：门户首页 -->
           <el-form-item label="应用场景" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
-            <el-radio-group v-model="postForm.status">
+            <el-radio-group v-model="useWay">
               <el-radio :label="0" >当前场景</el-radio>
               <el-radio :label="1" >全局应用</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="JS路径" prop="visitUrl">
             <div class="btns-colse-warp input-btns">
-              <div class="btns-select-row" v-for="(it,i) in jsList" :key="i+'b'">
+              <div class="btns-select-row" v-for="(it,i) in jsPath" :key="i+'b'">
                 <el-input v-model="it.value" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
                   <template slot="append">
                     <div class="up-btn">
@@ -27,11 +27,11 @@
                     </div>
                   </template>
                 </el-input>
-                <div class="btns-el-btn" @click="removeCoumn2(i)" v-if="(jsList.length-1)!=i">
+                <div class="btns-el-btn" @click="removeCoumn2(i)" v-if="(jsPath.length-1)!=i">
                   <i class="iconfont el-icon-vip-jianhao1"></i>
                   <span>删除</span>
                 </div>
-                <div class="btns-el-btn" @click="addCoumn2" v-if="(jsList.length-1)==i">
+                <div class="btns-el-btn" @click="addCoumn2" v-if="(jsPath.length-1)==i">
                   <i class="iconfont el-icon-vip-tianjia1"></i>
                   <span>添加</span>
                 </div>
@@ -52,29 +52,44 @@
 export default {
   name: 'index',
   props:['postForm'],
+  mounted(){
+    this.useWay = this.postForm.useWay||0;
+    this.jsPath = [{}];
+    if(this.postForm.jsPath && this.postForm.jsPath.length>0){
+      this.jsPath.forEach(it=>{
+        this.jsPath.push({value:it});
+      })
+    }
+  },
   data() {
     return {
         dialogBulk:true,//模板选择
-        jsList:[{}],
+        jsPath:[{}],
+        useWay:0,
         fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   methods: {
-     //删除js地址
+    //删除js地址
     removeCoumn2(index) {
-      this.jsList.splice(index, 1);
+      this.jsPath.splice(index, 1);
     },
     //添加js地址
     addCoumn2() {
-      if (this.jsList.length == 3) {
+      if (this.jsPath.length == 3) {
         this.$message({ type: 'info', message: '只能添加3个js地址!' });
         return;
       }
-      this.jsList.push({ value: '' });
+      this.jsPath.push({ value: '' });
     },
     //保存设置
     submitFormJs(){
-
+      this.postForm.useWay = this.useWay||0;
+      this.postForm.jsPath = [];
+      this.jsPath.forEach(x=>{
+        if(x.value)this.postForm.jsPath.push(x.value);
+      });
+      console.log(this.postForm);
     },
     //文件上传
     handleFileJS(e) {
@@ -92,7 +107,7 @@ export default {
       }
       var index = parseInt(e.target.id.slice(5, 6));
       this.http.postFile("UploadFile", formData).then((res) => {
-        _this.jsList[index].value = _this.fileUrl + res.data[0];
+        _this.jsPath[index].value = _this.fileUrl + res.data[0];
         this.$forceUpdate();
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
