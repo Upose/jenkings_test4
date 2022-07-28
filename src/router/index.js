@@ -79,6 +79,12 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/components/admin/preview/test1')), 'scene'),
       meta: { title: '测试' , keepAlive:true},
     },
+    {
+      path: '/test2',
+      name: 'test',
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/test2')), 'scene'),
+      meta: { title: '测试' , keepAlive:true},
+    },
     {//重定向中间件
       path: '/',
       name: 'reset',
