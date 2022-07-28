@@ -3,23 +3,38 @@
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
     
     <template v-if="items && !isLock"><!--宽1200通用-->
+
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
-        logo:items.headerTemplate.logo||'',
-        headerBgImg:items.headerTemplate.headerBgImg||'',
-        displayNavColumn:items.headerTemplate.displayNavColumn||'',
-      })"><div :id="setId()"></div></div><!-- 头部信息-end -->
-      <div class="scene-warp-bg" v-for="(it,i) in items.sceneScreens" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
+          logo:items.headerTemplate.logo||'',
+          headerBgImg:items.headerTemplate.headerBgImg||'',
+          displayNavColumn:items.headerTemplate.displayNavColumn||'',
+        })">
+        <div :id="setId()"></div>
+      </div><!-- 头部信息-end -->
+
+      <div class="scene-warp-bg" v-for="(it,i) in items.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
         <div class="bocy-content" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
           <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" :style="styleRender(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
             <div :id="setId()"></div>
           </div>
         </div>
       </div>
+
       <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode" :data-set="JSON.stringify({
-        content:items.footerTemplate.content||'',
-        footerBgImg:items.footerTemplate.footerBgImg||'',
-        footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
-      })"><div :id="setId()"></div></div><!-- 底部信息-end -->
+          content:items.footerTemplate.content||'',
+          footerBgImg:items.footerTemplate.footerBgImg||'',
+          footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
+        })">
+        <div :id="setId()"></div>
+      </div><!-- 底部信息-end -->
+
+      <div class="temp-menu-w" v-if="is_split_screen && items && items.sceneScreens">
+        <a class="temp-box" v-for="(it,i) in (items.sceneScreens||[])" :key="i" :href="'#temp'+i" @click="clickSilder('temp'+i)">
+          <img class="temp-icon" :src="fileUrl+it.icon">
+          <span class="temp-title" :title="it.menuName">{{it.menuName}}</span>
+        </a>
+      </div><!--悬浮菜单 end-->
+
     </template>
 
   </div>
@@ -65,9 +80,13 @@ export default {
       }
     }
   },
+  mounted() {
+    window.addEventListener('scroll', this.appScroll)
+  },
   data () {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
+      is_split_screen:true,
       isLock:false,//是否左侧固定模板
       bg_color:'#fff',//背景颜色
       //以下是拖拽参数
@@ -82,6 +101,22 @@ export default {
     }
   },
   methods:{
+    //滚动事件
+    appScroll(e) {
+      e.preventDefault();
+      //浏览器兼容
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      console.log(e, scrollTop);
+    },
+    //悬浮菜单点击事件
+    clickSilder(val) {
+      // 获取DOM元素
+      let el = document.getElementById(val);
+      // chrome
+      document.body.scrollTop = el.offsetTop;
+      // firefox
+      document.documentElement.scrollTop = el.offsetTop;
+    },
     //初始化模板
     styleRender(val){//css 渲染
       var list = {
@@ -153,5 +188,48 @@ export default {
   width: 100%;
   height: 1%;
   min-height: 100%;
+}
+/****悬浮菜单样式 */
+.temp-menu-w{
+  position: fixed;
+  right: 20px;
+  z-index: 99;
+  top: 50%;
+  margin-top: -100px;
+  .temp-box{
+    display: block;
+    cursor: pointer;
+    color: #000;
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.4);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    transition: all .3s;
+    margin: 6px 0;
+    padding: 2px 5px;
+    border:1px solid rgba(0,0,0,0);
+    &:hover{
+      background: #fff;
+      border: 1px solid #eee;
+      box-shadow: 2px 4px 7px #6b6a6a;
+    }
+    .temp-icon{
+      width: 30px;
+      height: 30px;
+      display: block;
+      border-radius: 3px;
+      margin: 5px auto;
+    }
+    .temp-title{
+      color: #333;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
 }
 </style>
