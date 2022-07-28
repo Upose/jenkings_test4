@@ -28,7 +28,7 @@
         <div :id="setId()"></div>
       </div><!-- 底部信息-end -->
 
-      <div class="temp-menu-w" v-if="is_split_screen && items && items.sceneScreens">
+      <div class="temp-menu-w" v-if="items.layoutId==2 && items && items.sceneScreens">
         <a class="temp-box" v-for="(it,i) in (items.sceneScreens||[])" :key="i" :href="'#temp'+i" @click="clickSilder('temp'+i)">
           <img class="temp-icon" :src="fileUrl+it.icon">
           <span class="temp-title" :title="it.menuName">{{it.menuName}}</span>
@@ -86,7 +86,6 @@ export default {
   data () {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
-      is_split_screen:true,
       isLock:false,//是否左侧固定模板
       bg_color:'#fff',//背景颜色
       //以下是拖拽参数
@@ -202,7 +201,7 @@ export default {
     color: #000;
     width: 60px;
     height: 60px;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.6);
     box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
     border-radius: 5px;
     transition: all .3s;
