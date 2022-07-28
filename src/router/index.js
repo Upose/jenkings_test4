@@ -39,6 +39,19 @@ export default new Router({
       component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_tq')), 'scene'),
       meta: { title: '服务中台-图书期刊预览' , keepAlive:true},
     },
+    //全部完成之后，上面的几个预览都不要了，只留下面两个
+    {
+      path: '/admin_previewLeftmenu',
+      name: 'admin_previewLeftmenu',
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_leftmenu')), 'scene'),
+      meta: { title: '服务中台-预览(针对左侧固定)' , keepAlive:true},
+    },
+    {
+      path: '/admin_previewAll',
+      name: 'admin_previewAll',
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/previewAll')), 'scene'),
+      meta: { title: '服务中台-预览' , keepAlive:true},
+    },
     {
       path: '/403',
       name: '403',

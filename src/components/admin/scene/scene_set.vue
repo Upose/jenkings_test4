@@ -4,7 +4,6 @@
     <el-container>
       <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu></serviceLMenu></el-aside>
       <el-main class="admin-content" :class="{'content-collapse':$root.collapse}">
-        <span @click="sub()" style="position: fixed;z-index: 99;left:0;">提交数据</span>
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
        
        <div class="drag-content" :style="{'min-height':drag_height+'px'}">

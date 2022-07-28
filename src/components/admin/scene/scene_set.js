@@ -457,12 +457,10 @@ export default {
       setTimeout(() => {
         window.localStorage.setItem('scenePreview', JSON.stringify(this.postForm));
         var url = '';
-        if (this.id == '17ba1766-683e-4f18-a340-91ab2ee846c2') { //针对重大首页
-          url = location.href.split('#')[0] + "#/admin_scenePreviewCqu";
-        } else if (this.id == 'c67f511b-1a3a-4607-8d3e-7adee2a2359d' || this.id == 'bd920f5c-f7bd-4051-9874-b1d251b04464') {//针对图书和期刊频道
-          url = location.href.split('#')[0] + "#/admin_scenePreview_tq";
-        } else {
-          url = location.href.split('#')[0] + "#/admin_scenePreview";//统一预览
+        if(this.id == '63d83b2f-03d8-43a7-8b43-713792639ad6'){//演示站点-（这里还可以做灵活点，做一个赛选（只要有左侧的那个都用此模板渲染））
+          url = location.href.split('#')[0] + "#/admin_previewLeftmenu";
+        }else{//统一预览
+          url = location.href.split('#')[0] + "#/admin_previewAll";
         }
         window.open(url);
       }, 100);
@@ -637,9 +635,6 @@ export default {
       }else{
         this.loadHead();
       }
-    },
-    sub() {
-      console.log(this.postForm)
     },
   },
 }
