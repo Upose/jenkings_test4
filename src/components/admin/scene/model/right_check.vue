@@ -312,7 +312,6 @@ export default {
     },
     //文件上传
     handleFileJS(e) {
-      var _this = this;
       let $target = e.target || e.srcElement
       let file = $target.files[0]
       if (!file) {
