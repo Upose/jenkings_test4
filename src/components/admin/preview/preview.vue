@@ -214,7 +214,7 @@ export default {
   background-size: 100% 100%;
 }
 .bocy-content{
-  min-height: calc(100vh - 400px);
+  // min-height: calc(100vh - 400px);
   position: relative;
   min-width: 1200px;//最小宽度
   margin-left: auto;
