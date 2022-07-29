@@ -82,6 +82,10 @@ export default {
       }
       this.jsPath.push({ value: '' });
     },
+    /***x关闭按钮 **/
+    handleClose(done) {
+      this.$emit('hfHide',false);
+    },
     //保存设置
     submitFormJs(){
       this.postForm.useWay = this.useWay||0;
@@ -89,7 +93,7 @@ export default {
       this.jsPath.forEach(x=>{
         if(x.value)this.postForm.jsPath.push(x.value);
       });
-      console.log(this.postForm);
+      this.$emit('hfHide',false);
     },
     //文件上传
     handleFileJS(e) {

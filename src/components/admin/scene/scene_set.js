@@ -218,14 +218,24 @@ export default {
       }
       //添加屏时，始终将尾屏放到最后
       var last_sceen = this.screen_list[this.screen_list.length-1];
-      this.screen_list[this.screen_list.length-1] = { sceneApps: [] };
+      this.screen_list[this.screen_list.length-1] = { icon:'',menuName:'',bgImg:'',sceneApps: [] };
       this.screen_list.push(last_sceen);
+    },
+    /****删除一屏 */
+    removScreen(val) {
+      this.screen_list.splice(val, 1);
+      if (this.grid) {
+        this.grid.removeAll();
+      }
+      this.screen_cu = val - 1;
+      this.screenClick(this.screen_cu);
     },
     /****点击第几屏 */
     screenClick(val) {
       this.saveList();
       setTimeout(() => {
         this.screen_cu = val;
+        console.log(this.screen_list[this.screen_cu]);
         this.initScree();
       }, 100);
     },
@@ -266,15 +276,6 @@ export default {
           this.screen_list[this.screen_cu]['sceneApps'] = list;
         }
       }
-    },
-    /****删除一屏 */
-    removScreen(val) {
-      this.screen_list.splice(val, 1);
-      if (this.grid) {
-        this.grid.removeAll();
-      }
-      this.screen_cu = val - 1;
-      this.screenClick(this.screen_cu);
     },
     //添加组件
     addCompont(val) {
