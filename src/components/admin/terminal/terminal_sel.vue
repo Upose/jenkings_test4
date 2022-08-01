@@ -5,7 +5,7 @@
       <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu :isActive="1"></serviceLMenu></el-aside>
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="'场景管理'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
-        <h1 class="s-b-border-title">选择终端 <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" @click="addClick()">添加终端</el-button></h1>
+        <h1 class="s-b-border-title">选择终端 <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" v-if="authShowBtn('terminal_add')" @click="addClick()">添加终端</el-button></h1>
         <div class="content">
           <div class="c-list c-l" v-loading="loading" :class="!loading && dataList.length==0?'empty-data-admin':''">
             <div class="c-l-box" v-for="i in dataList" :key="i">
