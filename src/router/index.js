@@ -22,35 +22,22 @@ export default new Router({
       children:adminRouter.router,
     },
     {
-      path: '/admin_scenePreview',
-      name: 'admin_scenePreview',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview')), 'scene'),
-      meta: { title: '服务中台-场景预览' , keepAlive:true},
+      path: '/admin_previewScreen',
+      name: 'admin_previewScreen',
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/previewScreen')), 'scene'),
+      meta: { title: '服务中台-整屏' , keepAlive:true},
     },
-    {
-      path: '/admin_scenePreviewCqu',
-      name: 'admin_scenePreviewCqu',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_cqu')), 'scene'),
-      meta: { title: '服务中台-重大首页预览' , keepAlive:true},
-    },
-    {
-      path: '/admin_scenePreview_tq',
-      name: 'admin_scenePreview_tq',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_tq')), 'scene'),
-      meta: { title: '服务中台-图书期刊预览' , keepAlive:true},
-    },
-    //全部完成之后，上面的几个预览都不要了，只留下面两个
     {
       path: '/admin_previewLeftmenu',
       name: 'admin_previewLeftmenu',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview_leftmenu')), 'scene'),
+      component: r => require.ensure([], () => r(require('@/components/admin/preview/previewLeftmenu')), 'scene'),
       meta: { title: '服务中台-预览(针对左侧固定)' , keepAlive:true},
     },
     {
       path: '/admin_previewAll',
       name: 'admin_previewAll',
       component: r => require.ensure([], () => r(require('@/components/admin/preview/previewAll')), 'scene'),
-      meta: { title: '服务中台-预览' , keepAlive:true},
+      meta: { title: '服务中台-预览（普通分屏+通屏）' , keepAlive:true},
     },
     {
       path: '/403',

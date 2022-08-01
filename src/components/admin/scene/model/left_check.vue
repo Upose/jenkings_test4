@@ -45,7 +45,7 @@
                 <div class="model-set-w c-l" v-show="postForm.layoutId==2">
                   <div class="menu-name">
                     <el-input placeholder="请输入内容" size="medium" v-model="postForm.sceneScreens[screen_cu].menuName">
-                      <template slot="prepend">菜单名称：</template>
+                      <template slot="prepend">分屏名称：</template>
                     </el-input>
                   </div>
                   <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">

@@ -25,7 +25,7 @@
             <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
-                <div v-if="template_check && !is_hf" class="up-img w100" :style="{'background-image':'url('+fileUrl+(configParameter.bgImg||'')+')'}">
+                <div v-if="template_check && !is_hf" class="up-img w100 mt-5" :style="{'background-image':'url('+fileUrl+(configParameter.bgImg||'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
                 </div>
