@@ -36,23 +36,18 @@
               <el-collapse-item title="模板/屏配置" name="4" v-if="templateId">
                 
                 <div class="model-set-w c-l" v-show="postForm.layoutId==1">
-                  <div class="up-img w100 ml0" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">
+                  <div class="up-img w100 ml0" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgt')">
                   </div>
                 </div><!--通屏配置 end-->
 
                 <div class="model-set-w c-l" v-show="postForm.layoutId==2">
-                  <div class="menu-name">
-                    <el-input placeholder="请输入内容" size="medium" v-model="postForm.sceneScreens[screen_cu].menuName">
-                      <template slot="prepend">分屏名称：</template>
-                    </el-input>
-                  </div>
-                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">
+                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">
                   </div>
-                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].icon||'')+')'}">
+                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].icon||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'tb')">
                   </div>
@@ -92,7 +87,7 @@
 <script>
 export default {
   name: 'index',
-  props:['dataList','screen_cu','postForm'],
+  props:['dataList','screen_cu','screen_list','postForm'],
   watch: {
     dataList: {
       deep: true,  // 深度监听
@@ -281,9 +276,9 @@ export default {
       }
       this.http.postFile("UploadFile", formData).then((res) => {
         switch(val){
-          case 'bgt': this.postForm.sceneScreens[this.screen_cu].bgImg = res.data[0]||'';break;
-          case 'bgf': this.postForm.sceneScreens[this.screen_cu].bgImg = res.data[0]||'';break;
-          case 'tb': this.postForm.sceneScreens[this.screen_cu].icon = res.data[0]||'';break;
+          case 'bgt': this.screen_list[this.screen_cu].bgImg = res.data[0]||'';break;
+          case 'bgf': this.screen_list[this.screen_cu].bgImg = res.data[0]||'';break;
+          case 'tb': this.screen_list[this.screen_cu].icon = res.data[0]||'';break;
         }
         this.$forceUpdate();
         this.$emit('sceneLeftBG',{type:val,url:(res.data[0]||'')})

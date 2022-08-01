@@ -7,23 +7,23 @@
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
        
        <div class="drag-content" :style="{'min-height':drag_height+'px'}">
-        <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" :screen_cu="screen_cu" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+        <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" :screen_cu="screen_cu" :screen_list="screen_list" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
         
         
         <div class="drag-c" :class="isFoldClass()">
           <div class="screen-btn-drag" v-show="postForm.layoutId== 2 && postForm.template">
-            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">首屏</el-button>
+            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">{{screen_list[0].screenName}}</el-button>
             <div class="drag-box-warp" ref="dragBox">
-              <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">第{{index+1}}屏<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
+              <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">{{item.screenName||('第'+(index+1)+'屏')}}<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
             </div>
-            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==(screen_list.length-1)?'s-b-active':''" @click="screenClick(screen_list.length-1)">尾屏</el-button>
+            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==(screen_list.length-1)?'s-b-active':''" @click="screenClick(screen_list.length-1)">{{screen_list[screen_list.length-1].screenName||'尾屏'}}</el-button>
             <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
           </div><!--屏幕数量+拖拽排序 end-->
 
           <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
             <div class="drag-warp-bg jl_vip_zt_warp_preview">
               <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
-              <div class="scene-warp-bg" :style="{'background-image':'url('+fileUrl+(postForm.sceneScreens[screen_cu].bgImg||'')+')'}">
+              <div class="scene-warp-bg" :style="{'background':'url('+sceenBgImg(postForm.sceneScreens[screen_cu])+')'}">
                 
                 <div class="jl_vip_zt_warp_hf head" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="height:80px" :style="{'zoom':ratio_num}">
                   <div class="mask-layer head"></div><div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({

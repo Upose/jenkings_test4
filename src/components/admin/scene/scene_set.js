@@ -55,7 +55,7 @@ export default {
       left_fold: false,//左侧菜单展开与否
       right_fold: false,//右侧菜单展开与否
       screen_cu: 0,//当前是第几屏
-      screen_list: [{ sceneApps: [] }, { sceneApps: [] }],//屏数量
+      screen_list: [{screenName:'首屏',bgImg:'', sceneApps: [] }, {screenName:'尾屏',bgImg:'', sceneApps: [] }],//屏数量
       sceneid: this.$route.query.id,//场景id
       //顶部 步骤1
       top_list: {
@@ -218,7 +218,7 @@ export default {
       }
       //添加屏时，始终将尾屏放到最后
       var last_sceen = this.screen_list[this.screen_list.length-1];
-      this.screen_list[this.screen_list.length-1] = { icon:'',menuName:'',bgImg:'',sceneApps: [] };
+      this.screen_list[this.screen_list.length-1] = { icon:'',bgImg:'',sceneApps: [] };
       this.screen_list.push(last_sceen);
     },
     /****删除一屏 */
@@ -234,9 +234,9 @@ export default {
     screenClick(val) {
       this.saveList();
       setTimeout(() => {
-        this.screen_cu = val;
-        console.log(this.screen_list[this.screen_cu]);
-        this.initScree();
+        admin_vue.screen_cu = val;
+        console.log(admin_vue.screen_list[admin_vue.screen_cu]);
+        admin_vue.initScree();
       }, 100);
     },
     //保存当前屏幕的列表 -- 切换屏幕的时候需要将当前屏幕的参数获取然后放入到数组中。
@@ -368,7 +368,6 @@ export default {
             height: item.height,//屏高
             bgImg: item.bgImg||'',
             icon: item.icon||'',
-            menuName: item.menuName||'',
             sceneApps: [],//屏内包含的应用模板
             orderIndex: index + 1,//当前序号
             id: item.id,
@@ -627,6 +626,14 @@ export default {
         if (window[this.postForm.footerTemplate.templateCode]) {
           window[this.postForm.footerTemplate.templateCode]();
         }
+      }
+    },
+    //背景图片设置
+    sceenBgImg(val){
+      if(val && val.bgImg){
+        return this.fileUrl + val.bgImg;
+      }else {
+        return '';
       }
     },
     //加载头部底部

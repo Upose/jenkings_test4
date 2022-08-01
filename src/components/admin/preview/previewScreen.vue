@@ -47,7 +47,7 @@
       <div class="temp-menu-w" v-if="items.layoutId==2 && items && items.sceneScreens">
         <a class="temp-box" :class="fullpage.current==(i+1)?'temp-box-active':''" v-for="(it,i) in (items.sceneScreens||[])" :key="i" @click="clickSilder(i)">
           <img class="temp-icon" :src="fileUrl+it.icon">
-          <span class="temp-title" :title="it.menuName">{{it.menuName}}</span>
+          <span class="temp-title" :title="it.screenName">{{it.screenName}}</span>
         </a>
       </div>
       <!--悬浮菜单 end-->
