@@ -58,19 +58,13 @@ export default new Router({
       path: '/test',
       name: 'test',
       component: r => require.ensure([], () => r(require('@/components/admin/preview/test')), 'scene'),
-      meta: { title: '测试' , keepAlive:true},
+      meta: { title: '点击滚动到指定位置' , keepAlive:true},
     },
     {
       path: '/test1',
       name: 'test',
       component: r => require.ensure([], () => r(require('@/components/admin/preview/test1')), 'scene'),
-      meta: { title: '测试' , keepAlive:true},
-    },
-    {
-      path: '/test2',
-      name: 'test',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/test2')), 'scene'),
-      meta: { title: '测试' , keepAlive:true},
+      meta: { title: '滚屏' , keepAlive:true},
     },
     {//重定向中间件
       path: '/',
