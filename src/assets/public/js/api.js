@@ -45,6 +45,7 @@ export default {
         
         //新接口
         'layout-options':baseURL + '/api/scene-manage/scene-layout-options',//获取场景编辑下的-布局、模板、主题色
+        'template-default-by-code':baseURL + '/api/scene-manage/template-default-by-code',//根据模板code获取模板默认数据
 
         //权限及头部
         'getmgrtopmenu':baseURL_apps + '/api/baseinfo/getmgrtopmenu',//获取头部菜单

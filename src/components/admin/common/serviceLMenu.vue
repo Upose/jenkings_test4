@@ -28,7 +28,6 @@ export default {
     }
   },
   created() {
-    console.log(this.$store.state.menuList)
     let appMenu = this.$store.state.menuList;
     if(appMenu && appMenu.length){
       // 只取第一级

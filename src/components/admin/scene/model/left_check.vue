@@ -102,7 +102,7 @@ export default {
     },
   },
   mounted(){
-    console.log(this.screen_cu);
+    // console.log(this.screen_cu);
   },
   created(){
     //获取模板等信息

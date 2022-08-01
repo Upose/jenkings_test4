@@ -14,7 +14,7 @@
             <span class="d-title">所有状态：</span>
             <el-button :type="Status==0?'primary':''" size="medium" @click="statusClick(0)">启用</el-button>
             <el-button :type="Status==1?'primary':''" size="medium" @click="statusClick(1)">禁用</el-button>
-            <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" @click="addClick()">新建场景</el-button>
+            <el-button size="medium" icon="iconfont el-icon-vip-tianjia" class="r-btn" @click="addClick()" v-if="authShowBtn('scene-manage_add')">新建场景</el-button>
           </div>
         </div><!---顶部查询板块 end--->
         <div class="list-content" v-loading="loading" :class="!loading && listData.length==0?'empty-data-admin':''">

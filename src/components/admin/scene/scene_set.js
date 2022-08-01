@@ -27,7 +27,6 @@ export default {
     document.getElementsByTagName("body")[0].setAttribute('class', (window.localStorage.getItem('template') || 'template1'));//颜色初始化
     setTimeout(() => {
       this.initGrid();
-      this.loadHeadFoot();
     }, 500);
     this.initData();
     this.setHeight(document.body.clientHeight - 104);
@@ -162,6 +161,9 @@ export default {
       _this.$refs.topselect_ref.setDatils(data);
       _this.$refs.leftcheck_ref.setDatils(data);
       _this.postForm = data || {};
+      setTimeout(()=>{
+        _this.loadHeadFoot();
+      },500)
       if (_this.postForm.sceneScreens && _this.postForm.sceneScreens.length > 0) {
         _this.postForm.sceneScreens.forEach((item, index) => {
           let result = item.sceneApps.map((it, index) => ({
@@ -476,15 +478,25 @@ export default {
     },
     //选择模板-左边
     templateClick(val) {
-      this.postForm.template = val.list || {};
-      this.postForm.headerTemplate = val.list.defaultHeaderTemplate || {};
-      this.postForm.footerTemplate = val.list.defaultFooterTemplate || {};
-      if (this.grid) {
-        this.grid.removeAll();
+      if(val.list && val.list.code){
+        this.http.getPlain_url('template-default-by-code','/'+val.list.code).then(res=>{
+          this.postForm['footerTemplate'] = res.data.footerTemplate||{};
+          this.postForm['headerTemplate'] = res.data.headerTemplate||{};
+          this.postForm['sceneScreens'] = res.data.sceneScreens||[];
+          this.postForm['template'] = res.data.template||{};
+          this.postForm['themeColor'] = res.data.themeColor||'template1';
+          this.detailsRender(this.postForm);
+        }).catch(err=>{})
       }
-      this.screen_list.forEach(item => {
-        item['sceneApps'] = [];
-      })
+      // this.postForm.template = val.list || {};
+      // this.postForm.headerTemplate = val.list.defaultHeaderTemplate || {};
+      // this.postForm.footerTemplate = val.list.defaultFooterTemplate || {};
+      // if (this.grid) {
+      //   this.grid.removeAll();
+      // }
+      // this.screen_list.forEach(item => {
+      //   item['sceneApps'] = [];
+      // })
     },
     //初始化页面数据 - 获取本页下拉框参数
     initData() {
