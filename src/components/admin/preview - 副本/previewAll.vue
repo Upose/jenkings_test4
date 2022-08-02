@@ -15,7 +15,7 @@
       <div class="scene-warp-bg" v-for="(it,i) in items.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
         <div class="bocy-content" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}" :class="(items.layoutId=='3'||items.layoutId=='4')?'width_1200':''">
           <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(items.template.width,item)" :style="styleRender(item)">
-            <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
+            <div :class="isWidgetCode(item)"  :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
               <div :id="setId()"></div>
             </div>
           </div>
@@ -127,10 +127,10 @@ export default {
     //初始化模板
     styleRender(val){//css 渲染
       var list = {
-        width:20*val.width+'px',
+        width:(100/12)*val.width+'%',
         height:(val.height*10)+'px',
         top:(val.yIndex*10)+'px',
-        left:20*val.xIndex+'px',
+        left:(100/12)*val.xIndex+'%',
         position: 'absolute',
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
@@ -165,6 +165,21 @@ export default {
         }
       }
       return widgetCode;
+    },
+    styleRender_full(val){//css 渲染
+      var list = {
+        width:'100%',
+        height:(val.height*10)+'px',
+        top:(val.yIndex*10)+'px',
+        left:'0',
+        position: 'absolute',
+        // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
+      };
+      if(val.appWidget && val.appWidget.target){
+        this.addStyle(val.appWidget.target+'/component.css');
+        this.addScript(val.appWidget.target+'/component.js');
+      }
+      return list;
     },
     //动态设置模板id
     setId(){

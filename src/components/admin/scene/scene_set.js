@@ -88,11 +88,26 @@ export default {
         ],//分屏
       },
       opts: {//元素初始化高度
-        // resizable: {
-        //   handles: 'e,se,s,sw,w'
-        // },
+        float: true,
+        column:60,//1200为60,1440为72
         cellHeight: 10,
-        cellHeightThrottle: 100,
+        cellHeightThrottle: 10,//拖动速度
+        resizable: {
+          /**
+           * n：上边鼠标移入拖动边缘拉宽,
+           * e:右边鼠标移入拖动边缘拉宽,
+           * s,下边鼠标移入拖动边缘拉宽
+           * w,左边鼠标移入拖动边缘拉宽
+           * se：右下角箭头,
+           * sw：左下角箭头,
+           * ne：右上角箭头,
+           * nw：左上角箭头,
+           * **/
+          handles: 'se,sw,nw'
+        },
+        // acceptWidgets: true,//接受从其他网格或外部拖动的小部件
+        // staticGrid: true,//设置为静态元素-无任何拖拽功能
+        // removable: true,//移出屏幕外删除元素
       },
     }
   },
@@ -220,24 +235,32 @@ export default {
       }
       //添加屏时，始终将尾屏放到最后
       var last_sceen = this.screen_list[this.screen_list.length-1];
-      this.screen_list[this.screen_list.length-1] = { icon:'',bgImg:'',sceneApps: [] };
+      var sceen_name = '第'+(this.screen_list.length)+'屏';
+      this.screen_list[this.screen_list.length-1] = { icon:'',bgImg:'',sceneApps: [],screenName:sceen_name};
       this.screen_list.push(last_sceen);
     },
     /****删除一屏 */
-    removScreen(val) {
-      this.screen_list.splice(val, 1);
+    removScreen(index) {
+      this.screen_list.splice(index, 1);
       if (this.grid) {
         this.grid.removeAll();
       }
-      this.screen_cu = val - 1;
+      this.screen_cu = index - 1;
       this.screenClick(this.screen_cu);
+    },
+    //编辑当前屏菜单名称
+    editScreen(index){
+      this.screen_list[index].isedit = !this.screen_list[index].isedit;
+      this.$forceUpdate();
     },
     /****点击第几屏 */
     screenClick(val) {
       this.saveList();
+      this.screen_list.forEach(item=>{
+        item.isedit = false;
+      })
       setTimeout(() => {
         admin_vue.screen_cu = val;
-        console.log(admin_vue.screen_list[admin_vue.screen_cu]);
         admin_vue.initScree();
       }, 100);
     },
@@ -487,16 +510,17 @@ export default {
           this.postForm['themeColor'] = res.data.themeColor||'template1';
           this.detailsRender(this.postForm);
         }).catch(err=>{})
+      }else{
+        this.postForm.template = val.list || {};
+        this.postForm.headerTemplate = val.list.defaultHeaderTemplate || {};
+        this.postForm.footerTemplate = val.list.defaultFooterTemplate || {};
+        if (this.grid) {
+          this.grid.removeAll();
+        }
+        this.screen_list.forEach(item => {
+          item['sceneApps'] = [];
+        })
       }
-      // this.postForm.template = val.list || {};
-      // this.postForm.headerTemplate = val.list.defaultHeaderTemplate || {};
-      // this.postForm.footerTemplate = val.list.defaultFooterTemplate || {};
-      // if (this.grid) {
-      //   this.grid.removeAll();
-      // }
-      // this.screen_list.forEach(item => {
-      //   item['sceneApps'] = [];
-      // })
     },
     //初始化页面数据 - 获取本页下拉框参数
     initData() {

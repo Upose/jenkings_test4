@@ -730,8 +730,14 @@
             get placeholder() {
               if (!this._placeholder) {
                 let t = document.createElement("div");
-                t.className = "placeholder-content", this.opts.placeholderText && (t.innerHTML = this.opts.placeholderText), this._placeholder = document.createElement("div"), this._placeholder.classList.add(this.opts.placeholderClass, l.itemClass, this.opts.itemClass), this.placeholder.appendChild(t)
+                t.className = "placeholder-content", 
+                this.opts.placeholderText && (t.innerHTML = this.opts.placeholderText), 
+                this._placeholder = document.createElement("div"), 
+                this._placeholder.classList.add(this.opts.placeholderClass, l.itemClass, this.opts.itemClass), 
+                this.placeholder.appendChild(t)
               }
+              // debugger
+              // console.log(this._placeholder,this.opts.placeholderClass,l.itemClass,this.opts.itemClass);
               return this._placeholder
             }
             addWidget(t, e) {

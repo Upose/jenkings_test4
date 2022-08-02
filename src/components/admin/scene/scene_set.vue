@@ -2,58 +2,84 @@
 <template>
   <div class="admin-warp-page">
     <el-container>
-      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''"><serviceLMenu></serviceLMenu></el-aside>
+      <el-aside width="auto" :collapse="$root.collapse" :class="$root.collapse?'fold-menu':''">
+        <serviceLMenu></serviceLMenu>
+      </el-aside>
       <el-main class="admin-content" :class="{'content-collapse':$root.collapse}">
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
-       
-       <div class="drag-content" :style="{'min-height':drag_height+'px'}">
-        <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" :screen_cu="screen_cu" :screen_list="screen_list" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
-        
-        
-        <div class="drag-c" :class="isFoldClass()">
-          <div class="screen-btn-drag" v-show="postForm.layoutId== 2 && postForm.template">
-            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''" @click="screenClick(0)">{{screen_list[0].screenName}}</el-button>
-            <div class="drag-box-warp" ref="dragBox">
-              <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" @click="screenClick(index)" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">{{item.screenName||('第'+(index+1)+'屏')}}<span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span></el-button>
-            </div>
-            <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==(screen_list.length-1)?'s-b-active':''" @click="screenClick(screen_list.length-1)">{{screen_list[screen_list.length-1].screenName||'尾屏'}}</el-button>
-            <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
-          </div><!--屏幕数量+拖拽排序 end-->
 
-          <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
-            <div class="drag-warp-bg jl_vip_zt_warp_preview">
-              <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
-              <div class="scene-warp-bg" :style="{'background':'url('+sceenBgImg(postForm.sceneScreens[screen_cu])+')'}">
-                
-                <div class="jl_vip_zt_warp_hf head" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="height:80px" :style="{'zoom':ratio_num}">
-                  <div class="mask-layer head"></div><div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
+        <div class="drag-content" :style="{'min-height':drag_height+'px'}">
+          <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" :screen_cu="screen_cu" :screen_list="screen_list" :dataList="left_list" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+
+          <div class="drag-c" :class="isFoldClass()">
+            <div class="screen-btn-drag" v-show="postForm.layoutId== 2 && postForm.template">
+              <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''">
+                <span class="txt-show" @click="screenClick(0)">{{screen_list[0].screenName||''}}</span>
+                <input type="text" class="txt-edit" v-model="screen_list[0].screenName" v-if="screen_list[0].isedit"/>
+                <i class="iconfont s-btn-edit" :class="screen_list[0].isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(0)"></i>
+              </el-button>
+              <div class="drag-box-warp" ref="dragBox">
+                <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">
+                  <span class="txt-show" @click="screenClick(index)">{{item.screenName||''}}</span>
+                  <input type="text" class="txt-edit" v-model="item.screenName" v-if="item.isedit"/>
+                  <span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span>
+                  <i class="iconfont s-btn-edit" :class="item.isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(index)"></i>
+                </el-button>
+              </div>
+              <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==(screen_list.length-1)?'s-b-active':''">
+                <span class="txt-show"  @click="screenClick(screen_list.length-1)">{{screen_list[screen_list.length-1].screenName||''}}</span>
+                <input type="text" class="txt-edit" v-model="screen_list[screen_list.length-1].screenName" v-if="screen_list[screen_list.length-1].isedit"/>
+                <i class="iconfont s-btn-edit" :class="screen_list[screen_list.length-1].isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(screen_list.length-1)"></i>
+              </el-button>
+              <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
+            </div>
+            <!--屏幕数量+拖拽排序 end-->
+
+            <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
+              <div class="drag-warp-bg jl_vip_zt_warp_preview">
+                <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
+                <div class="scene-warp-bg" :style="{'background':'url('+sceenBgImg(postForm.sceneScreens[screen_cu])+')'}">
+
+                  <div class="jl_vip_zt_warp_hf head" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="height:80px" :style="{'zoom':ratio_num}">
+                    <div class="mask-layer head"></div>
+                    <div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
                     logo:postForm.headerTemplate.logo||'',
                     headerBgImg:postForm.headerTemplate.headerBgImg||'',
                     displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
-                  })"><div id="jl_vip_zt_header"></div></div>
-                </div><!--头部 end-->
+                  })">
+                      <div id="jl_vip_zt_header"></div>
+                    </div>
+                  </div>
+                  <!--头部 end-->
 
-                <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div><!--拖拽区域-->
+                  <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
+                  <!--拖拽区域-->
 
-                <div class="jl_vip_zt_warp_hf foot" v-show="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==(screen_list.length-1)):true)" style="height:90px" :style="{'zoom':ratio_num}">
-                  <div class="mask-layer foot"></div><div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
+                  <div class="jl_vip_zt_warp_hf foot" v-show="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==(screen_list.length-1)):true)" style="height:90px" :style="{'zoom':ratio_num}">
+                    <div class="mask-layer foot"></div>
+                    <div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
                     content:postForm.footerTemplate.content||'',
                     footerBgImg:postForm.footerTemplate.footerBgImg||'',
                     footerDisplayNavColumn:postForm.footerTemplate.footerDisplayNavColumn||'',
-                  })"><div id="jl_vip_zt_footer"></div></div>
-                </div><!--底部 end-->
+                  })">
+                      <div id="jl_vip_zt_footer"></div>
+                    </div>
+                  </div>
+                  <!--底部 end-->
 
+                </div>
               </div>
             </div>
-          </div><!--拖拽板块-->
+            <!--拖拽板块-->
 
-          <scalingPage class="scaling-right" ref="scalingRef" :ratio_num.sync="ratio_num" :width="drag_width"></scalingPage>
-          <!-- 缩放组件 -->
-        </div><!--中间内容 end-->
+            <scalingPage class="scaling-right" ref="scalingRef" :ratio_num.sync="ratio_num" :width="drag_width"></scalingPage>
+            <!-- 缩放组件 -->
+          </div>
+          <!--中间内容 end-->
 
-        <rightCheck ref="rightCheck_ref" @loadHeadFoot="loadHeadFoot" @refreshHF="refreshHF" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
+          <rightCheck ref="rightCheck_ref" @loadHeadFoot="loadHeadFoot" @refreshHF="refreshHF" :postForm="postForm" :right_fold.sync="right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
 
-       </div>
+        </div>
       </el-main>
     </el-container>
   </div>
@@ -62,13 +88,13 @@
 <script>
 import scene_set from "./scene_set";
 export default {
-  components:scene_set.components,
-  data:scene_set.data,
-  beforeDestroy:scene_set.beforeDestroy,
-  created:scene_set.created,
-  destroyed:scene_set.destroyed,
-  mounted:scene_set.mounted,
-  methods:scene_set.methods,
+  components: scene_set.components,
+  data: scene_set.data,
+  beforeDestroy: scene_set.beforeDestroy,
+  created: scene_set.created,
+  destroyed: scene_set.destroyed,
+  mounted: scene_set.mounted,
+  methods: scene_set.methods,
 }
 </script>
 
@@ -76,26 +102,27 @@ export default {
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
 @import "../../../assets/web/css/color.less";
-.jl_vip_zt_warp_hf{
+.jl_vip_zt_warp_hf {
   position: relative;
   margin-left: auto;
   margin-right: auto;
 }
-#jl_vip_zt_header_warp,#jl_vip_zt_header_warp{
+#jl_vip_zt_header_warp,
+#jl_vip_zt_header_warp {
   width: 100%;
   left: 0;
   top: 0;
   position: absolute;
   z-index: 1;
 }
-.mask-layer{
+.mask-layer {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   top: 0;
   z-index: 10;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 </style>
 

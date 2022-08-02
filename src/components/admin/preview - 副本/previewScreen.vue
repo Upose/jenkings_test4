@@ -128,10 +128,10 @@ export default {
     //初始化模板
     styleRender(val) {//css 渲染
       var list = {
-        width: 20 * val.width + 'px',
+        width: (100 / 12) * val.width + '%',
         height: (val.height * 10) + 'px',
         top: (val.yIndex * 10) + 'px',
-        left: 20 * val.xIndex + 'px',
+        left: (100 / 12) * val.xIndex + '%',
         position: 'absolute',
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };

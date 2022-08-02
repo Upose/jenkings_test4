@@ -171,6 +171,24 @@
               bottom: -5px;
               border: 1px dashed @BCBCBC;
             }
+            .txt-show,.txt-edit{
+              display: block;
+              width: 100%;
+              height: 100%;
+              line-height:34px;
+              position: absolute;
+              left: 0;
+              z-index: 2;
+              top: 0;
+              border-radius: 3px;
+            }
+            .txt-edit{
+              padding-right: 20px;
+              cursor: auto;
+              
+              padding: 0 5px;
+              border: 1px solid @C5CFE0;
+            }
             .s-b-d-close{
               position: absolute;
               right: -10px;
@@ -186,6 +204,23 @@
                 opacity: 1;
               }
             }
+            .s-btn-edit{
+              display: none;
+              cursor: pointer;
+              position: absolute;
+              right: -1px;
+              bottom: -1px;
+              z-index: 3;
+              font-size: 12px;
+              color: #fff;
+              background: #6777ef;
+              padding: 7px;
+              transform: scale(0.9);
+              border-radius: 44px 0 0 0;
+              &:hover{
+                background: #6c757d;
+              }
+            }
           }
           .screen-one{
             margin-right: 35px;
@@ -194,12 +229,15 @@
           .s-b-active{
             color: @fff;
             background: linear-gradient(353deg, #9985FF 0%, #9985FF 54%, #A18FFF 56%, #A18FFF 100%);
+            .s-btn-edit{
+              display: block;
+            }
           }
           /***选中效果 */
           .s-b-active-close{
             color: @fff;
             background: linear-gradient(353deg, #9985FF 0%, #9985FF 54%, #A18FFF 56%, #A18FFF 100%);
-            .s-b-d-close{
+            .s-b-d-close,.s-btn-edit{
               display: block;
             }
           }
