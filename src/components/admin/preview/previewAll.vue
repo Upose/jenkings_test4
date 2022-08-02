@@ -32,7 +32,7 @@
       </div><!-- 底部信息-end -->
 
       <div class="temp-menu-w" v-if="items.layoutId==2 && items && items.sceneScreens">
-        <a class="temp-box" v-for="(it,i) in (items.sceneScreens||[])" :key="i" :href="'#temp'+i" @click="clickSilder('temp'+i)">
+        <a class="temp-box" v-for="(it,i) in (items.sceneScreens||[])" :key="i" @click="clickSilder('temp'+i)">
           <img class="temp-icon" :src="fileUrl+it.icon">
           <span class="temp-title" :title="it.screenName">{{it.screenName}}</span>
         </a>
@@ -113,7 +113,7 @@ export default {
       e.preventDefault();
       //浏览器兼容
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-      console.log(e, scrollTop);
+      // console.log(e, scrollTop);
     },
     //悬浮菜单点击事件
     clickSilder(val) {
@@ -157,7 +157,7 @@ export default {
     //外层全屏
     isWidgetCodeWapr(width,item){
       var widgetCode = '';
-      if(item.width == 12 && item.configParameter && item.configParameter.fullScreen){
+      if(item.width == (width/20) && item.configParameter && item.configParameter.fullScreen){
         if(width == 1200){
           widgetCode = ' mar-left-1200';
         }else if(width == 1440){
@@ -248,10 +248,15 @@ export default {
   min-width: 1440px;
   margin-left: calc(((100vw - 1440px) / 2) - (100vw - 1440px));
 }
+.html-warp-page{
+  overflow-x: hidden;
+}
 @media screen and (max-width:1200px) {
  .mar-left-1200{margin-left:0 !important;}
+ .html-warp-page{overflow-x: auto;}
 }
 @media screen and (max-width:1440) {
  .mar-left-1440{margin-left:0 !important;}
+ .html-warp-page{overflow-x: auto;}
 }
 </style>

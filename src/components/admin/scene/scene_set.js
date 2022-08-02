@@ -91,7 +91,7 @@ export default {
         float: true,
         column:60,//1200为60,1440为72
         cellHeight: 10,
-        cellHeightThrottle: 10,//拖动速度
+        cellHeightThrottle: 100,//拖动速度
         resizable: {
           /**
            * n：上边鼠标移入拖动边缘拉宽,
@@ -304,16 +304,19 @@ export default {
     },
     //添加组件
     addCompont(val) {
-      console.log(val);
       var data = val.list;//模板参数
-      console.log(val);
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
       if (is_add) {
         //添加时，要将已存在的选中状态的元素移出选中状态；
         this.removeActiveClass('mask-layer');
         let it = {
-          x: 0, y: 100000, h: data.height, w: data.width,
+          x: 0, 
+          y: 100, //获取sceneApps中yIndex值最大的，然后 最大的组件yIndex+height的值，就是下一个元素的y值
+          h: data.height, 
+          w: data.width,
+          // noMove: true,//静止拖动位置
+          // noResize: true,//禁止改变大小
           minW: data.width,
           minH: data.height,
           target: data.target,

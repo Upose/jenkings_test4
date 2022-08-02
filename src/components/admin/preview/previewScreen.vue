@@ -158,7 +158,7 @@ export default {
     //外层全屏
     isWidgetCodeWapr(width, item) {
       var widgetCode = '';
-      if (item.width == 12 && item.configParameter && item.configParameter.fullScreen) {
+      if (item.width == (width/20) && item.configParameter && item.configParameter.fullScreen) {
         if (width == 1200) {
           widgetCode = ' mar-left-1200';
         } else if (width == 1440) {
@@ -362,14 +362,12 @@ export default {
   min-width: 1440px;
   margin-left: calc(((100vw - 1440px) / 2) - (100vw - 1440px));
 }
-@media screen and (max-width: 1200px) {
-  .mar-left-1200 {
-    margin-left: 0 !important;
-  }
+@media screen and (max-width:1200px) {
+ .mar-left-1200{margin-left:0 !important;}
+ .html-warp-page{overflow-x: auto;}
 }
-@media screen and (max-width: 1440) {
-  .mar-left-1440 {
-    margin-left: 0 !important;
-  }
+@media screen and (max-width:1440) {
+ .mar-left-1440{margin-left:0 !important;}
+ .html-warp-page{overflow-x: auto;}
 }
 </style>
