@@ -122,8 +122,16 @@ export default {
         this.template_list = res.data || [];
         if(val=='foot'){
           this.template_check = this.postForm.footerTemplate.id||'';
+          if(!this.postForm.footerTemplate.id){//新增
+            this.is_hf = 'foot';
+            if(this.template_list.length>0)this.appsTemplate(this.template_list[0],0);
+          }
         }else{
           this.template_check = this.postForm.headerTemplate.id||'';
+          if(!this.postForm.headerTemplate.id){//新增
+            this.is_hf = 'header';
+            if(this.template_list.length>0)this.appsTemplate(this.template_list[0],0);
+          }
         }
       })
     },

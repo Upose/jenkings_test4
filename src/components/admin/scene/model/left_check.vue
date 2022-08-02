@@ -289,9 +289,9 @@ export default {
     addHFtemp(val){
       this.appId = val;
       if(val=='头部'){
-        //添加头部
+        this.$emit('rightMenu','header');
       }else{
-        //添加底部
+        this.$emit('rightMenu','foot');
       }
     },
     //文件上传

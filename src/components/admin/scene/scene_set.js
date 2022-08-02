@@ -119,16 +119,13 @@ export default {
         }
       }
       if (e.target.className.indexOf('mask-layer') > -1) {//单击场景中的模板
-        if (e.target.className.indexOf('head') > -1) {
-          console.log('选择的头部');
-          admin_vue.$refs.rightCheck_ref.getHFlist('header');
+        if (e.target.className.indexOf('head') > -1) {//选择的头部
+          admin_vue.rightMenu('header');
           admin_vue.removeActiveClass('head');
-        } else if (e.target.className.indexOf('foot') > -1) {
-          console.log('选择的底部');
-          admin_vue.$refs.rightCheck_ref.getHFlist('foot');
+        } else if (e.target.className.indexOf('foot') > -1) {//选择的底部
+          admin_vue.rightMenu('foot');
           admin_vue.removeActiveClass('foot');
-        } else {
-          console.log('选择的组件');
+        } else {//选择的组件
           e.target.setAttribute('class', 'mask-layer mask-layer-active');//设置选中样式
           var cu_id = e.target.parentNode.dataset.id;//当前元素的id
           admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
@@ -139,6 +136,10 @@ export default {
           admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list,'configParameter':configParameter });
         }
       }
+    },
+    //右侧点击事件-头部，底部
+    rightMenu(val){
+      admin_vue.$refs.rightCheck_ref.getHFlist(val);
     },
     //获取应用列表
     setAppsList(list) {
