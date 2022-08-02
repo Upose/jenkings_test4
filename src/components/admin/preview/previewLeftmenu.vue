@@ -97,22 +97,6 @@ export default {
     }
   },
   methods: {
-    //初始化模板
-    styleRender(val) {//css 渲染
-      var list = {
-        width: 20 * val.width + 'px',
-        height: (val.height * 10) + 'px',
-        top: (val.yIndex * 10) + 'px',
-        left: 20 * val.xIndex + 'px',
-        position: 'absolute',
-        // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
-      };
-      if (val.appWidget && val.appWidget.target) {
-        this.addStyle(val.appWidget.target + '/component.css');
-        this.addScript(val.appWidget.target + '/component.js');
-      }
-      return list;
-    },
     //判断是否为空
     isWidgetCode(item) {
       if (item.widgetCode) {
