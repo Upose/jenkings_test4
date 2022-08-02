@@ -67,6 +67,7 @@
                   </el-dropdown-menu>
                   </el-dropdown>
               </h1><!--选择应用类型 end-->
+
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
                   <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
@@ -77,17 +78,37 @@
               </div><!--应用列表 end-->
             </div>
 
+            <div class="fixed-temp-w">
+              <div class="drag-box-warp c-l">
+                <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
+                  <div class="drag-box" :class="appId==i.key?'box-active':''" :title="i.key">
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.key||''}}</span>
+                  </div>
+                </div>
+                <div class="drag-box-width" @click="header_footer_show=true">
+                  <div class="drag-box">
+                    <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
+                    <span class="d-b-txt">脚本设置</span>
+                  </div>
+                </div>
+              </div>
+            </div><!--头部底部固定模板,脚本设置 end-->
+
         </div>
       </div>
       <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
   </div>
+  <advanced @hfHide="header_footer_show = false" :postForm="postForm" v-if="header_footer_show"></advanced>
 </div>
 </template>
 
 <script>
+import advanced from "./advanced.vue";//高级设置
 export default {
   name: 'index',
   props:['dataList','screen_cu','screen_list','postForm'],
+  components:{advanced},
   watch: {
     dataList: {
       deep: true,  // 深度监听
@@ -108,13 +129,16 @@ export default {
     //获取模板等信息
     this.http.getPlain('layout-options','').then(res=>{
       this.allList = res.data.sceneLayout||[];
+      this.sceneHeaderFooter = res.data.sceneHeaderFooter||[];
       this.initLeftData();
     })
   },
   data () {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
+      header_footer_show:false,
       allList:[],
+      sceneHeaderFooter:[],
       id:this.$route.query.id,
       left_fold:false,//开启关闭左侧菜单
       templateId:'',//模板
@@ -260,6 +284,15 @@ export default {
     appDetails(id){
       this.appId = id;
       this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'});
+    },
+    //头部底部添加事件
+    addHFtemp(val){
+      this.appId = val;
+      if(val=='头部'){
+        //添加头部
+      }else{
+        //添加底部
+      }
     },
     //文件上传
     handleFileJS(e,val) {

@@ -1,347 +1,395 @@
 /******这个模板下面的所有css*****/
-.ml0{
+.ml0 {
   margin-left: 0 !important;
 }
+
 /**左侧***/
-.drag-l-warp{
-    left: 0;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
-    .cut-btn{
-        left: 255px;
-        border-radius: 0px 40px 40px 0px;
-    }
-    .step-num{
-        margin-top: 10px;
-        margin-bottom:15px;
-    }
-    /deep/.el-collapse-item__wrap{
-      margin-left: -5px;
-    }
-    /deep/.el-collapse-item__content{
-      padding-bottom: 0;
-    }
-    .drag-box-width{
-        cursor: pointer;
-        width: 33.333%;
-        border-radius: 3px;
-        float: left;
-        .drag-box{
-          margin-top: 5px;
-          margin-left: 5px;
-          padding: 1px;
-          background-color: #f9fafc;
-          &:hover{
-            background-color: @f3f4ff;
-            .d-b-txt{
-                color: @6777EF;
-                overflow: hidden;
-                text-overflow:ellipsis;
-                white-space: nowrap;
-            }
-          }
+.drag-l-warp {
+  left: 0;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
+
+  .cut-btn {
+    left: 255px;
+    border-radius: 0px 40px 40px 0px;
+  }
+
+  .step-num {
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  /deep/.el-collapse-item__wrap {
+    margin-left: -5px;
+  }
+
+  /deep/.el-collapse-item__content {
+    padding-bottom: 0;
+  }
+
+  .drag-box-width {
+    cursor: pointer;
+    width: 33.333%;
+    border-radius: 3px;
+    float: left;
+
+    .drag-box {
+      margin-top: 5px;
+      margin-left: 5px;
+      padding: 1px;
+      background-color: #f9fafc;
+
+      &:hover {
+        background-color: @f3f4ff;
+
+        .d-b-txt {
+          color: @6777EF;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
-        // &:nth-child(3n+3){
-        // margin-right: 0;
-        // }
-        
-        i.d-b-img{
-          padding: 10px;
-          font-size: 20px;
-          text-align: center;
-          display: block;
-          color: @f28102;
-        }
-        .img-cover{
-          width: 20px;
-          height: 20px;
-          display: block;
-          margin:10px auto;
-          border-radius:1px;
-        }
-        .d-b-txt{
-        font-size: 12px;
-        color: @34395E;
-        text-align: center;
-        display: block;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-        }
-    }
-    .step-three{
-        height: 50px;
-        position: relative;
-        &::after{
-        content: '';
-        display: block;
-        position: absolute;
-        height: 1px;
-        left: -20px;
-        right: -20px;
-        bottom: 0;
-        background-color: @EBEEF5;
-        }
-        .step-num{
-        width: 100%;
-        }
-    }
-    }
-    /*****box选中状态 */
-    .box-active{
-      background-color: #e3e6ff !important;
-        .d-b-txt{
-            color: @6777EF !important;
-        }
-    }
-    .drag-box-warp{
-      margin-left: -5px;
-    }
-    /***模板配置 */
-    .model-set-w{
-      padding-top: 5px;
-    }
-    .r-model-w{
-      margin: 0 -5px;
-      .btn-block{
-        margin-left: 5px;
-        width: calc(100% - 10px);
       }
     }
-    /***上传图片按钮 */
-    .w100{
-      width: 216px;
+
+    // &:nth-child(3n+3){
+    // margin-right: 0;
+    // }
+
+    i.d-b-img {
+      padding: 10px;
+      font-size: 20px;
+      text-align: center;
+      display: block;
+      color: @f28102;
     }
-    .w50{
-      width: 105px;
+
+    .img-cover {
+      width: 20px;
+      height: 20px;
+      display: block;
+      margin: 10px auto;
+      border-radius: 1px;
     }
-    .up-img{
-      cursor: pointer;
-      height: 60px;
+
+    .d-b-txt {
+      font-size: 12px;
+      color: @34395E;
+      text-align: center;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .step-three {
+    height: auto;
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 1px;
+      left: -20px;
+      right: -20px;
+      top: 50px;
+      background-color: @EBEEF5;
+    }
+
+    .step-num {
+      width: 100%;
+    }
+  }
+
+  .fixed-temp-w {
+    margin-top: 10px;
+    padding-top: 3px;
+    border-top: 1px solid @EBEEF5;
+  }
+}
+
+/*****box选中状态 */
+.box-active {
+  background-color: #e3e6ff !important;
+
+  .d-b-txt {
+    color: @6777EF  !important;
+  }
+}
+
+.drag-box-warp {
+  margin-left: -5px;
+}
+
+/***模板配置 */
+.model-set-w {
+  padding-top: 5px;
+}
+
+.r-model-w {
+  margin: 0 -5px;
+
+  .btn-block {
+    margin-left: 5px;
+    width: calc(100% - 10px);
+  }
+}
+
+/***上传图片按钮 */
+.w100 {
+  width: 216px;
+}
+
+.w50 {
+  width: 105px;
+}
+
+.up-img {
+  cursor: pointer;
+  height: 60px;
+  position: relative;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px dashed #bcc3c5;
+  margin-left: 5px;
+  border-radius: 4px;
+  float: left;
+  background-size: 100% 100%;
+
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    span {
+      color: #6777ef;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+}
+
+/**右侧**/
+.drag-r-warp {
+  right: 0;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
+
+  .cut-btn {
+    right: 255px;
+    border-radius: 40px 0px 0px 40px;
+  }
+
+  .step-num {
+    width: 100%;
+    position: relative;
+
+    .title {
+      line-height: 50px;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      height: 1px;
+      left: -20px;
+      right: -20px;
+      bottom: 0;
+      background-color: @EBEEF5;
+    }
+  }
+
+  .s-title {
+    font-size: 14px;
+    color: @34395E;
+    display: block;
+    line-height: 30px;
+    font-weight: bold;
+  }
+
+  .bor-botm {
+    border-bottom: 1px solid @EBEEF5;
+  }
+
+  .select-type {
+    .s-list {
+      max-height: 330px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: 0 -20px;
+    }
+
+    /******************选择样式-模板 */
+    .d-temp-box {
+      margin-left: 20px;
+      width: 214px;
+      height: 100px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      background-color: #f1f3f7;
+      border: 1px solid #a5b3cc;
       position: relative;
       background-position: center;
       background-repeat: no-repeat;
-      border: 1px dashed #bcc3c5;
-      margin-left: 5px;
-      border-radius: 4px;
-      float: left;
-      background-size: 100% 100%;
-      div{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        background: rgba(255,255,255,0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        span{
-          color: #6777ef;
-          font-size: 12px;
-          margin-top:5px;
-        }
-      }
-      input{
-        opacity: 0;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: 2;
-      }
-    }
-/**右侧**/
-.drag-r-warp {
-    right: 0;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
-    .cut-btn {
-      right: 255px;
-      border-radius: 40px 0px 0px 40px;
-    }
-    .step-num {
-      width: 100%;
-      position: relative;
-      .title {
-        line-height: 50px;
-      }
-      &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        height: 1px;
-        left: -20px;
-        right: -20px;
-        bottom: 0;
-        background-color: @EBEEF5;
-      }
-    }
-    .s-title {
-      font-size: 14px;
-      color: @34395E;
-      display: block;
-      line-height: 30px;
-      font-weight: bold;
-    }
-    .bor-botm {
-      border-bottom: 1px solid @EBEEF5;
-    }
-    .select-type {
-      .s-list{
-          max-height: 330px;
-          overflow-y: auto;
-          overflow-x: hidden;
-          margin: 0 -20px;
-      }
-      /******************选择样式-模板 */
-      .d-temp-box {
-        margin-left: 20px;
-        width: 214px;
-        height: 100px;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 3px;
-        background-color: #f1f3f7;
-        border: 1px solid #a5b3cc;
-        position: relative;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 100%;
-        &:hover {
-          border: 2px solid #6777ef;
-          box-shadow: 1px 5px 20px #dedede;
-          background-size: 95% 95% !important;
-        }
-        img {
-          position: absolute;
-          z-index: 1;
-          width: 100%;
-          height: 100%;
-          left: 0;
-          top: 0;
-        }
-        .temp-name {
-          color: @707070;
-          position: relative;
-          z-index: 2;
-          text-shadow: 1px 0px 1px #d7d7d7;
-        }
-        .button {
-          position: absolute;
-          bottom: 10px;
-          left: 50%;
-          margin-left: -37px;
-          width: 74px;
-          height: 28px;
-          padding: 6px 14px;
-          z-index: 2;
-          span {
-            line-height: 28px;
-          }
-          i {
-            font-size: 14px;
-          }
-          i.n-check {
-            display: inline-block;
-            border: 1px solid @fff;
-            border-radius: 50%;
-            width: 14px;
-            height: 14px;
-            vertical-align: bottom;
-          }
-        }
-      }
-      .d-temp-box-check {
+      background-size: 100%;
+
+      &:hover {
         border: 2px solid #6777ef;
         box-shadow: 1px 5px 20px #dedede;
         background-size: 95% 95% !important;
       }
-      /******************设置内容 */
-      .s-choose {
-        .s-title {
-          font-weight: 400;
-          margin-top: 10px;
-          .s-edit {
-            cursor: pointer;
-            color: @6777EF;
-            float: right;
-            user-select: none;
-            &:hover {
-              opacity: 0.9;
-            }
-            &:active {
-              opacity: 1;
-            }
-          }
+
+      img {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+
+      .temp-name {
+        color: @707070;
+        position: relative;
+        z-index: 2;
+        text-shadow: 1px 0px 1px #d7d7d7;
+      }
+
+      .button {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        margin-left: -37px;
+        width: 74px;
+        height: 28px;
+        padding: 6px 14px;
+        z-index: 2;
+
+        span {
+          line-height: 28px;
         }
-        .s-c-add {
-          cursor: pointer;
-          width: 100%;
-          outline: none;
-          border: none;
-          color: @6777EF;
+
+        i {
           font-size: 14px;
-          line-height: 40px;
-          background-color: @fff;
-          margin-top: 10px;
-          border-bottom: 1px dashed @E4E6FC;
-          i {
-            font-size: 14px;
-            margin-right: 8px;
-          }
+        }
+
+        i.n-check {
+          display: inline-block;
+          border: 1px solid @fff;
+          border-radius: 50%;
+          width: 14px;
+          height: 14px;
+          vertical-align: bottom;
+        }
+      }
+    }
+
+    .d-temp-box-check {
+      border: 2px solid #6777ef;
+      box-shadow: 1px 5px 20px #dedede;
+      background-size: 95% 95% !important;
+    }
+
+    /******************设置内容 */
+    .s-choose {
+      .s-title {
+        font-weight: 400;
+        margin-top: 10px;
+
+        .s-edit {
+          cursor: pointer;
+          color: @6777EF;
+          float: right;
+          user-select: none;
+
           &:hover {
             opacity: 0.9;
           }
+
           &:active {
             opacity: 1;
           }
         }
-        
       }
+
+      .s-c-add {
+        cursor: pointer;
+        width: 100%;
+        outline: none;
+        border: none;
+        color: @6777EF;
+        font-size: 14px;
+        line-height: 40px;
+        background-color: @fff;
+        margin-top: 10px;
+        border-bottom: 1px dashed @E4E6FC;
+
+        i {
+          font-size: 14px;
+          margin-right: 8px;
+        }
+
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
+          opacity: 1;
+        }
+      }
+
     }
   }
-  .app-name {
+}
+
+.app-name {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #34395e;
+
+  .name {
+    color: @6D7CEF;
+    font-style: inherit;
+  }
+}
+
+.btn-block {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.row-switch {
+  padding-top: 70px;
+  padding-bottom: 5px;
+  border-radius: 2px;
+  background: #eff2f3;
+
+  .title {
     font-size: 14px;
-    margin-bottom: 15px;
-    color: #34395e;
-    .name {
-      color: @6D7CEF;
-      font-style: inherit;
-    }
+    color: @34395E;
+    padding-left: 5px;
   }
-  .btn-block {
-    width: 100%;
-    margin: 10px 0;
-  }
-  .row-switch{
-    padding-top: 70px;
-    padding-bottom: 5px;
-    border-radius: 2px;
-    background: #eff2f3;
-    .title{
-      font-size: 14px;
-      color: @34395E;
-      padding-left:5px;
-    }
-  }
-  .mt-5{
-    margin-top: 5px;
-  }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.mt-5 {
+  margin-top: 5px;
+}

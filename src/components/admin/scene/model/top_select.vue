@@ -21,21 +21,18 @@
               <el-option v-for="item in (userType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
           </el-select>
         </div>
-        <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="header_footer_show = true">脚本设置</el-button>
+        <!-- <el-button class="default-btn-border" icon="iconfont el-icon-vip-gaojishezhi" size="medium" @click="header_footer_show = true">脚本设置</el-button> -->
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
         <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
-        <advanced @hfHide="header_footer_show = false" :postForm="postForm" v-if="header_footer_show"></advanced>
     </div><!--顶部条件筛选 end-->
     
 </template>
 
 <script>
-import advanced from "./advanced.vue";//高级设置
 export default {
   name: 'index',
   props:['dataList','postForm'],
-  components:{advanced},
   watch: {
     'postForm.name'(nval, oval) {
       this.$forceUpdate();
@@ -44,7 +41,6 @@ export default {
   data () {
     return {
       id:this.$route.query.id,
-      header_footer_show:false,
       head_fot_data:{footerTemplate:{},headerTemplate:{}},
       userType: [],//用户类型列表
       userType_data:[],//多选
