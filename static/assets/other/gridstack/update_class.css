@@ -7,18 +7,19 @@
 .jl_vip_zt_warp .jl_vip_zt_del{
     cursor: pointer;
     position: absolute;
-    right:0;
+    right: 0;
     top: 0;
-    background: rgba(255, 255, 255, 0.5);
-    color: #999;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #e6e9ff;
+    color: red;
     display: block;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
     text-align: center;
     font-size: 14px;
     border-radius: 50%;
-    z-index: 99;
+    z-index: 150;
     font-weight: 400;
     font-style: inherit;
 }
@@ -26,7 +27,7 @@
     content: "\2716";
 }
 .jl_vip_zt_warp .jl_vip_zt_del:hover{
-    color: #000;
+    color: #001eff;
     background-color: #fff;
 }
 .jl_vip_zt_warp .mask-layer{
