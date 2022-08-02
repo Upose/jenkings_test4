@@ -42,6 +42,7 @@
 
                   <div class="jl_vip_zt_warp_hf head" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="height:80px" :style="{'zoom':ratio_num}">
                     <div class="mask-layer head"></div>
+                    <i class="jl_vip_zt_del" @click="delTempHF('header')"></i>
                     <div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
                     logo:postForm.headerTemplate.logo||'',
                     headerBgImg:postForm.headerTemplate.headerBgImg||'',
@@ -57,6 +58,7 @@
 
                   <div class="jl_vip_zt_warp_hf foot" v-show="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==(screen_list.length-1)):true)" style="height:90px" :style="{'zoom':ratio_num}">
                     <div class="mask-layer foot"></div>
+                    <i class="jl_vip_zt_del" @click="delTempHF('foot')"></i>
                     <div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
                     content:postForm.footerTemplate.content||'',
                     footerBgImg:postForm.footerTemplate.footerBgImg||'',
@@ -123,6 +125,32 @@ export default {
   top: 0;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0);
+}
+.jl_vip_zt_del{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #e6e9ff;
+    color: red;
+    display: block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 50%;
+    z-index: 150;
+    font-weight: 400;
+    font-style: inherit;
+}
+.jl_vip_zt_del::before {
+    content: "\2716";
+}
+.jl_vip_zt_del:hover{
+    color: #001eff;
+    background-color: #fff;
 }
 </style>
 

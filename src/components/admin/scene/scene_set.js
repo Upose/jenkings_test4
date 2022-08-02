@@ -676,6 +676,14 @@ export default {
         return '';
       }
     },
+    delTempHF(val){
+      if(val == 'foot'){
+        this.postForm.footerTemplate = {};
+      }else{
+        this.postForm.headerTemplate = {};
+      }
+      this.$forceUpdate();
+    },
     //加载头部底部
     loadHeadFoot(val) {
       if(!val){
