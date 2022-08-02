@@ -282,11 +282,19 @@ export default {
     },
     //应用点击事件
     appDetails(id){
+      if(!this.postForm.template){
+        this.$message({ type: 'info', message: '请先选择模板!' });
+        return;
+      }
       this.appId = id;
       this.$emit('getAppDetails',{'id':id,'temp_id':0,'is_add':true,'set_list':'[{}]'});
     },
     //头部底部添加事件
     addHFtemp(val){
+      if(!this.postForm.template){
+        this.$message({ type: 'info', message: '请先选择模板!' });
+        return;
+      }
       this.appId = val;
       if(val=='头部'){
         this.$emit('rightMenu','header');
