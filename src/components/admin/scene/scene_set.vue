@@ -131,7 +131,7 @@ export default {
     position: absolute;
     right: 0;
     top: 0;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.6);
     border: 1px solid #e6e9ff;
     color: red;
     display: block;

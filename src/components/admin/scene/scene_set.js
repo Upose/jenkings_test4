@@ -96,7 +96,7 @@ export default {
         marginBottom:1,
         marginRight:1,
         marginLeft:1,
-        cellHeightThrottle: 100,
+        cellHeightThrottle: 10,
         resizable: {
           handles: 'se,sw,nw,n,e,s,w'
         },
