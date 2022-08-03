@@ -91,6 +91,11 @@ export default {
         float: true,
         column:60,//1200为60,1440为72
         cellHeight: 10,
+        marginUnit:1,
+        marginTop:1,
+        marginBottom:1,
+        marginRight:1,
+        marginLeft:1,
         cellHeightThrottle: 100,//拖动速度
         resizable: {
           /**

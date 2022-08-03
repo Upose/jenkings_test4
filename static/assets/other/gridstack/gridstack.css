@@ -12,11 +12,6 @@
     .grid-stack.grid-stack-rtl > .grid-stack-item {
       direction: rtl; }
   .grid-stack .grid-stack-placeholder > .placeholder-content {
-    top: 1px !important;
-    right: 1px !important;
-    bottom: 1px !important;
-    left: 1px !important;
-
     border: 2px dashed red;
     margin: 0;
     position: absolute;
@@ -28,11 +23,6 @@
     position: absolute;
     padding: 0; }
     .grid-stack > .grid-stack-item > .grid-stack-item-content {
-      top: 1px !important;
-      right: 1px !important;
-      bottom: 1px !important;
-      left: 1px !important;
-      
       margin: 0;
       position: absolute;
       width: auto;
