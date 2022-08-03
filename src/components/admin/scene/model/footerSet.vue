@@ -64,6 +64,7 @@ export default {
     })
   },
   mounted() {
+    var _this = this;
     //tinymce 编辑器
     setTimeout(() => {
       tinymce.init({
@@ -89,14 +90,13 @@ export default {
                 img_data.push(capture);
               });
               _this.img_list = img_data;
-              console.log(img_data);
             }
           })
         }, 50);
       });
     }, 100);
     if(this.postForm.footerTemplate){
-      setTimeout(()=>{tinymce.activeEditor.setContent(this.postForm.footerTemplate.content);},150)
+      setTimeout(()=>{tinymce.activeEditor.setContent((this.postForm.footerTemplate.content||''));},150)
       this.postForm_fot.footerBgImg = this.postForm.footerTemplate.footerBgImg||'';
       this.postForm_fot.footerDisplayNavColumn = this.postForm.footerTemplate.footerDisplayNavColumn||[];
       if(this.postForm_fot.footerDisplayNavColumn.length>0){

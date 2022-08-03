@@ -43,11 +43,11 @@
                   <div class="jl_vip_zt_warp_hf head" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="height:80px" :style="{'zoom':ratio_num}">
                     <div class="mask-layer head"></div>
                     <i class="jl_vip_zt_del" @click="delTempHF('header')"></i>
-                    <div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify([{
+                    <div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
                     logo:postForm.headerTemplate.logo||'',
                     headerBgImg:postForm.headerTemplate.headerBgImg||'',
                     displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
-                    }])">
+                    })">
                       <div id="jl_vip_zt_header"></div>
                     </div>
                   </div>
