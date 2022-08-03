@@ -45,13 +45,13 @@
                     <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
                     <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
                   </h2>
-                  <el-select class="w-saml" v-model="it.id" size="medium" placeholder="请选择">
+                  <el-select class="w-saml" v-model="it.id" size="medium" @change="column" placeholder="请选择">
                     <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                   </el-select>
                 </div>
                 <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
                   <h2 class="s-title">显示条数</h2>
-                  <el-select class="w-saml" v-model="it.topCount" size="medium" placeholder="请选择">
+                  <el-select class="w-saml" v-model="it.topCount" size="medium" @change="showNum" placeholder="请选择">
                     <el-option v-for="(item,i) in topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
                   </el-select>
                 </div>
@@ -118,6 +118,14 @@ export default {
   },
 
   methods: {
+    //栏目选择
+    column(e){
+      this.saveClick('edit');
+    },
+    //条数选择
+    showNum(e){
+      this.saveClick('edit');
+    },
     //获取头部底部模板
     getHFlist(val){
       this.availableConfig = '';
