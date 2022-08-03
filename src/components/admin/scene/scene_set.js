@@ -525,9 +525,12 @@ export default {
           this.detailsRender(this.postForm);
         }).catch(err=>{})
       }else{
-        this.postForm.template = val.list || {};
-        this.postForm.headerTemplate = val.list.defaultHeaderTemplate || {};
-        this.postForm.footerTemplate = val.list.defaultFooterTemplate || {};
+        console.log(val);
+        this.postForm['footerTemplate'] = {};
+        this.postForm['headerTemplate'] = {};
+        this.postForm['sceneScreens'] = [];
+        this.postForm['template'] = val.list||{};
+        this.postForm['themeColor'] = 'template1';
         if (this.grid) {
           this.grid.removeAll();
         }
@@ -599,7 +602,6 @@ export default {
     },
     //加载资源文件
     loadRes() {
-      console.log(this.screen_list[this.screen_cu]['sceneApps'],'11111111111111');
       if (this.screen_list[this.screen_cu]['sceneApps']) {
         this.screen_list[this.screen_cu]['sceneApps'].forEach(item => {
           let is_list = this.resource_file_list.filter(x => x.widgetCode == item.widgetCode);

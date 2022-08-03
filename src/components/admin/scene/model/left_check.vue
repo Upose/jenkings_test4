@@ -194,6 +194,7 @@ export default {
     },
     //选择模板
     templateClick(val,is_add){
+      if(this.templateId == val.id) return;
       if(this.templateId=='' && !this.templateId){
         this.templateLoad(val,is_add);
       }else{
