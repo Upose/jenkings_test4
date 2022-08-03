@@ -41,7 +41,10 @@
             <div class="s-choose">
               <div class="" v-for="(it,i) in set_list" :key="i">
                 <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                  <h2 class="s-title">绑定栏目 <span class="s-edit" v-if="i!=0" @click="removeRow(i)">删除</span></h2>
+                  <h2 class="s-title">绑定栏目 
+                    <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
+                    <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
+                  </h2>
                   <el-select class="w-saml" v-model="it.id" size="medium" placeholder="请选择">
                     <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                   </el-select>
@@ -59,8 +62,8 @@
                   </el-select>
                 </div>
               </div>
-              <button class="s-c-add" @click="addRow()" v-if="this.availableConfig.indexOf('1')!=-1"><i class="el-icon-plus"></i><span>添加一组栏目</span></button>
-              <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="isShowBtn()" @click="saveClick('edit')" size="medium">保存</el-button>
+              <!-- <button class="s-c-add" @click="addRow()" v-if="availableConfig.indexOf('1')!=-1"><i class="el-icon-plus"></i><span>添加一组栏目</span></button> -->
+              <!-- <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="isShowBtn()" @click="saveClick('edit')" size="medium">保存</el-button> -->
             </div><!--栏目配置 end--->
 
           </div>
