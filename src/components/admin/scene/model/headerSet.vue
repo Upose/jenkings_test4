@@ -10,6 +10,7 @@
             <div class="up-img w100" :style="{'background-image':'url('+fileUrl+(postForm_head.headerBgImg||'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
               <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
           <el-form-item label="更换LOGO" prop="logo">
@@ -132,6 +133,10 @@ export default {
       this.postForm.headerTemplate.displayNavColumn = this.postForm_head.displayNavColumn||[];
       this.$emit('hfHide',true);
       console.log(this.postForm);
+    },
+    //删除背景
+    delBGImg(){
+      this.postForm_head.headerBgImg = '';
     },
     //文件上传
     handleFileJS(e) {

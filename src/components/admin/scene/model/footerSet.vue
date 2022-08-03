@@ -9,6 +9,7 @@
             <div class="up-img w100" :style="{'background-image':'url('+fileUrl+(postForm_fot.footerBgImg||'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
               <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
         <el-form-item label="展示栏目">
@@ -158,6 +159,10 @@ export default {
     /***x关闭按钮 **/
     handleClose(done) {
       this.$emit('hfHide',false);
+    },
+    //删除背景
+    delBGImg(){
+      this.postForm_fot.footerBgImg = '';
     },
     //文件上传
     handleFileJS(e) {
