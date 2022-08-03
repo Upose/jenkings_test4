@@ -28,7 +28,7 @@
                 <div v-if="template_check && !is_hf" class="up-img w100 mt-5" :style="{'background-image':'url('+fileUrl+(configParameter.bgImg||'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
-                  <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
+                  <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
                 </div>
                 <div class="row-switch" v-if="template_check && !is_hf">
                   <span class="title">铺满屏幕：</span>
@@ -319,6 +319,11 @@ export default {
       }
       if(val)this.$emit('refreshHF',templateCode);
     },
+    delBGImg(){
+      this.configParameter.bgImg = '';
+      this.saveClick('edit');
+      this.$forceUpdate();
+    },
     //文件上传
     handleFileJS(e) {
       let $target = e.target || e.srcElement
@@ -334,6 +339,7 @@ export default {
       }
       this.http.postFile("UploadFile", formData).then((res) => {
        this.configParameter.bgImg = res.data[0]||'';
+       this.saveClick('edit');
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });

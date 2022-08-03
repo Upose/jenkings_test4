@@ -39,7 +39,7 @@
                   <div class="up-img w100 ml0" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgt')">
-                    <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgt')"></i>
                   </div>
                 </div><!--通屏配置 end-->
 
@@ -47,12 +47,12 @@
                   <div class="up-img w150" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">
-                    <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
                   </div>
                   <div class="up-img w60" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].icon||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'tb')">
-                    <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('tb')"></i>
                   </div>
                 </div><!--通屏配置 end-->
 
@@ -305,6 +305,16 @@ export default {
       }else{
         this.$emit('rightMenu','foot');
       }
+    },
+    //删除背景图片
+    delBGImg(val){
+      switch(val){
+        case 'bgt': this.screen_list[this.screen_cu].bgImg = '';break;
+        case 'bgf': this.screen_list[this.screen_cu].bgImg = '';break;
+        case 'tb': this.screen_list[this.screen_cu].icon = '';break;
+      }
+      this.$forceUpdate();
+      this.$emit('sceneLeftBG',{type:val,url:''})
     },
     //文件上传
     handleFileJS(e,val) {
