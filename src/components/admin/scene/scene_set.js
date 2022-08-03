@@ -12,6 +12,7 @@ export default {
   name: 'index',
   components: { serviceLMenu, scalingPage, topSelect, leftCheck, rightCheck },
   beforeDestroy() {
+    this.grid.destroy();
     document.removeEventListener('click', this.documentFun)
   },
   created() {
@@ -303,9 +304,21 @@ export default {
       if (is_add) {
         //添加时，要将已存在的选中状态的元素移出选中状态；
         this.removeActiveClass('mask-layer');
+        /****赛选y值最大的，然后y+h就是新元素添加的值 */
+        var y_index = 0;
+        if(this.screen_list[this.screen_cu].sceneApps){
+          var max = Math.max.apply(Math, this.screen_list[this.screen_cu].sceneApps.map(function(o) {
+            return o.y;
+          }))
+          var max_y = this.screen_list[this.screen_cu].sceneApps.filter(item=>item.y==max);
+          if(max_y && max_y.length>0){
+            y_index = max_y[0].y+max_y[0].h;
+          }
+        }
+        
         let it = {
           x: 0, 
-          y: 100, //获取sceneApps中yIndex值最大的，然后 最大的组件yIndex+height的值，就是下一个元素的y值
+          y: y_index,
           h: data.height, 
           w: data.width,
           // noMove: true,//静止拖动位置
@@ -504,6 +517,11 @@ export default {
           this.postForm['sceneScreens'] = res.data.sceneScreens||[];
           this.postForm['template'] = res.data.template||{};
           this.postForm['themeColor'] = res.data.themeColor||'template1';
+          //这里要清空头底模板
+          document.getElementById('jl_vip_zt_footer_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
+          document.getElementById('jl_vip_zt_header_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
+          this.grid.removeAll();//清除元素
+          //这里还要做头部底部的更新
           this.detailsRender(this.postForm);
         }).catch(err=>{})
       }else{
@@ -581,6 +599,7 @@ export default {
     },
     //加载资源文件
     loadRes() {
+      console.log(this.screen_list[this.screen_cu]['sceneApps'],'11111111111111');
       if (this.screen_list[this.screen_cu]['sceneApps']) {
         this.screen_list[this.screen_cu]['sceneApps'].forEach(item => {
           let is_list = this.resource_file_list.filter(x => x.widgetCode == item.widgetCode);
@@ -643,6 +662,7 @@ export default {
         this.addStyle(this.postForm.headerTemplate.router + '/component.css');
         this.addScript(this.postForm.headerTemplate.router + '/component.js');
       } else {
+        console.log('更新头部');
         if (window[this.postForm.headerTemplate.templateCode]) {
           window[this.postForm.headerTemplate.templateCode]();
         }
@@ -655,6 +675,7 @@ export default {
         this.addStyle(this.postForm.footerTemplate.router + '/component.css');
         this.addScript(this.postForm.footerTemplate.router + '/component.js');
       } else {
+        console.log('更新底部');
         if (window[this.postForm.footerTemplate.templateCode]) {
           window[this.postForm.footerTemplate.templateCode]();
         }
