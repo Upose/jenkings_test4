@@ -90,7 +90,7 @@ export default {
       },
       opts: {//初始化配置
         float: true,
-        column:60,//1200为60,1440为72
+        column:120,//120/140
         cellHeight: 10,
         marginUnit:1,
         marginTop:1,
