@@ -39,17 +39,20 @@
                   <div class="up-img w100 ml0" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgt')">
+                    <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
                   </div>
                 </div><!--通屏配置 end-->
 
                 <div class="model-set-w c-l" v-show="postForm.layoutId==2">
-                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
+                  <div class="up-img w150" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].bgImg||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">
+                    <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
                   </div>
-                  <div class="up-img w50" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].icon||'')+')'}">
+                  <div class="up-img w60" :style="{'background-image':'url('+fileUrl+(screen_list[screen_cu].icon||'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>图标更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'tb')">
+                    <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
                   </div>
                 </div><!--通屏配置 end-->
 

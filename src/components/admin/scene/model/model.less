@@ -140,10 +140,12 @@
   width: 216px;
 }
 
-.w50 {
-  width: 105px;
+.w150 {
+  width: 150px;
 }
-
+.w60{
+  width: 60px;
+}
 .up-img {
   cursor: pointer;
   height: 60px;
@@ -184,6 +186,23 @@
     top: 0;
     left: 0;
     z-index: 2;
+  }
+  .del-img{
+    position: absolute;
+    z-index: 5;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    padding: 5px;
+    color: #F56C6C;
+    text-align: center;
+    background: rgba(255,255,255,0.7);
+    &:hover{
+      color: red;
+    }
   }
 }
 

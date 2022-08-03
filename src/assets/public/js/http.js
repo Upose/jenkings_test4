@@ -360,7 +360,6 @@ export default {
         },
       }).then(response => {
         const result = response.data;
-        console.log(response);
         if (result.statusCode == 200) {
           resolve(result);
         } else {

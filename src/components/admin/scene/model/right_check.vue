@@ -28,6 +28,7 @@
                 <div v-if="template_check && !is_hf" class="up-img w100 mt-5" :style="{'background-image':'url('+fileUrl+(configParameter.bgImg||'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
                   <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                  <i class="del-img iconfont el-icon-vip-shanchu-1"></i>
                 </div>
                 <div class="row-switch" v-if="template_check && !is_hf">
                   <span class="title">铺满屏幕：</span>
