@@ -6,7 +6,7 @@
     <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="800px" :close-on-click-modal="false" :before-close="handleClose">
       <el-form label-width="70px" class="admin-form">
         <el-form-item label="更换背景" prop="logo">
-            <div class="up-img w100" :style="{'background-image':'url('+fileUrl+(postForm_fot.footerBgImg||'')+')'}">
+            <div class="up-img w100" :style="{'background-image':'url('+(postForm_fot.footerBgImg?(fileUrl+postForm_fot.footerBgImg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
               <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>

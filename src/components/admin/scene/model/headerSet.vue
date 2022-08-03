@@ -7,7 +7,7 @@
       <el-form label-width="90px" class="admin-form">
         <div class="form-set-content">
           <el-form-item label="更换背景" prop="logo">
-            <div class="up-img w100" :style="{'background-image':'url('+fileUrl+(postForm_head.headerBgImg||'')+')'}">
+            <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.headerBgImg?(fileUrl+postForm_head.headerBgImg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
               <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
@@ -68,6 +68,7 @@ export default {
     })
   },
   mounted(){
+    console.log(this.postForm);
     if(this.postForm.headerTemplate){
       this.postForm_head.logo = this.postForm.headerTemplate.logo||'';
       this.postForm_head.headerBgImg = this.postForm.headerTemplate.headerBgImg||'';
