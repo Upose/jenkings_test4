@@ -87,7 +87,7 @@ export default {
           }
         ],//分屏
       },
-      opts: {//元素初始化高度
+      opts: {//初始化配置
         float: true,
         column:60,//1200为60,1440为72
         cellHeight: 10,
@@ -96,23 +96,10 @@ export default {
         marginBottom:1,
         marginRight:1,
         marginLeft:1,
-        cellHeightThrottle: 100,//拖动速度
+        cellHeightThrottle: 100,
         resizable: {
-          /**
-           * n：上边鼠标移入拖动边缘拉宽,
-           * e：右边鼠标移入拖动边缘拉宽,
-           * s：下边鼠标移入拖动边缘拉宽,
-           * w：左边鼠标移入拖动边缘拉宽,
-           * se：右下角箭头,
-           * sw：左下角箭头,
-           * ne：右上角箭头,
-           * nw：左上角箭头,
-           * **/
           handles: 'se,sw,nw,n,e,s,w'
         },
-        // acceptWidgets: true,//接受从其他网格或外部拖动的小部件
-        // staticGrid: true,//设置为静态元素-无任何拖拽功能
-        // removable: true,//移出屏幕外删除元素
       },
     }
   },
