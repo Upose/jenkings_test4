@@ -128,10 +128,10 @@ export default {
     //初始化模板
     styleRender(val) {//css 渲染
       var list = {
-        width: 20 * val.width + 'px',
+        width: 10 * val.width + 'px',
         height: (val.height * 10) + 'px',
         top: (val.yIndex * 10) + 'px',
-        left: 20 * val.xIndex + 'px',
+        left: 10 * val.xIndex + 'px',
         position: 'absolute',
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
@@ -158,7 +158,7 @@ export default {
     //外层全屏
     isWidgetCodeWapr(width, item) {
       var widgetCode = '';
-      if (item.width == (width/20) && item.configParameter && item.configParameter.fullScreen) {
+      if (item.width == (width/10) && item.configParameter && item.configParameter.fullScreen) {
         if (width == 1200) {
           widgetCode = ' mar-left-1200';
         } else if (width == 1440) {
