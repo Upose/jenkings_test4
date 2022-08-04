@@ -25,16 +25,18 @@
             <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
-                <div v-if="template_check && !is_hf" class="up-img w100 mt-5" :style="{'background-image':'url('+(configParameter.bgImg?(fileUrl+configParameter.bgImg):'')+')'}">
-                  <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
-                  <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
-                  <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
-                </div>
-                <div class="row-switch" v-if="template_check && !is_hf">
-                  <span class="title">铺满屏幕：</span>
-                  <el-tooltip class="item" effect="dark" content="组件宽度为100%时此设置生效" placement="top">
-                    <el-switch :active-value="true" :inactive-value="false" v-model="configParameter.fullScreen"></el-switch>
-                  </el-tooltip>
+                <div v-if="availableConfig.indexOf('4')>-1">
+                  <div v-if="template_check && !is_hf" class="up-img w100 mt-5" :style="{'background-image':'url('+(configParameter.bgImg?(fileUrl+configParameter.bgImg):'')+')'}">
+                    <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
+                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
+                  </div>
+                  <div class="row-switch" v-if="template_check && !is_hf">
+                    <span class="title">铺满屏幕：</span>
+                    <el-tooltip class="item" effect="dark" content="组件宽度为100%时此设置生效" placement="top">
+                      <el-switch :active-value="true" :inactive-value="false" v-model="configParameter.fullScreen"></el-switch>
+                    </el-tooltip>
+                  </div>
                 </div>
             </div><!--组件配置 end-->
 
@@ -101,6 +103,7 @@ export default {
       right_fold: false,
       is_add: true,//是点击应用添加，还是点击的渲染模板，true为点击应用
       availableConfig: '',//显示哪几栏设置
+      maxColumnCount:0,//最大栏目绑定组数
       sortList: [],//排序列表
       topCountList: [],//显示条数列表
       appPlateList: [],//栏目列表
@@ -231,7 +234,8 @@ export default {
       /***********************针对头部底部 end */
 
       
-      this.availableConfig = val.availableConfig;//有哪几项设置
+      this.availableConfig = val.availableConfig;
+      this.maxColumnCount = val.maxColumnCount||0;
       this.sortList = val.sortList;//排序
       if (this.set_list[0] && !this.set_list[0].sortType) {
         this.set_list[0].sortType = val.sortList[0].value;
@@ -264,6 +268,10 @@ export default {
     //添加一组
     addRow() {
       var index = this.set_list.length;
+      if(this.maxColumnCount == index){
+        this.$message({ type: 'info', message: ('栏目绑定数不能超过'+this.maxColumnCount) });
+        return;
+      }
       this.set_list.push({
         topCount: '',
         sortType: '',
