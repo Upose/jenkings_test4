@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import advanced from "./advanced.vue";//高级设置
+import advanced from "./sceneScript.vue";//高级设置
 export default {
   name: 'index',
   props:['dataList','screen_cu','screen_list','postForm'],

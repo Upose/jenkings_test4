@@ -124,8 +124,9 @@ export default {
   methods: {
     //初始化模板
     styleRender(val) {//css 渲染
+      var w = this.items.template.width||100;
       var list = {
-        width: 10 * val.width + 'px',
+        width:(val.width/w)*1000+'%',
         height: (val.height * 10) + 'px',
         top: (val.yIndex * 10) + 'px',
         left: 10 * val.xIndex + 'px',
