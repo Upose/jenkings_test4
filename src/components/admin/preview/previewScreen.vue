@@ -108,15 +108,12 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       isLock: false,//是否左侧固定模板
       bg_color: '#fff',//背景颜色
-      //以下是拖拽参数
-      grid: null,
       items: {},
       opts: {//元素初始化高度
         cellHeight: '10',
         cellHeightThrottle: 100,
       },
       left_menu: { widgetCode: {} },
-      temp_list: [],
       fullpage: {//分屏参数
         current: 1,
         isScrolling: false,
@@ -166,21 +163,6 @@ export default {
         }
       }
       return widgetCode;
-    },
-    styleRender_full(val) {//css 渲染
-      var list = {
-        width: '100%',
-        height: (val.height * 10) + 'px',
-        top: (val.yIndex * 10) + 'px',
-        left: '0',
-        position: 'absolute',
-        // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
-      };
-      if (val.appWidget && val.appWidget.target) {
-        this.addStyle(val.appWidget.target + '/component.css');
-        this.addScript(val.appWidget.target + '/component.js');
-      }
-      return list;
     },
     //动态设置模板id
     setId() {

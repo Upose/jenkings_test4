@@ -85,15 +85,8 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       isLock: false,//是否左侧固定模板
       bg_color: '#fff',//背景颜色
-      //以下是拖拽参数
-      grid: null,
       items: {},
-      opts: {//元素初始化高度
-        cellHeight: '10',
-        cellHeightThrottle: 100,
-      },
       left_menu: { widgetCode: {} },
-      temp_list: [],
     }
   },
   methods: {
