@@ -42,4 +42,5 @@
 }
 .jl_vip_zt_warp .mask-layer-active{
     border: 3px dashed #001eff;
+    /* box-shadow: 0 0 5px #3a51ff inset; */
 }

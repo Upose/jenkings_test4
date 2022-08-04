@@ -40,7 +40,7 @@
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
                 <div class="scene-warp-bg" :style="{'background':'url('+sceenBgImg(postForm.sceneScreens[screen_cu])+')'}">
 
-                  <div class="jl_vip_zt_warp_hf head" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="height:80px" :style="{'zoom':ratio_num}">
+                  <div class="jl_vip_zt_warp_hf head" :class="is_HF=='header'?'mask-layer-active':''" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="min-height:80px" :style="{'zoom':ratio_num}">
                     <div class="mask-layer head"></div>
                     <i class="jl_vip_zt_del" @click="delTempHF('header')"></i>
                     <div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({
@@ -56,7 +56,7 @@
                   <div class="drag-content grid-stack" ref="grid_stack" :style="{'zoom':ratio_num,'width':drag_width+'px'}"></div>
                   <!--拖拽区域-->
 
-                  <div class="jl_vip_zt_warp_hf foot" v-show="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==(screen_list.length-1)):true)" style="height:90px" :style="{'zoom':ratio_num}">
+                  <div class="jl_vip_zt_warp_hf foot" :class="is_HF=='foot'?'mask-layer-active':''" v-show="postForm.footerTemplate && postForm.footerTemplate.router && postForm.footerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==(screen_list.length-1)):true)" style="min-height:90px" :style="{'zoom':ratio_num}">
                     <div class="mask-layer foot"></div>
                     <i class="jl_vip_zt_del" @click="delTempHF('foot')"></i>
                     <div :class="postForm.footerTemplate.templateCode" id="jl_vip_zt_footer_warp" :data-set="JSON.stringify({
@@ -151,6 +151,11 @@ export default {
 .jl_vip_zt_del:hover{
     color: #001eff;
     background-color: #fff;
+}
+.mask-layer-active .mask-layer{
+  border: 3px dashed #001eff;
+  // box-shadow: 0px 0px 8px #001eff;//外部阴影
+  // box-shadow: 0 0 5px #3a51ff inset;//内部阴影
 }
 </style>
 

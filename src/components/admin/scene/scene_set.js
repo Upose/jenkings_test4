@@ -46,6 +46,7 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       id: this.$route.query.id,//场景id
+      is_HF:'',//是否选择头部底部
       advanced: true,//高级设置
       footerSet: false,//底部设置
       drag_width: 1200,//用于-计算缩放的宽度，不得小于1200，这里取的模板宽度
@@ -113,12 +114,15 @@ export default {
       }
       if (e.target.className.indexOf('mask-layer') > -1) {//单击场景中的模板
         if (e.target.className.indexOf('head') > -1) {//选择的头部
+          admin_vue.is_HF = 'header';
           admin_vue.rightMenu('header');
           admin_vue.removeActiveClass('head');
         } else if (e.target.className.indexOf('foot') > -1) {//选择的底部
+          admin_vue.is_HF = 'foot';
           admin_vue.rightMenu('foot');
           admin_vue.removeActiveClass('foot');
         } else {//选择的组件
+          admin_vue.is_HF = '';
           e.target.setAttribute('class', 'mask-layer mask-layer-active');//设置选中样式
           var cu_id = e.target.parentNode.dataset.id;//当前元素的id
           admin_vue.removeActiveClass(cu_id);//移出不属于点击区域的选中元素
