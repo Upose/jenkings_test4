@@ -1,7 +1,7 @@
 <!---服务中台-预览页面-通用预览和演示站点预览-->
 <template>
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'" :style="{background:bg_color}">
-    <template v-if="items && isLock">
+    <template v-if="items">
       <!--左边固定-->
       <div class="left-fixed-template">
         <div class="header-prewiew">
@@ -49,10 +49,8 @@ export default {
     var list = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (list && list.template) {
       document.title = list.name || '预览';
-      this.isLock = list.template.isLock;
       this.bg_color = list.template.backgroundColor || '#fff';
       this.items = list;
-      if (this.isLock) {
         this.addStyle(this.items.headerTemplate.router + '/component.css');
         this.addScript(this.items.headerTemplate.router + '/component.js');
         setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
@@ -71,16 +69,7 @@ export default {
             }
           })
         }
-      } else {
-        console.log('非全屏');
-        setTimeout(() => {
-          this.addStyle(this.items.headerTemplate.router + '/component.css');
-          this.addScript(this.items.headerTemplate.router + '/component.js');
-          this.addStyle(this.items.footerTemplate.router + '/component.css');
-          this.addScript(this.items.footerTemplate.router + '/component.js');
-        }, 250)
       }
-    }
   },
   data() {
     return {
