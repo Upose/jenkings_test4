@@ -217,6 +217,8 @@ export default {
         }
         obj.id = val.id;
         obj.router = val.target;
+        obj.width = val.width;
+        obj.height = val.height;
         obj.templateCode = val.widgetCode;
 
         if(this.is_hf=='foot'){

@@ -40,7 +40,7 @@
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
                 <div class="scene-warp-bg" :style="{'background':'url('+sceenBgImg(postForm.sceneScreens[screen_cu])+')'}">
 
-                  <div class="jl_vip_zt_warp_hf head" :class="is_HF=='header'?'mask-layer-active':''" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="min-height:80px" :style="{'zoom':ratio_num}">
+                  <div class="jl_vip_zt_warp_hf head" :class="is_HF=='header'?'mask-layer-active':''" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="min-height:80px" :style="{'zoom':ratio_num,'height':(postForm.headerTemplate.height*10)+'px'}">
                     <div class="mask-layer head"></div>
                     <i class="jl_vip_zt_del" @click="delTempHF('header')"></i>
                     <div :class="postForm.headerTemplate.templateCode" id="jl_vip_zt_header_warp" :data-set="JSON.stringify({

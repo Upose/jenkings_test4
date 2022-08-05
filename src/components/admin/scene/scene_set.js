@@ -695,6 +695,7 @@ export default {
         return '';
       }
     },
+    //删除头部底部
     delTempHF(val){
       if(val == 'foot'){
         this.postForm.footerTemplate = {};
