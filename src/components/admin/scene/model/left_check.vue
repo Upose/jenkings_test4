@@ -130,7 +130,7 @@ export default {
   },
   created(){
     //获取模板等信息
-    this.http.getPlain('layout-options','').then(res=>{
+    this.http.getPlain('layout-options','sceneGroupId='+this.id).then(res=>{
       this.allList = res.data.sceneLayout||[];
       this.sceneHeaderFooter = res.data.sceneHeaderFooter||[];
       this.initLeftData();
