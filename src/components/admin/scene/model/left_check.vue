@@ -89,7 +89,7 @@
                     <span class="d-b-txt">{{i.key||''}}</span>
                   </div>
                 </div>
-                <div class="drag-box-width" @click="header_footer_show=true">
+                <div class="drag-box-width" @click="JSAdd()">
                   <div class="drag-box">
                     <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
                     <span class="d-b-txt">脚本设置</span>
@@ -305,6 +305,14 @@ export default {
       }else{
         this.$emit('rightMenu','foot');
       }
+    },
+    //脚本设置
+    JSAdd(){
+      if(!this.postForm.template){
+        this.$message({ type: 'info', message: '请先选择模板!' });
+        return;
+      }
+      this.header_footer_show=true;
     },
     //删除背景图片
     delBGImg(val){
