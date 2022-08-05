@@ -9,6 +9,7 @@
             logo:items.headerTemplate.logo||'',
             headerBgImg:items.headerTemplate.headerBgImg||'',
             displayNavColumn:items.headerTemplate.displayNavColumn||'',
+            sceneid:items.id,
           })">
             <div :id="setId()"></div>
           </div>
@@ -29,6 +30,7 @@
                 content:items.footerTemplate.content||'',
                 footerBgImg:items.footerTemplate.footerBgImg||'',
                 footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
+                sceneid:items.id,
               })">
               <div :id="setId()"></div>
             </div><!-- 底部信息-end -->

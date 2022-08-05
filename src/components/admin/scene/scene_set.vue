@@ -47,6 +47,7 @@
                     logo:postForm.headerTemplate.logo||'',
                     headerBgImg:postForm.headerTemplate.headerBgImg||'',
                     displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
+                    sceneid:postForm.id,
                     })">
                       <div id="jl_vip_zt_header"></div>
                     </div>
@@ -63,6 +64,7 @@
                     content:postForm.footerTemplate.content||'',
                     footerBgImg:postForm.footerTemplate.footerBgImg||'',
                     footerDisplayNavColumn:postForm.footerTemplate.footerDisplayNavColumn||'',
+                    sceneid:postForm.id,
                   })">
                       <div id="jl_vip_zt_footer"></div>
                     </div>
