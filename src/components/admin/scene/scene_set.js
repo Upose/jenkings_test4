@@ -110,6 +110,7 @@ export default {
       if (e.target.className == 'jl_vip_zt_del') {//删除按钮
         if (e.target.parentNode.parentNode.parentNode) {
           admin_vue.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
+          admin_vue.saveList();
         }
       }
       if (e.target.className.indexOf('mask-layer') > -1) {//单击场景中的模板
