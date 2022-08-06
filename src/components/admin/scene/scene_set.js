@@ -645,6 +645,7 @@ export default {
     },
     //刷新头部底部
     refreshHF(val){
+      this.$forceUpdate();
       setTimeout(() => {
         if (window[val]) {
           window[val]();

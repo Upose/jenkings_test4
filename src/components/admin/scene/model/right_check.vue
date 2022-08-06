@@ -323,7 +323,6 @@ export default {
       this.footerSet = true;
     },
     hfHide(val){
-      console.log('隐藏头部底部');
       var templateCode = '';
       if(this.is_hf=='foot'){
         this.footerSet = false;
