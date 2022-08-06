@@ -6,7 +6,7 @@
 -->
 <template>
   <div class="tag-box">
-    <el-dialog append-to-body title="高级设置" :visible.sync="dialogBulk" width="700px" :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog append-to-body title="脚本设置" :visible.sync="dialogBulk" width="700px" :close-on-click-modal="false" :before-close="handleClose">
         <el-form label-width="70px" class="admin-form">
         <div class="form-set-content">
           <!--postForm.isSystemScene:默认场景 postForm.sceneType==1：门户首页 -->
@@ -19,7 +19,7 @@
           <el-form-item label="JS路径" prop="visitUrl">
             <div class="btns-colse-warp input-btns">
               <div class="btns-select-row" v-for="(it,i) in jsPath" :key="i+'b'">
-                <el-input v-model="it.value" placeholder="填写js在线地址或点击右侧上传(最多支持3个js文件)">
+                <el-input v-model="it.value" placeholder="在此填写js在线地址或点击右侧上传(最多支持3个js文件)">
                   <template slot="append">
                     <div class="up-btn">
                       <span>点击上传</span>
@@ -132,16 +132,26 @@ export default {
         width: calc(100% - 40px) !important;
     }
 }
+/deep/.el-input-group__append{
+  padding: 0;
+}
+/deep/.el-input__inner{
+  border-right: none;
+}
 .up-btn {
     cursor: pointer;
     position: relative;
-    width: 80px;
-    height: 38px;
-
+    width: 100px;
+    text-align: center;
+    height: 34px;
+    margin-right: 2px;
+    border-radius: 2px;
+    color: #fff;
+    background: #6777ef;
     span,
     input {
         position: absolute;
-        width: 80px;
+        width: 100px;
         height: 100%;
         top: 0;
         left: 0;
@@ -155,7 +165,7 @@ export default {
 
     span {
         cursor: pointer;
-        line-height: 38px;
+        line-height: 34px;
         text-align: center;
         z-index: 1;
     }
