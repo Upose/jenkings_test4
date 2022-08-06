@@ -221,7 +221,7 @@ export default {
       this.grid.load(this.screen_list[this.screen_cu]['sceneApps'] || []);//这里是取的第一屏
       this.loadRes();
     },
-    /****新增一屏 */
+    //新增一屏
     addScreen() {
       if (this.screen_list.length == 10) {
         this.$message({ message: '最多只能添加10屏', type: 'info' });
@@ -237,7 +237,7 @@ export default {
       this.screen_list[this.screen_list.length-1] = { icon:'',bgImg:'',sceneApps: [],screenName:sceen_name};
       this.screen_list.push(last_sceen);
     },
-    /****删除一屏 */
+    //删除一屏
     removScreen(index) {
       this.screen_list.splice(index, 1);
       if (this.grid) {
@@ -251,7 +251,7 @@ export default {
       this.screen_list[index].isedit = !this.screen_list[index].isedit;
       this.$forceUpdate();
     },
-    /****点击第几屏 */
+    //点击第几屏
     screenClick(val) {
       this.saveList();
       this.screen_list.forEach(item=>{
@@ -456,7 +456,6 @@ export default {
         if (post_obj.footerTemplate && post_obj.footerTemplate.router)
           post_obj.footerTemplate.router = _this.substrPath(post_obj.footerTemplate.router);
         if (post_obj.layoutId == 1 || post_obj.layoutId == 3) {//通屏
-          // console.log('删除多余屏幕');
           post_obj.sceneScreens.splice(1, 1);
         }
         //表单验证
@@ -674,6 +673,7 @@ export default {
         }
       }
     },
+    //加载底
     loadFoot(){
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.footerTemplate.templateCode);
       if (is_list.length == 0 && this.postForm.footerTemplate.router) {

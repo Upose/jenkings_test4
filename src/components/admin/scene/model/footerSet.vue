@@ -32,7 +32,7 @@
         </el-form-item>
         <div class="form-set-content">
           <el-form-item label="底部信息" prop="defaultTemplate">
-            <textarea id="mytextarea" v-model="postForm_fot.content"></textarea>
+            <textarea id="mytextarea" class="border-fff" v-model="postForm_fot.content"></textarea>
           </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitFormFot()">保存</el-button>
@@ -79,22 +79,7 @@ export default {
           this.handleImgUpload(blobInfo, success, failure)
         }
       });
-      tinymce.activeEditor.on('paste', function (e) {
-        setTimeout(() => {
-          var html = null;
-          e.path.forEach(item => {
-            if (item.tagName == 'body' || item.tagName == 'BODY') {
-              html = item.innerHTML;
-              var img_data = [];
-              html.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/g, function (match, capture) {
-                img_data.push(capture);
-              });
-              _this.img_list = img_data;
-            }
-          })
-        }, 50);
-      });
-    }, 100);
+    }, 50);
     if(this.postForm.footerTemplate){
       setTimeout(()=>{tinymce.activeEditor.setContent((this.postForm.footerTemplate.content||''));},150)
       this.postForm_fot.footerBgImg = this.postForm.footerTemplate.footerBgImg||'';
@@ -112,6 +97,7 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       dialogBulk: true,//模板选择
       dialogUPimg: false,//图片上传
+      eidt_show:false,//是否显示富文本
       postForm_fot: {
         footerBgImg:'',//背景图片
         footerDisplayNavColumn:[],//栏目列表
@@ -239,5 +225,15 @@ export default {
   span{
     line-height: 14px !important;
   }
+}
+.border-fff{
+  resize: none;
+  border: 1px solid #fff;
+}
+/deep/.el-dialog__body{
+  min-height: 700px;
+}
+/deep/.tox .tox-statusbar__resize-handle{
+  display: none;
 }
 </style>
