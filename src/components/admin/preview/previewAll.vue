@@ -86,8 +86,7 @@ export default {
     //滚动事件
     appScroll(e) {
       e.preventDefault();
-      //浏览器兼容
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;  //浏览器兼容
       // console.log(e, scrollTop);
     },
     //悬浮菜单点击事件
