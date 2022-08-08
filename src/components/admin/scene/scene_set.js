@@ -46,9 +46,7 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       id: this.$route.query.id,//场景id
-      is_HF:'',//是否选择头部底部
-      advanced: true,//高级设置
-      footerSet: false,//底部设置
+      is_HF: '',//是否选择头部底部
       drag_width: 1200,//用于-计算缩放的宽度，不得小于1200，这里取的模板宽度
       drag_height: 500,//最低高度
       ratio_num: 1,//缩放比例
@@ -56,8 +54,7 @@ export default {
       left_fold: false,//左侧菜单展开与否
       right_fold: false,//右侧菜单展开与否
       screen_cu: 0,//当前是第几屏
-      screen_list: [{screenName:'首屏',bgImg:'', sceneApps: [] }, {screenName:'尾屏',bgImg:'', sceneApps: [] }],//屏数量
-      sceneid: this.$route.query.id,//场景id
+      screen_list: [{ screenName: '首屏', bgImg: '', sceneApps: [] }, { screenName: '尾屏', bgImg: '', sceneApps: [] }],//屏数量
       //顶部 步骤1
       top_list: {
         sceneStatus: [],//服务状态
@@ -71,7 +68,7 @@ export default {
       },
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       resource_file_list: [],//资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
-      
+
       apps_set_list: {},//场景内所有的应用模板设置参数-栏目列表。
       apps_set_obj: {},//场景内所有的应用模板设置参数-背景图片和是否全屏。
       grid: null,//拖拽渲染
@@ -89,15 +86,15 @@ export default {
           }
         ],//分屏
       },
-      opts: {//初始化配置
+      gridOpts: {//初始化配置
         float: true,
-        column:120,//120/140
+        column: 120,//120/140
         cellHeight: 10,
-        marginUnit:1,
-        marginTop:1,
-        marginBottom:1,
-        marginRight:1,
-        marginLeft:1,
+        marginUnit: 1,
+        marginTop: 1,
+        marginBottom: 1,
+        marginRight: 1,
+        marginLeft: 1,
         cellHeightThrottle: 10,
         resizable: {
           handles: 'se,sw,nw,n,e,s,w'
@@ -106,6 +103,7 @@ export default {
     }
   },
   methods: {
+    //点击事件-组件操作
     documentFun(e) {
       if (e.target.className == 'jl_vip_zt_del') {//删除按钮
         if (e.target.parentNode.parentNode.parentNode) {
@@ -131,12 +129,12 @@ export default {
           var appwidgetid = e.target.dataset.appwidgetid;//模板id
           var set_list = e.target.dataset.set;//设置的配置参数
           var configParameter = e.target.dataset.obj;//设置的配置参数
-          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list,'configParameter':configParameter });
+          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list, 'configParameter': configParameter });
         }
       }
     },
     //右侧点击事件-头部，底部
-    rightMenu(val){
+    rightMenu(val) {
       admin_vue.$refs.rightCheck_ref.getHFlist(val);
     },
     //获取应用列表
@@ -175,9 +173,9 @@ export default {
       _this.$refs.topselect_ref.setDatils(data);
       _this.$refs.leftcheck_ref.setDatils(data);
       _this.postForm = data || {};
-      setTimeout(()=>{
+      setTimeout(() => {
         _this.loadHeadFoot();
-      },500)
+      }, 500)
       if (_this.postForm.sceneScreens && _this.postForm.sceneScreens.length > 0) {
         _this.postForm.sceneScreens.forEach((item, index) => {
           let result = item.sceneApps.map((it, index) => ({
@@ -211,7 +209,7 @@ export default {
     },
     //初始化模板，需要将当前模板的数据渲染到模板上，且在切换模板的时候，要重新save保存一下当前模板的数据到当前屏。
     initGrid() {
-      this.grid = GridStack.init(this.opts);
+      this.grid = GridStack.init(this.gridOpts);
       this.initScree();
     },
     //初始化拖拽
@@ -229,13 +227,13 @@ export default {
         return false;
       }
       //如果选中的是尾屏，将当前选中值重新设置
-      if(this.screen_cu == (this.screen_list.length-1)){
-        this.screen_cu = this.screen_cu+1;
+      if (this.screen_cu == (this.screen_list.length - 1)) {
+        this.screen_cu = this.screen_cu + 1;
       }
       //添加屏时，始终将尾屏放到最后
-      var last_sceen = this.screen_list[this.screen_list.length-1];
-      var sceen_name = '第'+(this.screen_list.length)+'屏';
-      this.screen_list[this.screen_list.length-1] = { icon:'',bgImg:'',sceneApps: [],screenName:sceen_name};
+      var last_sceen = this.screen_list[this.screen_list.length - 1];
+      var sceen_name = '第' + (this.screen_list.length) + '屏';
+      this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name };
       this.screen_list.push(last_sceen);
     },
     //删除一屏
@@ -248,14 +246,14 @@ export default {
       this.screenClick(this.screen_cu);
     },
     //编辑当前屏菜单名称
-    editScreen(index){
+    editScreen(index) {
       this.screen_list[index].isedit = !this.screen_list[index].isedit;
       this.$forceUpdate();
     },
     //点击第几屏
     screenClick(val) {
       this.saveList();
-      this.screen_list.forEach(item=>{
+      this.screen_list.forEach(item => {
         item.isedit = false;
       })
       setTimeout(() => {
@@ -311,20 +309,20 @@ export default {
         this.removeActiveClass('mask-layer');
         /****赛选y值最大的，然后y+h就是新元素添加的值 */
         var y_index = 0;
-        if(this.screen_list[this.screen_cu].sceneApps){
-          var max = Math.max.apply(Math, this.screen_list[this.screen_cu].sceneApps.map(function(o) {
+        if (this.screen_list[this.screen_cu].sceneApps) {
+          var max = Math.max.apply(Math, this.screen_list[this.screen_cu].sceneApps.map(function (o) {
             return o.y;
           }))
-          var max_y = this.screen_list[this.screen_cu].sceneApps.filter(item=>item.y==max);
-          if(max_y && max_y.length>0){
-            y_index = max_y[0].y+max_y[0].h;
+          var max_y = this.screen_list[this.screen_cu].sceneApps.filter(item => item.y == max);
+          if (max_y && max_y.length > 0) {
+            y_index = max_y[0].y + max_y[0].h;
           }
         }
-        
+
         let it = {
-          x: 0, 
+          x: 0,
           y: y_index,
-          h: data.height, 
+          h: data.height,
           w: data.width,
           // noMove: true,//静止拖动位置
           // noResize: true,//禁止改变大小
@@ -405,8 +403,8 @@ export default {
         this.screen_list.forEach((item, index) => {
           var obj = {
             height: item.height,//屏高
-            bgImg: item.bgImg||'',
-            icon: item.icon||'',
+            bgImg: item.bgImg || '',
+            icon: item.icon || '',
             sceneApps: [],//屏内包含的应用模板
             orderIndex: index + 1,//当前序号
             id: item.id,
@@ -506,26 +504,26 @@ export default {
     },
     //选择模板-左边
     templateClick(val) {
-      if(val.list && val.list.code){
-        this.http.getPlain_url('template-default-by-code','/'+val.list.code).then(res=>{
-          this.postForm['footerTemplate'] = res.data.footerTemplate||{};
-          this.postForm['headerTemplate'] = res.data.headerTemplate||{};
-          this.postForm['sceneScreens'] = res.data.sceneScreens||[];
-          this.postForm['template'] = res.data.template||{};
-          this.postForm['themeColor'] = res.data.themeColor||'template1';
+      if (val.list && val.list.code) {
+        this.http.getPlain_url('template-default-by-code', '/' + val.list.code).then(res => {
+          this.postForm['footerTemplate'] = res.data.footerTemplate || {};
+          this.postForm['headerTemplate'] = res.data.headerTemplate || {};
+          this.postForm['sceneScreens'] = res.data.sceneScreens || [];
+          this.postForm['template'] = res.data.template || {};
+          this.postForm['themeColor'] = res.data.themeColor || 'template1';
           //这里要清空头底模板
-          document.getElementById('jl_vip_zt_footer_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
-          document.getElementById('jl_vip_zt_header_warp').innerHTML='<div id="'+('jl_vip_zt_'+new Date().getTime())+'"></div>';
+          document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
+          document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
           this.grid.removeAll();//清除元素
           //这里还要做头部底部的更新
           this.detailsRender(this.postForm);
-        }).catch(err=>{})
-      }else{
+        }).catch(err => { })
+      } else {
         console.log(val);
         this.postForm['footerTemplate'] = {};
         this.postForm['headerTemplate'] = {};
         this.postForm['sceneScreens'] = [];
-        this.postForm['template'] = val.list||{};
+        this.postForm['template'] = val.list || {};
         this.postForm['themeColor'] = 'template1';
         if (this.grid) {
           this.grid.removeAll();
@@ -540,9 +538,6 @@ export default {
       this.http.getPlain('dictionary', '').then(res => {
         this.top_list.sceneStatus = res.data.sceneStatus || [];
         this.top_list.visitorLimitType = res.data.visitorLimitType || [];
-        this.left_list.sceneLayout = res.data.sceneLayout || [];
-        this.left_list.sceneTemplate = res.data.sceneTemplate || [];
-        this.left_list.sceneThemeColor = res.data.sceneThemeColor || [];
         this.left_list.appServiceType = res.data.appServiceType || [];
       })
     },
@@ -551,7 +546,7 @@ export default {
       admin_vue.$refs.leftcheck_ref.setAppid(val.id);
       var apps_cu = this.selectApps(val.id) || {};
       admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
-      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list,'configParameter':val.configParameter });
+      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list, 'configParameter': val.configParameter });
     },
     /***拖拽更换屏顺序**/
     dragSort() {
@@ -636,7 +631,7 @@ export default {
       })
     },
     //刷新头部底部
-    refreshHF(val){
+    refreshHF(val) {
       this.$forceUpdate();
       setTimeout(() => {
         if (window[val]) {
@@ -645,16 +640,16 @@ export default {
       }, 200);
     },
     //刷新页面
-    sceneLeftBG(val){
-      if(val.type == 'bgt' || val.type =='bgf'){
+    sceneLeftBG(val) {
+      if (val.type == 'bgt' || val.type == 'bgf') {
         this.screen_list[this.screen_cu].bgImg = val.url;
-      }else if(val.type == 'tb'){
+      } else if (val.type == 'tb') {
         this.screen_list[this.screen_cu].icon = val.url;
       }
       this.$forceUpdate();
     },
     //加载头
-    loadHead(){
+    loadHead() {
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.headerTemplate.templateCode);
       if (is_list.length == 0 && this.postForm.headerTemplate.router) {
         this.resource_file_list.push({ url: this.postForm.headerTemplate.router, widgetCode: this.postForm.headerTemplate.templateCode });
@@ -668,7 +663,7 @@ export default {
       }
     },
     //加载底
-    loadFoot(){
+    loadFoot() {
       let is_list = this.resource_file_list.filter(x => x.widgetCode == this.postForm.footerTemplate.templateCode);
       if (is_list.length == 0 && this.postForm.footerTemplate.router) {
         this.resource_file_list.push({ url: this.postForm.footerTemplate.router, widgetCode: this.postForm.footerTemplate.templateCode });
@@ -682,30 +677,30 @@ export default {
       }
     },
     //背景图片设置
-    sceenBgImg(val){
-      if(val && val.bgImg){
+    sceenBgImg(val) {
+      if (val && val.bgImg) {
         return this.fileUrl + val.bgImg;
-      }else {
+      } else {
         return '';
       }
     },
     //删除头部底部
-    delTempHF(val){
-      if(val == 'foot'){
+    delTempHF(val) {
+      if (val == 'foot') {
         this.postForm.footerTemplate = {};
-      }else{
+      } else {
         this.postForm.headerTemplate = {};
       }
       this.$forceUpdate();
     },
     //加载头部底部
     loadHeadFoot(val) {
-      if(!val){
+      if (!val) {
         this.loadHead();
         this.loadFoot();
-      }else if(val == 'foot'){
+      } else if (val == 'foot') {
         this.loadFoot();
-      }else{
+      } else {
         this.loadHead();
       }
     },

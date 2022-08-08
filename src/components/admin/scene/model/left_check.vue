@@ -119,9 +119,6 @@ export default {
         if(newVal.appServiceType && newVal.appServiceType.length>0){
           this.getApps(newVal.appServiceType[0].value);
         }
-        // if(newVal.sceneLayout && newVal.sceneLayout.length>0){
-        //   this.layoutClick(newVal.sceneLayout[0],true);
-        // }
       }
     },
   },
