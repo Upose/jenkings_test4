@@ -1,21 +1,21 @@
 <!---服务中台-通用预览+普通分屏-->
 <template>
-  <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
+  <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
     
-    <template v-if="items"><!--宽1200通用-->
+    <template v-if="details"><!--宽1200通用-->
 
-      <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
-          logo:items.headerTemplate.logo||'',
-          headerBgImg:items.headerTemplate.headerBgImg||'',
-          displayNavColumn:items.headerTemplate.displayNavColumn||'',
-          sceneid:items.id,
+      <div v-if="details.headerTemplate" :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
+          logo:details.headerTemplate.logo||'',
+          headerBgImg:details.headerTemplate.headerBgImg||'',
+          displayNavColumn:details.headerTemplate.displayNavColumn||'',
+          sceneid:details.id,
         })">
         <div :id="setId()"></div>
       </div><!-- 头部信息-end -->
 
-      <div class="scene-warp-bg" v-for="(it,i) in items.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
-        <div class="bocy-content" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}">
-          <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(items.template.width,item)" :style="styleRender(item)">
+      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
+        <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
+          <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
             <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
               <div :id="setId()"></div>
             </div>
@@ -24,17 +24,17 @@
 
       </div>
 
-      <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode" :data-set="JSON.stringify({
-          content:items.footerTemplate.content||'',
-          footerBgImg:items.footerTemplate.footerBgImg||'',
-          footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
-          sceneid:items.id,
+      <div v-if="details.footerTemplate" :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
+          content:details.footerTemplate.content||'',
+          footerBgImg:details.footerTemplate.footerBgImg||'',
+          footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
+          sceneid:details.id,
         })">
         <div :id="setId()"></div>
       </div><!-- 底部信息-end -->
 
-      <div class="temp-menu-w" v-if="items.layoutId==2 && items && items.sceneScreens">
-        <a class="temp-box" v-for="(it,i) in (items.sceneScreens||[])" :key="i" @click="clickSilder('temp'+i)">
+      <div class="temp-menu-w" v-if="details.layoutId==2 && details && details.sceneScreens">
+        <a class="temp-box" v-for="(it,i) in (details.sceneScreens||[])" :key="i" @click="clickSilder('temp'+i)">
           <img class="temp-icon" :src="fileUrl+it.icon">
           <span class="temp-title" :title="it.screenName">{{it.screenName}}</span>
         </a>
@@ -48,46 +48,37 @@
 <script>
 export default {
   name: 'index',
+  props:['details'],
   created(){
-    var list = JSON.parse(window.localStorage.getItem('scenePreview'));
-    if(list && list.template){
-      document.title = list.name||'预览';
-      this.bg_color = list.template.backgroundColor||'#fff';
-      this.items = list;
-      if(this.items.jsPath){
-        this.items.jsPath.forEach(it=>{
-          this.addScript(it);
-        })
+    // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
+    if(this.details && this.details.template){
+      this.bg_color = this.details.template.backgroundColor||'#fff';
+      if(this.details.headerTemplate && this.details.headerTemplate.router){
+        this.addStyle(this.details.headerTemplate.router+'/component.css');
+        this.addScript(this.details.headerTemplate.router+'/component.js');
       }
-      if(this.items.headerTemplate && this.items.headerTemplate.router){
-        this.addStyle(this.items.headerTemplate.router+'/component.css');
-        this.addScript(this.items.headerTemplate.router+'/component.js');
+      if(this.details.footerTemplate && this.details.footerTemplate.router){
+        this.addStyle(this.details.footerTemplate.router+'/component.css');
+        this.addScript(this.details.footerTemplate.router+'/component.js');
       }
-      if(this.items.footerTemplate && this.items.footerTemplate.router){
-        this.addStyle(this.items.footerTemplate.router+'/component.css');
-        this.addScript(this.items.footerTemplate.router+'/component.js');
-      }
-      if(this.items.sceneScreens){
-        this.items.sceneScreens[0].sceneApps.forEach(it=>{
-          if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
-            this.left_menu = it;
-            if(it.appWidget && it.appWidget.target){
-              this.addStyle(it.appWidget.target+'/component.css');
-              this.addScript(it.appWidget.target+'/component.js');
-            }
+      if(this.details.sceneScreens){
+        this.details.sceneScreens[0].sceneApps.forEach(it=>{
+          if(it.appWidget && it.appWidget.target){
+            this.addStyle(it.appWidget.target+'/component.css');
+            this.addScript(it.appWidget.target+'/component.js');
           }
         })
       }
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.appScroll)
+   window.addEventListener('scroll', this.appScroll)
   },
   data () {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       bg_color:'#fff',//背景颜色
-      items:{},
+      details:{},
       left_menu:{widgetCode:{}},
     }
   },
@@ -105,8 +96,8 @@ export default {
     },
     //初始化模板
     styleRender(val){//css 渲染
-      var w = this.items.template.width||100;
-      var list = {
+      var w = this.details.template.width||100;
+      var styleList = {
         width:(val.width/w)*1000+'%',
         height:(val.height*10)+'px',
         top:(val.yIndex*10)+'px',
@@ -118,7 +109,7 @@ export default {
         this.addStyle(val.appWidget.target+'/component.css');
         this.addScript(val.appWidget.target+'/component.js');
       }
-      return list;
+      return styleList;
     },
     //判断是否为空
     isWidgetCode(item){

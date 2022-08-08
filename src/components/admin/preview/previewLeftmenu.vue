@@ -1,15 +1,15 @@
 <!---服务中台-预览页面-通用预览和演示站点预览-->
 <template>
-  <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'" :style="{background:bg_color}">
-    <template v-if="items">
+  <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'" :style="{background:bg_color}">
+    <template v-if="details">
       <!--左边固定-->
       <div class="left-fixed-template">
         <div class="header-prewiew">
-          <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
-            logo:items.headerTemplate.logo||'',
-            headerBgImg:items.headerTemplate.headerBgImg||'',
-            displayNavColumn:items.headerTemplate.displayNavColumn||'',
-            sceneid:items.id,
+          <div v-if="details.headerTemplate" :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
+            logo:details.headerTemplate.logo||'',
+            headerBgImg:details.headerTemplate.headerBgImg||'',
+            displayNavColumn:details.headerTemplate.displayNavColumn||'',
+            sceneid:details.id,
           })">
             <div :id="setId()"></div>
           </div>
@@ -21,16 +21,16 @@
             </div>
           </div>
           <div class="center-fixed">
-            <div class="center-fixed-content" v-for="(it,i) in items.sceneScreens" :style="{height:it.height+'px'}">
+            <div class="center-fixed-content" v-for="(it,i) in details.sceneScreens" :style="{height:it.height+'px'}">
               <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
                 <div :id="setId()"></div>
               </div>
             </div>
-            <div v-if="items.footerTemplate" :class="items.footerTemplate.templateCode" :data-set="JSON.stringify({
-                content:items.footerTemplate.content||'',
-                footerBgImg:items.footerTemplate.footerBgImg||'',
-                footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
-                sceneid:items.id,
+            <div v-if="details.footerTemplate" :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
+                content:details.footerTemplate.content||'',
+                footerBgImg:details.footerTemplate.footerBgImg||'',
+                footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
+                sceneid:details.id,
               })">
               <div :id="setId()"></div>
             </div><!-- 底部信息-end -->
@@ -45,22 +45,20 @@
 <script>
 export default {
   name: 'index',
+  props:['details'],
   created() {
-    var list = JSON.parse(window.localStorage.getItem('scenePreview'));
-    if (list && list.template) {
-      document.title = list.name || '预览';
-      this.bg_color = list.template.backgroundColor || '#fff';
-      this.items = list;
-        this.addStyle(this.items.headerTemplate.router + '/component.css');
-        this.addScript(this.items.headerTemplate.router + '/component.js');
+    // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
+    if (this.details && this.details.template) {
+      this.bg_color = this.details.template.backgroundColor || '#fff';
+        this.addStyle(this.details.headerTemplate.router + '/component.css');
+        this.addScript(this.details.headerTemplate.router + '/component.js');
         setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
-          this.addStyle(this.items.footerTemplate.router + '/component.css');
-          this.addScript(this.items.footerTemplate.router + '/component.js');
+          this.addStyle(this.details.footerTemplate.router + '/component.css');
+          this.addScript(this.details.footerTemplate.router + '/component.js');
         }, 300);
-        if (this.items.sceneScreens) {
-          this.items.sceneScreens[0].sceneApps.forEach(it => {
+        if (this.details.sceneScreens) {
+          this.details.sceneScreens[0].sceneApps.forEach(it => {
             if (it.xIndex == 0 && it.appWidget && it.appWidget.widgetCode == 'other_left_menu_list') {
-              console.log('全屏');
               this.left_menu = it;
               if (it.appWidget && it.appWidget.target) {
                 this.addStyle(it.appWidget.target + '/component.css');
@@ -76,7 +74,7 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       isLock: false,//是否左侧固定模板
       bg_color: '#fff',//背景颜色
-      items: {},
+      details: {},
       left_menu: { widgetCode: {} },
     }
   },

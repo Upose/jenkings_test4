@@ -494,14 +494,7 @@ export default {
       this.savePostJson('preview');
       setTimeout(() => {
         window.localStorage.setItem('scenePreview', JSON.stringify(this.postForm));
-        var url = '';
-        if(this.id == '63d83b2f-03d8-43a7-8b43-713792639ad6'){//演示站点-（这里还可以做灵活点，做一个赛选（只要有左侧的那个都用此模板渲染））
-          url = location.href.split('#')[0] + "#/admin_previewLeftmenu";
-        }else{//统一预览
-          url = location.href.split('#')[0] + "#/admin_previewAll";
-        }
-        //admin_previewScreen   滚屏
-        
+        var url = location.href.split('#')[0] + "#/admin_preview";
         window.open(url);
       }, 100);
     },

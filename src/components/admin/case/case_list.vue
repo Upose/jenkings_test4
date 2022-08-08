@@ -181,15 +181,11 @@ export default {
     previewClick(val){
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-        var url = '';
-        if(val.id == '63d83b2f-03d8-43a7-8b43-713792639ad6'){//演示站点-（这里还可以做灵活点，做一个赛选（只要有左侧的那个都用此模板渲染））
-          url = location.href.split('#')[0] + "#/admin_previewLeftmenu";
-        }else{//统一预览
-          url = location.href.split('#')[0] + "#/admin_previewAll";
-        }
+        var url = location.href.split('#')[0] + "#/admin_preview";
         setTimeout(() => {
           window.open(url);
         }, 50);
+
       }).catch(err=>{
         this.$message({type: 'error',message: '获取详情失败'});  
       })

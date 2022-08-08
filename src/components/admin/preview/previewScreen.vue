@@ -1,27 +1,27 @@
 <!---整屏滚动-->
 <template>
-  <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
+  <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 
-    <template v-if="items">
+    <template v-if="details">
       
-      <div class="fullPage" ref="fullPage" v-if="items.sceneScreens">
+      <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
-          <div class="section" v-for="(it,i) in items.sceneScreens" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
+          <div class="section" v-for="(it,i) in details.sceneScreens" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
 
-            <div class="temp-header" v-if="i==0 && items.headerTemplate">
-              <div :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
-                  logo:items.headerTemplate.logo||'',
-                  headerBgImg:items.headerTemplate.headerBgImg||'',
-                  displayNavColumn:items.headerTemplate.displayNavColumn||'',
-                  sceneid:items.id,
+            <div class="temp-header" v-if="i==0 && details.headerTemplate">
+              <div :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
+                  logo:details.headerTemplate.logo||'',
+                  headerBgImg:details.headerTemplate.headerBgImg||'',
+                  displayNavColumn:details.headerTemplate.displayNavColumn||'',
+                  sceneid:details.id,
                 })">
                 <div :id="setId()"></div>
               </div><!-- 头部信息-end -->
             </div>
 
             <div class="scene-warp-bg" :key="i+'scene'">
-              <div class="bocy-content" :style="{height:it.height+'px',width:(items.template.width==100?'100%':(items.template.width+'px'))}">
-                <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(items.template.width,item)" :style="styleRender(item)">
+              <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
+                <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
                   <div :class="isWidgetCode(item)"  :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
                     <div :id="setId()"></div>
                   </div>
@@ -29,12 +29,12 @@
               </div>
             </div>
 
-          <div class="temp-footer" v-if="(i+1)==items.sceneScreens.length && items.footerTemplate">
-            <div :class="items.footerTemplate.templateCode" :data-set="JSON.stringify({
-                content:items.footerTemplate.content||'',
-                footerBgImg:items.footerTemplate.footerBgImg||'',
-                footerDisplayNavColumn:items.footerTemplate.footerDisplayNavColumn||'',
-                sceneid:items.id,
+          <div class="temp-footer" v-if="(i+1)==details.sceneScreens.length && details.footerTemplate">
+            <div :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
+                content:details.footerTemplate.content||'',
+                footerBgImg:details.footerTemplate.footerBgImg||'',
+                footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
+                sceneid:details.id,
               })">
               <div :id="setId()"></div>
             </div><!-- 底部信息-end -->
@@ -46,8 +46,8 @@
 
 
 
-      <div class="temp-menu-w" v-if="items.layoutId==2 && items && items.sceneScreens">
-        <a class="temp-box" :class="fullpage.current==(i+1)?'temp-box-active':''" v-for="(it,i) in (items.sceneScreens||[])" :key="i" @click="clickSilder(i)">
+      <div class="temp-menu-w" v-if="details.layoutId==2 && details && details.sceneScreens">
+        <a class="temp-box" :class="fullpage.current==(i+1)?'temp-box-active':''" v-for="(it,i) in (details.sceneScreens||[])" :key="i" @click="clickSilder(i)">
           <img class="temp-icon" :src="fileUrl+it.icon">
           <span class="temp-title" :title="it.screenName">{{it.screenName}}</span>
         </a>
@@ -62,27 +62,21 @@
 <script>
 export default {
   name: 'index',
+  props:['details'],
   created() {
-    var list = JSON.parse(window.localStorage.getItem('scenePreview'));
-    if (list && list.template) {
-      document.title = list.name || '预览';
-      this.bg_color = list.template.backgroundColor || '#fff';
-      this.items = list;
-      if (this.items.jsPath) {
-        this.items.jsPath.forEach(it => {
-          this.addScript(it);
-        })
+    // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
+    if (this.details && this.details.template) {
+      this.bg_color = this.details.template.backgroundColor || '#fff';
+      if(this.details.headerTemplate && this.details.headerTemplate.router){
+        this.addStyle(this.details.headerTemplate.router+'/component.css');
+        this.addScript(this.details.headerTemplate.router+'/component.js');
       }
-      if(this.items.headerTemplate && this.items.headerTemplate.router){
-        this.addStyle(this.items.headerTemplate.router+'/component.css');
-        this.addScript(this.items.headerTemplate.router+'/component.js');
+      if(this.details.footerTemplate && this.details.footerTemplate.router){
+        this.addStyle(this.details.footerTemplate.router+'/component.css');
+        this.addScript(this.details.footerTemplate.router+'/component.js');
       }
-      if(this.items.footerTemplate && this.items.footerTemplate.router){
-        this.addStyle(this.items.footerTemplate.router+'/component.css');
-        this.addScript(this.items.footerTemplate.router+'/component.js');
-      }
-      if(this.items.sceneScreens){
-        this.items.sceneScreens[0].sceneApps.forEach(it=>{
+      if(this.details.sceneScreens){
+        this.details.sceneScreens[0].sceneApps.forEach(it=>{
           if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
             this.left_menu = it;
             if(it.appWidget && it.appWidget.target){
@@ -98,7 +92,7 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       bg_color: '#fff',//背景颜色
-      items: {},
+      details: {},
       opts: {//元素初始化高度
         cellHeight: '10',
         cellHeightThrottle: 100,
@@ -114,7 +108,7 @@ export default {
   methods: {
     //初始化模板
     styleRender(val) {//css 渲染
-      var w = this.items.template.width||100;
+      var w = this.details.template.width||100;
       var list = {
         width:(val.width/w)*1000+'%',
         height: (val.height * 10) + 'px',
@@ -165,7 +159,7 @@ export default {
       this.move(val+1);
     },
     next() {
-      let len = this.items.sceneScreens.length||0;
+      let len = this.details.sceneScreens.length||0;
       if (this.fullpage.current + 1 <= len) {
         this.fullpage.current += 1;
         this.move(this.fullpage.current);
