@@ -2,7 +2,7 @@
 <template>
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
     
-    <template v-if="items && !isLock"><!--宽1200通用-->
+    <template v-if="items"><!--宽1200通用-->
 
       <div v-if="items.headerTemplate" :class="items.headerTemplate.templateCode" :data-set="JSON.stringify({
           logo:items.headerTemplate.logo||'',
@@ -52,7 +52,6 @@ export default {
     var list = JSON.parse(window.localStorage.getItem('scenePreview'));
     if(list && list.template){
       document.title = list.name||'预览';
-      this.isLock = list.template.isLock;
       this.bg_color = list.template.backgroundColor||'#fff';
       this.items = list;
       if(this.items.jsPath){
@@ -60,33 +59,24 @@ export default {
           this.addScript(it);
         })
       }
-      if(this.isLock){
+      if(this.items.headerTemplate && this.items.headerTemplate.router){
         this.addStyle(this.items.headerTemplate.router+'/component.css');
         this.addScript(this.items.headerTemplate.router+'/component.js');
-        setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
-          this.addStyle(this.items.footerTemplate.router+'/component.css');
-          this.addScript(this.items.footerTemplate.router+'/component.js');
-        }, 300);
-          if(this.items.sceneScreens){
-            this.items.sceneScreens[0].sceneApps.forEach(it=>{
-              if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
-                console.log('全屏');
-                this.left_menu = it;
-                if(it.appWidget && it.appWidget.target){
-                  this.addStyle(it.appWidget.target+'/component.css');
-                  this.addScript(it.appWidget.target+'/component.js');
-                }
-              }
-            })
+      }
+      if(this.items.footerTemplate && this.items.footerTemplate.router){
+        this.addStyle(this.items.footerTemplate.router+'/component.css');
+        this.addScript(this.items.footerTemplate.router+'/component.js');
+      }
+      if(this.items.sceneScreens){
+        this.items.sceneScreens[0].sceneApps.forEach(it=>{
+          if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
+            this.left_menu = it;
+            if(it.appWidget && it.appWidget.target){
+              this.addStyle(it.appWidget.target+'/component.css');
+              this.addScript(it.appWidget.target+'/component.js');
+            }
           }
-      }else{
-        console.log('非全屏');
-        setTimeout(()=>{
-          this.addStyle(this.items.headerTemplate.router+'/component.css');
-          this.addScript(this.items.headerTemplate.router+'/component.js');
-          this.addStyle(this.items.footerTemplate.router+'/component.css');
-          this.addScript(this.items.footerTemplate.router+'/component.js');
-        },250)
+        })
       }
     }
   },
@@ -96,7 +86,6 @@ export default {
   data () {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
-      isLock:false,//是否左侧固定模板
       bg_color:'#fff',//背景颜色
       items:{},
       left_menu:{widgetCode:{}},
@@ -112,12 +101,7 @@ export default {
     },
     //悬浮菜单点击事件
     clickSilder(val) {
-      // 获取DOM元素
-      let el = document.getElementById(val);
-      // chrome
-      document.body.scrollTop = el.offsetTop;
-      // firefox
-      document.documentElement.scrollTop = el.offsetTop;
+      document.getElementById(val).scrollIntoView({behavior: 'smooth'});
     },
     //初始化模板
     styleRender(val){//css 渲染
@@ -187,6 +171,7 @@ export default {
   margin-right: auto;
 }
 .html-warp-page{
+  scroll-behavior:smooth;
   width: 100%;
   height: 1%;
   min-height: 100%;

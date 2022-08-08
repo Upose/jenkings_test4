@@ -500,9 +500,8 @@ export default {
         }else{//统一预览
           url = location.href.split('#')[0] + "#/admin_previewAll";
         }
-        if(this.id == 'a9ab6e64-8973-4218-b0fa-96a1eb2f57b9'){
-          url = location.href.split('#')[0] + "#/admin_previewScreen";
-        }
+        //admin_previewScreen   滚屏
+        
         window.open(url);
       }, 100);
     },

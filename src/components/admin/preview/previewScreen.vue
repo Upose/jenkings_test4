@@ -2,7 +2,7 @@
 <template>
   <div class="html-warp-page" :class="(items&&items.themeColor)||'template1'">
 
-    <template v-if="items && !isLock">
+    <template v-if="items">
       
       <div class="fullPage" ref="fullPage" v-if="items.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
@@ -66,49 +66,37 @@ export default {
     var list = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (list && list.template) {
       document.title = list.name || '预览';
-      this.isLock = list.template.isLock;
       this.bg_color = list.template.backgroundColor || '#fff';
       this.items = list;
-      console.log(this.items);
       if (this.items.jsPath) {
         this.items.jsPath.forEach(it => {
           this.addScript(it);
         })
       }
-      if (this.isLock) {
-        this.addStyle(this.items.headerTemplate.router + '/component.css');
-        this.addScript(this.items.headerTemplate.router + '/component.js');
-        setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
-          this.addStyle(this.items.footerTemplate.router + '/component.css');
-          this.addScript(this.items.footerTemplate.router + '/component.js');
-        }, 300);
-        if (this.items.sceneScreens) {
-          this.items.sceneScreens[0].sceneApps.forEach(it => {
-            if (it.xIndex == 0 && it.appWidget && it.appWidget.widgetCode == 'other_left_menu_list') {
-              console.log('全屏');
-              this.left_menu = it;
-              if (it.appWidget && it.appWidget.target) {
-                this.addStyle(it.appWidget.target + '/component.css');
-                this.addScript(it.appWidget.target + '/component.js');
-              }
+      if(this.items.headerTemplate && this.items.headerTemplate.router){
+        this.addStyle(this.items.headerTemplate.router+'/component.css');
+        this.addScript(this.items.headerTemplate.router+'/component.js');
+      }
+      if(this.items.footerTemplate && this.items.footerTemplate.router){
+        this.addStyle(this.items.footerTemplate.router+'/component.css');
+        this.addScript(this.items.footerTemplate.router+'/component.js');
+      }
+      if(this.items.sceneScreens){
+        this.items.sceneScreens[0].sceneApps.forEach(it=>{
+          if(it.xIndex==0 && it.appWidget && it.appWidget.widgetCode=='other_left_menu_list'){
+            this.left_menu = it;
+            if(it.appWidget && it.appWidget.target){
+              this.addStyle(it.appWidget.target+'/component.css');
+              this.addScript(it.appWidget.target+'/component.js');
             }
-          })
-        }
-      } else {
-        console.log('非全屏');
-        setTimeout(() => {
-          this.addStyle(this.items.headerTemplate.router + '/component.css');
-          this.addScript(this.items.headerTemplate.router + '/component.js');
-          this.addStyle(this.items.footerTemplate.router + '/component.css');
-          this.addScript(this.items.footerTemplate.router + '/component.js');
-        }, 250)
+          }
+        })
       }
     }
   },
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
-      isLock: false,//是否左侧固定模板
       bg_color: '#fff',//背景颜色
       items: {},
       opts: {//元素初始化高度
