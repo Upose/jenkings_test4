@@ -26,14 +26,16 @@
                 <div :id="setId()"></div>
               </div>
             </div>
-            <div v-if="details.footerTemplate" :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
-                content:details.footerTemplate.content||'',
-                footerBgImg:details.footerTemplate.footerBgImg||'',
-                footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
-                sceneid:details.id,
-              })">
-              <div :id="setId()"></div>
-            </div><!-- 底部信息-end -->
+            <div class="temp-preview-foot">
+              <div v-if="details.footerTemplate" :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
+                  content:details.footerTemplate.content||'',
+                  footerBgImg:details.footerTemplate.footerBgImg||'',
+                  footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
+                  sceneid:details.id,
+                })">
+                <div :id="setId()"></div>
+              </div><!-- 底部信息-end -->
+            </div>
           </div>
         </div>
       </div>
@@ -165,5 +167,9 @@ export default {
   width: 100%;
   height: 1%;
   min-height: 100%;
+}
+.temp-preview-foot{
+  margin-right: -20px;
+  margin-left: -20px;
 }
 </style>
