@@ -158,6 +158,7 @@ export default {
     },
     //详情渲染
     detailsRender(data) {
+      console.log(data);
       var _this = this;
       if (data.template && data.template.width && data.template.width > 1200) {
         _this.drag_width = data.template.width;
