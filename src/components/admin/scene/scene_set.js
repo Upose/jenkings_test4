@@ -61,11 +61,7 @@ export default {
         visitorLimitType: [],//权限控制
       },
       //左边 步骤2,3
-      left_list: {
-        sceneLayout: [],//场景布局
-        sceneTemplate: [],//场景模板
-        sceneThemeColor: [],//场景主题色
-      },
+      appServiceType:[],//应用类型
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       resource_file_list: [],//资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
 
@@ -535,10 +531,11 @@ export default {
     },
     //初始化页面数据 - 获取本页下拉框参数
     initData() {
+      var _this = this;
       this.http.getPlain('dictionary', '').then(res => {
-        this.top_list.sceneStatus = res.data.sceneStatus || [];
-        this.top_list.visitorLimitType = res.data.visitorLimitType || [];
-        this.left_list.appServiceType = res.data.appServiceType || [];
+        _this.top_list.sceneStatus = res.data.sceneStatus || [];
+        _this.top_list.visitorLimitType = res.data.visitorLimitType || [];
+        _this.appServiceType = res.data.appServiceType || [];
       })
     },
     //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。

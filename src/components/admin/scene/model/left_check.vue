@@ -66,7 +66,7 @@
                   <el-dropdown trigger="click" class="r-select">
                   <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
                   <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item v-for="(it,i) in (dataList.appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
+                      <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
                   </el-dropdown-menu>
                   </el-dropdown>
               </h1><!--选择应用类型 end-->
@@ -110,14 +110,15 @@
 import advanced from "./scriptSet.vue";//高级设置
 export default {
   name: 'index',
-  props:['dataList','screen_cu','screen_list','postForm'],
+  props:['appServiceType','screen_cu','screen_list','postForm'],
   components:{advanced},
   watch: {
-    dataList: {
+    'appServiceType': {
       deep: true,  // 深度监听
       handler(newVal,oldVal) {
-        if(newVal.appServiceType && newVal.appServiceType.length>0){
-          this.getApps(newVal.appServiceType[0].value);
+        if(newVal && newVal.length>0){
+          console.log(newVal);
+          this.getApps(newVal[0].value);
         }
       }
     },
@@ -223,7 +224,7 @@ export default {
     serveClick(index){ 
       // console.log(index);
       this.apps_list_index = index;
-      var app_type = this.dataList.appServiceType[index]||{};
+      var app_type = this.appServiceType[index]||{};
       this.apps_list = app_type['list']||[];
       this.serve_name = app_type.key;
       
@@ -235,7 +236,7 @@ export default {
         this.serveClick(this.apps_list_index);return;
       }else{
         var index = null;
-        this.dataList.appServiceType.forEach((it,i)=>{
+        this.appServiceType.forEach((it,i)=>{
           if(it.list && it.list.length>0){
             it.list.forEach((t,k)=>{
               if(t.appId == appid){
@@ -256,12 +257,12 @@ export default {
         _this.$emit('setAppsList',_this.apps_list_all);
         if(_this.apps_list_all.length>0){
           _this.apps_list_all.forEach((it,i)=>{
-            _this.dataList.appServiceType.forEach((t,k)=>{
+            _this.appServiceType.forEach((t,k)=>{
               if(it.serviceType.indexOf(t.value)>-1){
-                if(!_this.dataList.appServiceType[k]['list']){
-                  _this.dataList.appServiceType[k]['list'] = [];
+                if(!_this.appServiceType[k]['list']){
+                  _this.appServiceType[k]['list'] = [];
                 }
-                _this.dataList.appServiceType[k]['list'].push(it);
+                _this.appServiceType[k]['list'].push(it);
               }
             })
           })
