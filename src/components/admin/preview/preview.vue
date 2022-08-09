@@ -40,7 +40,6 @@ export default {
   methods: {
     //查询属于哪个模板
     selectPage() {
-         console.log(this.details);
         if (this.details && this.details.template) {
             this.bgColor = this.details.template.backgroundColor || '#fff';
             this.minWidth = this.details.template.width || 1200;
