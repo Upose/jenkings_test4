@@ -26,9 +26,7 @@ export default {
       this.getDetails();
     }
     document.getElementsByTagName("body")[0].setAttribute('class', (window.localStorage.getItem('template') || 'template1'));//颜色初始化
-    setTimeout(() => {
-      this.initGrid();
-    }, 500);
+    this.initGrid();
     this.initData();
     this.setHeight(document.body.clientHeight - 104);
     this.$nextTick(() => {
@@ -158,20 +156,18 @@ export default {
     },
     //详情渲染
     detailsRender(data) {
-      if(data.template && data.template.width && data.template.width !=100){
-        this.grid.column(data.template.width/10, 'moveScale');
-        this.drag_width = data.template.width;
-      }else{
-        this.grid.column(120, 'moveScale');
-        this.drag_width = 1200;
-      }
+      console.log(data);
       var _this = this;
-      if (data.template && data.template.width && data.template.width > 1200) {
-        _this.drag_width = data.template.width;
+      if(data.template && data.template.width && data.template.width !=100){
+        _this.grid.column(data.template.width/10, 'moveScale');
+        _this.drag_width = data.template.width==100?1200:data.template.width;
         setTimeout(() => {
           var c_height = document.body.clientHeight - 104;
           _this.setHeight(c_height);
         }, 30);
+      }else{
+        this.grid.column(120, 'moveScale');
+        this.drag_width = 1200;
       }
       _this.$refs.topselect_ref.setDatils(data);
       _this.$refs.leftcheck_ref.setDatils(data);
