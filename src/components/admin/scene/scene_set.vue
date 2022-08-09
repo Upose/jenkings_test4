@@ -12,7 +12,7 @@
           <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" @rightMenu="rightMenu" :screen_cu="screen_cu" :screen_list="screen_list" :appServiceType="appServiceType" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
 
           <div class="drag-c" :class="isFoldClass()">
-            <div class="screen-btn-drag" v-show="postForm.layoutId== 2 && postForm.template">
+            <div class="screen-btn-drag" v-show="(postForm.layoutId== 2||postForm.layoutId== 3) && postForm.template">
               <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''">
                 <span class="txt-show" @click="screenClick(0)">{{screen_list[0].screenName||''}}</span>
                 <input type="text" class="txt-edit" v-model="screen_list[0].screenName" v-if="screen_list[0].isedit"/>

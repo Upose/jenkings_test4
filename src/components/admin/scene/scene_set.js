@@ -52,7 +52,7 @@ export default {
       left_fold: false,//左侧菜单展开与否
       right_fold: false,//右侧菜单展开与否
       screen_cu: 0,//当前是第几屏
-      screen_list: [{ screenName: '首屏', bgImg: '', sceneApps: [] }, { screenName: '尾屏', bgImg: '', sceneApps: [] }],//屏数量
+      screen_list: [{ screenName: '首', bgImg: '', sceneApps: [] }, { screenName: '尾', bgImg: '', sceneApps: [] }],//屏数量
       //顶部 步骤1
       top_list: {
         sceneStatus: [],//服务状态
@@ -230,7 +230,7 @@ export default {
       }
       //添加屏时，始终将尾屏放到最后
       var last_sceen = this.screen_list[this.screen_list.length - 1];
-      var sceen_name = '第' + (this.screen_list.length) + '屏';
+      var sceen_name = '第' + (this.screen_list.length) + (this.postForm.layoutId==2?'段':'屏');
       this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name };
       this.screen_list.push(last_sceen);
     },
