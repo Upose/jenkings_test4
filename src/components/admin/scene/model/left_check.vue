@@ -117,7 +117,6 @@ export default {
       deep: true,  // 深度监听
       handler(newVal,oldVal) {
         if(newVal && newVal.length>0){
-          console.log(newVal);
           this.getApps(newVal[0].value);
         }
       }

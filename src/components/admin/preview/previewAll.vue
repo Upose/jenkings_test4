@@ -127,6 +127,7 @@ export default {
     //外层全屏
     isWidgetCodeWapr(width,item){
       var widgetCode = '';
+      debugger
       if(item.width == (width/10) && item.configParameter && item.configParameter.fullScreen){
         if(width == 1200){
           widgetCode = ' mar-left-1200';

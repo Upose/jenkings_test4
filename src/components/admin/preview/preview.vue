@@ -47,6 +47,7 @@ export default {
         }
         if (this.details.template.layoutId == 1 && this.details.template.code == 'index2') {//演示站点
             this.is_show_page = 'previewLeftmenu';
+            this.min_height = '100%';
         } else if (this.details.template.layoutId == 3) {
             this.is_show_page = 'previewScreen';
             this.min_height = '100%';

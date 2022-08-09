@@ -84,7 +84,7 @@ export default {
       },
       gridOpts: {//初始化配置
         float: true,
-        column: 120,//120/140
+        column: 120,//120/144
         cellHeight: 10,
         marginUnit: 1,
         marginTop: 1,
@@ -158,7 +158,6 @@ export default {
     },
     //详情渲染
     detailsRender(data) {
-      console.log(data);
       var _this = this;
       if (data.template && data.template.width && data.template.width > 1200) {
         _this.drag_width = data.template.width;
@@ -187,7 +186,6 @@ export default {
             configParameter: it.configParameter,
             appPlateItems: it.appPlateItems,
             appWidget: it.appWidget,
-            id: it.id,
             divId: 'jl_vip_zt_' + index,
             target: it.appWidget.target,
             sceneId: it.sceneId,
