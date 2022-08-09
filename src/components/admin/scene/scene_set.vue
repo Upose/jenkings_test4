@@ -34,7 +34,6 @@
               <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
             </div>
             <!--屏幕数量+拖拽排序 end-->
-
             <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
               <div class="drag-warp-bg jl_vip_zt_warp_preview">
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->

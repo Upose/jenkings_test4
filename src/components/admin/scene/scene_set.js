@@ -158,6 +158,13 @@ export default {
     },
     //详情渲染
     detailsRender(data) {
+      if(data.template && data.template.width && data.template.width !=100){
+        this.grid.column(data.template.width/10, 'moveScale');
+        this.drag_width = data.template.width;
+      }else{
+        this.grid.column(120, 'moveScale');
+        this.drag_width = 1200;
+      }
       var _this = this;
       if (data.template && data.template.width && data.template.width > 1200) {
         _this.drag_width = data.template.width;
