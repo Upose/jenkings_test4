@@ -146,6 +146,7 @@ export default {
       right: 0;
       left: 33.3%;
       bottom: 0;
+      padding: 0 20px;
       overflow-y: auto;
       overflow-x: hidden;
       .center-fixed-content {
