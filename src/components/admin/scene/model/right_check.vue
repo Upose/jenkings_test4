@@ -34,7 +34,7 @@
                   <div class="row-switch" v-if="template_check && !is_hf">
                     <span class="title">铺满屏幕：</span>
                     <el-tooltip class="item" effect="dark" content="组件宽度为100%时此设置生效" placement="top">
-                      <el-switch :active-value="true" :inactive-value="false" v-model="configParameter.fullScreen"></el-switch>
+                      <el-switch :active-value="true" :inactive-value="false" v-model="configParameter.fullScreen" @change="fullScreenClick"></el-switch>
                     </el-tooltip>
                   </div>
                 </div>
@@ -121,6 +121,10 @@ export default {
   },
 
   methods: {
+    //是否全屏
+    fullScreenClick(e){
+      this.saveClick('edit');
+    },
     //栏目选择
     column(e){
       this.saveClick('edit');
