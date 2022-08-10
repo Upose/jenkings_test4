@@ -333,7 +333,7 @@ export default {
  .mar-left-1200{margin-left:0 !important;}
  .html-warp-page{overflow-x: auto;}
 }
-@media screen and (max-width:1440) {
+@media screen and (max-width:1440px) {
  .mar-left-1440{margin-left:0 !important;}
  .html-warp-page{overflow-x: auto;}
 }
