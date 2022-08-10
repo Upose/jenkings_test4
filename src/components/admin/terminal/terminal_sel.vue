@@ -113,7 +113,7 @@ export default {
       background-size: 100% 100% !important;
       position: relative;
       .title{
-        color: @fff;
+        color: @m-col-b0;
         font-size: 20px;
         img{
           width: 50px;

@@ -82,7 +82,7 @@ export default {
     vertical-align: middle;
     width: 200px;
     height: 80px;
-    background: @F4F7FC;
+    background: @ph-col-n2;
     opacity: 1;
     border-radius: 8px;
     position: relative;
@@ -96,7 +96,7 @@ export default {
       // top: 17px;
       top:50%;
       transform: translateY(-50%);
-      background-color: @6677EF;
+      background-color: @m-col-b9;
     }
     span {
       display: block;

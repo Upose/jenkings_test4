@@ -52,10 +52,10 @@ export default {
   padding-top: 20px;
   text-align: right;
   /deep/ .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background-color:@6777EF;
+    background-color:@m-col-b7;
   }
   /deep/ .el-pagination.is-background .el-pager li:not(.disabled):hover{
-    color:@9CADFF;
+    color:@m-col-b5;
   }
 }
 </style>

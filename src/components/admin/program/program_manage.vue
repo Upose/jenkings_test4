@@ -127,7 +127,7 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
   .content{
-    background-color: @fff;
+    background-color: @m-col-b0;
     border-radius: 4px;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
     /deep/.el-tabs__header{

@@ -245,7 +245,7 @@ export default {
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
 @import "../../../assets/admin/css/form.less";
   .content{
-    background-color: @fff;
+    background-color: @m-col-b0;
     border-radius: 4px;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
     .form-content{

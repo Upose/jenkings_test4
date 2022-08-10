@@ -1,64 +1,99 @@
 @charset "UTF-8";
-
-@fff: #fff;
-@000: #000;
-@333: #333;
-@666: #666;
-@999: #999;
-@F4F7FC:#F4F7FC;
-@F1F3F7:#F1F3F7;
-@F8F8F8:#F8F8F8;
-@F3F3F3:#F3F3F3;
-@D7DADB:#D7DADB;
-@EAEDF3:#EAEDF3;
-@6D6D6D:#6D6D6D;
-@78828A:#78828A;
-@6C757D:#6C757D;
-@222534:#222534;
-@C2C8C0:#C2C8C0;
-@3E54EE:#3E54EE;
-@6777EF:#6777EF;
-@6677EF:#6677EF;
-@6D7CEF:#6D7CEF;
-@ADB6FE:#ADB6FE;
-@9CADFF:#9CADFF;
-@C9D0FF:#C9D0FF;
-@A5B3CC:#A5B3CC;
-@f3f4ff:#f3f4ff;
-@E4E6FC:#E4E6FC;
-@f28102:#f28102;
-@62AC00:#62AC00;
-@8CC63F:#8CC63F;
-@912790:#912790;
-@34395E:#34395E;
-@3C4B5D:#3C4B5D;
-@404040:#404040;
-@313B3D:#313B3D;
-@BCBCBC:#BCBCBC;
-@EBEEF5:#EBEEF5;
-@C5CFE0:#C5CFE0;
-@F5F6FB:#F5F6FB;
-@F8FAFF:#F8FAFF;
-@F1F3F7:#F1F3F7;
-@F9F8FF:#F9F8FF;
-@F9FAFC:#F9FAFC;
-@909399:#909399;
-@F9F9F9:#F9F9F9;
-@F0F0F0:#F0F0F0;
-@8CC63F:#8CC63F;
-@F56C6C:#F56C6C;
-@FFB2B2:#FFB2B2;
-@F5F8F9:#F5F8F9;
-@B7BEC1:#B7BEC1;
-@ACACAC:#ACACAC;
-@ABABAB:#ABABAB;
-@E5E7E7:#E5E7E7;
-@707070:#707070;
-@FFECEC:#FFECEC;
-@FCA740:#FCA740;
-@F6F7FF:#F6F7FF;
-@F6FFE9:#F6FFE9;
-@C2DF9C:#C2DF9C;
-@F7F9FA:#F7F9FA;
-@FFEEE6:#FFEEE6;
-@EC4E1B:#EC4E1B;
+//主色
+@m-col-00:#000000; //@000
+@m-col-b0:#FFFFFF; //@fff
+@m-col-b1:#F8FAFF; //@F8FAFF /table有色tr
+@m-col-b2:#F5F6FB; //@F5F6FB /功能性Button，无底色icon经过底色
+@m-col-b3:#F9F8FF; //@F9F8FF /主色+边框Button的背景色
+@m-col-b4:#E4E6FC; //@E4E6FC /浅色Button2、输入框默认边框色
+@m-col-b5:#9CADFF; //@9CADFF /输入框点击状态边框色,浅色背景Button边框色
+@m-col-b6:#617FEF; //@617FEF /（hover）悬停状态
+@m-col-b7:#6777EF; //@6777EF /主色、Button、icon等颜色，提示信息中的文字色
+@m-col-b8:#3E54EE; //@3E54EE /左侧NAV一级标题字体色、修饰线条色
+@m-col-b9:#6677EF; //@6677EF /不明用色
+@m-col-b10:#6D7CEF; //@6D7CEF
+@m-col-b11:#ADB6FE; //@ADB6FE
+//中性色
+@ph-col-n1:#F5F8F9; //@F5F8F9 /form表单中的上传Button背景色
+@ph-col-n2:#F4F7FC; //@F4F7FC /画板背景色
+@ph-col-n3:#EBEEF5; //@EBEEF5 /板框边框颜色
+@ph-col-n4:#F8F8F8; //@F8F8F8 /不可编辑bg、步骤bg
+@ph-col-n5:#F3F3F3; //@F3F3F3 /灰色Button1背景色
+@ph-col-n6:#F0F0F0; //@F0F0F0 /灰色Button2背景色
+@ph-col-n7:#D7DADB; //@D7DADB /灰色Button2边框色
+@ph-col-n8:#999999; //@999    /备注说明文字
+@ph-col-n9:#909399; //@909399 /灰色Button背景、浅灰色Button文本色
+@ph-col-n10:#6C757D; //@6C757D /顶部导航、侧栏导航、input默认等文本色
+@ph-col-n11:#3C4B5D; //@3C4B5D /lable文本
+@ph-col-n12:#34395E; //@34395E /二级标题文本、正文
+@ph-col-n13:#313B3D; //@313B3D /正文1
+@ph-col-n14:#404040; //@404040 /正文3-table文本色
+@ph-col-n15:#333333; //@333    /正文2
+@ph-col-n16:#666666; //@666
+@ph-col-n17:#222534; //@222534
+@ph-col-n18:#C9D0FF; //@C9D0FF
+@ph-col-n19:#f3f4ff; //@f3f4ff
+@ph-col-n20:#EAEDF3; //@EAEDF3
+@ph-col-n21:#C5CFE0; //@C5CFE0
+@ph-col-n22:#F1F3F7; //@F1F3F7
+@ph-col-n23:#F9FAFC; //@F9FAFC
+@ph-col-n24:#F6F7FF; //@F6F7FF
+@ph-col-n25:#78828A; //@78828A
+@ph-col-n26:#A5B3CC; //@A5B3CC
+@ph-col-n27:#B7BEC1; //@B7BEC1
+@ph-col-n28:#C2C8C0; //@C2C8C0
+@ph-col-n29:#E5E7E7; //@E5E7E7
+@ph-col-n30:#F7F9FA; //@F7F9FA
+@ph-col-n31:#6D6D6D; //@6D6D6D
+@ph-col-n32:#707070; //@707070
+@ph-col-n33:#BCBCBC; //@BCBCBC
+@ph-col-n34:#ACACAC; //@ACACAC
+@ph-col-n35:#ABABAB; //@ABABAB
+@ph-col-n36:#F9F9F9; //@F9F9F9
+//功能色
+@fun-col-g1:#62AC00; //@62AC00 /成功消息，正常、完成、试用、新增，浅绿色Button背景中的文本颜色
+@fun-col-g2:#8CC63F; //@8CC63F /绿色Button背景色，一般在成功、完成、新增等场景使用
+@fun-col-g3:#C2DF9C; //@C2DF9C /浅绿色Button边框色，一般在成功、完成、新增等场景使用
+@fun-col-g4:#F6FFE9; //@F6FFE9 /浅绿色Button背景色，一般在成功、完成、新增等场景使用
+@fun-col-r1:#F56C6C; //@F56C6C /错误消息的文本色、删除、拒绝Button背景色
+@fun-col-r2:#FFB2B2; //@FFB2B2 /浅红色Button边框色
+@fun-col-r3:#FFECEC; //@FFECEC /浅红色Button背景色、错误消息中的背景色
+@fun-col-o1:#F26522; //        /警告消息的文本色、Button背景色
+@fun-col-o2:#F58B58; //        /收藏Button背景色
+@fun-col-o3:#FFC2A5; //        /警告消息浅色Button边框色
+@fun-col-o4:#FFEEE6; //@FFEEE6 /警告消息浅色Button背景色
+@fun-col-o5:#EC4E1B; //@EC4E1B
+@fun-col-o6:#f28102; //@f28102
+@fun-col-o7:#FCA740; //@FCA740
+//辅助色
+@hlp-col-h1:#45E3F8; //        /blue1-icon
+@hlp-col-h2:#13D1F4; //        /blue1-icon
+@hlp-col-h3:#E4F8FB; //        /blue1-icon-bg
+@hlp-col-h4:#8DC4FF; //        /blue2-icon
+@hlp-col-h5:#398FFF; //        /blue2-icon
+@hlp-col-h6:#E3F2FF; //        /blue2-icon-bg
+@hlp-col-h7:#61D4B0; //        /green-icon
+@hlp-col-h8:#3AC6AE; //        /green-icon
+@hlp-col-h9:#DCF6F1; //        /紫色icon-bg
+@hlp-col-h10:#9A84FF; //        /紫色icon
+@hlp-col-h11:#7C66F6; //        /紫色icon
+@hlp-col-h12:#F1EEFF; //        /紫色icon-bg
+@hlp-col-h13:#FF9A2C; //        /orage-icon
+@hlp-col-h14:#F5C571; //        /orage-icon
+@hlp-col-h15:#FFF4E3; //        /red-icon-bg
+@hlp-col-h16:#E98982; //        /red-icon
+@hlp-col-h17:#E3482B; //        /red-icon
+@hlp-col-h18:#FFF1F8; //        /red-icon-bg
+@hlp-col-h19:#9FCAFF; //        /推荐bg
+@hlp-col-h20:#6D91FE; //        /推荐bg
+@hlp-col-h21:#5C71FC; //        /icon1-bg
+@hlp-col-h22:#6AB0FF; //        /icon1-bg
+@hlp-col-h23:#33C5FF; //        /icon-bg2
+@hlp-col-h24:#5D94FF; //        /icon-bg2
+@hlp-col-h25:#2684FF; //        /icon-bg3
+@hlp-col-h26:#5D68FF; //        /icon-bg3
+@hlp-col-h27:#68D7CF; //        /icon-bg4
+@hlp-col-h28:#47C3C0; //        /icon-bg4
+@hlp-col-h29:#D198FF; //        /icon-bg5
+@hlp-col-h30:#9154FF; //        /icon-bg5
+@hlp-col-h31:#912790; //@912790 /teble表格中的特殊文本

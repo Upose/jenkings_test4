@@ -79,13 +79,13 @@ export default {
 @import "../../../assets/admin/css/style.less";
 .header-warp{
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
-  color: @6C757D;
+  color: @ph-col-n10;
   height: 40px;
   z-index: 25;
   position: relative;
-  background-color: @fff;
+  background-color: @m-col-b0;
   a{
-    color: @6C757D;
+    color: @ph-col-n10;
   }
   .logo-w{
     vertical-align: middle;
@@ -164,7 +164,7 @@ export default {
       height: 30px;
       display: inline-block;
       vertical-align: middle;
-      background-color: @C2C8C0;
+      background-color: @ph-col-n28;
       border-radius: 50%;
       overflow: hidden;
       .u-img{
@@ -192,13 +192,13 @@ export default {
 }
 /**重置样式**/
 /deep/.el-tabs__item.is-active{
-  color:@6C757D;
+  color:@ph-col-n10;
 }
 /deep/.el-tabs__item{
-  color:@6C757D;
+  color:@ph-col-n10;
 }
 /deep/.el-tabs__item:hover{
-  color:@6777EF;
+  color:@m-col-b7;
 }
 /deep/.el-tabs__active-bar{
   display:none;

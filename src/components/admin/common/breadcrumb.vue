@@ -41,15 +41,15 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less"; /**颜色配置 */
 .breadcrumb-page {
-  color: @34395E;
+  color: @ph-col-n12;
   height: 30px;
 }
 .fff {
   /deep/ .el-breadcrumb__inner {
-    color: @fff !important;
+    color: @m-col-b0 !important;
   }
   /deep/ .el-breadcrumb__separator {
-    color: @fff !important;
+    color: @m-col-b0 !important;
   }
 }
 .cu-p {

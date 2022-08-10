@@ -119,7 +119,7 @@ export default {
 @import "../../../assets/admin/css/color.less";/**颜色配置 */
   /****查询条件板块****/
   .content{
-    background-color: @fff;
+    background-color: @m-col-b0;
     margin-top: 24px;
     border-radius:4px 4px 0 0;
   }
@@ -127,7 +127,7 @@ export default {
       min-height: 60px;
       line-height: 57px;
       padding: 0 20px;
-      border-bottom: 1px solid @EBEEF5;
+      border-bottom: 1px solid @ph-col-n3;
       .r-btn{
         float: right;
         margin-top: 14px;
@@ -136,12 +136,12 @@ export default {
     /***内容板块***/
   .list-content{
     min-height: 300px;
-    background-color: @fff;
+    background-color: @m-col-b0;
     border-radius: 0 0 4px 4px;
     .row{
       padding: 10px;
       .title{
-        color: @34395E;
+        color: @ph-col-n12;
         font-size: 14px;
         font-weight: bold;
         line-height: 20px;
@@ -156,7 +156,7 @@ export default {
           content: '';
           width: 5px;
           height: 5px;
-          background-color: @6677EF;
+          background-color: @m-col-b9;
           border-radius: 50%;
         }
       }
@@ -186,7 +186,7 @@ export default {
         span.name{
           display: block;
           height: 60px;
-          color: @34395E;
+          color: @ph-col-n12;
           font-size: 14px;
           line-height: 60px;
           text-align: center;
@@ -204,7 +204,7 @@ export default {
           cursor: pointer;
           display: none;
           position: absolute;
-          background: @F5F6FB;
+          background: @m-col-b2;
           height: 44px;
           width: 44px;
           right: 5px;
@@ -213,7 +213,7 @@ export default {
           border-radius: 50%;
           font-size: 15px;
           &:active{
-            color: @6777EF;
+            color: @m-col-b7;
           }
         }
         &:hover{

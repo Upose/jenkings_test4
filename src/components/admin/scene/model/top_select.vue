@@ -155,7 +155,7 @@ export default {
 .drag-top{
   width: 100%;
   min-height:64px;
-  background: @fff;
+  background: @m-col-b0;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
   z-index: 7;
   position: relative;
@@ -168,7 +168,7 @@ export default {
     display: inline-block;
     margin-left: 30px;
     .s-txt{
-      color: @34395E;
+      color: @ph-col-n12;
       font-style: 14px;
     }
     .w-saml{
