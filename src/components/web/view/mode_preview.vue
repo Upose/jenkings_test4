@@ -4,9 +4,9 @@
     <br>
     <academic_result></academic_result>
     <br>
-    <database_nav_sys></database_nav_sys>
-    <br>
     <hot_services></hot_services>
+    <br>
+    <database_nav_sys></database_nav_sys>
     <br>
     <literature_project_sys></literature_project_sys>
     <br>
@@ -43,4 +43,8 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../assets/public/css/public.less";
+.list-warp{
+  min-height: 100%;
+  background: #f1f1f1;
+}
 </style>

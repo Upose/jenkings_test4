@@ -10,7 +10,7 @@
     </div><!--title end-->
 
     <div class="r-link">
-      <div class="r-link-box thover-font-c5 " v-for="i in 8" :key="i">
+      <div class="r-link-box" v-for="i in 8" :key="i">
         <img src="#">
         <span>开馆时间</span>
       </div>
@@ -26,6 +26,9 @@
     border-radius: 5px 5px 0px 0px;
     padding: 25px 0;
     padding-left:39px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     .l-title{
       width: 116px;
       float: left;
@@ -74,6 +77,7 @@
         align-items: center;
         justify-items: center;
         flex-direction: column;
+        max-width: 150px;
         cursor: pointer;
         transition: all .3s;
         &:hover{
