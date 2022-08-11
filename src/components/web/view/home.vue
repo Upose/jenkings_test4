@@ -1,5 +1,6 @@
 <template>
   <div class="list-warp">
+    首页
   </div>
 </template>
 
@@ -21,6 +22,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../../../assets/web/css/style.less";/**通用文件 */
-  @import "../../../assets/web/css/color.less";/**通用文件 */
+  @import "../../../assets/public/css/public.less";
 </style>

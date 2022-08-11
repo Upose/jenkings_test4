@@ -5,7 +5,6 @@
       <span @click="skinClick('template1')">红</span>
       <span @click="skinClick('template2')">蓝</span>
       <span @click="skinClick('template3')">绿</span>
-      <span @click="skinClick('template4')">紫</span>
     </div>
 </div>
 </template>

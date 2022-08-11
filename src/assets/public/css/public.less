@@ -57,3 +57,27 @@ button,input,textarea{
 button{
   cursor: pointer;
 }
+.c-l:after {
+  content: " ";
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+}
+
+/**禁止文字被选中*/
+.n-text-select {
+  moz-user-select: -moz-none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.m-width {
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}

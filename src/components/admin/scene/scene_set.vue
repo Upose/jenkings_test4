@@ -105,7 +105,6 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
-@import "../../../assets/web/css/color.less";
 .jl_vip_zt_warp_hf {
   position: relative;
   margin-left: auto;
