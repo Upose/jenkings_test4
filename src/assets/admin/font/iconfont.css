@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3145988 */
-  src: url('iconfont.woff2?t=1659430861724') format('woff2'),
-       url('iconfont.woff?t=1659430861724') format('woff'),
-       url('iconfont.ttf?t=1659430861724') format('truetype');
+  src: url('iconfont.woff2?t=1660179575140') format('woff2'),
+       url('iconfont.woff?t=1660179575140') format('woff'),
+       url('iconfont.ttf?t=1660179575140') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,22 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.el-icon-vip-quanpingsuoxiao:before {
+  content: "\e67b";
+}
+
+.el-icon-vip-quanpingxianshi:before {
+  content: "\e67c";
+}
+
+.el-icon-vip-jiankongshuju:before {
+  content: "\e67a";
+}
+
+.el-icon-vip-shangjia:before {
+  content: "\ead0";
 }
 
 .el-icon-vip-shouqi1:before {

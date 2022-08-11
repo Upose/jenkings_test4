@@ -85,6 +85,7 @@
         </div>
       </el-main>
     </el-container>
+    <el-button icon="iconfont el-icon-vip-quanpingsuoxiao" size="medium" class="s-r-f-r CloseFullScreen" @click="CloseFullScreen()">取消</el-button>
   </div>
 </template>
 
@@ -157,6 +158,20 @@ export default {
   border: 3px dashed #001eff;
   // box-shadow: 0px 0px 8px #001eff;//外部阴影
   // box-shadow: 0 0 5px #3a51ff inset;//内部阴影
+}
+.fullScreen{
+  position: fixed !important;
+  z-index: 99999 !important;
+  top: 40px !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+.CloseFullScreen{
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  top: 2px;
+  right: 203px;
 }
 </style>
 

@@ -703,5 +703,12 @@ export default {
         this.loadHead();
       }
     },
+    //取消全屏拖拽
+    CloseFullScreen(){
+      document.getElementsByClassName('drag-c')[0].setAttribute('class','drag-c');
+      document.getElementsByClassName('CloseFullScreen')[0].style.display = 'none';
+      document.getElementsByClassName('drag-container')[0].style.padding = '15px';
+      document.getElementsByClassName('drag-container')[0].style.height = 'calc(100% - 80px)';
+    },
   },
 }

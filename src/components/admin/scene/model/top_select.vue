@@ -25,6 +25,7 @@
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
         <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
+        <el-button icon="iconfont el-icon-vip-quanpingxianshi" size="medium" class="s-r-f-r" @click="fullScreen()">全屏</el-button>
     </div><!--顶部条件筛选 end-->
     
 </template>
@@ -144,6 +145,13 @@ export default {
       }
       return name;
     },
+    //全屏拖拽
+    fullScreen(){
+      document.getElementsByClassName('drag-c')[0].setAttribute('class','drag-c fullScreen');//drag-c
+      document.getElementsByClassName('drag-container')[0].style.padding = 0;//15px
+      document.getElementsByClassName('CloseFullScreen')[0].style.display = 'block';
+      document.getElementsByClassName('drag-container')[0].style.height = '100%'; //calc(100% - 80px)
+    },
   },
 }
 </script>
@@ -198,5 +206,11 @@ export default {
 }
 /deep/.el-select .el-tag__close.el-icon-close{
   top: -7px;
+}
+.CloseFullScreen{
+  position: fixed;
+  z-index: 99999;
+  top:40px;
+  right: 20px;
 }
 </style>
