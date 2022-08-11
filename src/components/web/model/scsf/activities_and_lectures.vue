@@ -21,8 +21,9 @@
           <div class="y-m">2022-06</div>
         </div>
         <div class="txt-w">
-          <span class="type tbg-c1">新闻</span>
           <p class="txt">四川计算机科学学院工会积极组织开展系列健身强体抗疫工会活动</p>
+          <p class="hint">时间：14:00~16:00</p>
+          <p class="hint">地点：狮子山图书馆研究间123</p>
         </div>
       </div>
     </div>
@@ -89,7 +90,6 @@
         text-align: center;
       }
       .txt{
-        margin-top: 4px;
         font-size: 16px;
         font-weight: 400;
         line-height: 22px;
@@ -100,6 +100,13 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         max-height: 44px;
+        margin-bottom: 4px; 
+      }
+      .hint{
+        color: #666;
+        font-weight: 400;
+        line-height: 15px;
+        font-size: 10px;
       }
     }
   }

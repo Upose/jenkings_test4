@@ -25,8 +25,7 @@
           <div class="y-m">2022-06</div>
         </div>
         <div class="txt-w">
-          <span class="type tbg-c1">新闻</span>
-          <p class="txt">四川计算机科学学院工会积极组织开展系列健身强体抗疫工会活动</p>
+          <p class="txt">四川计算机科学学院工会积极组织开展系列健身强体抗疫工会活动 <span class="type tbg-c1">新闻</span></p>
         </div>
       </div>
     </div>
@@ -84,6 +83,9 @@
     }
     .txt-w{
       padding-left: 88px;
+      display: flex;
+      height:72px;
+      align-items: center;
       .type{
         width: auto;
         font-size: 12px;
@@ -93,7 +95,6 @@
         text-align: center;
       }
       .txt{
-        margin-top: 4px;
         font-size: 16px;
         font-weight: 400;
         line-height: 22px;
@@ -101,9 +102,9 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
-        max-height: 44px;
+        max-height: 66px;
       }
     }
   }
