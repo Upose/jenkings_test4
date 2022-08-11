@@ -1,12 +1,12 @@
+<!--常用数据库模板-->
 <template>
   <div class="list-warp">
-    首页
+    常用数据库模板
   </div>
 </template>
 
 <script>
 export default {
-  name: 'footerPage',
   created(){},
   data () {
     return {
@@ -22,5 +22,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "../../../assets/public/css/public.less";
+  
 </style>
