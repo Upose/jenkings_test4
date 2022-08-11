@@ -32,12 +32,7 @@
 export default {
   name: 'index',
   mounted(){
-    console.log(this.$store.state.skin_template);
-    if(this.$store.state.skin_template == 'template1'){
-        
-      }else{
-        
-      }
+    
   },
   data () {
     return {
@@ -59,13 +54,9 @@ export default {
       document.getElementsByTagName("body")[0].appendChild(js_element);
     },
     skinClick(val){
-      // this.$refs.skin_template.add(val);
       this.skin_template = val;
       this.$store.state.skin_template = this.skin_template;
       this.$store.commit('setSkinTemplate',{skin_template:this.skin_template});
-      setTimeout(() => {
-          window.location.reload();
-      }, 1000);
     },
   }
 }
