@@ -31,6 +31,9 @@ export default {
 <style lang="less" scoped>
 .service-warp {
   overflow-x: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   .service-main-w{
     height: 160px;
     display: flex;
