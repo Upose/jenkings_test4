@@ -1,24 +1,19 @@
-<!--阅读/推荐模板-->
+<!--新闻公告模板-->
 <template>
-  <div class="literature-r-warp">
-    <div class="literature-r-w-mw">
+  <div class="news-warp">
+    <div class="news-w-mw">
       <div class="t-title">
-        <span class="txt-m tfont-c1">阅读</span>
-        <span class="txt-s">推荐</span>
+        <span class="txt-m tfont-c1">资讯</span>
+        <span class="txt-s">公告</span>
       </div>
-
       <div class="list-body c-l">
-        <div class="colum-w">
-          <span>借阅排行</span>
-          <span>热门下载</span>
-          <span>新书推荐</span>
+        <div class="left">
+          <div class="list-t">新闻公告</div>
         </div>
-
-        <div class="banner-warp">
-          <div class="">滚动图</div>
+        <div class="right">
+          <div class="list-t">培训与讲座</div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -40,12 +35,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .literature-r-warp{
+  .news-warp{
     min-width: 1200px;
     padding: 50px 0;
     border: 1px solid;
     // 标题
-    .literature-r-w-mw{
+    .news-w-mw{
       max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
@@ -67,8 +62,15 @@ export default {
     //内容
     .list-body{
       padding-top: 40px;
-      .colum-w{
-        text-align: center;
+      .left,.center,.right{
+        float: left;
+        border: 1px solid;
+      }
+      .left{
+        width: 45%;
+      }
+      .right{
+        width: 55%;
       }
     }
   }

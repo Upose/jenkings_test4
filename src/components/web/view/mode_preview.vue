@@ -20,14 +20,21 @@
     <unified_retrieval_sys ></unified_retrieval_sys>
     <br> -->
     <h1>山西大学图书馆</h1>
+    <br>
     <header_sys></header_sys>
+    <br>
     <database_nav_sys></database_nav_sys>
-    <news_sys1></news_sys1>
-    <news_sys2></news_sys2>
+    <br>
+    <news_sys></news_sys>
+    <br>
     <service_sys></service_sys>
+    <br>
     <literature_recommend_sys></literature_recommend_sys>
+    <br>
     <statistics></statistics>
+    <br>
     <footer_sys></footer_sys>
+    <br>
   </div>
 </template>
 
@@ -47,8 +54,7 @@
 import database_nav_sys from "@/components/web/model/sxdx/database_nav_sys";
 import header_sys from "@/components/web/model/sxdx/header_sys";
 import literature_recommend_sys from "@/components/web/model/sxdx/literature_recommend_sys";
-import news_sys1 from "@/components/web/model/sxdx/news_sys1";
-import news_sys2 from "@/components/web/model/sxdx/news_sys2";
+import news_sys from "@/components/web/model/sxdx/news_sys";
 import service_sys from "@/components/web/model/sxdx/service_sys";
 import statistics from "@/components/web/model/sxdx/statistics";
 import footer_sys from "@/components/web/model/sxdx/footer_sys";
@@ -56,7 +62,7 @@ export default {
   created() { },
   components: { 
     // academic_result, database_nav_sys,database_nav_sys1, header_sys, hot_services, literature_project_sys, news_sys,activities_and_lectures, unified_retrieval_sys, 
-    header_sys,footer_sys,database_nav_sys,literature_recommend_sys,news_sys1,news_sys2,service_sys,statistics
+    header_sys,footer_sys,database_nav_sys,literature_recommend_sys,news_sys,service_sys,statistics
     },
   data() {
     return {
