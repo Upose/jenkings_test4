@@ -9,11 +9,11 @@
           headerBgImg:details.headerTemplate.headerBgImg||'',
           displayNavColumn:details.headerTemplate.displayNavColumn||'',
           sceneid:details.id,
-        })" :style="{'background':bg_color+' url('+fileUrl+(details.sceneScreens[0].bgImg||'')+')'}">
+        })" :style="styleSet({},-1)">
         <div :id="setId()"></div>
       </div><!-- 头部信息-end -->
 
-      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')','background-position-y':(-(details.headerTemplate.height*10)+'px')}">
+      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="styleSet(it,i)">
         <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
           <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
             <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
@@ -140,6 +140,18 @@ export default {
     setId(){
       return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
     },
+    //样式设置
+    styleSet(it,i){
+      var list = {};
+      if(i<0 && this.details.sceneScreens && this.details.sceneScreens[0]){
+        list = {'background':this.bg_color+' url('+this.fileUrl+(this.details.sceneScreens[0].bgImg||'')+')','background-position':'center top !important'};
+      }else if(i==0){
+        list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important')};
+      }else{
+        list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')'};
+      }
+      return list;
+    }
   },
 }
 </script>
@@ -152,7 +164,8 @@ export default {
   margin-right: auto;
 }
 .scene-warp-bg{
-  background-size: 100% 100% !important;
+  // background-size: 100% 100% !important;
+  background-position: center !important;
 }
 .bocy-content{
   position: relative;
