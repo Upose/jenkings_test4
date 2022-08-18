@@ -75,7 +75,6 @@ export default {
 .news_sys_temp7 {
   min-width: 1200px;
   padding: 50px 0;
-  background: #fff;
   // 标题
   .news-w-mw {
     max-width: 1200px;

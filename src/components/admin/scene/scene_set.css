@@ -158,7 +158,8 @@
   padding: 30px;
 }
 .admin-content .drag-content .drag-c .drag-container .scene-warp-bg {
-  background-size: 100% 100% !important;
+  /* background-size: 100% 100% !important; */
+  background-position: center !important;
 }
 .admin-content .drag-content .drag-c .drag-container .drag-warp-bg {
   width: 100%;
