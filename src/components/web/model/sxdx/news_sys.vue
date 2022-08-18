@@ -3,7 +3,7 @@
   <div class="news-warp">
     <div class="news-w-mw">
       <div class="t-title">
-        <span class="txt-m tfont-c1">资讯</span>
+        <span class="txt-m tfont-c2">资讯</span>
         <span class="txt-s">公告</span>
       </div>
       <div class="list-body c-l">
@@ -16,7 +16,7 @@
           </div>
           <div class="list-ul">
             <div class="row" v-for="i in 5">
-              <div class="date">
+              <div class="date tfont-c2 tbg-c7">
                 <span class="day">18</span>
                 <span class="y">2022-08</span>
               </div>
@@ -37,7 +37,7 @@
           </div>
           <div class="list-ul">
             <div class="row" v-for="i in 4">
-              <div class="date">
+              <div class="date tfont-c2">
                 2022-08-22
               </div>
               <div class="txt">

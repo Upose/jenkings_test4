@@ -3,19 +3,30 @@
   <div class="literature-r-warp">
     <div class="literature-r-w-mw">
       <div class="t-title">
-        <span class="txt-m tfont-c1">阅读</span>
+        <span class="txt-m tfont-c2">阅读</span>
         <span class="txt-s">推荐</span>
       </div>
 
       <div class="list-body c-l">
         <div class="colum-w">
-          <span>借阅排行</span>
-          <span>热门下载</span>
-          <span>新书推荐</span>
+          <span class="thover-font-c2 thover-border-c2" v-for="(it,i) in 3" :class="isActive(it,i)">借阅排行</span>
         </div>
 
         <div class="banner-warp">
-          <div class="">滚动图</div>
+          <span class="pre thover-bg-c1"></span>
+          <div class="banner-hid">
+            <div class="b-w c-l">
+             <div class="box thover-font-c5" v-for="i in 7">
+              <img src="http://192.168.21.46:6900/public/image/default-cover/default-cover-type1-3.png">
+              <div class="txt-w">
+                <span class="book-name">《京剧史话》</span>
+                <span class="line"></span>
+                <span class="dsc">徽剧bai是京剧的前身。清代乾隆五十五年（台清代乾隆五十五年）</span>
+              </div>
+             </div>
+            </div>
+          </div>
+          <span class="next thover-bg-c1"></span>
         </div>
       </div>
 
@@ -28,13 +39,22 @@ export default {
   created(){},
   data () {
     return {
-
+      cu_index:0,
     }
   },
   mounted(){
   },
   methods:{
-      
+      isActive(it,i){
+        var cs = '';
+        if(i==0){
+          cs = cs+'clear-line ';
+        }
+        if(i == this.cu_index){
+          cs = cs+'active tfont-c2 tborder-c2';
+        }
+        return cs;
+      },
   },
 }
 </script>
@@ -43,7 +63,6 @@ export default {
   .literature-r-warp{
     min-width: 1200px;
     padding: 50px 0;
-    border: 1px solid;
     // 标题
     .literature-r-w-mw{
       max-width: 1200px;
@@ -69,6 +88,134 @@ export default {
       padding-top: 40px;
       .colum-w{
         text-align: center;
+        span{
+          margin: 0 20px;
+          cursor: pointer;
+          position: relative;
+          font-size: 20px;
+          line-height: 20px;
+          padding-bottom: 10px;
+          color: #2C3032;
+          transition: all .3s;
+          border-bottom: 2px solid rgba(255,255,255,0);
+          &:hover{
+            color:#02997F;
+            border-bottom: 2px solid #02997F;
+          }
+          &::after{
+            content: '';
+            position: absolute;
+            left:-21px;
+            width: 1px;
+            height: 12px;
+            top:10px;
+            border-left: 1px solid #999;
+          }
+        }
+        .active{
+          color:#02997F;
+          font-weight: bold;
+          border-bottom: 2px solid #02997F;
+        }
+        .clear-line{
+          &::after{
+            border-left: none;
+          }
+        }
+      }
+      //滚动banner图
+      .banner-warp{
+        margin-top: 30px;
+        position: relative;
+        .next,.pre{
+          cursor: pointer;
+          position: absolute;
+          top: 100px;
+          width:40px;
+          height: 40px;
+          background: #BEBBBF;
+          border-radius: 4px;
+          text-align: center;
+          transition: all .3s;
+        }
+        .pre{
+          background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAOCAYAAAASVl2WAAAAAXNSR0IArs4c6QAAAMdJREFUKFN10L8qxQEYxvHPO7gCpKTEoAzYZXYPcg2yKMqfkoGBUBSTwUCJwaYYuSBJtkc/nXM6h+Ndn2893/cpfS7JLB5wV7/zJNO4xgCWeoAkU7jEEFbw2gGSTOIUE9jAc1V9/QBJxrGPOezhsao+m6ySjGEHCzjGTVV9tN0aYA3bOMFRVb13izdAI7OFi/+AQaxjEWe47aloSQ5jF/M46JFs9yUZwSFmsImXzptd0CjOW1us4q3f1M3bV2hql/8AXcPd4+kbXVJLaL1WO74AAAAASUVORK5CYII=);
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        .next{
+          right: 0;
+          background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAOCAYAAAASVl2WAAAAAXNSR0IArs4c6QAAAJ9JREFUKFOV0a9OQgEUB+DvdIPFQjD5NGa1uFkYxfEAFpKZwWawGBjJxEsQeQCiL8HQ9mOX3TlguzhPPd/O30ryhSWeq2rjJCrJPSZY4KWqtoemARd4wAifeD1E1egkl3jCEHOMq+q7ye1Bi64wwCM+8F5VP7+gRb22ym0DMDsCLbrGG27Q/x9I0t0iSfeQZ9f881BJ7jA9d+o1Vl3P2gHpK06BsN694gAAAABJRU5ErkJggg==);
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        .banner-hid{
+          width: 1050px;
+          margin-left: auto;
+          margin-right: auto;
+          overflow: hidden;
+          .b-w{
+            width: auto;
+            height: 320px;
+            transition: all .3s;
+            white-space: nowrap;
+            position: relative;
+            .box{
+              cursor: pointer;
+              display: inline-block;
+              width: 150px;
+              height: 320px;
+              margin-right: 30px;
+              white-space: pre-wrap;
+              word-break: break-all;
+              transition: all .3s;
+              color: #333;
+              &:hover{
+                img{
+                  box-shadow: 0px 2px 10px 0px rgba(0,0,0,0.15);
+                }
+                .book-name{
+                  font-weight: bold;
+                }
+                .dsc{
+                  color: #000 !important;
+                }
+              }
+              img{
+                width: 150px;
+                height: 210px;
+                transition: all .3s;
+              }
+              .txt-w{
+                margin-top: 10px;
+                .book-name{
+                  display: block;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  transition: all .3s;
+                  text-overflow: ellipsis;
+                }
+                .line{
+                  width: 10px;
+                  height: 1px;
+                  background:#666;
+                  display: block;
+                  margin-top: -8px;
+                  margin-bottom: -8px;
+                }
+                .dsc{
+                  transition: all .3s;
+                  color: #666;
+                  overflow: hidden;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 2;
+                }
+              }
+            }
+          }
+        }
+        
       }
     }
   }
