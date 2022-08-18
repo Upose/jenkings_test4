@@ -247,7 +247,6 @@ export default {
 .loganalysis_sys_temp3 {
   width: 100%;
   min-height: 256px;
-  background: #fff;
   padding: 38px 0;
   .c-content {
     width: 1200px;
