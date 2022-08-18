@@ -81,6 +81,6 @@ export default {
 @import "../../../assets/public/css/public.less";
 .list-warp{
   min-height: 100%;
-  background: #f1f1f1;
+  background: #01977E;
 }
 </style>

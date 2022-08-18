@@ -1,6 +1,6 @@
 <!--底部统计图模板-->
 <template>
-  <div class="loganalysis_sys_temp3">
+  <div class="loganalysis_sys_temp3-warp">
     <div class="c-content c-l">
       <div class="left">
         <div class="row">
@@ -244,7 +244,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.loganalysis_sys_temp3 {
+.loganalysis_sys_temp3-warp {
   width: 100%;
   min-height: 256px;
   padding: 38px 0;

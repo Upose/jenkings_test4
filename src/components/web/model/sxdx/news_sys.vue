@@ -1,6 +1,6 @@
 <!--新闻公告模板-->
 <template>
-  <div class="news_sys_temp7">
+  <div class="news_sys_temp7-warp">
     <div class="news-w-mw">
       <div class="t-title">
         <span class="txt-m tfont-c2">资讯</span>
@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.news_sys_temp7 {
+.news_sys_temp7-warp {
   min-width: 1200px;
   padding: 50px 0;
   // 标题

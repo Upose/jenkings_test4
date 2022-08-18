@@ -1,6 +1,6 @@
 <!--底部模板-->
 <template>
-  <div class="foot-warp pd50" style="color: #fff;
+  <div class="footer_sys_temp2-warp" style="color: #fff;
   height: 260px;
   padding: 50px 0;">
     <div class="m-width c-l">

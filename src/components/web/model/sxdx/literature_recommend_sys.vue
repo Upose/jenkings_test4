@@ -1,6 +1,6 @@
 <!--阅读/推荐模板-->
 <template>
-  <div class="literature_recommend_sys_temp20">
+  <div class="literature_recommend_sys_temp20-warp">
     <div class="literature-r-w-mw">
       <div class="t-title">
         <span class="txt-m tfont-c2">阅读</span>
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .literature_recommend_sys_temp20{
+  .literature_recommend_sys_temp20-warp{
     min-width: 1200px;
     padding: 50px 0;
     // 标题
