@@ -19,7 +19,6 @@
 .admin-content .drag-content {
   min-height: 300px;
   position: relative;
-  background-color: #F1F3F7;
 }
 .admin-content .drag-content .drag-l,
 .admin-content .drag-content .drag-c,
@@ -172,7 +171,6 @@
   margin-left: auto;
   margin-right: auto;
   border: 1px dashed #BCBCBC;
-  background-color: #F1F3F7;
 }
 .admin-content .drag-content .drag-c .drag-container img {
   width: 1198px;

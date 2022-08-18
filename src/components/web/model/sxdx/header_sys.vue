@@ -42,7 +42,6 @@ export default {
 
 <style lang="less" scoped>
 .header_sys_temp1{
-  background: rgb(34, 0, 0);
   position: relative;
   height: 120px;
   min-width: 1200px;
