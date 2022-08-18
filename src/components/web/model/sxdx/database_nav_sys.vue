@@ -1,6 +1,6 @@
 <!--资源导航，常用数据库模板-->
 <template>
-  <div class="db-warp">
+  <div class="database_nav_sys_temp3">
     <div class="db-w-mw">
       <div class="t-title">
         <span class="txt-m">资源</span>
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.db-warp {
+.database_nav_sys_temp3 {
   background: rgb(0, 110, 50);
   min-width: 1200px;
   padding: 50px 0;

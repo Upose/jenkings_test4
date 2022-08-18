@@ -1,6 +1,6 @@
 <!--信息导航模板-->
 <template>
-  <div class="service-warp">
+  <div class="service_sys_temp2">
     <div class="service-main-w">
       <div class="l-box" v-for="i in 9">
         <div class="box-bg">
@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.service-warp {
+.service_sys_temp2 {
   overflow-x: hidden;
   max-width: 1200px;
   margin-left: auto;

@@ -1,0 +1,47 @@
+.service_sys_temp2 {
+  overflow-x: hidden;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  .service-main-w{
+    height: 160px;
+    display: flex;
+    align-items: center;
+    margin-left: calc(((11.1111% - 50px) / 2) - (11.1111% - 50px));
+    margin-right: calc(((11.1111% - 50px) / 2) - (11.1111% - 50px));
+  }
+  .l-box {
+    width: 11.1111%;
+    float: left;
+    cursor: pointer;
+    text-align: center;
+    &:hover{
+      transition: all .3s;
+      div.box-bg{margin-top: -5px;}
+    }
+    div.box-bg {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      padding-top: 5px;
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.23);
+      border-radius: 5px 5px 5px 5px;
+      margin-bottom: 6px;
+      transition: all .3s;
+      margin-top: 0;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    span {
+      font-size: 14px;
+      font-weight: bold;
+      color: #ffffff;
+      line-height: 0px;
+      text-shadow: 0px 1px 5px #000000;
+    }
+  }
+}

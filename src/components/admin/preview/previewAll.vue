@@ -9,11 +9,11 @@
           headerBgImg:details.headerTemplate.headerBgImg||'',
           displayNavColumn:details.headerTemplate.displayNavColumn||'',
           sceneid:details.id,
-        })">
+        })" :style="{'background':bg_color+' url('+fileUrl+(details.sceneScreens[0].bgImg||'')+')'}">
         <div :id="setId()"></div>
       </div><!-- 头部信息-end -->
 
-      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
+      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')','background-position-y':(-(details.headerTemplate.height*10)+'px')}">
         <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
           <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
             <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">

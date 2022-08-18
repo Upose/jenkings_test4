@@ -249,15 +249,19 @@ export default {
       //获取应用栏目列表 /{appid}
       this.http.getPlain_url('app-plate-list-by-app-id', '/' + val.appId).then(res => {
         this.appPlateList = res.data || [];
-        if (this.set_list[0] && !this.set_list[0].id) {
+        if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
           this.set_list[0].id = res.data[0].value;
         }
       }).catch(err => {
         console.log(err);
       })
-      this.topCountList = val.topCountList;//显示条数
+      this.topCountList = val.topCountList||[];//显示条数
       if (this.set_list[0] && !this.set_list[0].topCount) {
-        this.set_list[0].topCount = val.topCountList[0].value;
+        if(val.topCountList[0]){
+          this.set_list[0].topCount = val.topCountList[0].value||0;
+        }else{
+          this.set_list[0].topCount = 0;
+        }
       }
       if (isAdd == 'add') {
         console.log('应用点击的默认添加第一个模板');

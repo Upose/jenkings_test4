@@ -1,6 +1,6 @@
 <!--底部统计图模板-->
 <template>
-  <div class="count-warp">
+  <div class="loganalysis_sys_temp3">
     <div class="c-content c-l">
       <div class="left">
         <div class="row">
@@ -244,7 +244,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.count-warp {
+.loganalysis_sys_temp3 {
   width: 100%;
   min-height: 256px;
   background: #fff;
