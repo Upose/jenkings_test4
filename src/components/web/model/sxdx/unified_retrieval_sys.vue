@@ -1,6 +1,6 @@
 <!--检索加信息导航-->
 <template>
-  <div class="unified_retrieval_sys_temp7-warp">
+  <div class="service_sys_temp5-warp">
     <div class="u-r-body-w" @click="menu_show = false">
         <div class="top-menu">
         <div class="menu">
@@ -89,8 +89,7 @@
     </div><!--学科分类-弹窗-->
   </div>
 </template>
-<style lang="less" scoped>
-</style>
+
 <script>
 var rxjs = window.rxjs;
 var columnid = '15164479-81e6-40d1-9cc5-17fefa3905ae';
@@ -102,6 +101,9 @@ export default {
   },
   data() {
     return {
+      request_of: true,//请求中
+      service_sys_temp5_list1: {},
+      post_url_vip: window.apiDomainAndPort,
       menu_show: false,//二级菜单显示
       isOpen: true,//检索框显示
       smenu_list: [{ title: '菜单' }],//二级菜单列表
@@ -140,6 +142,16 @@ export default {
     }
   },
   mounted() {
+    if (service_sys_temp5_set_list && service_sys_temp5_set_list.length > 0) {
+      var list = [];
+      for (var i = 0; i < service_sys_temp5_set_list.length; i++) {
+        var topCount = service_sys_temp5_set_list[i].topCount;
+        var columnid = service_sys_temp5_set_list[i].id;
+        var OrderRule = service_sys_temp5_set_list[i].sortType;
+        list.push({ count: topCount, columnId: columnid, sortField: OrderRule });
+      }
+      this.service_sys_temp5_initData(list);
+    }
     if (!rxjs)
       throw new Error(
         "rxjs未正确加载，请确保有对应script标签，src地址https://cdn.bootcdn.net/ajax/libs/rxjs/6.0.0/rxjs.umd.js"
@@ -163,11 +175,81 @@ export default {
     })
   },
   methods: {
+    //顶部导航菜单-点击事件
     menuClick(i) {
       this.menu_show = true;
     },
+    //打开检索查询
     openSearch() {
       this.isOpen = !this.isOpen;
+    },
+    service_sys_temp5_openurl(val) {
+      var url = '#';
+      if (val.navigationType == 2) {
+        url = val.externalLinks;
+      } else {
+        url = val.jumpLink;
+      }
+      if (val.isOpenNewWindow) {
+        window.open(url);
+      } else {
+        window.location.href = url;
+      }
+    },
+    service_sys_temp5_openurl(val) {
+      var url = '#';
+      if (val.navigationType == 2) {
+        url = val.externalLinks;
+      } else {
+        url = val.jumpLink;
+      }
+      if (val.isOpenNewWindow) {
+        window.open(url);
+      } else {
+        window.location.href = url;
+      }
+    },
+    service_sys_temp5_openurl_details(url) {
+      if(this.isThirdpartyApp(true,url)){
+        location.href = url;
+      }else{
+          window.open(url);
+      }
+    },
+    isThirdpartyApp(is_web,url){
+      var port_url = {};
+      var is_open = false;//true 打开新窗口，false不打开新窗口
+      var orgInfo = localStorage.getItem('orgInfo');
+      if(orgInfo && orgInfo!='' && orgInfo!=undefined && orgInfo!='null' && orgInfo !='undefined'){
+        port_url = JSON.parse(localStorage.getItem('orgInfo'))||{};
+        if(is_web){
+          (url.indexOf(port_url.onlinePortalUrl)>-1|| url.indexOf(port_url.portalUrl)>-1) ? is_open = true : is_open = false;
+        }else{
+          (url.indexOf(port_url.onlineManageUrl)>-1|| url.indexOf(port_url.manageUrl)>-1) ? is_open = true : is_open = false;
+        }
+      }
+      return is_open;
+    },
+    //获取栏目数据
+    service_sys_temp5_initData(list) {
+      var post_url = this.post_url_vip + '/navigation/api/navigation/getprontscenescatalogue';
+      axios({
+        url: post_url,
+        method: 'post',
+        data: list,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + window.localStorage.getItem('token'),
+        },
+      }).then(res => {
+        this.request_of = false;
+        if (res.data && res.data.statusCode == 200) {
+          this.service_sys_temp5_list1 = res.data.data[0] || {};
+        }
+      }).catch(err => {
+        this.request_of = false;
+        console.log(err);
+      });
     },
     /**获取页面数据 */
     initComponentAsync() {
@@ -502,5 +584,4 @@ export default {
 
 <style lang="less" scoped>
 @import "./unified_retrieval_sys.less";
-@import "./unified_retrieval_sys-input.less";
 </style>

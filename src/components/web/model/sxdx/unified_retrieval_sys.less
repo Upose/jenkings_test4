@@ -1,4 +1,4 @@
-.unified_retrieval_sys_temp7-warp {
+.service_sys_temp5-warp {
   .u-r-body-w {
     width: 1150px;
     min-height: 60px;
@@ -205,3 +205,326 @@
     }
   }
 }
+/**********************************检索*******************************************************/
+
+/**检索框**/
+.service_sys_temp5-warp .search-input-w {
+  margin-top: 8px;
+  position: relative;
+  /**输入框组*/
+  /**按钮组**/
+  /**订阅检索*/
+}
+.service_sys_temp5-warp .search-input-w .s-input-w {
+  height: 50px;
+  width: 100%;
+  position: relative;
+}
+.service_sys_temp5-warp .search-input-w .s-input-w .select,
+.service_sys_temp5-warp .search-input-w .s-input-w .input {
+  height: 100%;
+  border-radius: 5px 0px 0px 5px;
+  outline: none;
+  border: none;
+}
+.service_sys_temp5-warp .search-input-w .s-input-w .select {
+  position: absolute;
+  width: 114px;
+  background: rgba(255, 255, 255, 1);
+  border-right: 1px solid #eee;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+.service_sys_temp5-warp .search-input-w .s-input-w .input {
+  background: #fff;
+  border: 1px solid #fff;
+  padding-right: 120px;
+  width: 100%;
+  border-radius:5px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+}
+.service_sys_temp5-warp .search-input-w .s-input-w .pd-l-h {
+  margin-left: 126px;
+  padding-left: 20px;
+  padding-right: 115px;
+  width: calc(100% - 126px);
+}
+.service_sys_temp5-warp .search-input-w .s-input-w .pd-l-s {
+  padding-left: 20px;
+}
+.service_sys_temp5-warp .search-input-w .s-r-btns {
+  position: absolute;
+  right:5px;
+  bottom: 0;
+  top: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  /**检索*/
+  /**高级检索*/
+}
+.service_sys_temp5-warp .search-input-w .s-r-btns button {
+  cursor: pointer;
+  color: #333;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  vertical-align: middle;
+  opacity: 1;
+  transition: all 0.3s;
+}
+.service_sys_temp5-warp .search-input-w .s-r-btns button:hover {
+  opacity: 0.85;
+}
+/**学科分类按钮*/
+.service_sys_temp5-warp .search-input-w .s-r-btns .subject-btn{
+  padding: 0 4px;
+  background: #f3f3f3;
+  border-radius: 5px;
+  margin-right: 5px;
+  height: 40px;
+  border: 1px solid #d1d1d1;
+}
+.service_sys_temp5-warp .search-input-w .s-r-btns .search-btn {
+  color: #fff;
+  width: 105px;
+  height: 40px;
+  background: #DF1A1A;
+  border-radius: 5px;
+}
+.service_sys_temp5-warp .search-input-w .s-r-btns .high-btn {
+  color: #000;
+  width: 60px;
+  height: 50px;
+  margin-left: 10px;
+  background: rgba(255, 255, 255, 0);
+}
+.service_sys_temp5-warp .search-input-w .take {
+  display: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  right: 0;
+  bottom: 16px;
+  padding-right: 28px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACwklEQVQ4T41VQUhUURS9981X/8JF6ibIxQhFis3w3/stDIIKWhYaGgkFGRi0KMpFOyXDRYsCgzaFLooKgxQLhIJa6Co3773PuNAoaBatzXbizP83rs0ffn9mtLd8/77z3rnn3PMR6qxsNuu2t7cPAsA5AOhDxCyXEVERAFYBYGlzc3OhWCxup49jekNKOSiEeExE24j4JoqilXK5/JPrHMfpFEKcIqJhRHSjKLpjrV1IYiQBHaXUAwAYBYAxY8wrACjXY8DYSqkrADANALPGmLtxXRVQKfUQEZniBa31RgOgf7Z93+8GgEUiWopBdwGZJiLOIuKJFJgjpexHxGPcAu6ftXYlicqgRPSFiEaZPrIAHR0d34howhjzPC7u7e1tbWlp+YCIJ4loCxFbmSoRPUpS5Hql1AgiTmmtu1ApdQkAJo0xuWTPlFL3EHGSiK7xRZ7nHRBCfELE42EYdgVBwIrHi3u6DgDj6Pv+WwDY0FpPJKkopV4iYqfW+ky8r5S6iYhPiOi8MWYpRX2KiA7zC38Q0XVr7ef9hPB9f5G9WSqVugqFwq6V4iWlPIuIM/xC2tnZ6VlbW9tLWaY0g4gjRHTDGPMsfXkul+tubm5e/y9AKSWDDQPARWPMx3pMqoD7UWa1Xdf9FUXRLWvt00ZtqVJWSs0h4ve0KAn7HHRddy4Mw7EgCIJGgL7v/xVFSslzOWWM6WkwamzuQ0KILa317z1GcZ29XDV2GIbjQRC8SB/wPC+byWTYCezV+/UAPc+7KoTg70fi0Rtiycvlcl+hUPiaPFQx9G0iWk6PHdfl8/mjjuOsVqw3XxMOpVJpIA3aqG8M1tTU9K4mHCoHqvHFORcEweu94svzvMucmw3jK+H4ISHEdCJgl8Mw3J2KTCbDAXs6EbBj1tr5JIOaxOaPnEBtbW0DiNhf7xdARO8rQDUB/AfF8W6Y71SgDgAAAABJRU5ErkJggg==) no-repeat right;
+}
+.service_sys_temp5-warp .search-input-w .take:hover {
+  opacity: 0.85;
+}
+/**学科分类弹窗**/
+.service_sys_temp5-warp .subject-alert-fixed {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 998;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert {
+    margin: auto;
+    width: 800px;
+    min-width: 800px;
+    height: 540px;
+    background: #fff;
+    border: 1px solid #DFDFDF;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    /**顶部标题*/
+    /**内容板块*/
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .top-title {
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    background: #F7F7F7;
+    padding: 0 20px;
+    border-bottom: 1px solid #eee;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .top-title .r-close {
+    cursor: pointer;
+    float: right;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-top: 9px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAl0lEQVQ4T42S0Q2AMAhEj4k07UDqZjqJGxBHcBMMphpsQe1Xm/B6cAcx8y4ia855wo/DzDOAjsplEJH5C75qASykIn9gC6WUxhP8gmtI628wgj2oAWuYiPTjQWfS9qx3D8W67fJuIFfRquo9crtRtDMVRTcq1xw7UxRVE4dnhAc/FsCDopzvlXuDPFjBDcBW5xTte2m7PwBjdZiSfS92+QAAAABJRU5ErkJggg==) no-repeat center;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .top-title .r-close:hover {
+    opacity: 0.8;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w {
+    color: #333;
+    padding: 0 20px;
+    padding-top: 20px;
+    font-size: 14px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left,
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .center,
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right {
+    float: left;
+    height: 400px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left .s-title,
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right .s-title {
+    color: #4e4e4e;
+    font-weight: bold;
+    line-height: 15px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #DFDFDF;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left .check-box-w,
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right .check-box-w {
+    height: 370px;
+    background: #fafafa;
+    border: 1px solid #ededed;
+    border-radius: 2px;
+    overflow-y: auto;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left {
+    width: 350px;
+    color: #4d6878;
+    font-size: 12px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree,
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree ul {
+    margin: 0;
+    padding: 0 0 0 2em;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree .clicktale-on,
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree .clicktale-off {
+    display: block;
+    border: 1px solid;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+    left: 5px;
+    top: 6px;
+    border-radius: 2px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree .clicktale-off {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAAEZJREFUKFNj7F63/z8DiYARpKkk0IFobT3rDzBQV5NfZiXDpuntGC7AaxNtNYFMxwVgTh1A5yE7jayAwOU3yiKX6DQEVQgA7+9cmUwh7HsAAAAASUVORK5CYII=) no-repeat center;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree .clicktale-on {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAABHNCSVQICAgIfAhkiAAAADdJREFUKFNj7F63/z8DiYARpKkk0IFobT3rDzAMe01+mZU4A2TT9Haw3IgICGKSBTwgiFGMrAYA2AdKmT4BZhgAAAAASUVORK5CYII=) no-repeat center;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree li {
+    list-style: none;
+    position: relative;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree li label {
+    margin-left: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    padding: 6px 0;
+    line-height: 13px;
+    user-select: none;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree li label:hover {
+    background: #f1f1f1;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree li input {
+    margin: 0 5px;
+    vertical-align: middle;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree > li:first-child:before {
+    border-style: none none solid none;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree li:before {
+    position: absolute;
+    content: '';
+    top: -0.01em;
+    left: -0.7em;
+    width: 0.7em;
+    height: 0.999em;
+    border-style: none none solid solid;
+    border-width: 0.05em;
+    border-color: #aaa;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .left ul.domtree li:not(:last-child):after {
+    position: absolute;
+    content: '';
+    top: 0.7em;
+    left: -0.7em;
+    bottom: 0;
+    border-style: none none none solid;
+    border-width: 0.05em;
+    border-color: #aaa;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .center {
+    text-align: center;
+    width: 108px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .center button {
+    cursor: pointer;
+    padding: 0 20px;
+    height: 28px;
+    display: block;
+    margin: 20px auto;
+    background: #A00404;
+    color: #fff;
+    outline: none;
+    border: 0px solid #fff;
+    border-radius: 5px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .center button:hover {
+    opacity: 0.8;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .center button:first-child {
+    margin-top: 150px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right {
+    width: 300px;
+    user-select: none;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right .title {
+    color: #999;
+    padding: 5px 0;
+    display: block;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right .check-box-w {
+    padding: 0 10px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right p {
+    line-height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right p:hover {
+    background: #ececec;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .subject-alert .content-w .right .p-active {
+    background: #dcdcdc;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .foot-btns {
+    text-align: right;
+    padding: 15px 20px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .foot-btns button {
+    cursor: pointer;
+    height: 36px;
+    padding: 0 20px;
+    outline: none;
+    border: 0px solid;
+    border-radius: 3px;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .foot-btns button:hover {
+    opacity: 0.8;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .foot-btns button:first-child {
+    background: #F3F3F3;
+  }
+  .service_sys_temp5-warp .subject-alert-fixed .foot-btns button:last-child {
+    margin-left: 10px;
+    color: #fff;
+    background: #A00404;
+  }
