@@ -255,7 +255,7 @@ export default {
             color: #666;
             position: relative;
             overflow: hidden;
-            max-height: 50px;
+            height: 50px;
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;

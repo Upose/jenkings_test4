@@ -498,7 +498,7 @@ export default {
     saveTempSet(val) {
       this.apps_set_list[val.divId] = val.list || [];
       this.apps_set_obj[val.divId] = val.configParameter || {};
-      console.log(this.apps_set_obj);
+      // console.log(this.apps_set_obj);
     },
     //选择模板-左边
     templateClick(val) {
