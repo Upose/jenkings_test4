@@ -23,6 +23,8 @@
     <br>
     <header_sys></header_sys>
     <br>
+    <unified_retrieval_sys></unified_retrieval_sys>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <database_nav_sys></database_nav_sys>
     <br>
     <news_sys></news_sys>
@@ -58,11 +60,12 @@ import news_sys from "@/components/web/model/sxdx/news_sys";
 import service_sys from "@/components/web/model/sxdx/service_sys";
 import loganalysis_sys from "@/components/web/model/sxdx/loganalysis_sys";
 import footer_sys from "@/components/web/model/sxdx/footer_sys";
+import unified_retrieval_sys from "@/components/web/model/sxdx/unified_retrieval_sys";
 export default {
   created() { },
   components: { 
     // academic_result, database_nav_sys,database_nav_sys1, header_sys, hot_services, literature_project_sys, news_sys,activities_and_lectures, unified_retrieval_sys, 
-    header_sys,footer_sys,database_nav_sys,literature_recommend_sys,news_sys,service_sys,loganalysis_sys
+    header_sys,footer_sys,database_nav_sys,literature_recommend_sys,news_sys,service_sys,loganalysis_sys,unified_retrieval_sys
     },
   data() {
     return {
