@@ -31,7 +31,7 @@
     <br>
     <literature_recommend_sys></literature_recommend_sys>
     <br>
-    <statistics></statistics>
+    <loganalysis_sys></loganalysis_sys>
     <br>
     <footer_sys></footer_sys>
     <br>
@@ -56,13 +56,13 @@ import header_sys from "@/components/web/model/sxdx/header_sys";
 import literature_recommend_sys from "@/components/web/model/sxdx/literature_recommend_sys";
 import news_sys from "@/components/web/model/sxdx/news_sys";
 import service_sys from "@/components/web/model/sxdx/service_sys";
-import statistics from "@/components/web/model/sxdx/statistics";
+import loganalysis_sys from "@/components/web/model/sxdx/loganalysis_sys";
 import footer_sys from "@/components/web/model/sxdx/footer_sys";
 export default {
   created() { },
   components: { 
     // academic_result, database_nav_sys,database_nav_sys1, header_sys, hot_services, literature_project_sys, news_sys,activities_and_lectures, unified_retrieval_sys, 
-    header_sys,footer_sys,database_nav_sys,literature_recommend_sys,news_sys,service_sys,statistics
+    header_sys,footer_sys,database_nav_sys,literature_recommend_sys,news_sys,service_sys,loganalysis_sys
     },
   data() {
     return {
