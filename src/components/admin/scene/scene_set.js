@@ -156,7 +156,7 @@ export default {
     },
     //详情渲染
     detailsRender(data) {
-      console.log(data);
+      // console.log(data);
       var _this = this;
       if(data.template && data.template.width && data.template.width !=100){
         _this.grid.column(data.template.width/10, 'moveScale');
