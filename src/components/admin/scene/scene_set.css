@@ -12,7 +12,7 @@
 .admin-content {
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
   height: 100%;
   z-index: 20;
 }
@@ -75,7 +75,7 @@
 .admin-content .drag-content .drag-r {
   width: 255px;
   z-index: 2;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
 .admin-content .drag-content .drag-l .cut-btn,
 .admin-content .drag-content .drag-r .cut-btn {
@@ -146,13 +146,15 @@
   /***************屏幕按钮板块 */
 }
 .admin-content .drag-content .drag-c .scaling-right {
-  margin-left: auto;
-  margin-top: 30px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
 }
 .admin-content .drag-content .drag-c .drag-container {
   width: 100%;
   min-width: 430px;
-  height: calc(100% - 80px);
+  height: 100%;
   overflow-y: auto;
   background-color: #fff;
   padding: 30px;
