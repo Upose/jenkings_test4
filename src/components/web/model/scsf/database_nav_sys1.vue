@@ -1,4 +1,4 @@
-<!--数据库导航模板2-->
+<!--数据库导航模板2- 资源动态-->
 <template>
   <div class="news-w">
     <div class="title-w">
@@ -25,7 +25,7 @@
           <div class="y-m">2022-06</div>
         </div>
         <div class="txt-w">
-          <p class="txt">四川计算机科学学院工会积极组织开展系列健身强体抗疫工会活动 <span class="type tbg-c1">新闻</span></p>
+          <p class="txt">中国法律资源库开通试用 <span class="type color1">试用</span></p>
         </div>
       </div>
     </div>
@@ -96,12 +96,21 @@
       height:72px;
       align-items: center;
       .type{
-        width: auto;
-        font-size: 12px;
         padding: 0 5px;
-        border-radius: 3px;
-        color: #fff;
-        text-align: center;
+        color: #FF5700;
+        font-size: 12px;
+        width: 42px;
+        height: 18px;
+        background: rgba(255, 87, 0, 0.1);
+        border-radius: 9px;
+      }
+      .color1{
+        color: #FF5700;
+        background: rgba(255, 87, 0, 0.1);
+      }
+      .color2{
+        color: #0066FF;
+        background: rgba(0, 102, 255, 0.1000);
       }
       .txt{
         font-size: 16px;

@@ -2,11 +2,11 @@
 <template>
   <div class="literature-w">
     <div class="l-w-wid">
-      <div class="title">
+      <div class="title tfont-c1">
         <span>专题推荐</span>
       </div>
       <div class="list c-l">
-        <div class="l-box" v-for="i in 3">
+        <div class="l-box thover-border-c1" v-for="i in 3">
           <div class="img-w">
             <img src="https://t7.baidu.com/it/u=4162611394,4275913936&fm=193&f=GIF">
             <span class="type">古籍</span>
@@ -53,9 +53,11 @@
       height: 330px;
       margin-left:75px;
       transition: all .3s;
+      border-bottom: 3px solid #fff;
       &:hover{
         margin-top: -5px;
-        box-shadow:0px 0px 3px #e0e0e0;
+        border-bottom: 3px solid #ddd;
+        box-shadow: 0px 3px 20px rgba(85,85,85,0.16);
       }
       &:first-child{
         margin-left: 0;
@@ -81,7 +83,7 @@
         }
       }
       .txt-w {
-        height: 100px;
+        height: 97px;
         display: flex;
         align-items: center;
         justify-content: center;

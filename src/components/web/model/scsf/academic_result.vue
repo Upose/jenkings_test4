@@ -2,23 +2,27 @@
 <template>
   <div class="literature-w">
     <div class="l-w-wid">
-      <div class="title">
+      <div class="title tfont-c1">
         <span>学术成果</span>
       </div>
 
       <div class="list c-l">
-        <div class="l-box" v-for="i in 2">
+        <div class="l-box" :class="i==0?'color1':''" v-for="(it,i) in 2">
           <div class="l-t">
-            <p>四川师范大学学者机构</p>
-            <p>OPEN REPOSITORY</p>
-            <span>></span>
+            <p class="m">四川师范大学学者机构</p>
+            <p class="s">OPEN REPOSITORY</p>
+            <span class="btn"></span>
           </div>
 
           <div class="l-body">
-            <p>作为支撑四川师范大学学术研究的基础设施，收集并保存四川师范大学教师和科研
+            <p class="des">作为支撑四川师范大学学术研究的基础设施，收集并保存四川师范大学教师和科研
               人员的学术与智力成果；为四川师范大学教师，科研人员和学生的学术研究和学术
               交流提供系列服务，包括存档，管理，发布，检索和开放共享。</p>
-            <div></div>
+            <div class="count-w">
+              <p><span>学者总量：</span><i class="num">123篇</i></p>
+              <p><span>发文总量：</span><i class="num">123篇</i></p>
+              <p><span>年限：</span><i class="num">1920-2022</i></p>
+            </div>
           </div>
 
         </div>
@@ -42,7 +46,7 @@
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-  }
+  } 
   .title{
     height: 44px;
     font-size: 26px;
@@ -59,8 +63,32 @@
       width: 570px;
       height: 330px;
       margin-left:50px;
+      transition: all .3s;
+      cursor: pointer;
       &:first-child{
         margin-left: 0;
+        .l-t{
+          border-top: 8px solid #789F55;
+          color: #789F55;
+        }
+        .btn{
+          background: #789F55 !important;
+          background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAAAXNSR0IArs4c6QAAAJpJREFUOE+l08ENwkAMRNE/FZAOoAMoIZRABbRGJ1BCOgglhBPHQZZQDgFHa/BtpfWTd1YWjWX7DozASdK0bFOjg+1o3gADcFxiFegA3DKsGYrJbadYCVrDylCK2b4A59bQk3tPvb91+yfEr0/rgCsQ4T+AvgzZ/kSkoQRlSMTSDK0hVShWYz9nIsV5rspEzpDqRDtg+rb5Ab0AL8FUOXKjPEgAAAAASUVORK5CYII=) !important;
+          background-position: center !important;
+          background-repeat: no-repeat !important;
+        }
+        .count-w{
+          background: linear-gradient(90deg, rgba(120,159,85,0.1) 0%, rgba(120,159,85,0) 100%) !important;
+          &::after{
+            background: #789F55 !important;
+          }
+          i{
+            color: #789F55 !important;
+          }
+        }
+      }
+      &:hover{
+        margin-top: -5px;
       }
       .l-t{
         height: 104px;
@@ -69,13 +97,79 @@
         opacity: 1;
         border-radius: 0px 0px 5px 5px;
         margin-bottom: 6px;
-        border-top: 8px solid red;
+        border-top: 8px solid #F2B100;
+        color: #F2B100;
+        padding: 13px 28px;
+        position: relative;
+        .btn{
+          position: absolute;
+          right: 0;
+          top: 24px;
+          display: block;
+          width: 46px;
+          height: 40px;
+          background: #F2B100;
+          background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAPCAYAAADphp8SAAAAAXNSR0IArs4c6QAAAJpJREFUOE+l08ENwkAMRNE/FZAOoAMoIZRABbRGJ1BCOgglhBPHQZZQDgFHa/BtpfWTd1YWjWX7DozASdK0bFOjg+1o3gADcFxiFegA3DKsGYrJbadYCVrDylCK2b4A59bQk3tPvb91+yfEr0/rgCsQ4T+AvgzZ/kSkoQRlSMTSDK0hVShWYz9nIsV5rspEzpDqRDtg+rb5Ab0AL8FUOXKjPEgAAAAASUVORK5CYII=);
+          background-position: center;
+          background-repeat: no-repeat;
+          border-radius: 20px 0px 0px 20px;
+        }
+        .m{
+          font-size: 28px;
+          font-weight: 400;
+        }
+        .s{
+          font-size: 18px;
+          font-weight: 400;
+          padding-top: 3px;
+        }
       }
       .l-body{
         height: 220px;
         background: #fff;
         box-shadow: 0px 3px 20px rgba(85,85,85,0.1600);
         border-radius: 5px;
+        padding: 20px 28px;
+        .des{
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 26px;
+          color: #666;
+        }
+        .count-w{
+          padding: 10px 0;
+          margin-top: 14px;
+          width: 514px;
+          background: linear-gradient(90deg, rgba(242, 177, 0, 0.1) 0%, rgba(242,177,0,0) 100%);
+          border-radius: 5px;
+          position: relative;
+          padding-left: 18px;
+          line-height: 26px;
+          &::after{
+            content: '';
+            width: 2px;
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            background: #F2B100;
+            left: 0;
+          }
+          span{
+            font-size: 14px;
+            font-weight: 400;
+            color: #666;
+            display: inline-block;
+            width: 70px;
+          }
+          i{
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            font-size: 14px;
+            font-weight: bold;
+            color: #F2B100;
+          }
+        }
       }
     }
   }
