@@ -47,10 +47,16 @@
   .list {
     width: 100%;
     .l-box {
+      cursor: pointer;
       float: left;
       width: 350px;
       height: 330px;
       margin-left:75px;
+      transition: all .3s;
+      &:hover{
+        margin-top: -5px;
+        box-shadow:0px 0px 3px #e0e0e0;
+      }
       &:first-child{
         margin-left: 0;
       }

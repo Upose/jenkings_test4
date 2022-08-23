@@ -51,6 +51,10 @@
       color: #666;
       font-size: 12px;
       padding-top: 5px;
+      transition: all .3s;
+      &:hover{
+        opacity: .75;
+      }
       img{
         margin-right: 2px;
       }
@@ -62,6 +66,11 @@
     border-bottom: 1px solid #E9E9E9;
     position: relative;
     min-height: 112px;
+    cursor: pointer;
+    transition: all .3s;
+    &:hover{
+      box-shadow:0px 1px 8px #dddddd;
+    }
     .date{
       position: absolute;
       left: 0;

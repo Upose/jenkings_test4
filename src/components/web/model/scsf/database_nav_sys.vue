@@ -58,6 +58,10 @@
         border-radius: 3px 10px 10px 3px;
         padding:  1px 10px;
         font-size: 12px;
+        transition: all .3s;
+        &:hover{
+          opacity: .75;
+        }
       }
     }
     .r-link{
