@@ -1,6 +1,6 @@
 <!--头部模板-->
 <template>
-  <div class="header-warp">
+  <div class="header_sys_temp2-warp">
     <div class="top">
       <span class="ip">您的IP地址：123.123.123.123 不在校园网范围，请登录VPN</span>
       <div class="t-r-w">
@@ -38,7 +38,7 @@
   </div>
 </template>
 <style lang="less" scoped>
-.header-warp{
+.header_sys_temp2-warp{
   min-width: 1200px;
   margin-left: auto;
   margin-right: auto;
