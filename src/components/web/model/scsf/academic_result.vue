@@ -1,6 +1,6 @@
 <!--学术成果模板-->
 <template>
-  <div class="literature-w">
+  <div class="resourcecenter_sys_temp1-warp">
     <div class="l-w-wid">
       <div class="title tfont-c1">
         <span>学术成果</span>
@@ -32,7 +32,7 @@
   </div>
 </template>
 <style lang="less" scoped>
-.literature-w {
+.resourcecenter_sys_temp1-warp {
   width: 100%;
   background: #ffffff;
   border: 1px solid #cedfd7;

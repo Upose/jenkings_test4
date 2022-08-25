@@ -1,6 +1,6 @@
 <!--活动与讲座模板-跟新闻模板一模一样-->
 <template>
-  <div class="news-w">
+  <div class="activity_sys_temp1-warp">
     <div class="title-w">
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
         <g transform="translate(-780 -900)">
@@ -30,8 +30,8 @@
   </div>
 </template>
 <style lang="less" scoped>
-.a{fill:#fff;}.c{fill:none;}
-.news-w{
+.activity_sys_temp1-warp{
+  .a{fill:#fff;}.c{fill:none;}
   background: #fff;
   .title-w{
     border-bottom: 2px solid #E2E2E2;
