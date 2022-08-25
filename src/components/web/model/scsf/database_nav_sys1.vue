@@ -1,6 +1,6 @@
 <!--数据库导航模板2- 资源动态-->
 <template>
-  <div class="news-w">
+  <div class="database_nav_sys_temp5-warp">
     <div class="title-w">
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
       <g transform="translate(-370 -925)">
@@ -32,8 +32,9 @@
   </div>
 </template>
 <style lang="less" scoped>
-.a{fill:#65923d;}
-.news-w{
+
+.database_nav_sys_temp5-warp{
+  .a{fill:#65923d;}
   background: #fff;
   .title-w{
     border-bottom: 2px solid #E2E2E2;

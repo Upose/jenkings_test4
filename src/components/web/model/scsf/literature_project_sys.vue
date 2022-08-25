@@ -1,6 +1,6 @@
 <!--专题推荐模板-->
 <template>
-  <div class="literature-w">
+  <div class="literature_project_sys_temp4-warp">
     <div class="l-w-wid">
       <div class="title tfont-c1">
         <span>专题推荐</span>
@@ -20,16 +20,8 @@
   </div>
 </template>
 <style lang="less" scoped>
-.literature-w {
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #cedfd7;
-  background: url() no-repeat center;
-  background-size: 100% 100% !important;
-  box-shadow: 0px 3px 20px rgba(85, 85, 85, 0.16);
-  display: flex;
-  align-items: center;
-  height: 600px;
+.literature_project_sys_temp4-warp {
+   padding: 40px 0;
   .l-w-wid{
     max-width: 1200px;
     margin-left: auto;
@@ -46,12 +38,14 @@
   }
   .list {
     width: 100%;
+    display: flex;
+    justify-content: center;
     .l-box {
       cursor: pointer;
       float: left;
       width: 350px;
       height: 330px;
-      margin-left:75px;
+      margin-left:71px;
       transition: all .3s;
       border-bottom: 3px solid #fff;
       &:hover{

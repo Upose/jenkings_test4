@@ -1,6 +1,6 @@
 <!--热门服务模板-->
 <template>
-  <div class="services-w">
+  <div class="service_sys_temp7-warp">
     <div class="l-title tafter-border-c1">
       <label>
         <span class="m">热门</span>
@@ -18,7 +18,7 @@
   </div>
 </template>
 <style lang="less" scoped>
-  .services-w{
+  .service_sys_temp7-warp{
     color: #fff;
     width: 100%;
     height: 110px;

@@ -33,15 +33,7 @@
 </template>
 <style lang="less" scoped>
 .resourcecenter_sys_temp1-warp {
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #cedfd7;
-  background: url() no-repeat center;
-  background-size: 100% 100% !important;
-  box-shadow: 0px 3px 20px rgba(85, 85, 85, 0.16);
-  display: flex;
-  align-items: center;
-  height: 600px;
+ padding: 40px 0;
   .l-w-wid{
     max-width: 1200px;
     margin-left: auto;
@@ -58,6 +50,8 @@
   }
   .list {
     width: 100%;
+    display: flex;
+    justify-content: center;
     .l-box {
       float: left;
       width: 570px;

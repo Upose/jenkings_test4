@@ -1,6 +1,6 @@
 <!--常用数据库模板-->
 <template>
-  <div class="database-w c-l">
+  <div class="database_nav_sys_temp4-warp c-l">
     <div class="l-title tbg-c1">
       <label>
         <span class="m">常用数据库</span>
@@ -18,7 +18,7 @@
   </div>
 </template>
 <style lang="less" scoped>
-  .database-w{
+  .database_nav_sys_temp4-warp{
     width: 100%;
     height: 100px;
     background: #fff;
