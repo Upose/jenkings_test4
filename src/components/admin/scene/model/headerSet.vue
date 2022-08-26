@@ -9,11 +9,18 @@
           <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.headerBgImg?(fileUrl+postForm_head.headerBgImg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS($event,'bg')">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
           <el-form-item label="更换LOGO" prop="logo">
+            <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.logo?(fileUrl+postForm_head.logo):'')+')'}">
+              <div><img src="@/assets/admin/img/icon-upload.png"/><span>更换LOGO</span></div>
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS($event,'logo')">
+              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delLogo()"></i>
+            </div>
+          </el-form-item>
+          <!-- <el-form-item label="更换LOGO" prop="logo">
             <div class="up-img-form-item">
               <div class="up-img-warp" v-if="postForm_head.logo">
                 <img :src="fileUrl+postForm_head.logo">
@@ -22,7 +29,7 @@
                 <span>上传图标</span>
               </div>
             </div>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
               <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
@@ -139,8 +146,12 @@ export default {
     delBGImg(){
       this.postForm_head.headerBgImg = '';
     },
+    //删除背景
+    delLogo(){
+      this.postForm_head.logo = '';
+    },
     //文件上传
-    handleFileJS(e) {
+    handleFileJS(e,isbg) {
       var _this = this;
       let $target = e.target || e.srcElement
       let file = $target.files[0]
@@ -154,7 +165,11 @@ export default {
         return;
       }
       this.http.postFile("UploadFile", formData).then((res) => {
-       this.postForm_head.headerBgImg = res.data[0]||'';
+        if(isbg == 'bg'){
+          this.postForm_head.headerBgImg = res.data[0]||'';
+        }else{
+          this.postForm_head.logo = res.data[0]||'';
+        }
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });
