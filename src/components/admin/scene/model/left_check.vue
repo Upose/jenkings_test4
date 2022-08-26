@@ -121,6 +121,21 @@ export default {
         }
       }
     },
+    'postForm': {
+      deep: true,  // 深度监听
+      handler(newVal,oldVal) {
+        if(this.allList && this.allList.length>0){
+          var s1 = this.allList.filter(x=>x.value == this.postForm.layoutId);
+          if(s1 && s1.length>0){
+            this.sceneTemplate = s1[0].sceneTemplate||[];
+            var s2 = this.sceneTemplate.filter(y=>y.id == this.templateId);
+            if(s2 && s2.length>0){
+              this.sceneThemeColor = s2[0].sceneThemeColor||[];
+            }
+          }
+        }
+      },
+   },
   },
   mounted(){
     // console.log(this.screen_cu);
@@ -137,7 +152,7 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       header_footer_show:false,
-      allList:[],
+      allList:[],//左侧-布局模板信息
       sceneHeaderFooter:[],
       id:this.$route.query.id,
       left_fold:false,//开启关闭左侧菜单
