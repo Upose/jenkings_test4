@@ -13,7 +13,7 @@
         <a class="thover-font-c5" href="javascript:;">
           <span>旧版网站</span>
         </a>
-        <input type="text">
+        <div class="input-search"><input type="text"><span></span></div>
       </div>
     </div>
 
@@ -75,11 +75,22 @@
       img{
         margin-right:2px;
       }
+      .input-search span{
+        cursor: pointer;
+        display: inline-block;
+        width: 17px;
+        height: 17px;
+        z-index: 9;
+        right: 0;
+        position: absolute;
+      }
       input{
         outline: none;
         border: none;
         width: 80px;
         height: 17px;
+        padding-left: 8px;
+        padding-right: 20px;
         border-radius: 10px;
         background: rgba(196, 196, 196, 0.15) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IArs4c6QAAAW9JREFUKFNtkLsvBHEQx2d216u4KBTIFSIKCcVJNKKiU3jkbg/ReF8kFOKRO4lmSYi78ygEidjltPfIxSP+BS2JULjz7EhEIti1v9+wx4pgipnMzGdm8h2EL5uMNDrNt+wqQigCgDsUMRXsjp/YfSui5fyqp55QaCDkRxIX7k1keRKK1QzoMnwV3wIFeAYOrMuVJEEHZ4Y679u9sDf51WYHYfYAAJyFe2N7n7AqD5nA0gt9yYOfJz8vNpcjSJ15DnFKaYsaOKHJcyQKq8Gu6PVv2Mp/9nFC887q3NCW+nfO/8AKCIESeYZMWgn5Erfo1+QuQHgM9cSTv+FR1e2SQHSHbmLTlkgciTQ6s8ycYZNTYtGXOLQHxrdbS0WTdwOxw+CXnszrxrSWCgmkdkDUgbE0F4VCJCwGoFMgKnsxeWR5IJnKwJYpm3W5OhW4iDCfIepPr8/Ha4P7DwHNW8uRml4NtvEN//cJuza66amRPpJ3Y8yXJOSWeQsAAAAASUVORK5CYII=) no-repeat right;
         background-position-x: 64px;
