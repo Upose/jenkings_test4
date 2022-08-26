@@ -3,7 +3,7 @@
 -->
 <template>
   <div class="tag-box">
-    <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="800px" :close-on-click-modal="false" :before-close="handleClose">
+    <el-dialog append-to-body title="底部高级设置" :visible.sync="dialogBulk" width="1242px" :close-on-click-modal="false" :before-close="handleClose">
       <el-form label-width="70px" class="admin-form">
         <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_fot.footerBgImg?(fileUrl+postForm_fot.footerBgImg):'')+')'}">
@@ -31,7 +31,8 @@
           <!-- <p class="hint">栏目展示在顶部</p> -->
         </el-form-item>
         <div class="form-set-content">
-          <el-form-item label="底部信息" prop="defaultTemplate">
+          <span class="edit-title">底部信息</span>
+          <el-form-item label="" class="edit-warp-foot" prop="defaultTemplate">
             <textarea id="mytextarea" class="border-fff" v-model="postForm_fot.content"></textarea>
           </el-form-item>
           <el-form-item class="m-center">
@@ -70,7 +71,7 @@ export default {
       tinymce.init({
         selector: '#mytextarea',
         language: 'zh_CN',
-        height: 400,
+        height: 440,
         plugins: 'image',
         // toolbar: 'code bullist numlist emoticons charmap hr insertdatetime link | help fullscreen image', 
         plugins: 'image,wordcount,charmap,code,hr,lists,advlist,emoticons,fullscreen,help,insertdatetime,link',
@@ -81,7 +82,10 @@ export default {
       });
     }, 50);
     if(this.postForm.footerTemplate){
-      setTimeout(()=>{tinymce.activeEditor.setContent((this.postForm.footerTemplate.content||''));},150)
+      var _this = this;
+      if(_this.postForm.footerTemplate.content){
+        setTimeout(()=>{tinymce.activeEditor.setContent((_this.postForm.footerTemplate.content||''));},1000)
+      }
       this.postForm_fot.footerBgImg = this.postForm.footerTemplate.footerBgImg||'';
       this.postForm_fot.footerDisplayNavColumn = this.postForm.footerTemplate.footerDisplayNavColumn||[];
       if(this.postForm_fot.footerDisplayNavColumn.length>0){
@@ -230,10 +234,28 @@ export default {
   resize: none;
   border: 1px solid #fff;
 }
+.form-set-content{
+  margin-top: -10px;
+  .edit-title{
+    font-size: 14px;
+    color: #34395E;
+    line-height: 40px;
+  }
+}
 /deep/.el-dialog__body{
   min-height: 700px;
 }
 /deep/.tox .tox-statusbar__resize-handle{
   display: none;
+}
+/deep/.tox .tox-edit-area__iframe{
+  background-color: #ddd !important;
+  margin: 0 -20px !important;
+width: calc(100% + 40px) !important;
+}
+</style>
+<style>
+.edit-warp-foot .el-form-item__content{
+  margin-left: 0 !important;
 }
 </style>
