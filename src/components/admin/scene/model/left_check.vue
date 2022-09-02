@@ -43,7 +43,7 @@
                   </div>
                 </div><!--通屏配置 end-->
 
-                <div class="model-set-w c-l" v-show="postForm.layoutId==2">
+                <div class="model-set-w c-l" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
                   <div class="up-img w150" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
                     <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">

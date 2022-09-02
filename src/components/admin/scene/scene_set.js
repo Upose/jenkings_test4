@@ -452,7 +452,7 @@ export default {
           post_obj.headerTemplate.router = _this.substrPath(post_obj.headerTemplate.router);
         if (post_obj.footerTemplate && post_obj.footerTemplate.router)
           post_obj.footerTemplate.router = _this.substrPath(post_obj.footerTemplate.router);
-        if (post_obj.layoutId == 1 || post_obj.layoutId == 3) {//通屏
+        if (post_obj.layoutId == 1) {//通屏
           post_obj.sceneScreens.splice(1, 1);
         }
         //表单验证
