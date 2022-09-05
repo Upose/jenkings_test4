@@ -6,7 +6,7 @@
         <el-form-item label="子页面头部选择" prop="defaultTemplate">
           <div class="temp-select c-l">
             <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'" @click="headerClick(it)">
-              <span class="edit-btn" @click.stop="topEditClick(it.id)"><i class="iconfont el-icon-vip-shezhi"></i></span>
+              <span class="edit-btn" @click.stop="topEditClick(it.id)" v-if="it.id==head_check"><i class="iconfont el-icon-vip-shezhi"></i></span>
               <span class="temp-name">{{it.name}}</span>
               <el-button type="primary" class="button" size="mini" :class="it.id==head_check?'btn-check':'btn-no-check'"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
             </div>
@@ -15,7 +15,7 @@
         <el-form-item label="子页面底部选择" prop="defaultTemplate">
           <div class="temp-select c-l">
             <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'b'" @click="footerClick(it)">
-              <span class="edit-btn" @click.stop="fotEditClick(it.id)"><i class="iconfont el-icon-vip-shezhi"></i></span>
+              <span class="edit-btn" @click.stop="fotEditClick(it.id)" v-if="it.id==footer_check"><i class="iconfont el-icon-vip-shezhi"></i></span>
               <span class="temp-name">{{it.name}}</span>
               <el-button type="primary" class="button" size="mini" :class="it.id==footer_check?'btn-check':'btn-no-check'"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>
             </div>
@@ -38,11 +38,6 @@ export default {
     this.bus.$on('collapse', msg => {
       this.$root.collapse = msg;
     })
-    this.http.getPlain('nav-column-list', '').then(res => {
-      this.coumn_data_list = res.data || [];
-    }).catch(err => {
-      this.$message({ type: 'error', message: '获取失败!' });
-    })
     this.http.getPlain('template-list', 'Type=2&PageIndex=1&PageSize=100').then(res => {
       this.head_list = res.data.items || [];
     }).catch(err => {
@@ -59,8 +54,6 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       top_dialogBulk: false,//头部设置
       fot_dialogBulk: false,//底部设置
-      coumn_list1: [{ value: '' }],//新增删除栏目列表
-      coumn_data_list: [],//栏目下拉选择列表
       head_list: [],
       footer_list: [],
       head_check: '',//当前选中头部id
@@ -68,35 +61,6 @@ export default {
     }
   },
   methods: {
-    //文件上传
-    handleFileJS(e) {
-      var _this = this;
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
-        return;
-      }
-      var index = parseInt(e.target.id.slice(5, 6));
-      this.http.postFile("UploadFile", formData).then((res) => {
-        _this.coumn_list2[index].value = _this.fileUrl + res.data[0];
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
-    },
-    //删除多栏目投递
-    removeCoumn1(index) {
-      this.coumn_list1.splice(index, 1);
-    },
-    //添加多栏目投递
-    addCoumn1() {
-      this.coumn_list1.push({ value: '' });
-    },
     //头部栏目设置-打开弹窗
     topEditClick(val) {
       this.top_dialogBulk = true;

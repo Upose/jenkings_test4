@@ -6,7 +6,7 @@
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="id?'编辑终端':'添加终端'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
-          <el-form :model="postForm" label-suffix="：" :rules="rules" ref="postForm" label-width="95px" class="admin-form">
+          <el-form :model="postForm" label-suffix="：" :rules="rules" ref="postForm" label-width="130px" class="admin-form">
             <h1 class="s-b-border-title">{{id?'编辑终端':'添加终端'}}</h1>
             <div class="form-content">
               <el-form-item label="终端名称" prop="name">
@@ -49,6 +49,36 @@
               <el-form-item label="访问路径" prop="visitUrl">
                 <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径" maxlength="50" minlength="2" show-word-limit></el-input>
               </el-form-item>
+              <el-form-item label="应用页头设置" prop="appsTop">
+                <el-radio-group v-model="postForm.appsTop">
+                  <el-radio :label="0" >采用首页头部</el-radio>
+                  <el-radio :label="1" >独立配置</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="头部选择" class="w100" v-if="postForm.appsTop==1" prop="defaultTemplate">
+                <div class="temp-select c-l">
+                  <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'" @click="headerClick(it)">
+                    <span class="edit-btn" @click.stop="topEditClick(it.id)" v-if="it.id==head_check"><i class="iconfont el-icon-vip-shezhi"></i></span>
+                    <span class="temp-name">{{it.name}}</span>
+                    <el-button type="primary" class="button" size="mini" :class="it.id==head_check?'btn-check':'btn-no-check'"><i class="iconfont" :class="it.id==head_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==head_check?'已选':'选择'}}</el-button>
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="应用页底设置" prop="appsFoot">
+                <el-radio-group v-model="postForm.appsFoot">
+                  <el-radio :label="0" >采用首页底部</el-radio>
+                  <el-radio :label="1" >独立配置</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="底部选择" class="w100" v-if="postForm.appsFoot==1" prop="defaultTemplate">
+                <div class="temp-select c-l">
+                  <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'b'" @click="footerClick(it)">
+                    <span class="edit-btn" @click.stop="fotEditClick(it.id)" v-if="it.id==footer_check"><i class="iconfont el-icon-vip-shezhi"></i></span>
+                    <span class="temp-name">{{it.name}}</span>
+                    <el-button type="primary" class="button" size="mini" :class="it.id==footer_check?'btn-check':'btn-no-check'"><i class="iconfont" :class="it.id==footer_check?'el-icon-vip-check':'el-icon-vip-no-check'"></i> {{it.id==footer_check?'已选':'选择'}}</el-button>
+                  </div>
+                </div>
+              </el-form-item>
               <el-form-item label="服务状态" prop="status">
                 <el-radio-group v-model="postForm.status">
                   <el-radio :label="1" >正常</el-radio>
@@ -84,6 +114,9 @@
         <footerPage class="top20"></footerPage>
       </el-main>
     </el-container>
+
+    <headerSet v-if="top_dialogBulk" :postForm="{}" :childPage="true" @childHeaderSet="childHeaderSet" @hfHide="hfHide" ></headerSet>
+    <footerSet v-if="fot_dialogBulk" :postForm="{}" :childPage="true" @childFootSet="childFootSet" @hfHide="hfHide"></footerSet>
   </div>
 </template>
 
@@ -92,14 +125,26 @@ import footerPage from "@/components/admin/common/footer";
 import breadcrumb from "@/components/admin/common/breadcrumb";
 import serviceLMenu from "@/components/admin/common/serviceLMenu";
 import UpdateImg from "@/components/admin/common/UpdateImg";
+import headerSet from "../scene/model/headerSet";//头部设置
+import footerSet from "../scene/model/footerSet";//底部设置
 export default {
   name: 'index',
   created(){
     this.bus.$on('collapse', msg => {
         this.$root.collapse = msg;
     })
+    this.http.getPlain('template-list', 'Type=2&PageIndex=1&PageSize=100').then(res => {
+      this.head_list = res.data.items || [];
+    }).catch(err => {
+      this.$message({ type: 'error', message: '获取失败!' });
+    })
+    this.http.getPlain('template-list', 'Type=3&PageIndex=1&PageSize=100').then(res => {
+      this.footer_list = res.data.items || [];
+    }).catch(err => {
+      this.$message({ type: 'error', message: '获取失败!' });
+    })
   },
-  components:{footerPage,serviceLMenu,breadcrumb,UpdateImg},
+  components:{footerPage,serviceLMenu,breadcrumb,UpdateImg,headerSet,footerSet},
   data () {
     return {
       dialogUPimg:false,
@@ -108,7 +153,10 @@ export default {
       default_img:require("../../../assets/admin/img/icon2.png"),
       select_img:{},
       iconList:[],//图标列表
-      postForm: {},
+      postForm: {
+        appsTop:0,
+        appsFoot:0,
+      },
       terminal_list:[],
       id:this.$route.query.id,//判断是否编辑
       rules: {
@@ -145,6 +193,13 @@ export default {
               { min: 0, max: 200, message: '长度在 0 到 200 个字符', trigger: 'blur' }
           ],
       },
+      //头部底部-子页面单独配置问题
+      top_dialogBulk: false,//头部设置
+      fot_dialogBulk: false,//底部设置
+      head_list: [],
+      footer_list: [],
+      head_check: '',//当前选中头部id
+      footer_check: '',//当前选中底部id
     }
   },
   mounted(){
@@ -214,6 +269,39 @@ export default {
         return true;
       }
     },
+    /*************************************************子页面头部底部start */
+    //头部栏目设置-打开弹窗
+    topEditClick(val) {
+      this.top_dialogBulk = true;
+    },
+    //底部栏目设置-打开弹窗
+    fotEditClick(val) {
+      this.fot_dialogBulk = true;
+    },
+    //选择头部
+    headerClick(val){
+      this.head_check = val.id;
+    },
+    //选择底部
+    footerClick(val){
+      this.footer_check = val.id;
+    },
+    //隐藏头部底部-弹窗
+    hfHide(){
+      this.top_dialogBulk = false;
+      this.fot_dialogBulk = false;
+    },
+    //头部设置-传回信息
+    childHeaderSet(val){
+      console.log(val);
+      this.hfHide();
+    },
+    //头部设置-传回信息
+    childFootSet(val){
+      console.log(val);
+      this.hfHide();
+    },
+    /*************************************************子页面头部底部end */
     //表单提交
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -249,7 +337,49 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.02);
     .form-content{
-      max-width: 740px;
+      // max-width: 740px;
+      /deep/.el-form-item__content{
+        max-width: 500px;
+      }
+      .w100{
+        /deep/.el-form-item__content{
+          max-width: 100% !important;
+        }
+      }
     }
   }
+  .temp-select{
+  max-width: 100% !important;
+  padding: 15px 8px;
+  padding-bottom: 0;
+  min-height: 95px;
+  .d-temp-box{
+    margin-left:8px;
+    margin-right:8px;
+    margin-bottom: 15px;
+    width: 120px;
+    height:70px;
+    .edit-btn{
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 13px;
+      line-height: 12px;
+      color: #fff;
+      width: 35px;
+      height: 35px;
+      padding-left: 20px;
+      padding-top: 5px;
+      background: url(../../../assets/admin/img/set-btn-bg.png) no-repeat right;
+      background-position-y: 0px;
+      background-size: 25px !important;
+    }
+    .btn-check{
+      color: #fff;
+      border-color: #6777EF;
+      background: #6777EF;
+    }
+  }
+}
 </style>
