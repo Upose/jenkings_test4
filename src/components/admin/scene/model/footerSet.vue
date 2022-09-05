@@ -52,7 +52,7 @@
 import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
-  props: ['postForm'],
+  props: ['postForm','childPage'],
   components: { UpdateImg },
   beforeDestroy() {
     window.tinymce.get('mytextarea').destroy();// 销毁组件前销毁编辑器
@@ -81,7 +81,7 @@ export default {
         }
       });
     }, 50);
-    if(this.postForm.footerTemplate){
+    if(this.postForm && this.postForm.footerTemplate){
       var _this = this;
       if(_this.postForm.footerTemplate.content){
         setTimeout(()=>{tinymce.activeEditor.setContent((_this.postForm.footerTemplate.content||''));},1000)
@@ -140,11 +140,16 @@ export default {
       this.coumn_list.forEach(item => {
         if (item.value) this.postForm_fot.footerDisplayNavColumn.push(item.value)
       })
-      this.postForm.footerTemplate.content = tinyMCE.activeEditor.getContent()||'';
-      this.postForm.footerTemplate.footerBgImg = this.postForm_fot.footerBgImg||'';
-      this.postForm.footerTemplate.footerDisplayNavColumn = this.postForm_fot.footerDisplayNavColumn||[];
-      this.$emit('hfHide',true);
-      console.log(this.postForm);
+
+      if(this.childPage){ //设置子页面头部信息
+        this.$emit('childFootSet',this.postForm_fot)
+      }else{//场景-高级设置
+        this.postForm.footerTemplate.content = tinyMCE.activeEditor.getContent()||'';
+        this.postForm.footerTemplate.footerBgImg = this.postForm_fot.footerBgImg||'';
+        this.postForm.footerTemplate.footerDisplayNavColumn = this.postForm_fot.footerDisplayNavColumn||[];
+        this.$emit('hfHide',true);
+        console.log(this.postForm);
+      }
     },
     /***x关闭按钮 **/
     handleClose(done) {

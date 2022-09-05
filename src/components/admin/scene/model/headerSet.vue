@@ -66,7 +66,7 @@ import UpdateImg from "@/components/admin/common/UpdateImg";
 export default {
   name: 'index',
   components: { UpdateImg },
-  props: ['postForm'],
+  props: ['postForm','childPage'],
   created(){
     this.http.getPlain('nav-column-list', '').then(res => {
       this.coumn_data_list = res.data || [];
@@ -75,8 +75,7 @@ export default {
     })
   },
   mounted(){
-    console.log(this.postForm);
-    if(this.postForm.headerTemplate){
+    if(this.postForm && this.postForm.headerTemplate){
       this.postForm_head.logo = this.postForm.headerTemplate.logo||'';
       this.postForm_head.headerBgImg = this.postForm.headerTemplate.headerBgImg||'';
       this.postForm_head.displayNavColumn = this.postForm.headerTemplate.displayNavColumn||[];
@@ -136,11 +135,16 @@ export default {
       this.coumn_list.forEach(item => {
         if (item.value) this.postForm_head.displayNavColumn.push(item.value)
       })
-      this.postForm.headerTemplate.logo = this.postForm_head.logo||'';
-      this.postForm.headerTemplate.headerBgImg = this.postForm_head.headerBgImg||'';
-      this.postForm.headerTemplate.displayNavColumn = this.postForm_head.displayNavColumn||[];
-      this.$emit('hfHide',true);
-      console.log(this.postForm);
+
+      if(this.childPage){ //设置子页面头部信息
+        this.$emit('childHeaderSet',this.postForm_head)
+      }else{//场景-高级设置
+        this.postForm.headerTemplate.logo = this.postForm_head.logo||'';
+        this.postForm.headerTemplate.headerBgImg = this.postForm_head.headerBgImg||'';
+        this.postForm.headerTemplate.displayNavColumn = this.postForm_head.displayNavColumn||[];
+        this.$emit('hfHide',true);
+        console.log(this.postForm);
+      }
     },
     //删除背景
     delBGImg(){
