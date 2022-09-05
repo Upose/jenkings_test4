@@ -10,7 +10,7 @@
       <el-form label-width="110px" class="admin-form">
         <div class="form-set-content">
           <!--postForm.isSystemScene:默认场景 postForm.sceneType==1：门户首页 -->
-          <el-form-item label="子页面头部底部" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
+          <!-- <el-form-item label="子页面头部底部" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
             <el-radio-group v-model="ishome">
               <el-radio :label="0">采用首页头部底部</el-radio>
               </el-radio>
@@ -21,7 +21,7 @@
           </el-form-item>
           <div v-if="ishome==1">
             <headFootModel></headFootModel>
-          </div>
+          </div> -->
           <el-form-item label="应用场景" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
             <el-radio-group v-model="useWay">
               <el-radio :label="0">当前场景</el-radio>
