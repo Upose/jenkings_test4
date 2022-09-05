@@ -1,4 +1,4 @@
-<!--脚本设置
+<!--特殊配置
 1、如果是默认首页：
 弹窗展示字段有：js上传，应用场景（首页、全局(首页和子页面)）
 2、不是默认首页
@@ -6,14 +6,26 @@
 -->
 <template>
   <div class="tag-box">
-    <el-dialog append-to-body title="脚本设置" :visible.sync="dialogBulk" width="700px" :close-on-click-modal="false" :before-close="handleClose">
-        <el-form label-width="70px" class="admin-form">
+    <el-dialog append-to-body title="其他配置" :visible.sync="dialogBulk" width="980px" :close-on-click-modal="false" :before-close="handleClose">
+      <el-form label-width="110px" class="admin-form">
         <div class="form-set-content">
           <!--postForm.isSystemScene:默认场景 postForm.sceneType==1：门户首页 -->
+          <el-form-item label="子页面头部底部" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
+            <el-radio-group v-model="ishome">
+              <el-radio :label="0">采用首页头部底部</el-radio>
+              </el-radio>
+              </el-radio>
+              <el-radio :label="1">独立配置</el-radio>
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <div v-if="ishome==1">
+            <headFootModel></headFootModel>
+          </div>
           <el-form-item label="应用场景" prop="status" v-if="postForm.isSystemScene && postForm.sceneType==1">
             <el-radio-group v-model="useWay">
-              <el-radio :label="0" >当前场景</el-radio>
-              <el-radio :label="1" >全局应用</el-radio>
+              <el-radio :label="0">当前场景</el-radio>
+              <el-radio :label="1">全局应用</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="JS路径" prop="visitUrl">
@@ -49,24 +61,30 @@
 
 
 <script>
+import headFootModel from "./headFootModel";
 export default {
   name: 'index',
-  props:['postForm'],
-  mounted(){
-    this.useWay = this.postForm.useWay||0;
-    this.jsPath = [{}];
-    if(this.postForm.jsPath && this.postForm.jsPath.length>0){
-      this.jsPath.forEach(it=>{
-        this.jsPath.push({value:it});
+  props: ['postForm'],
+  components:{headFootModel},
+  mounted() {
+    this.useWay = this.postForm.useWay || 0;
+    var jsPath = [];
+    console.log(this.postForm.jsPath);
+    if (this.postForm.jsPath && this.postForm.jsPath.length > 0) {
+      this.postForm.jsPath.forEach(it => {
+        console.log(it);
+        jsPath.push({ value: it });
       })
     }
+    if(jsPath.length>0)this.jsPath = jsPath;
   },
   data() {
     return {
-        dialogBulk:true,//模板选择
-        jsPath:[{}],
-        useWay:0,
-        fileUrl: window.localStorage.getItem('fileUrl'),
+      dialogBulk: true,//模板选择
+      jsPath: [{}],
+      useWay: 0,//应用场景
+      ishome: 1,//子页面头部底部
+      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   methods: {
@@ -84,16 +102,16 @@ export default {
     },
     /***x关闭按钮 **/
     handleClose(done) {
-      this.$emit('hfHide',false);
+      this.$emit('hfHide', false);
     },
     //保存设置
-    submitFormJs(){
-      this.postForm.useWay = this.useWay||0;
+    submitFormJs() {
+      this.postForm.useWay = this.useWay || 0;
       this.postForm.jsPath = [];
-      this.jsPath.forEach(x=>{
-        if(x.value)this.postForm.jsPath.push(x.value);
+      this.jsPath.forEach(x => {
+        if (x.value) this.postForm.jsPath.push(x.value);
       });
-      this.$emit('hfHide',false);
+      this.$emit('hfHide', false);
     },
     //文件上传
     handleFileJS(e) {
@@ -126,48 +144,47 @@ export default {
 @import "../../../../assets/admin/css/form.less";
 /***js路径 */
 .input-btns {
-    width: 100% !important;
-
-    .el-input-group {
-        width: calc(100% - 40px) !important;
-    }
+  width: 100% !important;
+  .el-input-group {
+    width: calc(100% - 40px) !important;
+  }
 }
-/deep/.el-input-group__append{
+/deep/.el-input-group__append {
   padding: 0;
 }
-/deep/.el-input__inner{
+/deep/.el-input__inner {
   border-right: none;
 }
 .up-btn {
-    cursor: pointer;
-    position: relative;
+  cursor: pointer;
+  position: relative;
+  width: 100px;
+  text-align: center;
+  height: 34px;
+  margin-right: 2px;
+  border-radius: 2px;
+  color: #fff;
+  background: #6777ef;
+  span,
+  input {
+    position: absolute;
     width: 100px;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  input {
+    cursor: pointer;
+    z-index: 2;
+    opacity: 0;
+  }
+
+  span {
+    cursor: pointer;
+    line-height: 34px;
     text-align: center;
-    height: 34px;
-    margin-right: 2px;
-    border-radius: 2px;
-    color: #fff;
-    background: #6777ef;
-    span,
-    input {
-        position: absolute;
-        width: 100px;
-        height: 100%;
-        top: 0;
-        left: 0;
-    }
-
-    input {
-        cursor: pointer;
-        z-index: 2;
-        opacity: 0;
-    }
-
-    span {
-        cursor: pointer;
-        line-height: 34px;
-        text-align: center;
-        z-index: 1;
-    }
+    z-index: 1;
+  }
 }
 </style>

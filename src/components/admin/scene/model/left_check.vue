@@ -92,7 +92,7 @@
                 <div class="drag-box-width" @click="JSAdd()">
                   <div class="drag-box">
                     <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
-                    <span class="d-b-txt">脚本设置</span>
+                    <span class="d-b-txt">其他配置</span>
                   </div>
                 </div>
               </div>
