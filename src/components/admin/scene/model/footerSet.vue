@@ -254,9 +254,9 @@ export default {
   display: none;
 }
 /deep/.tox .tox-edit-area__iframe{
-  background-color: #ddd !important;
-  margin: 0 -20px !important;
-width: calc(100% + 40px) !important;
+  background-color: rgb(189, 189, 189) !important;
+  // margin: 0 -20px !important;
+  // width: calc(100% + 40px) !important;
 }
 </style>
 <style>
