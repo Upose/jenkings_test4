@@ -49,13 +49,13 @@
               <el-form-item label="访问路径" prop="visitUrl">
                 <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径" maxlength="50" minlength="2" show-word-limit></el-input>
               </el-form-item>
-              <el-form-item label="应用页头设置" prop="appsTop">
-                <el-radio-group v-model="postForm.appsTop">
+              <el-form-item label="应用页头设置" prop="headerMode">
+                <el-radio-group v-model="postForm.headerMode">
                   <el-radio :label="0" >采用首页头部</el-radio>
                   <el-radio :label="1" >独立配置</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="头部选择" class="w100" v-if="postForm.appsTop==1" prop="defaultTemplate">
+              <el-form-item label="头部选择" class="w100" v-if="postForm.headerMode==1" prop="defaultTemplate">
                 <div class="temp-select c-l">
                   <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in head_list" :key="i+'a'" @click="headerClick(it)">
                     <span class="edit-btn" @click.stop="topEditClick(it.id)" v-if="it.id==head_check"><i class="iconfont el-icon-vip-shezhi"></i></span>
@@ -64,13 +64,13 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="应用页底设置" prop="appsFoot">
-                <el-radio-group v-model="postForm.appsFoot">
+              <el-form-item label="应用页底设置" prop="footerMode">
+                <el-radio-group v-model="postForm.footerMode">
                   <el-radio :label="0" >采用首页底部</el-radio>
                   <el-radio :label="1" >独立配置</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item label="底部选择" class="w100" v-if="postForm.appsFoot==1" prop="defaultTemplate">
+              <el-form-item label="底部选择" class="w100" v-if="postForm.footerMode==1" prop="defaultTemplate">
                 <div class="temp-select c-l">
                   <div class="d-temp-box" :style="{background:'url('+$root.fileUrl+it.cover+')'}" v-for="(it,i) in footer_list" :key="i+'b'" @click="footerClick(it)">
                     <span class="edit-btn" @click.stop="fotEditClick(it.id)" v-if="it.id==footer_check"><i class="iconfont el-icon-vip-shezhi"></i></span>
@@ -115,8 +115,20 @@
       </el-main>
     </el-container>
 
-    <headerSet v-if="top_dialogBulk" :postForm="{}" :childPage="true" @childHeaderSet="childHeaderSet" @hfHide="hfHide" ></headerSet>
-    <footerSet v-if="fot_dialogBulk" :postForm="{}" :childPage="true" @childFootSet="childFootSet" @hfHide="hfHide"></footerSet>
+    <headerSet v-if="top_dialogBulk" :postForm="{
+      headerTemplate:{
+        logo:postForm.headerLogo||'',
+        headerBgImg:postForm.headerBgImg||'',
+        displayNavColumn:postForm.headerNavs||[],
+      }
+    }" :childPage="true" @childHeaderSet="childHeaderSet" @hfHide="hfHide" ></headerSet>
+    <footerSet v-if="fot_dialogBulk" :postForm="{
+      footerTemplate:{
+        content:postForm.footerContent||'',
+        footerBgImg:postForm.footerBgImg||'',
+        footerDisplayNavColumn:postForm.footerNavs||[],
+      }
+    }" :childPage="true" @childFootSet="childFootSet" @hfHide="hfHide"></footerSet>
   </div>
 </template>
 
@@ -154,8 +166,8 @@ export default {
       select_img:{},
       iconList:[],//图标列表
       postForm: {
-        appsTop:0,
-        appsFoot:0,
+        headerMode:0,
+        footerMode:0,
       },
       terminal_list:[],
       id:this.$route.query.id,//判断是否编辑
@@ -223,6 +235,8 @@ export default {
     initData(){
       this.http.getPlain_url('terminal-instance-detail','/'+this.id).then(res=>{ //学生专区
         this.postForm = res.data||{};
+        this.head_check = this.postForm.headerTemplateId||'';
+        this.footer_check = this.postForm.footerTemplateId||'';
       }).catch(err=>{
           console.log(err);
       })
@@ -293,17 +307,37 @@ export default {
     },
     //头部设置-传回信息
     childHeaderSet(val){
-      console.log(val);
+      this.postForm.headerBgImg = val.headerBgImg||'';
+      this.postForm.headerLogo = val.logo||'';
+      this.postForm.headerNavs = val.displayNavColumn||[];
+      console.log(this.postForm);
       this.hfHide();
     },
     //头部设置-传回信息
     childFootSet(val){
-      console.log(val);
+      this.postForm.footerContent = val.content||'';
+      this.postForm.footerBgImg = val.footerBgImg||'';
+      this.postForm.footerNavs = val.footerDisplayNavColumn||[];
+      console.log(this.postForm);
       this.hfHide();
     },
     /*************************************************子页面头部底部end */
     //表单提交
     submitForm(formName) {
+      if(this.postForm.headerMode==1){
+        if(!this.head_check){
+          this.$message({type: 'info',message: '请选择头部'});return;  
+        }else{
+          this.postForm.headerTemplateId = this.head_check;
+        }
+      }
+      if(this.postForm.footerMode==1){
+        if(!this.footer_check){
+          this.$message({type: 'info',message: '请选择底部'});return;
+        }else{
+          this.postForm.footerTemplateId = this.footer_check;
+        }
+      }
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){

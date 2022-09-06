@@ -137,6 +137,7 @@ export default {
     /****保存底部设置信息*******/
     submitFormFot() {
       this.postForm_fot.footerDisplayNavColumn = [];
+      this.postForm_fot.content = tinyMCE.activeEditor.getContent()||'';
       this.coumn_list.forEach(item => {
         if (item.value) this.postForm_fot.footerDisplayNavColumn.push(item.value)
       })
@@ -144,11 +145,10 @@ export default {
       if(this.childPage){ //设置子页面头部信息
         this.$emit('childFootSet',this.postForm_fot)
       }else{//场景-高级设置
-        this.postForm.footerTemplate.content = tinyMCE.activeEditor.getContent()||'';
+        this.postForm.footerTemplate.content = this.postForm_fot.content;
         this.postForm.footerTemplate.footerBgImg = this.postForm_fot.footerBgImg||'';
         this.postForm.footerTemplate.footerDisplayNavColumn = this.postForm_fot.footerDisplayNavColumn||[];
         this.$emit('hfHide',true);
-        console.log(this.postForm);
       }
     },
     /***x关闭按钮 **/
