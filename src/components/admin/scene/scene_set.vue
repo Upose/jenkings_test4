@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import common from "./model/common";//公共方法
 import scene_set from "./scene_set";
 export default {
   components: scene_set.components,
@@ -105,72 +106,5 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
-.jl_vip_zt_warp_hf {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-}
-#jl_vip_zt_header_warp,
-#jl_vip_zt_header_warp {
-  width: 100%;
-  left: 0;
-  top: 0;
-  position: absolute;
-  z-index: 1;
-}
-.mask-layer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0);
-}
-.jl_vip_zt_del{
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 0;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid #e6e9ff;
-    color: red;
-    display: block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    font-size: 14px;
-    border-radius: 50%;
-    z-index: 150;
-    font-weight: 400;
-    font-style: inherit;
-}
-.jl_vip_zt_del::before {
-    content: "\2716";
-}
-.jl_vip_zt_del:hover{
-    color: #001eff;
-    background-color: #fff;
-}
-.mask-layer-active .mask-layer{
-  border: 3px dashed #001eff;
-  // box-shadow: 0px 0px 8px #001eff;//外部阴影
-  // box-shadow: 0 0 5px #3a51ff inset;//内部阴影
-}
-.fullScreen{
-  position: fixed !important;
-  z-index: 99999 !important;
-  top: 40px !important;
-  left: 0 !important;
-  right: 0 !important;
-}
-.CloseFullScreen{
-  display: none;
-  position: fixed;
-  z-index: 99999;
-  top: 2px;
-  right: 203px;
-}
 </style>
 

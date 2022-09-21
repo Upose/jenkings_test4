@@ -107,7 +107,65 @@ export default {
       sortList: [],//排序列表
       topCountList: [],//显示条数列表
       appPlateList: [],//栏目列表
-      template_list: [],//模板列表
+      template_list:  [
+        { 
+          "id": "ccfe3ece-0979-4e1f-8127-ccd82e578555", 
+          "appId": "universal", 
+          "name": "图片组件", 
+          "widgetCode": "universal_imgUp", 
+          "target": "http://192.168.21.71:9000/universal/imgUp", 
+          "availableConfig": "", 
+          "cover": "/scene/h4.png", 
+          "width": 10, 
+          "height": 10, 
+          "createTime": "2022-09-21T15:20:38.0683757+08:00", 
+          "updateTime": "2022-09-21T15:20:38.0683802+08:00", 
+          "sceneType": 1, 
+          "topCountList": [], 
+          "appColumn": null, 
+          "routeCode": null, 
+          "maxColumnCount": 0, 
+          "templateCode": "universal_imgUp" 
+        },
+        { 
+          "id": "ccfe3ece-0979-4e1f-8127-ccd82e578566", 
+          "appId": "universal", 
+          "name": "标题组件", 
+          "widgetCode": "universal_title", 
+          "target": "http://192.168.21.71:9000/universal/title", 
+          "availableConfig": "", 
+          "cover": "/scene/h4.png", 
+          "width": 10, 
+          "height": 10, 
+          "createTime": "2022-09-21T15:20:38.0683757+08:00", 
+          "updateTime": "2022-09-21T15:20:38.0683802+08:00", 
+          "sceneType": 1, 
+          "topCountList": [], 
+          "appColumn": null, 
+          "routeCode": null, 
+          "maxColumnCount": 0, 
+          "templateCode": "universal_title" 
+        },
+        { 
+          "id": "ccfe3ece-0979-4e1f-8127-ccd82e578577", 
+          "appId": "universal", 
+          "name": "占位组件", 
+          "widgetCode": "universal_placeholder", 
+          "target": "http://192.168.21.71:9000/universal/placeholder", 
+          "availableConfig": "", 
+          "cover": "/scene/h4.png", 
+          "width": 10, 
+          "height": 10, 
+          "createTime": "2022-09-21T15:20:38.0683757+08:00", 
+          "updateTime": "2022-09-21T15:20:38.0683802+08:00", 
+          "sceneType": 1, 
+          "topCountList": [], 
+          "appColumn": null, 
+          "routeCode": null, 
+          "maxColumnCount": 0, 
+          "templateCode": "placeholder" 
+        },
+      ],//模板列表
       template_check: '',//选择的模板id
       set_list: [ //这里为了渲染有哪几栏，有哪些设置参数
         {
@@ -239,11 +297,17 @@ export default {
       }
       /***********************针对头部底部 end */
 
-      
+      /*****针对通用组件 start */
+      if(val.appId == "universal"){
+        this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
+        return;
+      }
+      /*****针对通用组件 end */
+
       this.availableConfig = val.availableConfig;
       this.maxColumnCount = val.maxColumnCount||0;
       this.sortList = val.sortList;//排序
-      if (this.set_list[0] && !this.set_list[0].sortType) {
+      if (this.set_list[0] && !this.set_list[0].sortType && val.sortList) {
         this.set_list[0].sortType = val.sortList[0].value;
       }
       //获取应用栏目列表 /{appid}

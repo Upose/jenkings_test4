@@ -194,7 +194,13 @@ export default {
             sceneId: it.sceneId,
             sceneScreenId: it.sceneScreenId,
             widgetCode: it.appWidget.widgetCode,
-            content: '<div class="jl_vip_zt_warp ' + it.appWidget.widgetCode + '" data-id="' + ('jl_vip_zt_' + index) + '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>'
+            content: '<div class="jl_vip_zt_warp ' + it.appWidget.widgetCode + 
+            '" data-id="' + ('jl_vip_zt_' + index) + 
+            '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") +
+            '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + 
+            '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + 
+            '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + 
+            '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>'
           }));
           _this.postForm.sceneScreens[index].sceneApps = result;
         })
@@ -299,6 +305,7 @@ export default {
     },
     //添加组件
     addCompont(val) {
+      debugger
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
@@ -675,14 +682,6 @@ export default {
         }
       }
     },
-    //背景图片设置
-    sceenBgImg(val) {
-      if (val && val.bgImg) {
-        return this.fileUrl + val.bgImg;
-      } else {
-        return '';
-      }
-    },
     //删除头部底部
     delTempHF(val) {
       if (val == 'foot') {
@@ -703,12 +702,6 @@ export default {
         this.loadHead();
       }
     },
-    //取消全屏拖拽
-    CloseFullScreen(){
-      document.getElementsByClassName('drag-c')[0].setAttribute('class','drag-c');
-      document.getElementsByClassName('CloseFullScreen')[0].style.display = 'none';
-      document.getElementsByClassName('drag-container')[0].style.padding = '15px';
-      document.getElementsByClassName('drag-container')[0].style.height = 'calc(100% - 80px)';
-    },
+    
   },
 }
