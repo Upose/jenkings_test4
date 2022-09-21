@@ -103,12 +103,20 @@ export default {
       width: 100%;
       display: flex;
       align-items: center;
+      img{
+        max-height: 35px;
+        max-width: 185px;
+      }
     }
   }
   .logo-collapse{
     width: 80px;
     a{
       margin-left: 4px;
+      img{
+        max-height: 35px;
+        max-width: 185px;
+      }
     }
   }
   .m-cut{
