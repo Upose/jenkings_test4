@@ -183,8 +183,8 @@ export default {
             h: it.height,
             x: it.xIndex,
             y: it.yIndex,
-            minW: it.appWidget.width,
-            minH: it.appWidget.height,
+            minW: it.appWidget?it.appWidget.width:it.width,
+            minH: it.appWidget?it.appWidget.height:it.height,
             appId: it.appId,
             configParameter: it.configParameter,
             appPlateItems: it.appPlateItems,
@@ -194,13 +194,8 @@ export default {
             sceneId: it.sceneId,
             sceneScreenId: it.sceneScreenId,
             widgetCode: it.appWidget.widgetCode,
-            content: '<div class="jl_vip_zt_warp ' + it.appWidget.widgetCode + 
-            '" data-id="' + ('jl_vip_zt_' + index) + 
-            '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") +
-            '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + 
-            '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + 
-            '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + 
-            '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>'
+            content:admin_vue.gridContent(it,'a'),
+            // content: '<div class="jl_vip_zt_warp ' + it.appWidget.widgetCode + '" data-id="' + ('jl_vip_zt_' + index) + '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>'
           }));
           _this.postForm.sceneScreens[index].sceneApps = result;
         })
@@ -285,7 +280,8 @@ export default {
             appWidget: item.appWidget,
             configParameter: _this.apps_set_obj[item.divId] || item.configParameter,//应用对应的设置
             appPlateItems: _this.apps_set_list[item.divId] || item.appPlateItems,//应用对应的设置
-            content: '<div class="jl_vip_zt_warp ' + item.widgetCode + '" data-id="' + item.divId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + item.appId + '" data-appWidgetId="' + item.tempId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + item.divId + '"></div></div>'
+            content:admin_vue.gridContent(item,'b'),
+            // content: '<div class="jl_vip_zt_warp ' + item.widgetCode + '" data-id="' + item.divId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + item.appId + '" data-appWidgetId="' + item.tempId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + item.divId + '"></div></div>'
           }
           if (item.id) {
             item_list['id'] = item.id;
@@ -305,7 +301,6 @@ export default {
     },
     //添加组件
     addCompont(val) {
-      debugger
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
@@ -341,7 +336,8 @@ export default {
           appWidget: data,
           configParameter: data.configParameter || {},//应用对应的设置
           appPlateItems: data.appPlateItems || [],//应用对应的设置
-          content: '<div class="jl_vip_zt_warp ' + data.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
+          content:admin_vue.gridContent(data,'c'),
+          // content: '<div class="jl_vip_zt_warp ' + data.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
         };
         this.addCompontFlush(it);
       } else {
@@ -367,7 +363,8 @@ export default {
             appPlateItems: data.appPlateItems || [],//应用对应的设置
             widgetCode: data.widgetCode,
             appWidget: data,
-            content: '<div class="jl_vip_zt_warp ' + data.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
+            content:admin_vue.gridContent(data,'d'),
+            // content: '<div class="jl_vip_zt_warp ' + data.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
           };
           this.removeActiveClass('mask-layer');
           this.addCompontFlush(it);
@@ -700,6 +697,26 @@ export default {
         this.loadFoot();
       } else {
         this.loadHead();
+      }
+    },
+    //拖拽渲染组件content
+    gridContent(val,type){
+      console.log(val);
+      // var a = '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-id="' +  ("jl_vip_zt_" + Math.ceil(Math.random() * 1e8)) + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-set="' + JSON.stringify(val.appPlateItems||[]).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ("jl_vip_zt_" + Math.ceil(Math.random() * 1e8)) + '"></div></div>';
+      
+      var a =  '<div class="jl_vip_zt_warp ' + val.appWidget.widgetCode + '" data-id="' + ('jl_vip_zt_' + index) + '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>';
+
+      var b = '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-id="' + val.divId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + item.appId + '" data-appWidgetId="' + item.tempId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + item.divId + '"></div></div>'
+    
+      var c = '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
+    
+      var d = '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
+      
+      switch(type){
+        case 'a':return a;
+        case 'b':return b;
+        case 'c':return c;
+        case 'd':return d;
       }
     },
     
