@@ -95,6 +95,12 @@
                     <span class="d-b-txt">脚本设置</span>
                   </div>
                 </div>
+                <div class="drag-box-width" @click="JSAdd()">
+                  <div class="drag-box">
+                    <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
+                    <span class="d-b-txt">通用组件</span>
+                  </div>
+                </div>
               </div>
             </div><!--头部底部固定模板,脚本设置 end-->
 
