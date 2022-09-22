@@ -299,6 +299,7 @@ export default {
     },
     //添加组件
     addCompont(val) {
+      console.log(val,'addCompont');
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
@@ -498,7 +499,7 @@ export default {
     saveTempSet(val) {
       this.apps_set_list[val.divId] = val.list || [];
       this.apps_set_obj[val.divId] = val.configParameter || {};
-      // console.log(this.apps_set_obj);
+      console.log(this.apps_set_obj,this.apps_set_list);
     },
     //选择模板-左边
     templateClick(val) {
@@ -696,13 +697,31 @@ export default {
       }
     },
     //拖拽渲染组件content
+    /**
+     data-obj:存放的是配置参数，背景图和是否全屏放大
+     data-code：存放的是标记是否为通用组件，有值为通用组件；
+     data-set：存放的是栏目配置等信息(这个值可能是数组也可能是json对象)
+     widgetCode：组件唯一code值
+     appId：应用id
+     appWidgetId：组件id
+     */
     gridContent(val,type){
-      var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);
+
+      var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);//随机id
+      var data_obj = JSON.stringify(val.configParameter || {}).replace(/\"/g, "'");
+      var data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
+
+      // if(val.appId=='common'){//通用组件处理
+      //   data_set = "{'title':'通用组件参数'}";
+      // }else{
+      //   data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
+      // }
+      
       switch(type){
-        case 'a':return '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget?val.appWidget.id:val.id) + '" data-set="' + JSON.stringify(val.appPlateItems||[]).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + create_id + '"></div></div>';
-        case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + val.divId + '"></div></div>';
-        case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + create_id + '"></div></div>';
-        case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + create_id + '"></div></div>';
+        case 'a':return '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set +'" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget?val.appWidget.id:val.id) + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
+        case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
       }
     },
     

@@ -353,12 +353,6 @@ export default {
       this.$forceUpdate();
       this.$emit('sceneLeftBG', { type: val, url: '' })
     },
-    //添加组件
-    addCompont(val){
-      // val['appPlateItems'] = this.set_list || [];
-      // val['configParameter'] = this.configParameter || {};
-      this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
-    },
     //文件上传
     handleFileJS(e, val) {
       let $target = e.target || e.srcElement
@@ -383,6 +377,10 @@ export default {
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });
+    },
+    //添加公共组件
+    addCompont(val){
+      this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
     },
   },
 }

@@ -11,6 +11,9 @@
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
+          <el-form-item label="跳转地址" prop="name">
+            <el-input v-model="postForm.url" placeholder="请输入地址" maxlength="50" minlength="2" show-word-limit></el-input>
+          </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
           </el-form-item>
@@ -31,14 +34,15 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       dialogBulk:true,
       postForm: {
-        bgimg: '',
+        cover: '',
+        url:'',
       },
     }
   },
   methods: {
     /****保存设置信息*******/
     submitForm() {
-      this.$emit('closeCommon',{data:this.postForm,type:'imgup'});
+      this.$emit('closeCommon',{data:this.postForm,type:'imgup',saveORclose:'save'});
     },
     //删除背景
     delBGImg() {
@@ -46,11 +50,11 @@ export default {
     },
     /***x关闭按钮 **/
     handleClose(done) {
-      this.$emit('closeCommon',{data:this.postForm,type:'imgup'});
+      this.$emit('closeCommon',{data:this.postForm,type:'imgup',saveORclose:'close'});
       done();
     },
     //文件上传
-    handleFileJS(e, isbg) {
+    handleFileJS(e) {
       var _this = this;
       let $target = e.target || e.srcElement
       let file = $target.files[0]
@@ -64,7 +68,7 @@ export default {
         return;
       }
       this.http.postFile("UploadFile", formData).then((res) => {
-        this.postForm.bg = res.data[0] || '';
+        this.postForm.cover = res.data[0] || '';
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });

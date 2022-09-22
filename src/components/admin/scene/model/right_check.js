@@ -5,12 +5,18 @@ import imgUpDialog from "./common/imgUpDialog";//图片组件（通用）-设置
 import imgBannerDialog from "./common/imgBannerDialog";//图片轮播组件（通用）-设置
 export default {
   name: 'index',
-  mounted() { },
+  mounted() {
+    //获取通用组件
+    this.http.getPlain_url('app-widget-list-by-app-id', '/common').then(res => {
+        this.common_tempList = res.data||[];
+    });
+  },
   props:['postForm'],
   components:{headerSet,footerSet,titleDialog,imgUpDialog,imgBannerDialog},
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
+      common_tempList:[],//通用组件列表
       commonTemplateName:'',//通用组件-高级设置显示
       commonTemplateAlert:'',//通用组件-高级设置弹窗
       is_hf:null,//是否头部底部组件 有值为头部底部，无值为应用组件
@@ -133,19 +139,6 @@ export default {
         console.log(err);
       })
     },
-    //选择了-通用组件
-    commonAddCompont(val){
-      var is_cu_temp = document.getElementsByClassName('mask-layer-active');
-      var code = is_cu_temp[0].parentNode.getAttribute('data-code');
-      this.availableConfig='';
-      this.maxColumnCount=0;
-      this.sortList=[];
-      this.topCountList=[];
-      this.appPlateList=[];
-      this.template_list=[];
-      this.commonTemplateName = code;
-      console.log('通用组件',code);
-    },
     //选择某个模板
     appsTemplate(val, isAdd) {
       if(this.template_check == val.id && this.is_hf) return;//这里是为了头尾，选择模板时已经选择的，不要再做下面的操作
@@ -209,6 +202,7 @@ export default {
       } else {//修改这个地方，稍微有点问题。
         val['appPlateItems'] = this.set_list || [];
         val['configParameter'] = this.configParameter || {};
+        console.log(val);
         this.$emit('addCompont', { 'list': val, 'is_add_compont': false });
       }
       this.$forceUpdate();
@@ -249,9 +243,7 @@ export default {
       is_cu_temp[0].setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-obj', JSON.stringify(this.configParameter));
-      // var cs = is_cu_temp[0].offsetParent.getAttribute('class').replace('jl_vip_zt_vray','');
-      // is_cu_temp[0].offsetParent.setAttribute('class',cs);
-      //将父级的jl_vip_zt_vray去除
+
       this.$emit('saveTempSet', { 'list': this.set_list,'configParameter':this.configParameter, 'divId': divId });//这里还需要把内容存到要要提交的数据中
       if (val == 'edit') {
         //刷新
@@ -312,6 +304,21 @@ export default {
       });
     },
     /*************************通用组件的一些方法********************************/
+    //选择了-通用组件
+    commonAddCompont(val){
+        var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+        var code = is_cu_temp[0].parentNode.getAttribute('data-code');
+        //这里要获取data-obj，data-set两个值（全屏设置和上次设置的参数）。
+        //获取之后，将值带入对应的弹窗中
+        this.availableConfig='';
+        this.maxColumnCount=0;
+        this.sortList=[];
+        this.topCountList=[];
+        this.appPlateList=[];
+        this.template_list=[];
+        this.commonTemplateName = code;
+        console.log('通用组件',code);
+    },
     //标题设置
     titleSet(){
         this.commonTemplateAlert = this.commonTemplateName;
@@ -324,10 +331,30 @@ export default {
     imgbannerSet(){
         this.commonTemplateAlert = this.commonTemplateName;
     },
-    //关闭组件-弹窗
+    //关闭组件-保存/关闭操作-弹窗
     closeCommon(val){
-        console.log(val,'关闭组件弹窗');
-        this.commonTemplateAlert = '';
+        console.log(val);
+        if(val.saveORclose=='save'){
+
+            var appPlateItems = val.data;//这里是弹窗设置的参数
+            var configParameter = {};//这里是全屏和背景配置
+            var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+            var divId = is_cu_temp[0].parentNode.dataset.id;//唯一id（随机生成的id）
+            var appwidgetid = is_cu_temp[0].getAttribute('data-appwidgetid');//模板id
+
+            is_cu_temp[0].setAttribute('data-set', JSON.stringify(appPlateItems));
+            is_cu_temp[0].offsetParent.setAttribute('data-set', JSON.stringify(appPlateItems));
+            is_cu_temp[0].offsetParent.setAttribute('data-obj', JSON.stringify(configParameter));
+
+            this.$emit('saveTempSet', { 'list': appPlateItems,'configParameter':configParameter, 'divId': divId });//这里还需要把内容存到要要提交的数据中
+            setTimeout(() => {
+                var list = this.common_tempList.filter(x=>x.id==appwidgetid)[0];
+                list['appPlateItems'] = appPlateItems;//这个是存放的值，目前后台保存不起
+                list['configParameter'] = configParameter;
+                this.$emit('addCompont', { 'list': list, 'is_add_compont': false });
+            }, 400);
+        }
+        this.commonTemplateAlert = '';//关闭弹窗
     },
   },
 }

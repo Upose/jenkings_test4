@@ -45,7 +45,7 @@ export default {
   methods: {
     /****保存设置信息*******/
     submitForm() {
-      this.$emit('closeCommon', { data: this.postForm, type: 'imgbanner' });
+      this.$emit('closeCommon', { data: this.postForm, type: 'imgbanner',saveORclose:'save'});
     },
     //删除背景
     delBGImg() {
@@ -53,11 +53,11 @@ export default {
     },
     /***x关闭按钮 **/
     handleClose(done) {
-      this.$emit('closeCommon', { data: this.postForm, type: 'imgbanner' });
+      this.$emit('closeCommon', { data: this.postForm, type: 'imgbanner',saveORclose:'close' });
       done();
     },
     //文件上传
-    handleFileJS(e, isbg) {
+    handleFileJS(e) {
       var _this = this;
       let $target = e.target || e.srcElement
       let file = $target.files[0]
@@ -71,7 +71,7 @@ export default {
         return;
       }
       this.http.postFile("UploadFile", formData).then((res) => {
-        this.postForm.bg = res.data[0] || '';
+        this.postForm.bgimg = res.data[0] || '';
       }).catch((err) => {
         this.$message({ type: 'error', message: '上传失败!' });
       });
