@@ -110,10 +110,10 @@ export default {
       template_list:  [
         { 
           "id": "ccfe3ece-0979-4e1f-8127-ccd82e578555", 
-          "appId": "universal", 
+          "appId": "common", 
           "name": "图片组件", 
-          "widgetCode": "universal_imgUp", 
-          "target": "http://192.168.21.71:9000/universal/imgUp", 
+          "widgetCode": "common_imgUp", 
+          "target": "http://192.168.21.71:9000/common/imgUp", 
           "availableConfig": "", 
           "cover": "/scene/h4.png", 
           "width": 10, 
@@ -125,14 +125,14 @@ export default {
           "appColumn": null, 
           "routeCode": null, 
           "maxColumnCount": 0, 
-          "templateCode": "universal_imgUp" 
+          "templateCode": "common_imgUp" 
         },
         { 
           "id": "ccfe3ece-0979-4e1f-8127-ccd82e578566", 
-          "appId": "universal", 
+          "appId": "common", 
           "name": "标题组件", 
-          "widgetCode": "universal_title", 
-          "target": "http://192.168.21.71:9000/universal/title", 
+          "widgetCode": "common_title", 
+          "target": "http://192.168.21.71:9000/common/title", 
           "availableConfig": "", 
           "cover": "/scene/h4.png", 
           "width": 10, 
@@ -144,14 +144,14 @@ export default {
           "appColumn": null, 
           "routeCode": null, 
           "maxColumnCount": 0, 
-          "templateCode": "universal_title" 
+          "templateCode": "common_title" 
         },
         { 
           "id": "ccfe3ece-0979-4e1f-8127-ccd82e578577", 
-          "appId": "universal", 
+          "appId": "common", 
           "name": "占位组件", 
-          "widgetCode": "universal_placeholder", 
-          "target": "http://192.168.21.71:9000/universal/placeholder", 
+          "widgetCode": "common_placeholder", 
+          "target": "http://192.168.21.71:9000/common/placeholder", 
           "availableConfig": "", 
           "cover": "/scene/h4.png", 
           "width": 10, 
@@ -298,7 +298,7 @@ export default {
       /***********************针对头部底部 end */
 
       /*****针对通用组件 start */
-      if(val.appId == "universal"){
+      if(val.appId == "common"){
         this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
         return;
       }
