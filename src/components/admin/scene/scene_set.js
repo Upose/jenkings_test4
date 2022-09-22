@@ -195,7 +195,6 @@ export default {
             sceneScreenId: it.sceneScreenId,
             widgetCode: it.appWidget.widgetCode,
             content:admin_vue.gridContent(it,'a'),
-            // content: '<div class="jl_vip_zt_warp ' + it.appWidget.widgetCode + '" data-id="' + ('jl_vip_zt_' + index) + '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>'
           }));
           _this.postForm.sceneScreens[index].sceneApps = result;
         })
@@ -281,7 +280,6 @@ export default {
             configParameter: _this.apps_set_obj[item.divId] || item.configParameter,//应用对应的设置
             appPlateItems: _this.apps_set_list[item.divId] || item.appPlateItems,//应用对应的设置
             content:admin_vue.gridContent(item,'b'),
-            // content: '<div class="jl_vip_zt_warp ' + item.widgetCode + '" data-id="' + item.divId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + item.appId + '" data-appWidgetId="' + item.tempId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + item.divId + '"></div></div>'
           }
           if (item.id) {
             item_list['id'] = item.id;
@@ -337,7 +335,6 @@ export default {
           configParameter: data.configParameter || {},//应用对应的设置
           appPlateItems: data.appPlateItems || [],//应用对应的设置
           content:admin_vue.gridContent(data,'c'),
-          // content: '<div class="jl_vip_zt_warp ' + data.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
         };
         this.addCompontFlush(it);
       } else {
@@ -364,7 +361,6 @@ export default {
             widgetCode: data.widgetCode,
             appWidget: data,
             content:admin_vue.gridContent(data,'d'),
-            // content: '<div class="jl_vip_zt_warp ' + data.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
           };
           this.removeActiveClass('mask-layer');
           this.addCompontFlush(it);
@@ -701,22 +697,12 @@ export default {
     },
     //拖拽渲染组件content
     gridContent(val,type){
-      console.log(val);
-      // var a = '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-id="' +  ("jl_vip_zt_" + Math.ceil(Math.random() * 1e8)) + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-set="' + JSON.stringify(val.appPlateItems||[]).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ("jl_vip_zt_" + Math.ceil(Math.random() * 1e8)) + '"></div></div>';
-      
-      var a =  '<div class="jl_vip_zt_warp ' + val.appWidget.widgetCode + '" data-id="' + ('jl_vip_zt_' + index) + '" data-set="' + JSON.stringify(it.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + it.appId + '" data-appWidgetId="' + it.appWidget.id + '" data-set="' + JSON.stringify(it.appPlateItems).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(it.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + ('jl_vip_zt_' + index) + '"></div></div>';
-
-      var b = '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-id="' + val.divId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + item.appId + '" data-appWidgetId="' + item.tempId + '" data-set="' + JSON.stringify(item.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(item.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + item.divId + '"></div></div>'
-    
-      var c = '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
-    
-      var d = '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-id="' + component_id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + data.appId + '" data-appWidgetId="' + data.id + '" data-set="' + JSON.stringify(data.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(data.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + component_id + '"></div></div>'
-      
+      var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);
       switch(type){
-        case 'a':return a;
-        case 'b':return b;
-        case 'c':return c;
-        case 'd':return d;
+        case 'a':return '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") +'" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget?val.appWidget.id:val.id) + '" data-set="' + JSON.stringify(val.appPlateItems||[]).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + create_id + '"></div></div>';
+        case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + val.divId + '"></div></div>';
+        case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + create_id + '"></div></div>';
+        case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'") + '" data-obj="' + JSON.stringify(val.configParameter || {}).replace(/\"/g, "'") + '"></div><div id="' + create_id + '"></div></div>';
       }
     },
     

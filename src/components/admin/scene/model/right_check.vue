@@ -8,7 +8,7 @@
             <div class="title"><span class="num">4</span><span class="txt">应用设置</span></div>
             <div class="app-name" v-show="apps_name">选中应用：<i class="name">{{apps_name}}</i></div>
           </h1>
-          <div class="select-type">
+          <div class="select-type" v-if="template_list.length>0">
             <h2 class="s-title">选择样式</h2>
             <div class="s-list">
               <div class="d-temp-box" v-for="(it,i) in template_list" :class="template_check == it.id?'d-temp-box-check':''" @click="appsTemplate(it,i)" :key="i">
@@ -64,9 +64,12 @@
                   </el-select>
                 </div>
               </div>
-              <!-- <button class="s-c-add" @click="addRow()" v-if="availableConfig.indexOf('1')!=-1"><i class="el-icon-plus"></i><span>添加一组栏目</span></button> -->
-              <!-- <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="isShowBtn()" @click="saveClick('edit')" size="medium">保存</el-button> -->
             </div><!--栏目配置 end--->
+
+            <div>
+              <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="oddimgSet()">图片设置</el-button>
+              <el-button class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="titleSet()">标题设置</el-button>
+            </div><!--通用组件-高级设置 end-->
 
           </div>
           <!--设置内容 end-->
@@ -75,6 +78,7 @@
       </div>
       <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
     </div>
+    <!------------以下组件部分，主要是弹窗-各种高级设置等---------------->
     <headerSet v-if="headerSet" :postForm="postForm" @hfHide="hfHide" ></headerSet>
     <footerSet v-if="footerSet" :postForm="postForm" @hfHide="hfHide"></footerSet>
   </div>
@@ -107,65 +111,7 @@ export default {
       sortList: [],//排序列表
       topCountList: [],//显示条数列表
       appPlateList: [],//栏目列表
-      template_list:  [
-        { 
-          "id": "ccfe3ece-0979-4e1f-8127-ccd82e578555", 
-          "appId": "common", 
-          "name": "图片组件", 
-          "widgetCode": "common_imgUp", 
-          "target": "http://192.168.21.71:9000/common/imgUp", 
-          "availableConfig": "", 
-          "cover": "/scene/h4.png", 
-          "width": 10, 
-          "height": 10, 
-          "createTime": "2022-09-21T15:20:38.0683757+08:00", 
-          "updateTime": "2022-09-21T15:20:38.0683802+08:00", 
-          "sceneType": 1, 
-          "topCountList": [], 
-          "appColumn": null, 
-          "routeCode": null, 
-          "maxColumnCount": 0, 
-          "templateCode": "common_imgUp" 
-        },
-        { 
-          "id": "ccfe3ece-0979-4e1f-8127-ccd82e578566", 
-          "appId": "common", 
-          "name": "标题组件", 
-          "widgetCode": "common_title", 
-          "target": "http://192.168.21.71:9000/common/title", 
-          "availableConfig": "", 
-          "cover": "/scene/h4.png", 
-          "width": 10, 
-          "height": 10, 
-          "createTime": "2022-09-21T15:20:38.0683757+08:00", 
-          "updateTime": "2022-09-21T15:20:38.0683802+08:00", 
-          "sceneType": 1, 
-          "topCountList": [], 
-          "appColumn": null, 
-          "routeCode": null, 
-          "maxColumnCount": 0, 
-          "templateCode": "common_title" 
-        },
-        { 
-          "id": "ccfe3ece-0979-4e1f-8127-ccd82e578577", 
-          "appId": "common", 
-          "name": "占位组件", 
-          "widgetCode": "common_placeholder", 
-          "target": "http://192.168.21.71:9000/common/placeholder", 
-          "availableConfig": "", 
-          "cover": "/scene/h4.png", 
-          "width": 10, 
-          "height": 10, 
-          "createTime": "2022-09-21T15:20:38.0683757+08:00", 
-          "updateTime": "2022-09-21T15:20:38.0683802+08:00", 
-          "sceneType": 1, 
-          "topCountList": [], 
-          "appColumn": null, 
-          "routeCode": null, 
-          "maxColumnCount": 0, 
-          "templateCode": "placeholder" 
-        },
-      ],//模板列表
+      template_list:  [],//模板列表
       template_check: '',//选择的模板id
       set_list: [ //这里为了渲染有哪几栏，有哪些设置参数
         {
@@ -231,6 +177,10 @@ export default {
     },
     //应用详情
     appDetails(val) {
+      if(val.id == "common"){ //这里是通用组件点击
+        this.commonAddCompont(val);
+        return;
+      }
       this.is_hf = null;
       var _this = this;
       _this.is_add = val.is_add;
@@ -265,6 +215,19 @@ export default {
         console.log(err);
       })
     },
+    //选择了-通用组件
+    commonAddCompont(val){
+      var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+      var code = is_cu_temp[0].parentNode.getAttribute('data-code');
+      this.availableConfig='';
+      this.maxColumnCount=0;
+      this.sortList=[];
+      this.topCountList=[];
+      this.appPlateList=[];
+      this.template_list=[];
+
+      console.log('通用组件',code);
+    },
     //选择某个模板
     appsTemplate(val, isAdd) {
       if(this.template_check == val.id && this.is_hf) return;//这里是为了头尾，选择模板时已经选择的，不要再做下面的操作
@@ -296,13 +259,6 @@ export default {
         return;
       }
       /***********************针对头部底部 end */
-
-      /*****针对通用组件 start */
-      if(val.appId == "common"){
-        this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
-        return;
-      }
-      /*****针对通用组件 end */
 
       this.availableConfig = val.availableConfig;
       this.maxColumnCount = val.maxColumnCount||0;
@@ -411,6 +367,7 @@ export default {
       }
       if(val)this.$emit('refreshHF',templateCode);
     },
+    //删除背景
     delBGImg(){
       this.configParameter.bgImg = '';
       this.saveClick('edit');
@@ -441,8 +398,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../assets/admin/css/color.less";
-@import "../../../../assets/admin/css/style.less";
+@import "~@/assets/admin/css/color.less";
+@import "~@/assets/admin/css/style.less";
 @import "../scene_set.less";
 @import "./model.less";
 </style>

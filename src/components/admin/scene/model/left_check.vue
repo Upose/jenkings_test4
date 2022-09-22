@@ -88,7 +88,7 @@
             </div>
             <!--应用列表 end-->
           </div>
-
+          <h4>通用组件</h4>
           <div class="fixed-temp-w">
             <div class="drag-box-warp c-l">
               <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
@@ -103,10 +103,10 @@
                   <span class="d-b-txt">脚本设置</span>
                 </div>
               </div>
-              <div class="drag-box-width" @click="JSAdd()">
+              <div class="drag-box-width" v-for="i in common_tempList" @click="addCompont(i)">
                 <div class="drag-box">
                   <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
-                  <span class="d-b-txt">通用组件</span>
+                  <span class="d-b-txt">{{i.name||''}}</span>
                 </div>
               </div>
             </div>
@@ -158,7 +158,11 @@ export default {
       this.allList = res.data.sceneLayout || [];
       this.sceneHeaderFooter = res.data.sceneHeaderFooter || [];
       this.initLeftData();
-    })
+    });
+    //获取通用组件
+    this.http.getPlain_url('app-widget-list-by-app-id', '/common').then(res => {
+      this.common_tempList = res.data||[];
+    });
   },
   data() {
     return {
@@ -177,6 +181,7 @@ export default {
       apps_list: [],//应用列表
       apps_list_index: 0,//应用列表-下标
       apps_list_all: [],//应用列表-总列表
+      common_tempList:[],//通用组件
     }
   },
   methods: {
@@ -347,6 +352,12 @@ export default {
       }
       this.$forceUpdate();
       this.$emit('sceneLeftBG', { type: val, url: '' })
+    },
+    //添加组件
+    addCompont(val){
+      // val['appPlateItems'] = this.set_list || [];
+      // val['configParameter'] = this.configParameter || {};
+      this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
     },
     //文件上传
     handleFileJS(e, val) {

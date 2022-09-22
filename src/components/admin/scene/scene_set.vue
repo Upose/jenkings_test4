@@ -9,7 +9,7 @@
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
 
         <div class="drag-content" :style="{'min-height':(drag_height-1)+'px'}">
-          <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" @rightMenu="rightMenu" :screen_cu="screen_cu" :screen_list="screen_list" :appServiceType="appServiceType" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+          <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" @rightMenu="rightMenu" @addCompont="addCompont" :screen_cu="screen_cu" :screen_list="screen_list" :appServiceType="appServiceType" :postForm="postForm" :left_fold.sync="left_fold" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
 
           <div class="drag-c" :class="isFoldClass()">
             <div class="screen-btn-drag" v-show="(postForm.layoutId== 2||postForm.layoutId== 3) && postForm.template">
