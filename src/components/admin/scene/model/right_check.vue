@@ -81,8 +81,8 @@
     <!------------以下组件部分，主要是弹窗-各种高级设置等---------------->
     <headerSet v-if="headerSet" :postForm="postForm" @hfHide="hfHide" ></headerSet>
     <footerSet v-if="footerSet" :postForm="postForm" @hfHide="hfHide"></footerSet>
-    <titleDialog v-if="commonTemplateAlert == 'title'" :data="{}" @closeCommon="closeCommon"></titleDialog>
-    <imgUpDialog v-if="commonTemplateAlert == 'imgup'" :data="{}" @closeCommon="closeCommon"></imgUpDialog>
+    <titleDialog v-if="commonTemplateAlert == 'title'" :data="commonWidgetSet" @closeCommon="closeCommon"></titleDialog>
+    <imgUpDialog v-if="commonTemplateAlert == 'imgup'" :data="commonWidgetSet" @closeCommon="closeCommon"></imgUpDialog>
   </div>
   <!--右边菜单 end-->
 </template>
@@ -416,7 +416,9 @@ export default {
         this.appPlateList=[];
         this.template_list=[];
         this.commonTemplateName = code;
-        console.log('通用组件',code);
+
+        var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+        this.commonWidgetSet = is_cu_temp[0].offsetParent.getAttribute('data-common');
     },
     //标题设置
     titleSet(){
@@ -432,7 +434,6 @@ export default {
     },
     //关闭组件-保存/关闭操作-弹窗
     closeCommon(val){
-        console.log(val);
         if(val.saveORclose=='save'){
 
             var commonWidgetSet = JSON.stringify(val.data);//这里是弹窗设置的参数

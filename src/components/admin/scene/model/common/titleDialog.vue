@@ -33,7 +33,12 @@
 export default {
   name: 'index',
   props: ['data'],
-  mounted() {},
+  mounted() {
+    console.log(this.data);
+    if(this.data && this.data!='{}'){
+      this.postForm = JSON.parse(this.data.replace(/'/g, '"'));
+    }
+  },
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
