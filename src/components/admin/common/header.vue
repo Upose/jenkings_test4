@@ -115,7 +115,7 @@ export default {
       margin-left: 4px;
       img{
         max-height: 35px;
-        max-width: 185px;
+        max-width: 60px;
       }
     }
   }
