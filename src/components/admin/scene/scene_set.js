@@ -127,7 +127,7 @@ export default {
         }
       }
     },
-    //右侧点击事件-头部，底部
+    //右侧点击事件-头部，底部(还有公共组件)
     rightMenu(val) {
       admin_vue.$refs.rightCheck_ref.getHFlist(val);
     },

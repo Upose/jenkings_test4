@@ -380,6 +380,7 @@ export default {
     },
     //添加公共组件
     addCompont(val){
+      this.$emit('rightMenu', val.code);
       this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
     },
   },

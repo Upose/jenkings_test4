@@ -4,9 +4,6 @@
     <el-dialog append-to-body title="标题组件设置" :visible.sync="dialogBulk" width="630px" :close-on-click-modal="false" :before-close="handleClose">
       <el-form label-width="90px" class="admin-form">
         <div class="form-set-content">
-          <el-form-item label="字体颜色" prop="name">
-            <el-color-picker v-model="postForm.color"></el-color-picker>
-          </el-form-item>
           <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm.bgimg?(fileUrl+postForm.bgimg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景更换</span></div>
@@ -14,8 +11,17 @@
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
-          <el-form-item label="文本内容" prop="name">
-            <el-input v-model="postForm.title" placeholder="请输入文本内容" maxlength="50" minlength="2" show-word-limit></el-input>
+          <el-form-item label="主标题" prop="name">
+            <el-input v-model="postForm.title" placeholder="请输入主标题" maxlength="50" minlength="2" show-word-limit></el-input>
+          </el-form-item>
+          <el-form-item label="主标题颜色" prop="name">
+            <el-color-picker v-model="postForm.color"></el-color-picker>
+          </el-form-item>
+          <el-form-item label="子标题" prop="name">
+            <el-input v-model="postForm.title" placeholder="请输入子标题" maxlength="50" minlength="2" show-word-limit></el-input>
+          </el-form-item>
+           <el-form-item label="子标题颜色" prop="name">
+            <el-color-picker v-model="postForm.color"></el-color-picker>
           </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
