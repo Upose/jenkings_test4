@@ -1,4 +1,4 @@
-<!--图片上传 -->
+<!--图片上传 这里还可以做成上传多张图的时候，出现轮播效果展示 -->
 <template>
   <div class="tag-box">
     <el-dialog append-to-body title="图片组件设置" :visible.sync="dialogBulk" width="630px" :close-on-click-modal="false" :before-close="handleClose">

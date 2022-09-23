@@ -107,7 +107,7 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       common_tempList:[],//通用组件列表
       commonTemplateName:'',//通用组件-高级设置显示
-      commonTemplateAlert:'',//通用组件-高级设置弹窗
+      commonTemplateAlert:'title',//通用组件-高级设置弹窗
       is_hf:null,//是否头部底部组件 有值为头部底部，无值为应用组件
       configParameter:{
         bgImg:'',

@@ -11,17 +11,13 @@
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
-          <el-form-item label="主标题" prop="name">
-            <el-input v-model="postForm.title" placeholder="请输入主标题" maxlength="50" minlength="2" show-word-limit></el-input>
+          <el-form-item label="主标题" prop="name" class="title-row">
+            <el-input v-model="postForm.mtitle" placeholder="请输入主标题" maxlength="10" minlength="0" show-word-limit></el-input>
+            <el-color-picker v-model="postForm.mcolor" size="small"></el-color-picker>
           </el-form-item>
-          <el-form-item label="主标题颜色" prop="name">
-            <el-color-picker v-model="postForm.color"></el-color-picker>
-          </el-form-item>
-          <el-form-item label="子标题" prop="name">
-            <el-input v-model="postForm.title" placeholder="请输入子标题" maxlength="50" minlength="2" show-word-limit></el-input>
-          </el-form-item>
-           <el-form-item label="子标题颜色" prop="name">
-            <el-color-picker v-model="postForm.color"></el-color-picker>
+          <el-form-item label="副标题" prop="name" class="title-row">
+            <el-input v-model="postForm.stitle" placeholder="请输入副标题" maxlength="10" minlength="0" show-word-limit></el-input>
+            <el-color-picker v-model="postForm.scolor" size="small"></el-color-picker>
           </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
@@ -44,8 +40,10 @@ export default {
       dialogBulk:true,
       postForm: {
         bgimg: '',
-        title:'',
-        color:'',
+        mtitle:'',
+        mcolor:'',
+        stitle:'',
+        scolor:'',
       },
     }
   },
@@ -90,6 +88,19 @@ export default {
 @import "~@/assets/admin/css/color.less";
 @import "~@/assets/admin/css/form.less";
 @import "../model.less";
+.title-row{
+  position: relative;
+  /deep/.el-input__suffix{
+    right: 45px;
+  }
+  .el-color-picker{
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    z-index: 9;
+    background: #fff;
+  }
+}
 .up-btn {
   cursor: pointer;
   position: relative;
