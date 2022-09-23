@@ -22,7 +22,7 @@
           </div>
           <div class="center-fixed">
             <div class="center-fixed-content" v-for="(it,i) in details.sceneScreens" :style="{height:it.height+'px'}">
-              <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
+              <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
                 <div :id="setId()"></div>
               </div>
             </div>
@@ -111,6 +111,14 @@ export default {
     //动态设置模板id
     setId() {
       return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
+    },
+    //格式化
+    commonWidgetSetFormat(val){
+      if(val && val!="undefind" && val !='null'){
+        return val.replace(/\"/g, "'");
+      }else{
+        return '{}';
+      }
     },
   },
 }

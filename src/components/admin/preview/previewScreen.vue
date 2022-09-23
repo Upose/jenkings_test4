@@ -22,7 +22,7 @@
             <div class="scene-warp-bg" :key="i+'scene'">
               <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
                 <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
-                  <div :class="isWidgetCode(item)"  :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
+                  <div :class="isWidgetCode(item)"  :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
                     <div :id="setId()"></div>
                   </div>
                 </div>
@@ -202,6 +202,14 @@ export default {
         this.next();
       } else if (this.fullpage.deltaY < 0) {
         this.pre();
+      }
+    },
+    //格式化
+    commonWidgetSetFormat(val){
+      if(val && val!="undefind" && val !='null'){
+        return val.replace(/\"/g, "'");
+      }else{
+        return '{}';
       }
     },
   },

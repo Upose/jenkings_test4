@@ -16,7 +16,7 @@
       <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="styleSet(it,i)">
         <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
           <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
-            <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')">
+            <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
               <div :id="setId()"></div>
             </div>
           </div>
@@ -151,7 +151,15 @@ export default {
         list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')'};
       }
       return list;
-    }
+    },
+    //格式化
+    commonWidgetSetFormat(val){
+      if(val && val!="undefind" && val !='null'){
+        return val.replace(/\"/g, "'");
+      }else{
+        return '{}';
+      }
+    },
   },
 }
 </script>

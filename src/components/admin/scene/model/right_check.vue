@@ -113,6 +113,7 @@ export default {
         bgImg:'',
         fullScreen:false
       },//组件背景+是否全屏展示
+      commonWidgetSet:'',
       apps_name: '',//应用名称
       headerSet:false,
       footerSet:false,
@@ -218,6 +219,7 @@ export default {
         } else {//修改
           _this.set_list = JSON.parse((val.set_list || "[]").replace(/'/g, '"'));
           _this.configParameter = JSON.parse((val.configParameter || "{}").replace(/'/g, '"'));
+          _this.commonWidgetSet = val.commonWidgetSet;
           if (_this.set_list.length == 0) {
             _this.set_list = [{ topCount: '', sortType: '', id: '', orderIndex: 1 }];
           }
@@ -297,6 +299,7 @@ export default {
       } else {//修改这个地方，稍微有点问题。
         val['appPlateItems'] = this.set_list || [];
         val['configParameter'] = this.configParameter || {};
+        val['commonWidgetSet'] = this.commonWidgetSet || {};
         console.log(val);
         this.$emit('addCompont', { 'list': val, 'is_add_compont': false });
       }
@@ -338,12 +341,13 @@ export default {
       is_cu_temp[0].setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-set', JSON.stringify(this.set_list));
       is_cu_temp[0].offsetParent.setAttribute('data-obj', JSON.stringify(this.configParameter));
+      is_cu_temp[0].offsetParent.setAttribute('data-common', this.commonWidgetSet);
 
-      this.$emit('saveTempSet', { 'list': this.set_list,'configParameter':this.configParameter, 'divId': divId });//这里还需要把内容存到要要提交的数据中
+      this.$emit('saveTempSet', { 'list': this.set_list,'configParameter':this.configParameter,'commonWidgetSet':this.commonWidgetSet, 'divId': divId });//这里还需要把内容存到要要提交的数据中
       if (val == 'edit') {
         //刷新
         setTimeout(() => {
-          this.appDetails({ 'id': is_cu_temp[0].dataset.appid, 'temp_id': is_cu_temp[0].dataset.appwidgetid, 'is_add': false, 'set_list': JSON.stringify(this.set_list),'configParameter': JSON.stringify(this.configParameter) });//设置成功，重新点击一次让模板刷新；
+          this.appDetails({ 'id': is_cu_temp[0].dataset.appid, 'temp_id': is_cu_temp[0].dataset.appwidgetid, 'is_add': false, 'set_list': JSON.stringify(this.set_list),'configParameter': JSON.stringify(this.configParameter),'commonWidgetSet':this.commonWidgetSet});//设置成功，重新点击一次让模板刷新；
         }, 400);
       }
     },
@@ -431,7 +435,8 @@ export default {
         console.log(val);
         if(val.saveORclose=='save'){
 
-            var appPlateItems = val.data;//这里是弹窗设置的参数
+            var commonWidgetSet = JSON.stringify(val.data);//这里是弹窗设置的参数
+            var appPlateItems = [];//这里是弹窗设置的参数
             var configParameter = {};//这里是全屏和背景配置
             var is_cu_temp = document.getElementsByClassName('mask-layer-active');
             var divId = is_cu_temp[0].parentNode.dataset.id;//唯一id（随机生成的id）
@@ -440,12 +445,14 @@ export default {
             is_cu_temp[0].setAttribute('data-set', JSON.stringify(appPlateItems));
             is_cu_temp[0].offsetParent.setAttribute('data-set', JSON.stringify(appPlateItems));
             is_cu_temp[0].offsetParent.setAttribute('data-obj', JSON.stringify(configParameter));
+            is_cu_temp[0].offsetParent.setAttribute('data-common', commonWidgetSet);
 
-            this.$emit('saveTempSet', { 'list': appPlateItems,'configParameter':configParameter, 'divId': divId });//这里还需要把内容存到要要提交的数据中
+            this.$emit('saveTempSet', { 'list': appPlateItems,'configParameter':configParameter,'commonWidgetSet':commonWidgetSet, 'divId': divId });//这里还需要把内容存到要要提交的数据中
             setTimeout(() => {
                 var list = this.common_tempList.filter(x=>x.id==appwidgetid)[0];
-                list['appPlateItems'] = appPlateItems;//这个是存放的值，目前后台保存不起
+                list['appPlateItems'] = [];//这个是存放的值，目前后台保存不起
                 list['configParameter'] = configParameter;
+                list['commonWidgetSet'] = commonWidgetSet;
                 this.$emit('addCompont', { 'list': list, 'is_add_compont': false });
             }, 400);
         }

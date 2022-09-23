@@ -65,6 +65,7 @@ export default {
 
       apps_set_list: {},//场景内所有的应用模板设置参数-栏目列表。
       apps_set_obj: {},//场景内所有的应用模板设置参数-背景图片和是否全屏。
+      apps_set_common: {},//场景内所有的通用组件参数存储
       grid: null,//拖拽渲染
       postForm: {
         name: '',//场景名称
@@ -123,7 +124,8 @@ export default {
           var appwidgetid = e.target.dataset.appwidgetid;//模板id
           var set_list = e.target.dataset.set;//设置的配置参数
           var configParameter = e.target.dataset.obj;//设置的配置参数
-          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list, 'configParameter': configParameter });
+          var commonWidgetSet = e.target.dataset.common;//设置的配置参数
+          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list, 'configParameter': configParameter,'commonWidgetSet': commonWidgetSet });
         }
       }
     },
@@ -187,6 +189,7 @@ export default {
             minH: it.appWidget?it.appWidget.height:it.height,
             appId: it.appId,
             configParameter: it.configParameter,
+            commonWidgetSet: it.commonWidgetSet,
             appPlateItems: it.appPlateItems,
             appWidget: it.appWidget,
             divId: 'jl_vip_zt_' + index,
@@ -278,6 +281,7 @@ export default {
             widgetCode: item.widgetCode,
             appWidget: item.appWidget,
             configParameter: _this.apps_set_obj[item.divId] || item.configParameter,//应用对应的设置
+            commonWidgetSet: _this.apps_set_common[item.divId] || item.commonWidgetSet,//应用对应的设置
             appPlateItems: _this.apps_set_list[item.divId] || item.appPlateItems,//应用对应的设置
             content:admin_vue.gridContent(item,'b'),
           }
@@ -334,6 +338,7 @@ export default {
           widgetCode: data.widgetCode,
           appWidget: data,
           configParameter: data.configParameter || {},//应用对应的设置
+          commonWidgetSet: data.commonWidgetSet || '{}',//应用对应的设置
           appPlateItems: data.appPlateItems || [],//应用对应的设置
           content:admin_vue.gridContent(data,'c'),
         };
@@ -358,6 +363,7 @@ export default {
             divId: component_id,//元素渲染id
             appId: data.appId,
             configParameter: data.configParameter || {},
+            commonWidgetSet: data.commonWidgetSet || '{}',
             appPlateItems: data.appPlateItems || [],//应用对应的设置
             widgetCode: data.widgetCode,
             appWidget: data,
@@ -422,6 +428,7 @@ export default {
                 sceneScreenId: it.sceneScreenId,
                 appWidget: it.appWidget,
                 configParameter: it.configParameter || {},
+                commonWidgetSet: it.commonWidgetSet || '{}',
                 appPlateItems: it.appPlateItems,
                 appId: it.appId,
                 widgetCode: it.widgetCode,
@@ -499,7 +506,7 @@ export default {
     saveTempSet(val) {
       this.apps_set_list[val.divId] = val.list || [];
       this.apps_set_obj[val.divId] = val.configParameter || {};
-      console.log(this.apps_set_obj,this.apps_set_list);
+      this.apps_set_common[val.divId] = val.commonWidgetSet || '{}';
     },
     //选择模板-左边
     templateClick(val) {
@@ -546,7 +553,7 @@ export default {
       admin_vue.$refs.leftcheck_ref.setAppid(val.id);
       var apps_cu = this.selectApps(val.id) || {};
       admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
-      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list, 'configParameter': val.configParameter });
+      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list, 'configParameter': val.configParameter,'commonWidgetSet':val.commonWidgetSet });
     },
     /***拖拽更换屏顺序**/
     dragSort() {
@@ -701,27 +708,22 @@ export default {
      data-obj:存放的是配置参数，背景图和是否全屏放大
      data-code：存放的是标记是否为通用组件，有值为通用组件；
      data-set：存放的是栏目配置等信息(这个值可能是数组也可能是json对象)
+     data-common：存放通用组件等特殊参数，是个字符串。
      widgetCode：组件唯一code值
      appId：应用id
      appWidgetId：组件id
      */
     gridContent(val,type){
-
       var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);//随机id
       var data_obj = JSON.stringify(val.configParameter || {}).replace(/\"/g, "'");
+      var data_common = (val.commonWidgetSet&&val.commonWidgetSet!='undefined'&&val.commonWidgetSet!='null')?val.commonWidgetSet.replace(/\"/g, "'"):'{}';
       var data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
 
-      // if(val.appId=='common'){//通用组件处理
-      //   data_set = "{'title':'通用组件参数'}";
-      // }else{
-      //   data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
-      // }
-      
       switch(type){
-        case 'a':return '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set +'" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget?val.appWidget.id:val.id) + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
-        case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
-        case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
-        case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'a':return '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set +'" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget?val.appWidget.id:val.id) + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
+        case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
       }
     },
     
