@@ -69,7 +69,6 @@
             <div>
               <el-button v-if="commonTemplateName=='title'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="titleSet()">标题设置</el-button>
               <el-button v-if="commonTemplateName=='imgup'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="imgupSet()">图片设置</el-button>
-              <el-button v-if="commonTemplateName=='imgbanner'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="imgbannerSet()">图片轮播设置</el-button>
             </div><!--通用组件-高级设置 end-->
 
           </div>
@@ -84,7 +83,6 @@
     <footerSet v-if="footerSet" :postForm="postForm" @hfHide="hfHide"></footerSet>
     <titleDialog v-if="commonTemplateAlert == 'title'" :data="{}" @closeCommon="closeCommon"></titleDialog>
     <imgUpDialog v-if="commonTemplateAlert == 'imgup'" :data="{}" @closeCommon="closeCommon"></imgUpDialog>
-    <imgBannerDialog v-if="commonTemplateAlert == 'imgbanner'" :data="{}" @closeCommon="closeCommon"></imgBannerDialog>
   </div>
   <!--右边菜单 end-->
 </template>
@@ -94,7 +92,6 @@ import headerSet from "./headerSet.vue";//头部设置
 import footerSet from "./footerSet";//底部设置
 import titleDialog from "./common/titleDialog";//标题组件（通用）-设置
 import imgUpDialog from "./common/imgUpDialog";//图片组件（通用）-设置
-import imgBannerDialog from "./common/imgBannerDialog";//图片轮播组件（通用）-设置
 export default {
   name: 'index',
   mounted() {
@@ -104,7 +101,7 @@ export default {
     });
   },
   props:['postForm'],
-  components:{headerSet,footerSet,titleDialog,imgUpDialog,imgBannerDialog},
+  components:{headerSet,footerSet,titleDialog,imgUpDialog},
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
