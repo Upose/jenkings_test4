@@ -299,7 +299,7 @@ export default {
       } else {//修改这个地方，稍微有点问题。
         val['appPlateItems'] = this.set_list || [];
         val['configParameter'] = this.configParameter || {};
-        val['commonWidgetSet'] = this.commonWidgetSet || {};
+        val['commonWidgetSet'] = this.commonWidgetSet || '{}';
         console.log(val);
         this.$emit('addCompont', { 'list': val, 'is_add_compont': false });
       }
