@@ -153,6 +153,8 @@ export default {
       this.http.getPlain_url('scene-detail', '/' + this.id).then(res => {
         if (res.data) {
           this.detailsRender(res.data);
+          //这里要加载模板才css文件
+          this.templateCssLoad(res.data.template.filePath);
         }
       }).catch(err => { })
     },
@@ -512,30 +514,36 @@ export default {
     templateClick(val) {
       if (val.list && val.list.code) {
         this.http.getPlain_url('template-default-by-code', '/' + val.list.code).then(res => {
-          this.postForm['footerTemplate'] = res.data.footerTemplate || {};
-          this.postForm['headerTemplate'] = res.data.headerTemplate || {};
-          this.postForm['sceneScreens'] = res.data.sceneScreens || [];
-          this.postForm['template'] = res.data.template || {};
-          this.postForm['themeColor'] = res.data.themeColor || 'template1';
-          //这里要清空头底模板
-          document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
-          document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
-          this.grid.removeAll();//清除元素
-          //这里还要做头部底部的更新
-          this.detailsRender(this.postForm);
-        }).catch(err => { })
-      } else {
-        console.log(val);
-        this.postForm['footerTemplate'] = {};
-        this.postForm['headerTemplate'] = {};
-        this.postForm['sceneScreens'] = [];
-        this.postForm['template'] = val.list || {};
-        this.postForm['themeColor'] = 'template1';
-        if (this.grid) {
-          this.grid.removeAll();
-        }
-        this.screen_list.forEach(item => {
-          item['sceneApps'] = [];
+          if(res.data && res.data.sceneScreens){
+            this.postForm['footerTemplate'] = res.data.footerTemplate || {};
+            this.postForm['headerTemplate'] = res.data.headerTemplate || {};
+            this.postForm['sceneScreens'] = res.data.sceneScreens || [];
+            this.postForm['template'] = res.data.template || {};
+            this.postForm['themeColor'] = res.data.themeColor || 'template1';
+            //这里要清空头底模板
+            document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
+            document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
+            this.grid.removeAll();//清除元素
+            //这里还要做头部底部的更新
+            this.detailsRender(this.postForm);
+          }else{//这里表示空模板
+            console.log(val);
+            this.postForm['footerTemplate'] = {};
+            this.postForm['headerTemplate'] = {};
+            this.postForm['sceneScreens'] = [];
+            this.postForm['template'] = val.list || {};
+            this.postForm['themeColor'] = 'template1';
+            if (this.grid) {
+              this.grid.removeAll();
+            }
+            this.screen_list.forEach(item => {
+              item['sceneApps'] = [];
+            })
+          }
+          //这里要加载模板才css文件
+          this.templateCssLoad(this.postForm.template.filePath);
+        }).catch(err => {
+          this.$message({ message: '模板信息获取失败', type: 'error' });
         })
       }
     },
@@ -632,6 +640,8 @@ export default {
           form.sceneUsers = this.postForm.sceneUsers;
           form.visitorLimitType = this.postForm.visitorLimitType;
           this.detailsRender(form);
+          //这里要加载模板才css文件
+          this.templateCssLoad(form.template.filePath);
         }
       }).catch(err => {
         console.log(err);
@@ -724,6 +734,25 @@ export default {
         case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
         case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
         case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+      }
+    },
+    //加载模板css文件
+    templateCssLoad(url){
+      console.log(url);
+      if(url){
+        var docUrl = '';
+        var temp = document.getElementById('templateId');
+        if(temp) docUrl = temp.getAttribute('href');
+        if(docUrl != url){
+          docUrl.remove();
+          //判断href是否等于当前url，不等于就删除了重新创建，等于就不创建。
+          var link=document.createElement("link"); 
+          link.setAttribute("rel", "stylesheet"); 
+          link.setAttribute("id", "templateId");
+          link.setAttribute("type", "text/css"); 
+          link.setAttribute("href", url+'?version='+new Date().getTime());
+          document.getElementsByTagName("body")[0].appendChild(link);
+        }
       }
     },
     

@@ -26,6 +26,7 @@ export default {
   created() {
     var items = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (items && items.template) {
+      this.templateCssLoad(items.template.filePath);
       document.title = items.name || '预览';
       this.bg_color = items.template.backgroundColor || '#fff';
       this.details = items;
@@ -56,6 +57,24 @@ export default {
             this.min_height = '100%';
         }
         console.log(this.is_show_page);
+    },
+    //加载模板css文件
+    templateCssLoad(url){
+      if(url){
+        var docUrl = '';
+        var temp = document.getElementById('templateId');
+        if(temp) docUrl = temp.getAttribute('href');
+        if(docUrl != url){
+          docUrl.remove();
+          //判断href是否等于当前url，不等于就删除了重新创建，等于就不创建。
+          var link=document.createElement("link"); 
+          link.setAttribute("rel", "stylesheet"); 
+          link.setAttribute("id", "templateId");
+          link.setAttribute("type", "text/css"); 
+          link.setAttribute("href", url+'?version='+new Date().getTime());
+          document.getElementsByTagName("body")[0].appendChild(link);
+        }
+      }
     },
   },
 };
