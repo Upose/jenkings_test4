@@ -65,7 +65,7 @@ export default {
         var temp = document.getElementById('templateId');
         if(temp) docUrl = temp.getAttribute('href');
         if(docUrl != url){
-          docUrl.remove();
+          if(temp)temp.remove();
           //判断href是否等于当前url，不等于就删除了重新创建，等于就不创建。
           var link=document.createElement("link"); 
           link.setAttribute("rel", "stylesheet"); 
