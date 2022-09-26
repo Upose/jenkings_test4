@@ -105,7 +105,7 @@
               </div>
               <div class="drag-box-width" v-for="i in common_tempList" @click="addCompont(i)">
                 <div class="drag-box">
-                  <img :src="fileUrl+i.icon" class="img-cover">
+                  <img :src="fileUrl+i.cover" class="img-cover">
                   <span class="d-b-txt">{{i.name||''}}</span>
                 </div>
               </div>
