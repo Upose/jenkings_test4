@@ -1,7 +1,7 @@
 {
   "name": "home_sys",
-  "version": "1.0.0",
-  "description": "新闻应用",
+  "version": "3.0.0",
+  "description": "服务中台",
   "author": "904678748@qq.com <904678748@qq.com>",
   "private": true,
   "scripts": {
