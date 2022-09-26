@@ -726,7 +726,7 @@ export default {
     gridContent(val,type){
       var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);//随机id
       var data_obj = JSON.stringify(val.configParameter || {}).replace(/\"/g, "'");
-      var data_common = (val.commonWidgetSet&&val.commonWidgetSet!='undefined'&&val.commonWidgetSet!='null')?val.commonWidgetSet.replace(/\"/g, "'"):'{}';
+      var data_common = (val.commonWidgetSet&&val.commonWidgetSet!='undefined'&&val.commonWidgetSet!='null' && Object.keys(val.commonWidgetSet).length!=0)?val.commonWidgetSet.replace(/\"/g, "'"):'{}';
       var data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
 
       switch(type){
