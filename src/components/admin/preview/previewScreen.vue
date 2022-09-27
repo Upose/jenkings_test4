@@ -46,7 +46,7 @@
 
 
 
-      <div class="temp-menu-w" v-if="(details.layoutId==2||details.layoutId==3) && details && details.sceneScreens">
+      <div class="dlib3-hovering-menu" v-if="(details.layoutId==2||details.layoutId==3) && details && details.sceneScreens">
         <a class="temp-box" :class="fullpage.current==(i+1)?'temp-box-active':''" v-for="(it,i) in (details.sceneScreens||[])" :key="i" @click="clickSilder(i)">
           <img class="temp-icon" :src="fileUrl+it.icon">
           <span class="temp-title" :title="it.screenName">{{it.screenName}}</span>
@@ -262,7 +262,7 @@ export default {
   min-height: 100%;
 }
 /****悬浮菜单样式 */
-.temp-menu-w {
+.dlib3-hovering-menu {
   position: fixed;
   right: 20px;
   z-index: 99;
