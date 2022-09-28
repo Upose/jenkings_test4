@@ -230,6 +230,15 @@ export default {
     }
   }
 }
+
+.html-warp-page{
+  overflow-x: hidden;
+}
+.preview-foot{
+  position: relative;
+  z-index: 9;
+}
+
 .mar-left-1200{
   width: 100vw !important;
   min-width: 1200px;
@@ -239,9 +248,6 @@ export default {
   width: 100vw !important;
   min-width: 1440px;
   margin-left: calc(((100vw - 1440px) / 2) - (100vw - 1440px));
-}
-.html-warp-page{
-  overflow-x: hidden;
 }
 @media screen and (max-width:1200px) {
  .mar-left-1200{margin-left:0 !important;}
