@@ -162,7 +162,7 @@
 }
 .admin-content .drag-content .drag-c .drag-container .scene-warp-bg {
   background-position: top !important;
-  background-repeat-y: no-repeat !important;
+  background-repeat: no-repeat !important;
 }
 .admin-content .drag-content .drag-c .drag-container .drag-warp-bg {
   width: 100%;

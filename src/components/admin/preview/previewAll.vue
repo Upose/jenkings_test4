@@ -146,7 +146,7 @@ export default {
       if(i<0 && this.details.sceneScreens && this.details.sceneScreens[0]){
         list = {'background':this.bg_color+' url('+this.fileUrl+(this.details.sceneScreens[0].bgImg||'')+')','background-position':'center top !important'};
       }else if(i==0){
-        list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important')};
+        list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important'),'background-repeat':'no-repeat'};
       }else{
         list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')'};
       }
