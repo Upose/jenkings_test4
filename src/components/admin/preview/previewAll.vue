@@ -146,7 +146,12 @@ export default {
       if(i<0 && this.details.sceneScreens && this.details.sceneScreens[0]){
         list = {'background':this.bg_color+' url('+this.fileUrl+(this.details.sceneScreens[0].bgImg||'')+')','background-position':'center top !important'};
       }else if(i==0){
-        list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important'),'background-repeat':'no-repeat'};
+        //这里还要判断，只有一屏的时候，不需要向上移动多少px
+        if(this.details.sceneScreens.length>0){
+          list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important'),'background-repeat':'no-repeat'};
+        }else{
+          list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-repeat':'no-repeat'};
+        }
       }else{
         list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')'};
       }
