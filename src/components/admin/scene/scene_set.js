@@ -59,7 +59,7 @@ export default {
         visitorLimitType: [],//权限控制
       },
       //左边 步骤2,3
-      appServiceType:[],//应用类型
+      appServiceType: [],//应用类型
       //以下是拖拽参数 jl_vip_zt_warp为固定class参数，为了渲染内部的删除标签等
       resource_file_list: [],//资源文件列表（需去重且需重写刷新）初始化的时候需要将数据中涉及到的js放入到里面，包括新增的时候，都需要将js重新加到这里面
 
@@ -125,7 +125,7 @@ export default {
           var set_list = e.target.dataset.set;//设置的配置参数
           var configParameter = e.target.dataset.obj;//设置的配置参数
           var commonWidgetSet = e.target.dataset.common;//设置的配置参数
-          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list, 'configParameter': configParameter,'commonWidgetSet': commonWidgetSet });
+          admin_vue.getAppDetails({ 'id': appid, 'temp_id': appwidgetid, 'is_add': false, 'set_list': set_list, 'configParameter': configParameter, 'commonWidgetSet': commonWidgetSet });
         }
       }
     },
@@ -162,14 +162,14 @@ export default {
     detailsRender(data) {
       // console.log(data);
       var _this = this;
-      if(data.template && data.template.width && data.template.width !=100){
-        _this.grid.column(data.template.width/10, 'moveScale');
-        _this.drag_width = data.template.width==100?1200:data.template.width;
+      if (data.template && data.template.width && data.template.width != 100) {
+        _this.grid.column(data.template.width / 10, 'moveScale');
+        _this.drag_width = data.template.width == 100 ? 1200 : data.template.width;
         setTimeout(() => {
           var c_height = document.body.clientHeight - 104;
           _this.setHeight(c_height);
         }, 30);
-      }else{
+      } else {
         this.grid.column(120, 'moveScale');
         this.drag_width = 1200;
       }
@@ -187,8 +187,8 @@ export default {
             h: it.height,
             x: it.xIndex,
             y: it.yIndex,
-            minW: it.appWidget?it.appWidget.width:it.width,
-            minH: it.appWidget?it.appWidget.height:it.height,
+            minW: it.appWidget ? it.appWidget.width : it.width,
+            minH: it.appWidget ? it.appWidget.height : it.height,
             appId: it.appId,
             configParameter: it.configParameter,
             commonWidgetSet: it.commonWidgetSet,
@@ -199,7 +199,7 @@ export default {
             sceneId: it.sceneId,
             sceneScreenId: it.sceneScreenId,
             widgetCode: it.appWidget.widgetCode,
-            content:admin_vue.gridContent(it,'a'),
+            content: admin_vue.gridContent(it, 'a'),
           }));
           _this.postForm.sceneScreens[index].sceneApps = result;
         })
@@ -235,7 +235,7 @@ export default {
       }
       //添加屏时，始终将尾屏放到最后
       var last_sceen = this.screen_list[this.screen_list.length - 1];
-      var sceen_name = '第' + (this.screen_list.length) + (this.postForm.layoutId==2?'段':'屏');
+      var sceen_name = '第' + (this.screen_list.length) + (this.postForm.layoutId == 2 ? '段' : '屏');
       this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name };
       this.screen_list.push(last_sceen);
     },
@@ -285,7 +285,7 @@ export default {
             configParameter: _this.apps_set_obj[item.divId] || item.configParameter,//应用对应的设置
             commonWidgetSet: _this.apps_set_common[item.divId] || item.commonWidgetSet,//应用对应的设置
             appPlateItems: _this.apps_set_list[item.divId] || item.appPlateItems,//应用对应的设置
-            content:admin_vue.gridContent(item,'b'),
+            content: admin_vue.gridContent(item, 'b'),
           }
           if (item.id) {
             item_list['id'] = item.id;
@@ -305,7 +305,7 @@ export default {
     },
     //添加组件
     addCompont(val) {
-      console.log(val,'addCompont');
+      console.log(val, 'addCompont');
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
@@ -342,7 +342,7 @@ export default {
           configParameter: data.configParameter || {},//应用对应的设置
           commonWidgetSet: data.commonWidgetSet || '{}',//应用对应的设置
           appPlateItems: data.appPlateItems || [],//应用对应的设置
-          content:admin_vue.gridContent(data,'c'),
+          content: admin_vue.gridContent(data, 'c'),
         };
         this.addCompontFlush(it);
       } else {
@@ -369,7 +369,7 @@ export default {
             appPlateItems: data.appPlateItems || [],//应用对应的设置
             widgetCode: data.widgetCode,
             appWidget: data,
-            content:admin_vue.gridContent(data,'d'),
+            content: admin_vue.gridContent(data, 'd'),
           };
           this.removeActiveClass('mask-layer');
           this.addCompontFlush(it);
@@ -514,7 +514,7 @@ export default {
     templateClick(val) {
       if (val.list && val.list.code) {
         this.http.getPlain_url('template-default-by-code', '/' + val.list.code).then(res => {
-          if(res.data && res.data.sceneScreens){
+          if (res.data && res.data.sceneScreens) {
             this.postForm['footerTemplate'] = res.data.footerTemplate || {};
             this.postForm['headerTemplate'] = res.data.headerTemplate || {};
             this.postForm['sceneScreens'] = res.data.sceneScreens || [];
@@ -526,7 +526,7 @@ export default {
             this.grid.removeAll();//清除元素
             //这里还要做头部底部的更新
             this.detailsRender(this.postForm);
-          }else{//这里表示空模板
+          } else {//这里表示空模板
             console.log(val);
             this.postForm['footerTemplate'] = {};
             this.postForm['headerTemplate'] = {};
@@ -561,7 +561,7 @@ export default {
       admin_vue.$refs.leftcheck_ref.setAppid(val.id);
       var apps_cu = this.selectApps(val.id) || {};
       admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
-      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list, 'configParameter': val.configParameter,'commonWidgetSet':val.commonWidgetSet });
+      admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list, 'configParameter': val.configParameter, 'commonWidgetSet': val.commonWidgetSet });
     },
     /***拖拽更换屏顺序**/
     dragSort() {
@@ -723,38 +723,51 @@ export default {
      appId：应用id
      appWidgetId：组件id
      */
-    gridContent(val,type){
+    gridContent(val, type) {
       var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);//随机id
       var data_obj = JSON.stringify(val.configParameter || {}).replace(/\"/g, "'");
-      var data_common = (val.commonWidgetSet&&val.commonWidgetSet!='undefined'&&val.commonWidgetSet!='null' && Object.keys(val.commonWidgetSet).length!=0)?val.commonWidgetSet.replace(/\"/g, "'"):'{}';
+      var data_common = (val.commonWidgetSet && val.commonWidgetSet != 'undefined' && val.commonWidgetSet != 'null' && Object.keys(val.commonWidgetSet).length != 0) ? val.commonWidgetSet.replace(/\"/g, "'") : '{}';
       var data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
 
-      switch(type){
-        case 'a':return '<div class="jl_vip_zt_warp ' + (val.appWidget?val.appWidget.widgetCode:val.widgetCode) + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set +'" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget?val.appWidget.id:val.id) + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
-        case 'b':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
-        case 'c':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
-        case 'd':return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget?val.appWidget.code:val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="'+data_common+'"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="'+data_common+'" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+      switch (type) {
+        case 'a': return '<div class="jl_vip_zt_warp ' + (val.appWidget ? val.appWidget.widgetCode : val.widgetCode) + '" data-code="' + (val.appWidget ? val.appWidget.code : val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget ? val.appWidget.id : val.id) + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'b': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.code : val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
+        case 'c': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.code : val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'd': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.code : val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
       }
     },
     //加载模板css文件
-    templateCssLoad(url){
+    templateCssLoad(url) {
       console.log(url);
-      if(url){
+      if (url) {
         var docUrl = '';
         var temp = document.getElementById('templateId');
-        if(temp) docUrl = temp.getAttribute('href');
-        if(docUrl != url){
-          if(temp)temp.remove();
+        if (temp) docUrl = temp.getAttribute('href');
+        if (docUrl != url) {
+          if (temp) temp.remove();
           //判断href是否等于当前url，不等于就删除了重新创建，等于就不创建。
-          var link=document.createElement("link"); 
-          link.setAttribute("rel", "stylesheet"); 
+          var link = document.createElement("link");
+          link.setAttribute("rel", "stylesheet");
           link.setAttribute("id", "templateId");
-          link.setAttribute("type", "text/css"); 
-          link.setAttribute("href", url+'?version='+new Date().getTime());
-          document.getElementsByTagName("body")[0].appendChild(link);
+          link.setAttribute("type", "text/css");
+          link.setAttribute("href", url + '?version=' + new Date().getTime());
+          if(document.getElementsByTagName("body"))document.getElementsByTagName("body")[0].appendChild(link);
         }
       }
     },
-    
+    //样式设置
+    sceenBgImg(it) {
+      var list = {};
+      if (it.bgImg) {
+        if (this.postForm.layoutId != 1) {
+          list = { 'background': ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(this.postForm.headerTemplate.height * 10) + 'px !important'), 'background-repeat-y': 'no-repeat','background-repeat-x':'initial !important'};
+        } if (this.postForm.layoutId == 1) {
+          list = { 'background': ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': ((this.postForm.headerTemplate.height * 10) + 'px !important'), 'background-repeat-y': 'no-repeat','background-repeat-x':'initial !important'};
+        }else {
+          list = { 'background': ' url(' + this.fileUrl + (it.bgImg || '') + ')','background-repeat-y': 'no-repeat !important','background-repeat-x':'initial !important'};
+        }
+      }
+      return list;
+    },
   },
 }

@@ -1,14 +1,6 @@
 var fileUrl = window.localStorage.getItem('fileUrl');
 var grid = null;
 
-//背景设置
-Vue.prototype.sceenBgImg = function (val) {
-    if (val && val.bgImg) {
-        return fileUrl + val.bgImg;
-    } else {
-        return '';
-    }
-}
 //全屏拖拽
 Vue.prototype.fullScreen = function () {
     document.getElementsByClassName('drag-c')[0].setAttribute('class', 'drag-c fullScreen');//drag-c
