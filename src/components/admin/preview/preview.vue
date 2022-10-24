@@ -4,6 +4,7 @@
     <previewAll :details="details" v-if="is_show_page == 'previewAll'"></previewAll>
     <previewLeftmenu :details="details" v-if="is_show_page == 'previewLeftmenu'"></previewLeftmenu>
     <previewScreen :details="details" v-if="is_show_page == 'previewScreen'"></previewScreen>
+    <previewScreenSZY :details="details" v-if="is_show_page == 'previewScreenSZY'"></previewScreenSZY>
   </div>
 </template>
 
@@ -11,9 +12,10 @@
 import previewAll from './previewAll.vue';//所有页预览
 import previewLeftmenu from './previewLeftmenu.vue';//演示站点
 import previewScreen from './previewScreen.vue';//通屏-滚屏预览
+import previewScreenSZY from './previewScreenSZY.vue';//通屏-滚屏预览
 export default {
   name: "index",
-  components: { previewAll, previewLeftmenu, previewScreen },
+  components: { previewAll, previewLeftmenu, previewScreen,previewScreenSZY },
   data() {
     return {
       bgColor: '#fff',//背景颜色
@@ -50,9 +52,14 @@ export default {
             this.is_show_page = 'previewLeftmenu';
             this.min_height = '100%';
         } else if (this.details.template.layoutId == 3) {
+          if(this.details.sceneGroupId == 'fdaa5e85-d022-438e-b4a7-d1cf54753bac'){//特殊-深职院
+            this.is_show_page = 'previewScreenSZY';
+            this.min_height = '100%';
+          }else{
             this.is_show_page = 'previewScreen';
             this.min_height = '100%';
-        } else {
+          }
+        }else{
             this.is_show_page = 'previewAll';
             this.min_height = '100%';
         }
