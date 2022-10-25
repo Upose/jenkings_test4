@@ -360,11 +360,10 @@ export default {
 
 //单独针对此模板的样式
 #temp1 {
-  background-image: url(/static/images/szy/part2-rightbg.png),
-    url(/static/images/szy/line-bg.jpg);
+  background-image: url(../../../../static/images/szy/part2-rightbg.png),url(../../../../static/images/szy/line-bg.jpg);
   background-position: 100% 0%, bottom center;
   background-repeat: no-repeat;
-  background-size: auto !important;
+  background-size: auto,100% !important;
   .scene-warp-bg {
     position: relative;
     .bocy-content {
@@ -384,8 +383,14 @@ export default {
     }
   }
 }
+#temp2{
+  background-image: url(../../../../static/images/szy/line-bg.jpg);
+  background-position:bottom center;
+  background-repeat: no-repeat;
+  background-size: 100% !important;
+}
 #temp3 {
-  background: url(/static/images/szy/leftbg.png) left top no-repeat,url(/static/images/szy/line-bg.jpg) bottom center no-repeat;
+  background: url(../../../../static/images/szy/leftbg.png) left top no-repeat,url(../../../../static/images/szy/line-bg.jpg) bottom center no-repeat;
   background-size: 20%, 100%, 100% !important;
   .scene-warp-bg {
     position: relative;
@@ -407,17 +412,17 @@ export default {
   }
 }
 #temp4{
-    background-image: url(/static/images/szy/line-bg.jpg);
+    background-image: url(../../../../static/images/szy/line-bg.jpg);
     background-position:bottom center;
     background-repeat: no-repeat;
-    background-size: auto !important;
+    background-size: 100% !important;
 }
 #temp5{
-  background: url(/static/images/szy/part1-bg-left.png) left bottom 144% no-repeat, url(/static/images/szy/part3-bg-right.png) right -70px top -7% no-repeat, url(/static/images/szy/line-bg.jpg) bottom center no-repeat;
+  background: url(../../../../static/images/szy/part1-bg-left.png) left bottom 144% no-repeat, url(../../../../static/images/szy/part3-bg-right.png) right -70px top -7% no-repeat, url(../../../../static/images/szy/line-bg.jpg) bottom center no-repeat;
   background-size: 14%, 25%, 100% !important;
 }
 #temp6{
-  background: url(/static/images/szy/part1-bg-left.png) left bottom 58% no-repeat, url(/static/images/szy/part3-bg-right.png) right -20px top -16% no-repeat;
+  background: url(../../../../static/images/szy/part1-bg-left.png) left bottom 58% no-repeat, url(../../../../static/images/szy/part3-bg-right.png) right -20px top -16% no-repeat;
   background-size: 14%, 22% !important;
 }
 </style>
