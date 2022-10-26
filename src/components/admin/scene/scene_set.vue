@@ -37,7 +37,7 @@
             <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
               <div class="drag-warp-bg jl_vip_zt_warp_preview" :style="{'zoom':ratio_num}">
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
-                <div class="scene-warp-bg" :style="sceenBgImg(postForm.sceneScreens[screen_cu])">
+                <div class="scene-warp-bg" :style="sceenBgImg(postForm.sceneScreens[screen_cu])" :id="'temp'+screen_cu">
                   <div class="jl_vip_zt_warp_hf head" :class="is_HF=='header'?'mask-layer-active':''" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="min-height:80px" :style="{'height':(postForm.headerTemplate.height*10)+'px'}">
                     <div class="mask-layer head"></div>
                     <i class="jl_vip_zt_del" @click="delTempHF('header')"></i>
