@@ -724,14 +724,14 @@ export default {
      appWidgetId：组件id
      */
     gridContent(val, type) {
+      if(val==null){
+        console.log('组件元素不存在：',val);
+        return '<div></div>';
+      }
       var create_id = 'jl_vip_zt_' + Math.ceil(Math.random() * 1e8);//随机id
       var data_obj = JSON.stringify(val.configParameter || {}).replace(/\"/g, "'");
       var data_common = (val.commonWidgetSet && val.commonWidgetSet != 'undefined' && val.commonWidgetSet != 'null' && Object.keys(val.commonWidgetSet).length != 0) ? val.commonWidgetSet.replace(/\"/g, "'") : '{}';
       var data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
-      if(!val.appWidget){
-        console.log('组件元素不存在：',val);
-        return '<div></div>';
-      }
       switch (type) {
         case 'a': return '<div class="jl_vip_zt_warp ' + (val.appWidget ? val.appWidget.widgetCode : val.widgetCode) + '" data-code="' + (val.appWidget ? val.appWidget.code : val.code) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget ? val.appWidget.id : val.id) + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
         case 'b': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.code : val.code) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
