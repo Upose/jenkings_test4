@@ -35,12 +35,12 @@ export default {
         'scene-detail-group': baseURL + '/api/scene-manage/scene-detail', //获取分组场景详情 {sceneid}/{visitorlimittype}/{usersetid}
 
         //头部底部设置信息
-        'head-template-settings-by-id': baseURL + '/api/header-footer/head-template-settings-by-id', //获取头部模板高级设置项
-        'foot-template-settings-by-id': baseURL + '/api/header-footer/foot-template-settings-by-id', //获取底部模板高级设置项
-        'head-template-settings-update': baseURL + '/api/header-footer/head-template-settings-update', //更新头部模板高级设置项
-        'head-template-settings-add': baseURL + '/api/header-footer/head-template-settings-add', //新增头部模板高级设置项
-        'foot-template-settings-update': baseURL + '/api/header-footer/foot-template-settings-update', //更新底部模板高级设置项
-        'foot-template-settings-add': baseURL + '/api/header-footer/foot-template-settings-add', //新增底部模板高级设置项
+        // 'head-template-settings-by-id': baseURL + '/api/header-footer/head-template-settings-by-id', //获取头部模板高级设置项
+        // 'foot-template-settings-by-id': baseURL + '/api/header-footer/foot-template-settings-by-id', //获取底部模板高级设置项
+        // 'head-template-settings-update': baseURL + '/api/header-footer/head-template-settings-update', //更新头部模板高级设置项
+        // 'head-template-settings-add': baseURL + '/api/header-footer/head-template-settings-add', //新增头部模板高级设置项
+        // 'foot-template-settings-update': baseURL + '/api/header-footer/foot-template-settings-update', //更新底部模板高级设置项
+        // 'foot-template-settings-add': baseURL + '/api/header-footer/foot-template-settings-add', //新增底部模板高级设置项
         'nav-column-list': baseURL + '/api/header-footer/nav-column-list', //获取栏目列表
         
         //新接口

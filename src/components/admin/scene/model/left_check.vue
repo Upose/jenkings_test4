@@ -115,7 +115,7 @@
 
         </div>
       </div>
-      <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
+      <!-- <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i> -->
     </div>
     <advanced @hfHide="header_footer_show = false" :postForm="postForm" v-if="header_footer_show"></advanced>
   </div>
@@ -392,4 +392,17 @@ export default {
 @import "~@/assets/admin/css/style.less";
 @import "../scene_set.less";
 @import "./model.less";
+.drag-l{
+  position: fixed !important;
+  z-index: 99 !important;
+  height: 700px;
+  top: 110px !important;
+  left:110px !important;
+  border: 1px solid #eee;
+  .drag-l-pad{
+    height: 100% !important;
+    min-height: auto !important;
+    overflow-y: auto !important;
+  }
+}
 </style>

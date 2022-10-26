@@ -76,7 +76,7 @@
         </div>
         <!--右边菜单 end-->
       </div>
-      <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
+      <!-- <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i> -->
     </div>
     <!------------以下组件部分，主要是弹窗-各种高级设置等---------------->
     <headerSet v-if="headerSet" :postForm="postForm" @hfHide="hfHide" ></headerSet>
@@ -468,4 +468,17 @@ export default {
 @import "~@/assets/admin/css/style.less";
 @import "../scene_set.less";
 @import "./model.less";
+.drag-r{
+  position: fixed !important;
+  z-index: 99 !important;
+  height:700px;
+  top: 110px !important;
+  right:20px !important;
+  border: 1px solid #eee;
+  .drag-r-pad{
+    height: 100% !important;
+    min-height: auto !important;
+    overflow-y: auto !important;
+  }
+}
 </style>
