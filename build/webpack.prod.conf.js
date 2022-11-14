@@ -78,7 +78,8 @@ const webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
-      htmlFileUrl: env.VUE_APP_FILE_URL
+      htmlFileUrl: env.VUE_APP_FILE_URL,
+      local: env.LOCAL,
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
