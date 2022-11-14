@@ -6,71 +6,40 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // { path: '/', redirect: '/admin_caseShow' },
     {
       path: '/web',
       name: 'index',
-      component: r => require.ensure([], () => r(require('@/components/web/common/index')), 'index'),
+      component: r => require.ensure([], () => r(require('@/views/web/common/index')), 'index'),
       meta: { title: '首页' , keepAlive:true},
       children:webRouter.router,
     },
     {
       path: '/admin',
       name: 'index',
-      component: r => require.ensure([], () => r(require('@/components/admin/common/index')), 'index'),
+      component: r => require.ensure([], () => r(require('@/views/admin/common/index')), 'index'),
       meta: { title: '首页' , keepAlive:true},
       children:adminRouter.router,
     },
     {
       path: '/admin_preview',
       name: 'admin_preview',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/preview')), 'scene'),
+      component: r => require.ensure([], () => r(require('@/views/admin/preview/preview')), 'scene'),
       meta: { title: '服务中台-预览' , keepAlive:true},
     },
-    // {
-    //   path: '/admin_previewScreen',
-    //   name: 'admin_previewScreen',
-    //   component: r => require.ensure([], () => r(require('@/components/admin/preview/previewScreen')), 'scene'),
-    //   meta: { title: '服务中台-整屏' , keepAlive:true},
-    // },
-    // {
-    //   path: '/admin_previewLeftmenu',
-    //   name: 'admin_previewLeftmenu',
-    //   component: r => require.ensure([], () => r(require('@/components/admin/preview/previewLeftmenu')), 'scene'),
-    //   meta: { title: '服务中台-预览(针对左侧固定)' , keepAlive:true},
-    // },
-    // {
-    //   path: '/admin_previewAll',
-    //   name: 'admin_previewAll',
-    //   component: r => require.ensure([], () => r(require('@/components/admin/preview/previewAll')), 'scene'),
-    //   meta: { title: '服务中台-预览（普通分屏+通屏）' , keepAlive:true},
-    // },
     {
       path: '/403',
       name: '403',
-      component: r => require.ensure([], () => r(require('@/components/403')), 'index'),
+      component: r => require.ensure([], () => r(require('@/views/403')), '403'),
     },
     {
       path: '/404',
       name: '404',
-      component: r => require.ensure([], () => r(require('@/components/404')), 'index'),
+      component: r => require.ensure([], () => r(require('@/views/404')), '404'),
     },
     {
       path: '/500',
       name: '500',
-      component: r => require.ensure([], () => r(require('@/components/500')), 'index'),
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/test')), 'scene'),
-      meta: { title: '点击滚动到指定位置' , keepAlive:true},
-    },
-    {
-      path: '/test1',
-      name: 'test',
-      component: r => require.ensure([], () => r(require('@/components/admin/preview/test1')), 'scene'),
-      meta: { title: '滚屏' , keepAlive:true},
+      component: r => require.ensure([], () => r(require('@/views/500')), '500'),
     },
     {//重定向中间件
       path: '/',
