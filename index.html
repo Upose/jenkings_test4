@@ -7,50 +7,30 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
     <title>服务中台</title>
     
-    <script src="./static/assets/other/i18n/vue-i18n.js"></script>
-    <script src="./static/assets/other/vue/vue.js"></script>
-    <script src="./static/assets/other/axios/axios.min.js"></script>
-    <script src="./static/assets/other/axios/qs.min.js"></script>
-    <script src="./static/assets/other/tinymce/v5_5_0/tinymce.min.js"></script>
-    <!--下面两个（rxjs.umd.js/searchExpressionResolver.js）主要是针对检索框的-->
-    <!-- <script src="http://192.168.21.46:6900/public/js/rxjs.umd.js"></script>
-    <script src="http://192.168.21.46:6900/public/js/searchExpressionResolver.js"></script> -->
-
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/rxjs.umd.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/searchExpressionResolver.js"></script>
-    <!-- <script src="https://smart.vipslib.com/static/assets/js/rxjs.umd.js"></script>
-    <script src="https://smart.vipslib.com/static/assets/js/searchExpressionResolver.js"></script> -->
-    <!-- <script src="http://202.202.12.19:800/cdn/public/js/rxjs.umd.js"></script>
-    <script src="http://202.202.12.19:800/cdn/public/js/searchExpressionResolver.js"></script> -->
-    
-    <script src="./static/assets/other/babel-polyfill/polyfill.min.js"></script>
-    <!---后台管理系统插件--->
-    <link rel="stylesheet" href="./static/assets/other/element-ui/index.css">
-    <link rel="stylesheet" href="./static/assets/other/element-ui/fonts/icon.css">
-    <script src="./static/assets/other/element-ui/index.js"></script>
-    <script src="./static/assets/other/Sortable/Sortable.min.js"></script>
-    <script src="./static/assets/other/vue-cropper/dist/index.js"></script>
-    <link href="./static/assets/other/gridstack/gridstack.css" rel="stylesheet"/>
-    <link href="./static/assets/other/gridstack/gridstack-extra.css" rel="stylesheet"/>
-    <link href="./static/assets/other/gridstack/update_class.css" rel="stylesheet"/>
-    <script src="./static/assets/other/gridstack/gridstack-h5.js"></script>
-    <script src="./static/assets/other/echars/echarts.min.js"></script>
-    
-    <!-- <script src="http://192.168.21.46/cdn/public/js/ApplicationBuilder.js"></script>
-    <link rel="stylesheet" href="http://192.168.21.46:6900/public/css/vipsmart-dalib3-skin.css"/>
-	  <link rel="stylesheet" href="http://192.168.21.46:6900/public/css/public.css"/> -->
-
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/ApplicationBuilder.js"></script>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>element-ui/index.css">
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>element-ui/fonts/icon.css">
+    <!-- <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack-extra.css"/> -->
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/update_class.css"/>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack.css"/>
     <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/css/vipsmart-dalib3-skin.css"/>
 	  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/css/public.css"/>
-    
-    <!-- <link rel="stylesheet" href="https://smart.vipslib.com/cdn/public/css/color.css"/>
-	  <link rel="stylesheet" href="https://smart.vipslib.com/cdn/public/css/public.css"/>
-    <script src="https://smart.vipslib.com/cdn/public/js/ApplicationBuilder.js"></script> -->
 
-    <!-- <script src="http://202.202.12.19:800/cdn/public/js/ApplicationBuilder.js"></script>
-    <link rel="stylesheet" href="http://202.202.12.19:800/cdn/public/css/public.css"/>
-    <link rel="stylesheet" href="http://202.202.12.19:800/cdn/public/css/color.css"> -->
+    <script src="<%= htmlWebpackPlugin.options.local%>babel-polyfill/polyfill.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>vue/vue.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>axios/axios.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>axios/qs.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>tinymce/v5_5_0/tinymce.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>element-ui/index.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>Sortable/Sortable.min.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>vue-cropper/dist/index.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack-h5.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.local%>echars/echarts.min.js"></script>
+
+    <!--下面两个（rxjs.umd.js/searchExpressionResolver.js）主要是针对检索框的-->
+    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/common.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/rxjs.umd.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/searchExpressionResolver.js"></script>
+    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/ApplicationBuilder.js"></script>
     
   </head>
   <body>
