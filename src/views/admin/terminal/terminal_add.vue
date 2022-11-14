@@ -6,7 +6,7 @@
       <el-main class="admin-content pd admin-bg-top" :class="{'content-collapse':$root.collapse}">
         <breadcrumb :cuMenu="id?'编辑终端':'添加终端'" :fontColor="'fff'"></breadcrumb><!--面包屑导航--->
         <div class="content">
-          <el-form :model="postForm" label-suffix="：" :rules="rules" ref="postForm" label-width="130px" class="admin-form">
+          <el-form :model="postForm" label-suffix="：" :rules="rules" ref="postForm" label-width="160px" class="admin-form">
             <h1 class="s-b-border-title">{{id?'编辑终端':'添加终端'}}</h1>
             <div class="form-content">
               <el-form-item label="终端名称" prop="name">
@@ -26,7 +26,27 @@
               <el-form-item label="黑白模式">
                 <el-switch :active-value="1" :inactive-value="0" v-model="postForm.commemorate"></el-switch>
               </el-form-item>
-              <el-form-item label="终端logo" prop="logo">
+              <el-form-item label="管理系统LOGO普通" prop="logo" v-if="IsSystemInstance && postForm.terminalType==1">
+                <div class="up-img-form-item">
+                  <div class="up-img-warp" v-if="postForm.logo">
+                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
+                  </div>
+                  <div class="up-img-warp up-icon" @click="upImg()">
+                    <span>上传图标</span>
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="管理系统LOGO简洁" prop="logo" v-if="IsSystemInstance && postForm.terminalType==1">
+                <div class="up-img-form-item">
+                  <div class="up-img-warp" v-if="postForm.logo">
+                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
+                  </div>
+                  <div class="up-img-warp up-icon" @click="upImg()">
+                    <span>上传图标</span>
+                  </div>
+                </div>
+              </el-form-item>
+              <el-form-item label="终端LOGO" prop="logo">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.logo">
                     <img :src="postForm.logo?(basurl+postForm.logo):default_img">
@@ -158,6 +178,7 @@ export default {
     return {
       dialogUPimg:false,
       dialogSelectimg:false,
+      IsSystemInstance:false,//是否默认终端
       basurl:window.localStorage.getItem('fileUrl')+'/',
       default_img:require("../../../assets/admin/img/icon2.png"),
       select_img:{},
@@ -230,10 +251,11 @@ export default {
   },
   methods:{
     initData(){
-      this.http.getPlain_url('terminal-instance-detail','/'+this.id).then(res=>{ //学生专区
+      this.http.getPlain_url('terminal-instance-detail','/'+this.id).then(res=>{
         this.postForm = res.data||{};
         this.head_check = this.postForm.headerTemplateId||'';
         this.footer_check = this.postForm.footerTemplateId||'';
+        this.IsSystemInstance = res.data.isSystemInstance;
       }).catch(err=>{
           console.log(err);
       })

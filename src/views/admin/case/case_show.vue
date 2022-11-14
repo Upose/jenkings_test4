@@ -34,6 +34,7 @@
                       <li @click="delClick(i)" v-if="!i.isSystemScene && $authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                       <li @click="previewClick(i)" v-if="$authShowBtn('scene-manage_preview')"><i class="iconfont el-icon-vip-yulan"></i><span>预览</span></li>
                       <li @click="disableClick(i)" v-if="$authShowBtn('scene-manage_disable')"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>{{i.status==1?'启用':'禁用'}}</span></li>
+                      <li @click="setDefalutHome(i)"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>默认首页</span></li>
                     </ul>
                   </el-popover>
                   </span>
@@ -212,6 +213,10 @@ export default {
       }).catch(() => {
         this.$message({type: 'info',message: '已取消操作'});          
       });
+    },
+    //开启默认首页
+    setDefalutHome(val){
+      alert('等待调用接口，刷新页面');
     },
     //预览场景
     previewClick(val){
