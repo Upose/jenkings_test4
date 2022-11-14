@@ -158,7 +158,7 @@ export default {
     },
     //详情渲染
     detailsRender(data) {
-      console.log('详情渲染',data);
+      // console.log('详情渲染',data);
       var _this = this;
       if (data.template && data.template.width && data.template.width != 100) {
         _this.$addStyle('./static/js/gridstack/gridstack_extra_'+data.template.width+'.css');
@@ -305,7 +305,7 @@ export default {
     },
     //添加组件
     addCompont(val) {
-      console.log(val, 'addCompont');
+      // console.log(val, 'addCompont');
       var data = val.list;//模板参数
       var is_add = val.is_add_compont;//添加模板还是修改模板 true添加模板
       var component_id = 'jl_vip_zt_' + new Date().getTime();//这里的id要动态
