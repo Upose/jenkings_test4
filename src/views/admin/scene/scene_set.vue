@@ -84,12 +84,10 @@
         </div>
       </el-main>
     </el-container>
-    <el-button icon="iconfont el-icon-vip-quanpingsuoxiao" size="medium" class="s-r-f-r CloseFullScreen" @click="CloseFullScreen()">取消</el-button>
   </div>
 </template>
 
 <script>
-import common from "./model/common";//公共方法
 import scene_set from "./scene_set";
 export default {
   components: scene_set.components,
