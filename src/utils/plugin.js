@@ -26,7 +26,25 @@ function backHistory(){
   }
   return is_open;
 }
-
+function fileUpload(e,field) {
+  let $target = e.target || e.srcElement
+  let file = $target.files[0]
+  if (!file) {
+    return
+  }
+  let formData = new FormData()
+  formData.append('files', file)
+  if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif') {
+    this.$message({ type: 'error', message: '请上传图片文件!' });
+    return;
+  }
+  http.postFile("UploadFile", formData).then((res) => {
+    bus.$emit('getUpladFile',{key:field,url:res.data[0]});
+  }).catch((err) => {
+    this.$message({ type: 'error', message: err.message||'上传失败!' });
+  });
+  e.target.value = null;
+}
 function addStyle(url){
   var link=document.createElement("link"); 
   link.setAttribute("rel", "stylesheet"); 
@@ -61,6 +79,7 @@ function authShowBtn(value){
 
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
+Vue.prototype.$fileUpload = fileUpload;//文件上传
 Vue.prototype.$backHistory = backHistory;//返回上一页-针对浏览器
 Vue.prototype.$isThirdpartyApp = isThirdpartyApp;//判断是否本站地址url,返回true表示本站，无需open()
 Vue.prototype.$addStyle = addStyle;//引入css文件

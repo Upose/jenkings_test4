@@ -26,23 +26,25 @@
               <el-form-item label="黑白模式">
                 <el-switch :active-value="1" :inactive-value="0" v-model="postForm.commemorate"></el-switch>
               </el-form-item>
-              <el-form-item label="管理系统LOGO普通" prop="logo" v-if="IsSystemInstance && postForm.terminalType==1">
+              <el-form-item label="管理系统LOGO普通" prop="logo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.logo">
                     <img :src="postForm.logo?(basurl+postForm.logo):default_img">
                   </div>
-                  <div class="up-img-warp up-icon" @click="upImg()">
+                  <div class="up-img-warp up-icon">
                     <span>上传图标</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'adminLogo')">
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="管理系统LOGO简洁" prop="logo" v-if="IsSystemInstance && postForm.terminalType==1">
+              <el-form-item label="管理系统LOGO简洁" prop="logo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.logo">
                     <img :src="postForm.logo?(basurl+postForm.logo):default_img">
                   </div>
-                  <div class="up-img-warp up-icon" @click="upImg()">
+                  <div class="up-img-warp up-icon">
                     <span>上传图标</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'adminLogomin')">
                   </div>
                 </div>
               </el-form-item>
@@ -51,8 +53,9 @@
                   <div class="up-img-warp" v-if="postForm.logo">
                     <img :src="postForm.logo?(basurl+postForm.logo):default_img">
                   </div>
-                  <div class="up-img-warp up-icon" @click="upImg()">
+                  <div class="up-img-warp up-icon">
                     <span>上传图标</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'logo')">
                   </div>
                 </div>
               </el-form-item>
@@ -115,9 +118,9 @@
             </div>
           </el-form>
         </div><!---顶部查询板块 end--->
-        <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleClose">
+        <!-- <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleClose">
           <UpdateImg @imgUrl="imgUrl" :imgWidth="100" :imgHeight="100"></UpdateImg>
-        </el-dialog>
+        </el-dialog> -->
         <el-dialog append-to-body title="图片选择" :visible.sync="dialogSelectimg" width="540px" :close-on-click-modal="false" :before-close="selectImgClose">
           <p class="el-form-img-box-hint">点击图标即可选中所需要的图标</p>
           <div class="c-l">
@@ -248,6 +251,9 @@ export default {
     }).catch(err=>{
 
     })
+    this.bus.$on("getUpladFile",(mes)=>{
+      console.log(mes);
+    })
   },
   methods:{
     initData(){
@@ -357,6 +363,7 @@ export default {
           this.postForm.footerTemplateId = this.footer_check;
         }
       }
+      console.log(this.postForm);return;
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){
