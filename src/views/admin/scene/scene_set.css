@@ -1,13 +1,32 @@
-/****针对阴影****/
-.content-collapse::after {
-  content: '';
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  left: 0;
-  z-index: 9;
+.fixed-menu-w {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.08);
+  margin-bottom: 5px;
+  position: relative;
+}
+.fixed-menu-w span {
+  color: #34395E;
+  font-size: 16px;
+  padding: 10px 0;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.fixed-menu-w span:hover {
+  color: #6777ef;
+  font-weight: bold;
+  border-bottom: 2px solid #6777ef;
+}
+.fixed-menu-w .active {
+  color: #6777ef;
+  font-weight: bold;
+  border-bottom: 2px solid #6777ef;
+}
+.fixed-menu-w .r-bt {
   position: absolute;
-  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.13);
+  right: 15px;
+  top: 0px;
 }
 .admin-content {
   background-color: #fff;
@@ -21,9 +40,7 @@
   position: relative;
   background-color: #F1F3F7;
 }
-.admin-content .drag-content .drag-l,
-.admin-content .drag-content .drag-c,
-.admin-content .drag-content .drag-r {
+.admin-content .drag-content .drag-c {
   position: absolute;
   bottom: 0;
   top: 0;
@@ -33,7 +50,7 @@
 .admin-content .drag-content .drag-r-pad {
   width: 100%;
   height: 100%;
-  min-height: 700px;
+  min-height: 500px;
   padding: 0 20px;
   padding-bottom: 20px;
   overflow-y: auto;
@@ -74,9 +91,13 @@
 }
 .admin-content .drag-content .drag-l,
 .admin-content .drag-content .drag-r {
+  position: fixed;
+  top: 110px;
+  z-index: 9;
+  background: #fff;
   width: 255px;
   z-index: 2;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
 }
 .admin-content .drag-content .drag-l .cut-btn,
 .admin-content .drag-content .drag-r .cut-btn {
@@ -102,23 +123,11 @@
   opacity: 1;
 }
 .admin-content .drag-content .drag-l {
-  left: 0;
+  left: 90px;
 }
 .admin-content .drag-content .drag-l .cut-btn {
   left: 255px;
   border-radius: 0px 40px 40px 0px;
-}
-.admin-content .drag-content .drag-l-hide {
-  width: 0;
-}
-.admin-content .drag-content .drag-l-hide .left-check-page {
-  overflow: hidden;
-}
-.admin-content .drag-content .drag-l-hide .cut-btn {
-  left: 0;
-}
-.admin-content .drag-content .drag-l-hide .drag-l-pad {
-  padding: 0;
 }
 .admin-content .drag-content .drag-r {
   right: 0;
@@ -127,21 +136,9 @@
   right: 255px;
   border-radius: 40px 0px 0px 40px;
 }
-.admin-content .drag-content .drag-r-hide {
-  width: 0;
-}
-.admin-content .drag-content .drag-r-hide .right-check-page {
-  overflow: hidden;
-}
-.admin-content .drag-content .drag-r-hide .cut-btn {
-  right: 0;
-}
-.admin-content .drag-content .drag-r-hide .drag-r-pad {
-  padding: 0;
-}
 .admin-content .drag-content .drag-c {
-  left: 289px;
-  right: 289px;
+  left: 0;
+  right: 0;
   z-index: 1;
   background-color: #F1F3F7;
   /***************屏幕按钮板块 */
@@ -285,14 +282,6 @@
 .admin-content .drag-content .drag-c .screen-btn-drag .s-b-add {
   margin-right: 0 !important;
   background: #E4E6FC;
-}
-.admin-content .drag-content .drag-c-l-tran {
-  left: 34px;
-  transition: left 0.3s ease-in-out;
-}
-.admin-content .drag-content .drag-c-r-tran {
-  right: 34px;
-  transition: right 0.3s ease-in-out;
 }
 .jl_vip_zt_warp_hf {
   position: relative;

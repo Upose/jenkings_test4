@@ -20,6 +20,11 @@
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_head.logo=''"></i>
             </div>
           </el-form-item>
+          <el-form-item label="附加组件" prop="logo">
+              <el-checkbox-group v-model="postForm.append" :disabled="id?true:false">
+                <el-checkbox  v-for="(it,i) in append_list" :key="i" :label="it.value">{{it.key}}</el-checkbox>
+              </el-checkbox-group>
+          </el-form-item>
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
               <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
@@ -69,7 +74,16 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       dialogBulk: true,//模板选择
-      jsList: [{}],
+      jsList: [{}],//js组件
+      append_list:[
+        {key:'显示IP',value:'1'},
+        {key:'天气预报',value:'1'},
+        {key:'日历组件',value:'1'},
+        {key:'VPN登录',value:'1'},
+        {key:'欢迎词',value:'1'},
+        {key:'消息提醒',value:'1'},
+        {key:'开馆时间',value:'1'},
+      ],//附加组件选择列表
       coumn_data_list: [],//栏目列表-列表
       sortList:[{key: "默认", value: "Default", icon: null}],//排序方式-列表
       topCountList:[

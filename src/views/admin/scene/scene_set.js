@@ -607,18 +607,6 @@ export default {
         this.drag_height = val;
       }
     },
-    //两边折叠-重新设置中间区域
-    isFoldClass() {
-      var cls = '';
-      if (this.left_fold && this.right_fold) {
-        cls = 'drag-c-l-tran drag-c-r-tran';
-      } else if (this.left_fold) {
-        cls = 'drag-c-l-tran';
-      } else if (this.right_fold) {
-        cls = 'drag-c-r-tran';
-      }
-      return cls;
-    },
     //加载资源文件
     loadRes() {
       if (this.screen_list[this.screen_cu]['sceneApps']) {

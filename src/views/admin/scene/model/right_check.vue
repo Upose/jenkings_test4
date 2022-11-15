@@ -1,6 +1,13 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
-  <div class="drag-r" :class="right_fold?'drag-r-hide':''">
+  <div class="drag-r">
+    <div class="fixed-menu-w">
+      <span class="box active">应用设置</span>
+      <div class="r-bt">
+        <i class="el-icon-minus" @click="topFold()"></i>
+        <i class="el-icon-rank" @click="topFold()"></i>
+      </div>
+    </div>
     <div class="drag-r-pad">
       <div class="right-check-page">
         <div class="drag-r-warp">
@@ -76,7 +83,7 @@
         </div>
         <!--右边菜单 end-->
       </div>
-      <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i>
+      <!-- <i class="cut-btn" :class="right_fold?'el-icon-arrow-left':'el-icon-arrow-right'" @click="rightFold()"></i> -->
     </div>
     <!------------以下组件部分，主要是弹窗-各种高级设置等---------------->
     <headerSet v-if="headerSet" :postForm="postForm" @hfHide="hfHide" ></headerSet>
@@ -180,7 +187,7 @@ export default {
     setAppsName(val) {
       this.apps_name = val;
     },
-    /***右边折叠 */
+    /***右边折叠-改造为隐藏块-也就是最小化功能 */
     rightFold() {
       this.right_fold = !this.right_fold;
       this.$emit("update:right_fold", this.right_fold);

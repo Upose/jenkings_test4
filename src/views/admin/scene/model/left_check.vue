@@ -1,11 +1,19 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
-  <div class="drag-l" :class="left_fold?'drag-l-hide':''">
+  <div class="drag-l">
+    <div class="fixed-menu-w">
+      <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">主题风格</span>
+      <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">应用选择</span>
+      <div class="r-bt">
+        <i class="el-icon-minus" @click="topFold()"></i>
+        <i class="el-icon-rank" @click="topFold()"></i>
+      </div>
+    </div>
     <div class="drag-l-pad">
       <div class="left-check-page">
         <div class="drag-l-warp">
-          <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1>
-          <el-collapse v-model="activeCollapse" class="drag-collapse">
+          <!-- <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1> -->
+          <el-collapse v-model="activeCollapse" class="drag-collapse" v-show="div_num=='1'">
             <el-collapse-item title="请选择布局" name="1">
               <div class="drag-box-width" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
                 <div class="drag-box" :class="postForm.layoutId==i.value?'box-active':''" :title="i.key">
@@ -66,47 +74,49 @@
 
           </el-collapse>
 
-          <div class="step-three">
-            <h1 class="step-num">
-              <span class="num">3</span><span class="txt">应用选择</span>
-              <el-dropdown trigger="click" class="r-select">
-                <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
-            </h1>
-            <!--选择应用类型 end-->
+          <div v-show="div_num=='2'">
+            <div class="step-three">
+              <h1 class="step-num">
+                <span class="num">3</span><span class="txt">应用选择</span>
+                <el-dropdown trigger="click" class="r-select">
+                  <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </h1>
+              <!--选择应用类型 end-->
 
-            <div class="drag-box-warp c-l">
-              <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
-                <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
-                  <img :src="fileUrl+i.icon" class="img-cover">
-                  <span class="d-b-txt">{{i.name||''}}</span>
+              <div class="drag-box-warp c-l">
+                <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
+                  <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.name||''}}</span>
+                  </div>
                 </div>
               </div>
+              <!--应用列表 end-->
             </div>
-            <!--应用列表 end-->
-          </div>
-          <h4>通用组件</h4>
-          <div class="fixed-temp-w">
-            <div class="drag-box-warp c-l">
-              <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
-                <div class="drag-box" :class="appId==i.key?'box-active':''" :title="i.key">
-                  <img :src="fileUrl+i.icon" class="img-cover">
-                  <span class="d-b-txt">{{i.key||''}}</span>
+            <h4>通用组件</h4>
+            <div class="fixed-temp-w">
+              <div class="drag-box-warp c-l">
+                <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
+                  <div class="drag-box" :class="appId==i.key?'box-active':''" :title="i.key">
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.key||''}}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="drag-box-width" @click="JSAdd()">
-                <div class="drag-box">
-                  <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
-                  <span class="d-b-txt">脚本设置</span>
+                <div class="drag-box-width" @click="JSAdd()">
+                  <div class="drag-box">
+                    <img src="@/assets/admin/img/jbsz.svg" class="img-cover">
+                    <span class="d-b-txt">脚本设置</span>
+                  </div>
                 </div>
-              </div>
-              <div class="drag-box-width" v-for="i in common_tempList" @click="addCompont(i)">
-                <div class="drag-box">
-                  <img :src="fileUrl+i.cover" class="img-cover">
-                  <span class="d-b-txt">{{i.name||''}}</span>
+                <div class="drag-box-width" v-for="i in common_tempList" @click="addCompont(i)">
+                  <div class="drag-box">
+                    <img :src="fileUrl+i.cover" class="img-cover">
+                    <span class="d-b-txt">{{i.name||''}}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,7 +125,7 @@
 
         </div>
       </div>
-      <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i>
+      <!-- <i class="cut-btn" :class="left_fold?'el-icon-arrow-right':'el-icon-arrow-left'" @click="leftFold()"></i> -->
     </div>
     <advanced @hfHide="header_footer_show = false" :postForm="postForm" v-if="header_footer_show"></advanced>
   </div>
@@ -154,20 +164,21 @@ export default {
   },
   created() {
     //获取模板等信息
-    this.http.getPlain('layout-options', 'terminalType='+this.$route.query.type+'&sceneGroupId=' + this.id).then(res => {
+    this.http.getPlain('layout-options', 'terminalType=' + this.$route.query.type + '&sceneGroupId=' + this.id).then(res => {
       this.allList = res.data.sceneLayout || [];
       this.sceneHeaderFooter = res.data.sceneHeaderFooter || [];
       this.initLeftData();
     });
     //获取通用组件
     this.http.getPlain_url('app-widget-list-by-app-id', '/common').then(res => {
-      this.common_tempList = res.data||[];
+      this.common_tempList = res.data || [];
     });
   },
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       header_footer_show: false,
+      div_num: '1',
       allList: [],//左侧-布局模板信息
       sceneHeaderFooter: [],
       id: this.$route.query.id,
@@ -181,7 +192,7 @@ export default {
       apps_list: [],//应用列表
       apps_list_index: 0,//应用列表-下标
       apps_list_all: [],//应用列表-总列表
-      common_tempList:[],//通用组件
+      common_tempList: [],//通用组件
     }
   },
   methods: {
@@ -246,7 +257,7 @@ export default {
       }
       this.$emit('templateClick', { list: val, isadd: is_add })
     },
-    /***左边折叠 */
+    /***左边折叠 -改造为隐藏块-也就是最小化功能*/
     leftFold() {
       this.left_fold = !this.left_fold;
       this.$emit("update:left_fold", this.left_fold);
@@ -379,7 +390,7 @@ export default {
       });
     },
     //添加公共组件
-    addCompont(val){
+    addCompont(val) {
       this.$emit('rightMenu', val.code);
       this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
     },
