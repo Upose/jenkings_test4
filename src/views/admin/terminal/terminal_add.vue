@@ -251,8 +251,8 @@ export default {
     }).catch(err=>{
 
     })
-    this.bus.$on("getUpladFile",(mes)=>{
-      console.log(mes);
+    this.bus.$on("getUpladFile",(res)=>{
+      console.log(res);
     })
   },
   methods:{

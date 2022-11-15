@@ -1,4 +1,4 @@
-<!--底部设置
+<!--头部设置
 富文本编辑，html编辑，背景更换，绑定栏目
 -->
 <template>
@@ -9,32 +9,28 @@
           <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.headerBgImg?(fileUrl+postForm_head.headerBgImg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS($event,'bg')">
-              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'bg')">
+              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_head.headerBgImg=''"></i>
             </div>
           </el-form-item>
           <el-form-item label="更换LOGO" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.logo?(fileUrl+postForm_head.logo):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>更换LOGO</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS($event,'logo')">
-              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delLogo()"></i>
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'logo')">
+              <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_head.logo=''"></i>
             </div>
           </el-form-item>
-          <!-- <el-form-item label="更换LOGO" prop="logo">
-            <div class="up-img-form-item">
-              <div class="up-img-warp" v-if="postForm_head.logo">
-                <img :src="fileUrl+postForm_head.logo">
-              </div>
-              <div class="up-img-warp up-icon" @click="upImg()">
-                <span>上传图标</span>
-              </div>
-            </div>
-          </el-form-item> -->
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
               <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
-                <el-select v-model="it.value" placeholder="请选择栏目">
+                <el-select v-model="it.columnId" placeholder="选择栏目">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
+                </el-select>
+                <el-select v-model="it.count" placeholder="显示条数">
+                  <el-option :label="item.key" :value="item.value" v-for="(item,i) in topCountList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
+                </el-select>
+                <el-select v-model="it.orderRule" placeholder="排序规则">
+                  <el-option :label="item.key" :value="item.value" v-for="(item,i) in sortList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
                 </el-select>
                 <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list.length-1)!=i">
                   <i class="iconfont el-icon-vip-jianhao1"></i>
@@ -54,18 +50,13 @@
         </div>
       </el-form>
     </el-dialog>
-    <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleCloseImg">
-      <UpdateImg @imgUrl="imgUrl" :imgWidth="280" :imgHeight="80"></UpdateImg>
-    </el-dialog>
   </div>
 </template>
 
 
 <script>
-import UpdateImg from "@/views/admin/common/UpdateImg";
 export default {
   name: 'index',
-  components: { UpdateImg },
   props: ['postForm','childPage'],
   created(){
     this.http.getPlain('nav-column-list', '').then(res => {
@@ -73,6 +64,31 @@ export default {
     }).catch(err => {
       this.$message({ type: 'error', message: '获取失败!' });
     })
+  },
+  data() {
+    return {
+      fileUrl: window.localStorage.getItem('fileUrl'),
+      dialogBulk: true,//模板选择
+      jsList: [{}],
+      coumn_data_list: [],//栏目列表-列表
+      sortList:[{key: "默认", value: "Default", icon: null}],//排序方式-列表
+      topCountList:[
+        {key: "4", value: 4, icon: null},
+        {key: "5", value: 5, icon: null},
+        {key: "6", value: 6, icon: null},
+        {key: "7", value: 7, icon: null},
+        {key: "8", value: 8, icon: null},
+        {key: "9", value: 9, icon: null},
+        {key: "10", value: 10, icon: null},
+        {key: "11", value: 11, icon: null},
+      ],//显示条数-列表
+      coumn_list: [{columnId:''}],//新增删除栏目列表
+      postForm_head: {
+        headerBgImg:'',//头部背景
+        displayNavColumn:[],//栏目
+        logo:'',//logo
+      },//头部表单
+    }
   },
   mounted(){
     if(this.postForm && this.postForm.headerTemplate){
@@ -86,36 +102,15 @@ export default {
         })
       }
     }
-  },
-  data() {
-    return {
-      fileUrl: window.localStorage.getItem('fileUrl'),
-      dialogBulk: true,//模板选择
-      dialogUPimg: false,//图片上传
-      jsList: [{}],
-      coumn_data_list: [],//栏目下拉选择列表
-      coumn_list: [{ value: '' }],//新增删除栏目列表
-      postForm_head: {
-        headerBgImg:'',//头部背景
-        displayNavColumn:[],//栏目
-        logo:'',//logo
-      },//头部表单
-    }
+    this.bus.$on("getUpladFile",(res)=>{
+      if(res.key == 'bg'){
+          this.postForm_head.headerBgImg = res.url||'';
+        }else if(res.key == 'logo'){
+          this.postForm_head.logo = res.url||'';
+        }
+    })
   },
   methods: {
-    //打开图标上传弹窗
-    upImg() {
-      this.dialogUPimg = true;
-    },
-    //获取图片上传返回地址
-    imgUrl(val) {
-      this.postForm_head['logo'] = val[0];
-      this.dialogUPimg = false;
-    },
-    //图片上传-弹窗关闭
-    handleCloseImg(done) {
-      done();
-    },
     /***x关闭按钮 **/
     handleClose(done) {
       this.$emit('hfHide',false);
@@ -127,13 +122,13 @@ export default {
     //添加多栏目投递
     addCoumn1() {
       if(this.coumn_list.length==10)return;
-      this.coumn_list.push({ value: '' });
+      this.coumn_list.push({columnId:''});
     },
     /****保存头部设置信息*******/
     submitFormHead() {
       this.postForm_head.displayNavColumn = [];
       this.coumn_list.forEach(item => {
-        if (item.value) this.postForm_head.displayNavColumn.push(item.value)
+        if (item.columnId) this.postForm_head.displayNavColumn.push(item.columnId)
       })
 
       if(this.childPage){ //设置子页面头部信息
@@ -145,38 +140,6 @@ export default {
         this.$emit('hfHide',true);
         console.log(this.postForm);
       }
-    },
-    //删除背景
-    delBGImg(){
-      this.postForm_head.headerBgImg = '';
-    },
-    //删除背景
-    delLogo(){
-      this.postForm_head.logo = '';
-    },
-    //文件上传
-    handleFileJS(e,isbg) {
-      var _this = this;
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG'&& file.type !== 'image/gif') {
-        this.$message({ type: 'error', message: '请上传图片文件!' });
-        return;
-      }
-      this.http.postFile("UploadFile", formData).then((res) => {
-        if(isbg == 'bg'){
-          this.postForm_head.headerBgImg = res.data[0]||'';
-        }else{
-          this.postForm_head.logo = res.data[0]||'';
-        }
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
     },
   },
 }
@@ -226,6 +189,21 @@ export default {
   margin-left: 0 !important;
   span{
     line-height: 14px !important;
+  }
+}
+.btns-select-row{
+  display: flex;
+  padding-right: 30px;
+  .el-select{
+    margin-right: 5px;
+    flex:1;
+    &:first-child{
+      flex: 2.3;
+    }
+    /deep/.el-input__inner{
+      padding-left: 10px;
+      padding-right: 28px;
+    }
   }
 }
 </style>
