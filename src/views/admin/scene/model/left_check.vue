@@ -5,8 +5,8 @@
       <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">主题风格</span>
       <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">应用选择</span>
       <div class="r-bt">
-        <i class="el-icon-minus" @click="topFold()"></i>
-        <i class="el-icon-rank" @click="topFold()"></i>
+        <i class="el-icon-minus" @click="leftFold()"></i>
+        <i class="el-icon-rank" @click="leftFold()"></i>
       </div>
     </div>
     <div class="drag-l-pad">
@@ -77,7 +77,8 @@
           <div v-show="div_num=='2'">
             <div class="step-three">
               <h1 class="step-num">
-                <span class="num">3</span><span class="txt">应用选择</span>
+                <!-- <span class="num">3</span><span class="txt">应用选择</span> -->
+                <span class="app-type">应用类型：</span>
                 <el-dropdown trigger="click" class="r-select">
                   <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
                   <el-dropdown-menu slot="dropdown">
@@ -97,7 +98,7 @@
               </div>
               <!--应用列表 end-->
             </div>
-            <h4>通用组件</h4>
+            <h4 class="app-type">通用组件</h4>
             <div class="fixed-temp-w">
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
@@ -259,7 +260,7 @@ export default {
     },
     /***左边折叠 -改造为隐藏块-也就是最小化功能*/
     leftFold() {
-      this.left_fold = !this.left_fold;
+      this.left_fold = true;
       this.$emit("update:left_fold", this.left_fold);
     },
     //应用选择-服务类型点击事件 index 应用分组的下标

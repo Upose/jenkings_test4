@@ -12,12 +12,6 @@
     left: 255px;
     border-radius: 0px 40px 40px 0px;
   }
-
-  .step-num {
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
-
   /deep/.el-collapse-item__wrap {
     margin-left: -5px;
   }
@@ -80,7 +74,10 @@
       white-space: nowrap;
     }
   }
-
+  .app-type{
+    font-size: 14px;
+    color: #34395e;
+  }
   .step-three {
     height: auto;
     position: relative;
@@ -92,12 +89,13 @@
       height: 1px;
       left: -20px;
       right: -20px;
-      top: 50px;
+      top: 32px;
       background-color: @ph-col-n3;
     }
-
+    
     .step-num {
       width: 100%;
+      margin-bottom:8px;
     }
   }
 
@@ -251,7 +249,7 @@
 
   .select-type {
     .s-list {
-      max-height: 330px;
+      max-height: 270px;
       overflow-y: auto;
       overflow-x: hidden;
       margin: 0 -20px;
@@ -259,9 +257,12 @@
 
     /******************选择样式-模板 */
     .d-temp-box {
+      float: left;
       margin-left: 20px;
-      width: 214px;
-      height: 100px;
+      // width: 214px;
+      // height: 100px;
+      width: 140px;
+      height: 80px;
       padding: 10px;
       margin-bottom: 10px;
       border-radius: 3px;
@@ -389,7 +390,8 @@
 
 .app-name {
   font-size: 14px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
+  margin-top: 5px;
   color: #34395e;
 
   .name {

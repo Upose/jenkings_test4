@@ -25,8 +25,22 @@
 }
 .fixed-menu-w .r-bt {
   position: absolute;
-  right: 15px;
-  top: 0px;
+  right: 7px;
+  top: -17px;
+  top: 0;
+  color: #34395E;
+}
+.fixed-menu-w .r-bt i {
+  cursor: pointer;
+  height: 50px;
+  line-height: 50px;
+  width: 22px;
+  font-size: 16px;
+  text-align: center;
+}
+.fixed-menu-w .r-bt i:hover {
+  font-weight: bold;
+  color: #3E54EE;
 }
 .admin-content {
   background-color: #fff;
@@ -89,6 +103,9 @@
 .admin-content .drag-content .drag-r-pad::-webkit-scrollbar-resizer {
   background-color: #ddd;
 }
+.admin-content .drag-content .drag-r-pad {
+  min-height: 200px;
+}
 .admin-content .drag-content .drag-l,
 .admin-content .drag-content .drag-r {
   position: fixed;
@@ -130,6 +147,7 @@
   border-radius: 0px 40px 40px 0px;
 }
 .admin-content .drag-content .drag-r {
+  width: 500px;
   right: 0;
 }
 .admin-content .drag-content .drag-r .cut-btn {

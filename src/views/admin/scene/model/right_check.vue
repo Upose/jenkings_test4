@@ -4,15 +4,15 @@
     <div class="fixed-menu-w">
       <span class="box active">应用设置</span>
       <div class="r-bt">
-        <i class="el-icon-minus" @click="topFold()"></i>
-        <i class="el-icon-rank" @click="topFold()"></i>
+        <i class="el-icon-minus" @click="rightFold()"></i>
+        <i class="el-icon-rank" @click="rightFold()"></i>
       </div>
     </div>
     <div class="drag-r-pad">
       <div class="right-check-page">
         <div class="drag-r-warp">
           <h1 class="step-num">
-            <div class="title"><span class="num">4</span><span class="txt">应用设置</span></div>
+            <!-- <div class="title"><span class="num">4</span><span class="txt">应用设置</span></div> -->
             <div class="app-name" v-show="apps_name">选中应用：<i class="name">{{apps_name}}</i></div>
           </h1>
           <div class="select-type" v-if="template_list.length>0">
@@ -48,8 +48,32 @@
             </div><!--组件配置 end-->
 
             <div class="s-choose">
-              <div class="" v-for="(it,i) in set_list" :key="i">
+              <div class="cloum-row-title">
+                <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">绑定栏目</div>
+                <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">显示条数</div>
+                <div class="s-c-row" v-if="availableConfig.indexOf('3')>-1">排序规则</div>
+              </div>
+              <div class="cloum-row" v-for="(it,i) in set_list" :key="i">
                 <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
+                  <el-select class="w-saml" v-model="it.id" size="medium" @change="column" placeholder="绑定栏目">
+                    <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
+                  </el-select>
+                </div>
+                <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
+                  <el-select class="w-saml" v-model="it.topCount" size="medium" @change="showNum" placeholder="显示条数">
+                    <el-option v-for="(item,i) in topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
+                  </el-select>
+                </div>
+                <div class="s-c-row" v-if="availableConfig.indexOf('3')>-1">
+                  <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="排序规则">
+                    <el-option v-for="(item,i) in sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
+                  </el-select>
+                </div>
+                <div class="r-btn" v-if="availableConfig.indexOf('1')>-1">
+                  <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
+                  <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
+                </div>
+                <!-- <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
                   <h2 class="s-title">绑定栏目 
                     <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
                     <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
@@ -69,7 +93,7 @@
                   <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="请选择">
                     <el-option v-for="(item,i) in sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
                   </el-select>
-                </div>
+                </div> -->
               </div>
             </div><!--栏目配置 end--->
 
@@ -93,7 +117,33 @@
   </div>
   <!--右边菜单 end-->
 </template>
-
+<style lang="less" scoped>
+.cloum-row-title{
+  font-size: 12px;
+  color: #6777EF;
+  margin-top:8px;
+}
+.cloum-row,.cloum-row-title{
+  display: flex;
+  align-items: center;
+  margin-bottom:8px;
+  .s-c-row{
+    width:110px;
+    margin-right: 10px;
+    &:first-child{
+      width:160px;
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+  .r-btn{
+    font-size: 20px;
+    cursor: pointer;
+    color: #6777ef;
+  }
+}
+</style>
 <script>
 import headerSet from "./headerSet.vue";//头部设置
 import footerSet from "./footerSet";//底部设置
@@ -189,7 +239,7 @@ export default {
     },
     /***右边折叠-改造为隐藏块-也就是最小化功能 */
     rightFold() {
-      this.right_fold = !this.right_fold;
+      this.right_fold = true;
       this.$emit("update:right_fold", this.right_fold);
     },
     //更新头尾（注意：这里还差一个判断，已经加载过的js和css文件不要重复加载）
