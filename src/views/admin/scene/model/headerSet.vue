@@ -111,7 +111,7 @@ export default {
     })
   },
   methods: {
-    /***x关闭按钮 **/
+    //x关闭按钮
     handleClose(done) {
       this.$emit('hfHide',false);
     },
@@ -124,7 +124,7 @@ export default {
       if(this.coumn_list.length==10)return;
       this.coumn_list.push({columnId:''});
     },
-    /****保存头部设置信息*******/
+    //保存头部设置信息
     submitFormHead() {
       this.postForm_head.displayNavColumn = [];
       this.coumn_list.forEach(item => {

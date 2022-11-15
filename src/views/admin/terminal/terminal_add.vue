@@ -363,7 +363,6 @@ export default {
           this.postForm.footerTemplateId = this.footer_check;
         }
       }
-      console.log(this.postForm);return;
       this.$refs[formName].validate((valid) => {
           if (valid) {
             if(this.id){

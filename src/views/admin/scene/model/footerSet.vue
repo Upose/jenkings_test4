@@ -132,11 +132,11 @@ export default {
       if(this.coumn_list.length==3)return;
       this.coumn_list.push({columnId:''});
     },
-    /***x关闭按钮 **/
+    //x关闭按钮
     handleClose(done) {
       this.$emit('hfHide',false);
     },
-    /****保存底部设置信息*******/
+    //保存底部设置信息
     submitFormFot() {
       this.postForm_fot.footerDisplayNavColumn = [];
       this.postForm_fot.content = tinyMCE.activeEditor.getContent()||'';
@@ -152,6 +152,7 @@ export default {
         this.$emit('hfHide',true);
       }
     },
+    //富文本-图片上传
     handleImgUpload(blobInfo, success, failure) {
       const imgBase64 = `data:${blobInfo.blob().type};base64,${blobInfo.base64()}`
       const data = { img: [imgBase64] }
