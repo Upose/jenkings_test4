@@ -8,7 +8,7 @@
         <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_fot.footerBgImg?(fileUrl+postForm_fot.footerBgImg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'bgimg')">
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'img','bgimg')">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_fot.footerBgImg = ''"></i>
             </div>
           </el-form-item>

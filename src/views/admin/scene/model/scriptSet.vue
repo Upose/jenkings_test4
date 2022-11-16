@@ -22,7 +22,7 @@
                   <template slot="append">
                     <div class="up-btn">
                       <span>点击上传</span>
-                      <input type="file" :id="'file_'+i" multiple="multiple" @change="handleFileJS">
+                      <input type="file" :id="'file_'+i" multiple="multiple" @change="$fileUpload($event,'js',i)">
                     </div>
                   </template>
                 </el-input>
@@ -54,7 +54,7 @@ export default {
   mounted() {
     this.useWay = this.postForm.useWay || 0;
     var jsPath = [];
-    console.log(this.postForm.jsPath);
+    // console.log(this.postForm.jsPath);
     if (this.postForm.jsPath && this.postForm.jsPath.length > 0) {
       var list = this.postForm.jsPath.split(';');
       list.forEach(it => {
@@ -63,6 +63,13 @@ export default {
       })
     }
     if(jsPath.length>0)this.jsPath = jsPath;
+
+    this.bus.$on("getUpladFile",(res)=>{
+      if(/^[0-9]+.?[0-9]*$/.test(res.key)){
+        this.jsPath[res.key].value = this.fileUrl + (res.url||'');
+        this.$forceUpdate();
+      }
+    })
   },
   data() {
     return {
@@ -99,28 +106,6 @@ export default {
       });
       this.postForm.jsPath = jsPathList.join(';');
       this.$emit('hfHide', false);
-    },
-    //文件上传
-    handleFileJS(e) {
-      var _this = this;
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
-        this.$message({ type: 'error', message: '请上传js文件!' });
-        return;
-      }
-      var index = parseInt(e.target.id.slice(5, 6));
-      this.http.postFile("UploadFile", formData).then((res) => {
-        _this.jsPath[index].value = _this.fileUrl + res.data[0];
-        this.$forceUpdate();
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
     },
   },
 }

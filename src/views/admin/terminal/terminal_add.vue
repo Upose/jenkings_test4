@@ -33,7 +33,7 @@
                   </div>
                   <div class="up-img-warp up-icon">
                     <span>上传图标</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'adminLogo')">
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','adminLogo')">
                   </div>
                 </div>
               </el-form-item>
@@ -44,7 +44,7 @@
                   </div>
                   <div class="up-img-warp up-icon">
                     <span>上传图标</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'adminLogomin')">
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','adminLogomin')">
                   </div>
                 </div>
               </el-form-item>
@@ -55,7 +55,7 @@
                   </div>
                   <div class="up-img-warp up-icon">
                     <span>上传图标</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'logo')">
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','logo')">
                   </div>
                 </div>
               </el-form-item>

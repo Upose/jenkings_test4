@@ -26,7 +26,14 @@ function backHistory(){
   }
   return is_open;
 }
-function fileUpload(e,field) {
+/**
+ * 
+ * @param {*} e file选择的文件
+ * @param {*} filetype 文件上传类型
+ * @param {*} field 标识
+ * @returns 
+ */
+function fileUpload(e,filetype,field) {
   let $target = e.target || e.srcElement
   let file = $target.files[0]
   if (!file) {
@@ -34,10 +41,22 @@ function fileUpload(e,field) {
   }
   let formData = new FormData()
   formData.append('files', file)
-  if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif') {
-    this.$message({ type: 'error', message: '请上传图片文件!' });
+  if(filetype=='img'){
+    if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif') {
+      this.$message({ type: 'error', message: '请上传图片文件!' });
+      return;
+    }
+  }else if(filetype == 'js'){
+    if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
+      this.$message({ type: 'error', message: '请上传js文件!' });
+      return;
+    }
+  }else if(filetype == 'video'){
+    
+  }else{
     return;
   }
+
   http.postFile("UploadFile", formData).then((res) => {
     bus.$emit('getUpladFile',{key:field,url:res.data[0]});
   }).catch((err) => {

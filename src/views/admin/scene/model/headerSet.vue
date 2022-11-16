@@ -9,14 +9,14 @@
           <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.headerBgImg?(fileUrl+postForm_head.headerBgImg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>背景更换</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'bg')">
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'img','bg')">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_head.headerBgImg=''"></i>
             </div>
           </el-form-item>
           <el-form-item label="更换LOGO" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm_head.logo?(fileUrl+postForm_head.logo):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png"/><span>更换LOGO</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'logo')">
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'img','logo')">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_head.logo=''"></i>
             </div>
           </el-form-item>

@@ -48,8 +48,8 @@
 
               <div class="model-set-w c-l" v-show="postForm.layoutId==1||postForm.layoutId==4">
                 <div class="up-img w100 ml0" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
-                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景更换</span></div>
-                  <input type="file" multiple="multiple" @change="handleFileJS($event,'bgt')">
+                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景图更换</span></div>
+                  <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgt')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgt')"></i>
                 </div>
               </div>
@@ -57,13 +57,13 @@
 
               <div class="model-set-w c-l" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
                 <div class="up-img w150" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
-                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景更换</span></div>
-                  <input type="file" multiple="multiple" @change="handleFileJS($event,'bgf')">
+                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>{{screen_cu==0?'背景图/视频':'背景图更换'}}</span></div>
+                  <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgf')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
                 </div>
                 <div class="up-img w60" :style="{'background-image':'url('+(screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png" /><span>图标更换</span></div>
-                  <input type="file" multiple="multiple" @change="handleFileJS($event,'tb')">
+                  <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('tb')"></i>
                 </div>
               </div>
@@ -162,6 +162,17 @@ export default {
         }
       },
     },
+  },
+  mounted(){
+    this.bus.$on("getUpladFile",(res)=>{
+      switch (res.key) {
+        case 'bgt': this.screen_list[this.screen_cu].bgImg = res.url || ''; break;
+        case 'bgf': this.screen_list[this.screen_cu].bgImg = res.url || ''; break;
+        case 'tb': this.screen_list[this.screen_cu].icon = res.url || ''; break;
+      }
+      this.$forceUpdate();
+      this.$emit('sceneLeftBG', { type: res.key, url: (res.url || '') });
+    })
   },
   created() {
     //获取模板等信息
@@ -384,31 +395,6 @@ export default {
       }
       this.$forceUpdate();
       this.$emit('sceneLeftBG', { type: val, url: '' })
-    },
-    //文件上传
-    handleFileJS(e, val) {
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif') {
-        this.$message({ type: 'error', message: '请上传图片文件!' });
-        return;
-      }
-      this.http.postFile("UploadFile", formData).then((res) => {
-        switch (val) {
-          case 'bgt': this.screen_list[this.screen_cu].bgImg = res.data[0] || ''; break;
-          case 'bgf': this.screen_list[this.screen_cu].bgImg = res.data[0] || ''; break;
-          case 'tb': this.screen_list[this.screen_cu].icon = res.data[0] || ''; break;
-        }
-        this.$forceUpdate();
-        this.$emit('sceneLeftBG', { type: val, url: (res.data[0] || '') })
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
     },
     //添加公共组件
     addCompont(val) {

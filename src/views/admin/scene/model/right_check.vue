@@ -35,7 +35,7 @@
                 <div v-if="availableConfig.indexOf('4')>-1">
                   <div v-if="template_check && !is_hf" class="up-img w100 mt-5" :style="{'background-image':'url('+(configParameter.bgImg?(fileUrl+configParameter.bgImg):'')+')'}">
                     <div><img src="@/assets/admin/img/icon-upload.png"/><span>组件背景更换</span></div>
-                    <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS">
+                    <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'img','temp')">
                     <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
                   </div>
                   <div class="row-switch" v-if="template_check && !is_hf">
@@ -156,6 +156,12 @@ export default {
     this.http.getPlain_url('app-widget-list-by-app-id', '/common').then(res => {
         this.common_tempList = res.data||[];
     });
+    this.bus.$on("getUpladFile",(res)=>{
+      if(res.key == 'temp'){
+        this.configParameter.bgImg = res.url||'';
+        this.saveClick('edit');
+      }
+    })
   },
   props:['postForm'],
   components:{headerSet,footerSet,titleDialog,imgUpDialog},
@@ -458,26 +464,6 @@ export default {
       this.configParameter.bgImg = '';
       this.saveClick('edit');
       this.$forceUpdate();
-    },
-    //文件上传
-    handleFileJS(e) {
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG'&& file.type !== 'image/gif') {
-        this.$message({ type: 'error', message: '请上传图片文件!' });
-        return;
-      }
-      this.http.postFile("UploadFile", formData).then((res) => {
-       this.configParameter.bgImg = res.data[0]||'';
-       this.saveClick('edit');
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
     },
     /*************************通用组件的一些方法********************************/
     //选择了-通用组件
