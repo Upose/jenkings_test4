@@ -58,7 +58,7 @@
               <div class="model-set-w c-l" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
                 <div class="up-img w150" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png" /><span>{{screen_cu==0?'背景图/视频':'背景图更换'}}</span></div>
-                  <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgf')">
+                  <input type="file" multiple="multiple" @change="$fileUpload($event,(screen_cu==0?'videoimg':'img'),'bgf')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
                 </div>
                 <div class="up-img w60" :style="{'background-image':'url('+(screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):'')+')'}">

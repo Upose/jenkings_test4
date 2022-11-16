@@ -52,7 +52,16 @@ function fileUpload(e,filetype,field) {
       return;
     }
   }else if(filetype == 'video'){
-    
+    if (file.type !== 'video/mp4' && file.type !== 'avi' && file.type !== 'wmv' && file.type !== 'mpg'&& file.type !== 'mpeg'&& file.type !== 'rm'&& file.type !== 'mp4'&& file.type !== 'swf'&& file.type !== 'flv') {
+      this.$message({ type: 'error', message: '请上传视频文件!' });
+      return;
+    }
+  }else if(filetype == 'videoimg'){
+    console.log(file.type);
+    if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif' && file.type !== 'video/mp4' && file.type !== 'avi' && file.type !== 'wmv' && file.type !== 'mpg'&& file.type !== 'mpeg'&& file.type !== 'rm'&& file.type !== 'mp4'&& file.type !== 'swf'&& file.type !== 'flv') {
+      this.$message({ type: 'error', message: '请上传视频或图片文件!' });
+      return;
+    }
   }else{
     return;
   }
