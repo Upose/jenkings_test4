@@ -1,7 +1,6 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
   <div class="drag-l">
-    {{lmenu_left}}{{lmenu_top}}
     <div class="fixed-menu-w">
       <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">主题风格</span>
       <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">应用选择</span>
