@@ -176,7 +176,7 @@ export default {
     line-height: 18px;
     text-align: center;
     // background: #a5b3cc;
-    background: rgba(62 ,83 ,238,.5);
+    background: rgba(62 ,83 ,238,.7);
     border: 1px solid #a5b3cc;
     user-select: none;
     border-radius: 0px 0 40px 40px;

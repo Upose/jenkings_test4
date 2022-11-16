@@ -5,7 +5,7 @@
       <span class="box active">应用设置</span>
       <div class="r-bt">
         <i class="el-icon-minus" @click="rightFold()"></i>
-        <i class="el-icon-rank" @click="rightFold()"></i>
+        <i class="el-icon-rank" @mousedown="move"></i>
       </div>
     </div>
     <div class="drag-r-pad">
@@ -195,6 +195,26 @@ export default {
   },
 
   methods: {
+    move(e) {
+      var event = e.target;  //获取wqh盒子
+      var parevent = event.parentNode.parentNode.parentNode;
+      //获取鼠标位置
+      let pageX = e.pageX; 
+      let pageY = e.pageY;
+      var boxX = pageX - parevent.offsetLeft;
+      var boxY = pageY - parevent.offsetTop;
+      // console.log(pageX,pageY,boxX,boxY);
+      document.onmousemove = function (e) {
+        //获取鼠标拖拽式在页面上的位置
+        let pageXs = e.pageX;
+        let pageYs = e.pageY;
+        parevent.style.left = pageXs - boxX + "px";
+        parevent.style.top = pageYs - boxY + "px"; 
+      };
+      document.onmouseup = function () {
+        document.onmousemove = null;  //删除拖拽事件
+      };
+    },
     //是否全屏
     fullScreenClick(e){
       this.saveClick('edit');

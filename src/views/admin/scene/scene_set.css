@@ -108,6 +108,7 @@
 }
 .admin-content .drag-content .drag-l,
 .admin-content .drag-content .drag-r {
+  user-select: none;
   position: fixed;
   top: 110px;
   z-index: 9;

@@ -1,12 +1,13 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
   <div class="drag-l">
+    {{lmenu_left}}{{lmenu_top}}
     <div class="fixed-menu-w">
       <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">主题风格</span>
       <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">应用选择</span>
       <div class="r-bt">
         <i class="el-icon-minus" @click="leftFold()"></i>
-        <i class="el-icon-rank" @click="leftFold()"></i>
+        <i class="el-icon-rank" @mousedown="move"></i>
       </div>
     </div>
     <div class="drag-l-pad">
@@ -197,6 +198,26 @@ export default {
     }
   },
   methods: {
+    move(e) {
+      var event = e.target;  //获取wqh盒子
+      var parevent = event.parentNode.parentNode.parentNode;
+      //获取鼠标位置
+      let pageX = e.pageX; 
+      let pageY = e.pageY;
+      var boxX = pageX - parevent.offsetLeft;
+      var boxY = pageY - parevent.offsetTop;
+      // console.log(pageX,pageY,boxX,boxY);
+      document.onmousemove = function (e) {
+        //获取鼠标拖拽式在页面上的位置
+        let pageXs = e.pageX;
+        let pageYs = e.pageY;
+        parevent.style.left = pageXs - boxX + "px";
+        parevent.style.top = pageYs - boxY + "px"; 
+      };
+      document.onmouseup = function () {
+        document.onmousemove = null;  //删除拖拽事件
+      };
+    },
     //设置详情
     setDatils(val) {
       this.templateId = (val.template && val.template.id) ? val.template.id : '';
