@@ -195,10 +195,10 @@ export default {
             appPlateItems: it.appPlateItems,
             appWidget: it.appWidget,
             divId: 'jl_vip_zt_' + index,
-            target: it.appWidget.target,
+            target: it.appWidget?it.appWidget.target:'',
             sceneId: it.sceneId,
             sceneScreenId: it.sceneScreenId,
-            widgetCode: it.appWidget.widgetCode,
+            widgetCode: it.appWidget?it.appWidget.widgetCode:'',
             content: admin_vue.gridContent(it, 'a'),
           }));
           _this.postForm.sceneScreens[index].sceneApps = result;
