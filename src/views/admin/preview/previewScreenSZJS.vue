@@ -7,7 +7,19 @@
       <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
           <div class="section" v-for="(it,i) in details.sceneScreens" :style="screensBG(bg_color,it.bgImg)" :id="'temp'+i">
-
+            <div class="temp-imgvideo" v-if="i==0">
+              <div class="video-warp-bg">
+                <video :src="fileUrl+it.bgImg" autoplay loop></video>
+              </div>
+              <div class="banner-warp-bg">
+                banner图
+              </div>
+            </div><!--
+              这块区域用于，设置滚动banner和视频播放
+              背景图第一层
+              视频播放第二层
+              banner图第三层
+              -->
             <div class="temp-header" v-if="i==0 && details.headerTemplate">
               <div :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
                   logo:details.headerTemplate.logo||'',
@@ -56,7 +68,36 @@
 
   </div>
 </template>
-
+<style lang="less" scoped>
+.temp-imgvideo{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+ background: red;
+ z-index: 1;
+ .banner-warp-bg,.video-warp-bg{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  color: #fff;
+ }
+ .banner-warp-bg{
+  z-index: 3;
+ }
+ .video-warp-bg{
+  z-index: 2;
+  video{
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+ }
+}
+</style>
 <script>
 export default {
   name: 'index',
@@ -245,6 +286,7 @@ export default {
   align-items: center;
   width: 1720px;
   padding: 0 100px;
+  z-index: 5;
 }
 .bocy-content {
   position: relative;
