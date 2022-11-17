@@ -6,14 +6,13 @@
 
       <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
-          <div class="section" v-for="(it,i) in details.sceneScreens" :style="screensBG(bg_color,it.bgImg)" :id="'temp'+i">
+          <div class="section" v-for="(it,i) in details.sceneScreens" :style="i==0?'':screensBG(bg_color,it.bgImg)" :id="'temp'+i">
             <div class="temp-imgvideo" v-if="i==0">
-              <div class="video-warp-bg">
+              <div class="img-warp-bg" v-if="isImgvideo(it.bgImg)=='img'" :style="screensBG(bg_color,it.bgImg)"></div>
+              <div class="video-warp-bg" v-if="isImgvideo(it.bgImg)=='video'">
                 <video :src="fileUrl+it.bgImg" autoplay loop></video>
-              </div>
-              <div class="banner-warp-bg">
-                banner图
-              </div>
+              </div><!-- 视频背景-end -->
+              <div class="banner-warp-bg"></div><!-- banner图-end -->
             </div><!--
               这块区域用于，设置滚动banner和视频播放
               背景图第一层
@@ -73,9 +72,8 @@
   width: 100%;
   height: 100%;
   position: absolute;
- background: red;
  z-index: 1;
- .banner-warp-bg,.video-warp-bg{
+ .banner-warp-bg,.img-warp-bg,.video-warp-bg{
   width: 100%;
   height: 100%;
   position: absolute;
@@ -85,17 +83,21 @@
   font-size: 40px;
   color: #fff;
  }
- .banner-warp-bg{
-  z-index: 3;
+ .img-warp-bg{
+  z-index: 2;
  }
  .video-warp-bg{
-  z-index: 2;
+  z-index: 3;
   video{
     width: 100%;
     height: 100%;
     background: #000;
   }
  }
+ .banner-warp-bg{
+  z-index: 4;
+ }
+ 
 }
 </style>
 <script>
@@ -133,6 +135,20 @@ export default {
     }
   },
   methods: {
+    isImgvideo(val){
+      var imgtype = 'png,jpeg,PNG,JPEG,JPG,jpg,GIF,gif';
+      var videotype = 'avi,wmv,mp4,mpg,mpeg,rm,swf,flv';
+      var type ='img';
+      if(val){
+        var filetype = val.split('.')[1];
+        if(imgtype.indexOf(filetype)>-1){
+          type='img';
+        }else if(videotype.indexOf(filetype)>-1){
+          type='video'
+        }
+      }
+      return type;
+    },
     //初始化模板
     styleRender(val) {//css 渲染
       var w = this.details.template.width || 100;
