@@ -1,0 +1,359 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <title>demo</title>
+  <link rel="stylesheet" href="../assets/css/vipsmart-dalib3-skin.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/temp2.css">
+  <script src="../assets/js/vue@2.6.12.js"></script>
+  <script src="../assets/js/axios.min.js"></script>
+  <style>
+    /**模板-布局样式**/
+    .bocy-content {
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+
+    .scene-warp {
+      position: relative;
+    }
+
+    .temp-bg,
+    .scene-warp-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .temp-bg {
+      z-index: 1;
+    }
+
+    .scene-warp-bg {
+      z-index: 2;
+    }
+
+    /**模板-背景-三段**/
+    .dalib-temp-bg1 {
+      background-image: url('../assets/image/bg1.png');
+      background-position: 100% 0%, bottom center;
+      background-repeat: no-repeat;
+      background-size: auto, 100% !important;
+    }
+
+    .dalib-temp-bg2 {
+      background-image: url(../assets/image/bg2.png);
+      background-position: 100% 0%, bottom center;
+      background-repeat: no-repeat;
+      background-size: auto, 100% !important;
+    }
+
+    .dalib-temp-bg3 .dlib3-bg1,
+    .dlib3-bg2 {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+
+    .dalib-temp-bg3 .dlib3-bg1 {
+      background-image: url(../assets/image/bg3.png);
+      background-size: 100% 100%;
+    }
+
+    .dalib-temp-bg3 .dlib3-bg2 {
+      background-image: url(../assets/image/bg3-left.png), url(../assets/image/bg3-right.png);
+      background-position: 0% 0%, bottom right;
+      background-repeat: no-repeat;
+      background-size: auto, 270px auto !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="home_sys">
+    <div class="web-warp template1">
+      <div class="scene-warp" :style="{height:details.sceneScreens[0].height+'px','min-width':(details.template.width==100?'100%':(details.template.width+'px'))}" id="temp0">
+        <div class="tbg-c1 temp-bg dalib-temp-bg3">
+          <div class="dlib3-bg1"></div>
+          <div class="dlib3-bg2"></div>
+        </div>
+        <!--模板背景-->
+        <div class="scene-warp-bg" :style="styleSet(details.sceneScreens[0],0)">
+          <div class="bocy-content" :style="{height:details.sceneScreens[0].height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
+            <div v-for="(item,index) in details.sceneScreens[0].sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
+              <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                <div :id="setId()"></div>
+              </div>
+            </div>
+            <!--组件渲染块-->
+          </div>
+          <!--拖拽区域的高度-->
+        </div>
+        <!--屏-外层 此层高于模板背景层-此背景会覆盖模板本身背景-->
+      </div>
+      <!--场景最外层-->
+
+      <div class="scene-warp" :style="{height:details.sceneScreens[1].height+'px','min-width':(details.template.width==100?'100%':(details.template.width+'px'))}" id="temp1">
+        <div class="tbg-c1 temp-bg dalib-temp-bg2"></div>
+        <!--模板背景-->
+        <div class="scene-warp-bg" :style="styleSet(details.sceneScreens[1],1)">
+          <div class="bocy-content" :style="{height:details.sceneScreens[1].height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
+            <div v-for="(item,index) in details.sceneScreens[1].sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
+              <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                <div :id="setId()"></div>
+              </div>
+            </div>
+            <!--组件渲染块-->
+          </div>
+          <!--拖拽区域的高度-->
+        </div>
+        <!--屏-外层 此层高于模板背景层-此背景会覆盖模板本身背景-->
+      </div>
+      <!--场景最外层-->
+
+      <div class="scene-warp" :style="{height:details.sceneScreens[2].height+'px','min-width':(details.template.width==100?'100%':(details.template.width+'px'))}" id="temp3">
+        <div class="tbg-c1 temp-bg dalib-temp-bg1"></div>
+        <!--模板背景-->
+        <div class="scene-warp-bg" :style="styleSet(details.sceneScreens[2],2)">
+          <div class="bocy-content" :style="{height:details.sceneScreens[2].height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
+            <div v-for="(item,index) in details.sceneScreens[2].sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
+              <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                <div :id="setId()"></div>
+              </div>
+            </div>
+            <!--组件渲染块-->
+          </div>
+          <!--拖拽区域的高度-->
+        </div>
+        <!--屏-外层 此层高于模板背景层-此背景会覆盖模板本身背景-->
+      </div>
+      <!--场景最外层-->
+
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#home_sys',
+      components: {
+        tempbg1: () => import('./bgtemp/tempbg1.vue'),
+        tempbg2: () => import('./bgtemp/tempbg2.vue'),
+        tempbg3: () => import('./bgtemp/tempbg3.vue'),
+      },
+      data() {
+        return {
+          fileUrl: 'http://192.168.21.46:6900',
+          bg_color: '#fff',
+          //场景详情
+          details: {
+            footerTemplate: {},
+            headerTemplate: {},
+            template: {
+              backgroundColor: "#ffffff",//背景颜色
+              code: "splitscreen",//code
+              filePath: "http://192.168.21.46/cdn/public/template/public/css/temp1.css",//css文件
+              jsPath: null,//js文件
+              layoutId: 3,//id
+              name: "空模板",//名称
+              width: 1200,//宽度
+              height: 500,//高度
+              terminalInstanceName: "PC终端",//所属终端
+              themeColor: "template1",//皮肤颜色
+            },//end 模板
+
+            sceneScreens: [
+              {
+                bgImg: "",//屏背景
+                height: 300,//屏高度
+                sceneTag: 'tempbg1',//屏标识
+                icon: "/uploads/cqu/20220906/0dbf7c66e8bd4c27931687afb5459541.png",//屏菜单-右侧悬浮菜单-图标
+                screenName: "屏1",//屏名称-右侧悬浮菜单-名称
+                sceneApps: [ //组件数组
+                  {
+                    width: 70,
+                    height: 26,
+                    xIndex: 0,
+                    yIndex: 2,
+                    appPlateItems: [
+                      { sortType: "Default", topCount: 6, id: "46fd0435-5e6c-4a9c-86b5-c0a76fa7600e" },
+                      { sortType: "Default", topCount: 6, id: "44638490-b66f-419b-bcea-fdfd0bd91a73" }
+                    ],
+                    appWidget: { //组件配置
+                      target: '../module/test1',
+                      widgetCode: "test1",
+                    },
+                  },//end 组件
+                  {
+                    width: 48,
+                    height: 26,
+                    xIndex: 72,
+                    yIndex: 2,
+                    appPlateItems: [
+                      { sortType: "Default", topCount: 8, id: "46fd0435-5e6c-4a9c-86b5-c0a76fa7600e" },
+                      { sortType: "Default", topCount: 8, id: "44638490-b66f-419b-bcea-fdfd0bd91a73" }
+                    ],
+                    appWidget: { //组件配置
+                      target: '../module/test4',
+                      widgetCode: "test4",
+                    },
+                  },//end 组件
+                ],
+              },//end 第一段
+              {
+                bgImg: "",//屏背景
+                height: 310,//屏高度
+                sceneTag: 'tempbg2',//屏标识
+                icon: "/uploads/cqu/20220906/0dbf7c66e8bd4c27931687afb5459541.png",//屏菜单-右侧悬浮菜单-图标
+                screenName: "屏2",//屏名称-右侧悬浮菜单-名称
+                sceneApps: [ //组件数组
+                  {
+                    width: 120,
+                    height: 28,
+                    xIndex: 0,
+                    yIndex: 0,
+                    appWidget: { //组件配置
+                      target: '../module/test3',
+                      widgetCode: "test3",
+                    },
+                  },//end 组件
+                ],
+              },//end 第二段
+              {
+                bgImg: "/uploads/cqu/20221102/b0407e4b6f80481190d79a0aa3ad3293.png",//屏背景
+                height: 380,//屏高度
+                sceneTag: 'tempbg3',//屏标识
+                icon: "/uploads/cqu/20220906/0dbf7c66e8bd4c27931687afb5459541.png",//屏菜单-右侧悬浮菜单-图标
+                screenName: "屏3",//屏名称-右侧悬浮菜单-名称
+                sceneApps: [ //组件数组
+                  {
+                    width: 120,
+                    height: 34,
+                    xIndex: 0,
+                    yIndex: 2,
+                    appPlateItems: [
+                      { sortType: "Default", topCount: 12, id: "84487ead-627e-4e54-812f-8771ef47522c" },
+                      { sortType: "Default", topCount: 12, id: "1067c97d-2d96-4935-b1c3-e10f9940e6a8" }
+                    ],
+                    appWidget: { //组件配置
+                      target: '../module/test2',
+                      widgetCode: "test2",
+                    },
+                  },//end 组件
+                ],
+              },//end 第三段
+
+            ],
+          },
+        }
+      },
+      methods: {
+        //滚动事件
+        appScroll(e) {
+          e.preventDefault();
+          let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;  //浏览器兼容
+          // console.log(e, scrollTop);
+        },
+        //悬浮菜单点击事件
+        clickSilder(val) {
+          document.getElementById(val).scrollIntoView({ behavior: 'smooth' });
+        },
+        //初始化模板
+        styleRender(val) {//css 渲染
+          var w = this.details.template.width || 100;
+          var styleList = {
+            width: (val.width / w) * 1000 + '%',
+            height: (val.height * 10) + 'px',
+            top: (val.yIndex * 10) + 'px',
+            left: 10 * val.xIndex + 'px',
+            position: 'absolute',
+            // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
+          };
+          if (val.appWidget && val.appWidget.target) {
+            this.addStyle(val.appWidget.target + '/component.css');
+            this.addScript(val.appWidget.target + '/component.js');
+          }
+          return styleList;
+        },
+        //判断是否为空
+        isWidgetCode(item) {
+          var widgetCode = '';
+          if (item.widgetCode) {
+            widgetCode = item.widgetCode;
+          } else {
+            if (item.appWidget && item.appWidget.widgetCode) {
+              widgetCode = item.appWidget.widgetCode;
+            } else {
+              widgetCode = '';
+            }
+          }
+          return widgetCode;
+        },
+        //外层全屏
+        isWidgetCodeWapr(width, item) {
+          var widgetCode = '';
+          if (item.width == (width / 10) && item.configParameter && item.configParameter.fullScreen) {
+            if (width == 1200) {
+              widgetCode = ' mar-left-1200';
+            } else if (width == 1440) {
+              widgetCode = ' mar-left-1440';
+            }
+          }
+          return widgetCode;
+        },
+        //动态设置模板id
+        setId() {
+          return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
+        },
+        //样式设置
+        styleSet(it, i) {
+          var list = {};
+          if (it.bgImg) {
+            if (i < 0 && this.details.sceneScreens && this.details.sceneScreens[0]) {
+              list = { 'background': this.bg_color + ' url(' + this.fileUrl + (this.details.sceneScreens[0].bgImg || '') + ')', 'background-position': 'center top !important' };
+            } else if (i == 0) {//第一屏
+              if (this.details.sceneScreens.length > 1) {//多屏情况下的第一屏
+                list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(this.details.headerTemplate.height * 10) + 'px !important'), 'background-repeat-y': 'no-repeat', 'background-repeat-x': 'initial' };
+              } else {
+                list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position': 'center top !important', 'background-repeat-y': 'no-repeat', 'background-repeat-x': 'initial' };
+              }
+            } else {
+              list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')' };
+            }
+          }
+          return list;
+        },
+        //格式化
+        commonWidgetSetFormat(val) {
+          if (val && val != "undefind" && val != 'null') {
+            return val.replace(/\"/g, "'");
+          } else {
+            return '{}';
+          }
+        },
+        addStyle(url) {
+          var link = document.createElement("link");
+          link.setAttribute("rel", "stylesheet");
+          link.setAttribute("type", "text/css");
+          link.setAttribute("href", url + '?version=' + new Date().getTime());
+          document.getElementsByTagName("body")[0].appendChild(link);
+        },
+
+        addScript(url) {
+          var js_element = document.createElement("script");
+          js_element.setAttribute("type", "text/javascript");
+          js_element.setAttribute("src", url + '?version=' + new Date().getTime());
+          document.getElementsByTagName("body")[0].appendChild(js_element);
+        },
+      },
+    })
+  </script>
+</body>
+
+</html>

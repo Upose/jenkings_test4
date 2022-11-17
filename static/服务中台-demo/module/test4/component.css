@@ -1,0 +1,60 @@
+.test4-warp {
+  position: relative;
+}
+.test4-warp .bg-test4-warp {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+.test4-warp .type {
+  border-radius: 9px;
+  padding: 1px 5px;
+  font-size: 12px;
+  min-width: 46px;
+  display: block;
+  text-align: center;
+  margin-top: 3px;
+}
+.test4-warp .type-color1 {
+  background: #FE9E32;
+}
+.test4-warp .type-color2 {
+  background: #D10016;
+}
+.test4-warp .type-color3 {
+  background: #39CCC8;
+}
+.test4-warp .dlib3-more {
+  color: #fff;
+}
+.test4-warp .dlib3-box-warp-clear {
+  height: 100%;
+}
+.test4-warp .dlib3-list-warp {
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.test4-warp .row {
+  width: 25%;
+  height: 130px;
+  float: left;
+}
+.test4-warp .row .app-warp {
+  height: 100%;
+  margin: auto;
+  flex-direction: column;
+}
+.test4-warp .row .logo-bg {
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+.test4-warp .row .logo-bg img {
+  max-width: 24px;
+  max-height: 24px;
+}

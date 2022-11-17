@@ -1,0 +1,21 @@
+.test1-warp .row {
+  width: calc(50% - 5px);
+  float: left;
+  margin-bottom: 10px;
+  padding: 10px 13px;
+}
+.test1-warp .row .icon {
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  margin-right: 10px;
+}
+.test1-warp .row:nth-child(odd) {
+  margin-right: 5px;
+}
+.test1-warp .row:nth-child(even) {
+  margin-left: 5px;
+}
+.test1-warp .row .r-btn {
+  margin-left: auto;
+}

@@ -1,0 +1,46 @@
+.test3-warp .dlib3-box-warp .dlib3-list-warp {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  align-items: flex-start;
+}
+
+.test3-warp .dlib3-box-warp .dlib3-list-warp .row {
+  position: relative;
+  padding-left: 20px;
+  max-width: 220px;
+  flex: 1;
+  flex-shrink: 0;
+}
+
+.test3-warp .dlib3-box-warp .dlib3-list-warp .row .box {
+  margin-bottom: 52px;
+  font-weight: bold;
+  font-size: 16px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+}
+
+.test3-warp .dlib3-box-warp .dlib3-list-warp .row .box:last-child {
+  margin-bottom: 0;
+}
+
+.test3-warp .dlib3-box-warp .dlib3-list-warp .row .box::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 5px;
+  height: 12px;
+  width: 3px;
+  background-color: #FFFFFF;
+}
+
+.test3-warp .dlib3-box-warp .dlib3-list-warp .row .border {
+  width: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+}
