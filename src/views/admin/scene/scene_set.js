@@ -161,7 +161,7 @@ export default {
       // console.log('详情渲染',data);
       var _this = this;
       if (data.template && data.template.width && data.template.width != 100) {
-        _this.$addStyle('./static/js/gridstack/gridstack_extra_'+data.template.width+'.css');
+        _this.$addStyleLocal('./static/js/gridstack/gridstack_extra_'+data.template.width+'.css');
         _this.grid.column(data.template.width / 10, 'moveScale');
         _this.drag_width = data.template.width == 100 ? 1200 : data.template.width;
         setTimeout(() => {
@@ -169,7 +169,7 @@ export default {
           _this.setHeight(c_height);
         }, 30);
       } else {
-        _this.$addStyle('./static/js/gridstack/gridstack_extra_1200.css');
+        _this.$addStyleLocal('./static/js/gridstack/gridstack_extra_1200.css');
         _this.grid.column(120, 'moveScale');
         _this.drag_width = 1200;
       }
@@ -549,7 +549,7 @@ export default {
             this.screen_list.forEach(item => {
               item['sceneApps'] = [];
             })
-            this.$addStyle('./static/js/gridstack/gridstack_extra_1200.css');
+            this.$addStyleLocal('./static/js/gridstack/gridstack_extra_1200.css');
           }
           //这里要加载模板才css文件
           this.templateCssLoad(this.postForm.template.filePath);
@@ -751,7 +751,7 @@ export default {
           link.setAttribute("rel", "stylesheet");
           link.setAttribute("id", "templateId");
           link.setAttribute("type", "text/css");
-          link.setAttribute("href", url + '?version=' + new Date().getTime());
+          link.setAttribute("href", process.env.VUE_APP_TEMPLATESRC+url + '?version=' + new Date().getTime());
           if (document.getElementsByTagName("body")) document.getElementsByTagName("body")[0].appendChild(link);
         }
       }

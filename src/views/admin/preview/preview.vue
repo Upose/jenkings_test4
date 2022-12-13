@@ -91,7 +91,7 @@ export default {
           link.setAttribute("rel", "stylesheet");
           link.setAttribute("id", "templateId");
           link.setAttribute("type", "text/css");
-          link.setAttribute("href", url + '?version=' + new Date().getTime());
+          link.setAttribute("href", process.env.VUE_APP_TEMPLATESRC+url + '?version=' + new Date().getTime());
           document.getElementsByTagName("body")[0].appendChild(link);
         }
       }

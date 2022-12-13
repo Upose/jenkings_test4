@@ -24,7 +24,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="黑白模式">
-                <el-switch :active-value="1" :inactive-value="0" v-model="postForm.commemorate"></el-switch>
+                <el-switch :active-value="1" :inactive-value="0" v-model="postForm.isBlackWhiteMode"></el-switch>
               </el-form-item>
               <el-form-item label="管理系统LOGO普通" prop="logo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
@@ -412,12 +412,30 @@ export default {
   padding: 15px 8px;
   padding-bottom: 0;
   min-height: 95px;
+  .temp-name{
+    display: block !important;
+    margin-top: -6px;
+    margin-left: -5px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    color: #000 !important;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    padding: 0 5px;
+    text-shadow: 0px 0px 3px #ffffff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .d-temp-box{
     margin-left:8px;
     margin-right:8px;
     margin-bottom: 15px;
     width: 120px;
     height:70px;
+    background-size: 100% auto !important;
     .edit-btn{
       cursor: pointer;
       position: absolute;

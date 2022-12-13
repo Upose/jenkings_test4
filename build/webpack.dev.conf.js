@@ -59,7 +59,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       htmlFileUrl: env.VUE_APP_FILE_URL,
-      local: env.LOCAL,
+      local: env.VUE_APP_LOCAL,
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
