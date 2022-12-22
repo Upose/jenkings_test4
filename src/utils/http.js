@@ -356,7 +356,8 @@ export default {
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Authorization': token
+          'Authorization': token,
+          'Authorization': 'X-VipSmart-AppCode',
         },
       }).then(response => {
         const result = response.data;
