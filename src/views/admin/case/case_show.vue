@@ -134,7 +134,7 @@ export default {
   },
   methods:{
     initData(){
-      var pars = '?TopCount=16';
+      var pars = '?TopCount=30';
       if(this.Status || this.Status == 0){
         pars = pars+"&Status="+this.Status;
       }
