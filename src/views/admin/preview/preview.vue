@@ -7,6 +7,8 @@
     <previewScreenSZY :details="details" v-if="is_show_page == 'previewScreenSZY'"></previewScreenSZY>
     <previewScreenSZJS :details="details" v-if="is_show_page == 'previewScreenSZJS'"></previewScreenSZJS>
     <bigScreenDuzhedaohang :details="details" v-if="is_show_page == 'bigScreenDuzhedaohang'"></bigScreenDuzhedaohang>
+    <previewScreenNMGKJDX :details="details" v-if="is_show_page == 'previewScreenNMGKJDX'"></previewScreenNMGKJDX>
+    <previewAllQXDM :details="details" v-if="is_show_page == 'previewAllQXDM'"></previewAllQXDM>
   </div>
 </template>
 
@@ -14,15 +16,17 @@
 import previewAll from './previewAll.vue';//所有页预览
 import previewLeftmenu from './previewLeftmenu.vue';//演示站点
 import previewScreen from './previewScreen.vue';//通屏-滚屏预览
-import previewScreenSZY from './previewScreenSZY.vue';//通屏-深职院
-import previewScreenSZJS from './previewScreenSZJS.vue';//通屏-深圳技术大学
-import bigScreenDuzhedaohang from './bigScreenDuzhedaohang.vue';//大屏
+import previewScreenSZY from './previewScreenSZY.vue';//分屏-深职院
+import previewScreenSZJS from './previewScreenSZJS.vue';//分屏-深圳技术大学
+import bigScreenDuzhedaohang from './bigScreenDuzhedaohang.vue';//读者导航-深职院大屏
+import previewScreenNMGKJDX from './previewScreenNMGKJDX.vue';//分屏-内蒙古科技大学
+import previewAllQXDM from './previewAllQXDM.vue';//分屏-清新淡墨
 export default {
   name: "index",
   components: {
-    previewAll, 
+    previewAll, previewAllQXDM,
     previewLeftmenu, 
-    previewScreen, previewScreenSZY, previewScreenSZJS,
+    previewScreen, previewScreenSZY, previewScreenSZJS,previewScreenNMGKJDX,
     bigScreenDuzhedaohang,
   },
   data() {
@@ -67,14 +71,20 @@ export default {
           this.is_show_page = 'previewScreenSZY';
         } else if (this.details.template.code == 'splitscreensztu') {//深圳技术大学
           this.is_show_page = 'previewScreenSZJS';
-        } else {
+        }  else if (this.details.template.code == 'imust') {//内蒙古科技大学
+          this.is_show_page = 'previewScreenNMGKJDX';
+        }else {
           this.is_show_page = 'previewScreen';
         }
       } else if (this.details.template.layoutId == 4) {//大屏
         this.is_show_page = 'bigScreenDuzhedaohang';
       } else {//通屏，分段
-        this.is_show_page = 'previewAll';
         this.min_height = '100%';
+        if(this.details.template.code == 'onsectionlightink'){
+          this.is_show_page = 'previewAllQXDM';
+        }else{
+          this.is_show_page = 'previewAll';
+        }
       }
       console.log(this.is_show_page);
     },

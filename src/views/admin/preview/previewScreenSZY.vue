@@ -62,7 +62,6 @@ export default {
   name: 'index',
   props: ['details'],
   created() {
-    // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
       if (this.details.headerTemplate && this.details.headerTemplate.router) {

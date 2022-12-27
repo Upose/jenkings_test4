@@ -14,6 +14,12 @@
       </div><!-- 头部信息-end -->
 
       <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="styleSet(it,i)">
+        <div class="dalib-template-bg" v-if="i!=0">
+          <div class="d-t-w">
+            <div class="tbg-c1"></div><!--背景色板块-->
+            <div class="img-w" :style="styleSet(it,i)"></div><!--背景图板块-->
+          </div>
+        </div><!-- 背景板块 end -->
         <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
           <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
             <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
@@ -44,7 +50,48 @@
 
   </div>
 </template>
-
+<style lang="less" scoped>
+.dalib-template-bg{
+  .d-t-w{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .tbg-c1,.img-w{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+    .tbg-c1{
+      z-index: 1;
+      opacity: .01;
+    }
+    .img-w{
+      z-index: 2;
+      background-position: center !important;
+    }
+  }
+}
+#temp1 .tbg-c1{
+  opacity: .35;
+}
+#temp2 .tbg-c1{
+  opacity: .05;
+}
+#temp3 .tbg-c1{
+  opacity: .35;
+}
+#temp4 .tbg-c1{
+  opacity: .3;
+}
+#temp5 .tbg-c1{
+  opacity: .2;
+}
+#temp6 .tbg-c1{
+  opacity: .05;
+}
+</style>
 <script>
 export default {
   name: 'index',
@@ -142,15 +189,15 @@ export default {
     styleSet(it,i){
       var list = {};
       if(i<0 && this.details.sceneScreens && this.details.sceneScreens[0]){
-        list = {'background':this.bg_color+' url('+this.fileUrl+(this.details.sceneScreens[0].bgImg||'')+')','background-position':'center top !important'};
+        list = {'background':' url('+this.fileUrl+(this.details.sceneScreens[0].bgImg||'')+')','background-position':'center top !important'};
       }else if(i==0){//第一屏
         if(this.details.sceneScreens.length>1){//多屏情况下的第一屏
-          list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important'),'background-repeat': 'repeat-x'};
+          list = {'background':' url('+this.fileUrl+(it.bgImg||'')+')','background-position-y':(-(this.details.headerTemplate.height*10)+'px !important'),'background-repeat-y': 'no-repeat','background-repeat-x':'initial'};
         }else{
-          list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')','background-position':'center top !important','background-repeat': 'repeat-x'};
+          list = {'background':' url('+this.fileUrl+(it.bgImg||'')+')','background-position':'center top !important','background-repeat-y': 'no-repeat','background-repeat-x':'initial'};
         }
       }else{
-        list = {'background':this.bg_color+' url('+this.fileUrl+(it.bgImg||'')+')'};
+        list = {'background':' url('+this.fileUrl+(it.bgImg||'')+')'};
       }
       return list;
     },
@@ -176,12 +223,19 @@ export default {
 .scene-warp-bg{
   // background-size: 100% 100% !important;
   background-position: center !important;
+  position: relative;
+  .dalib-template-bg{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 }
 .bocy-content{
   position: relative;
   min-width: 1200px;//最小宽度
   margin-left: auto;
   margin-right: auto;
+  z-index: 5;
 }
 .html-warp-page{
   scroll-behavior:smooth;

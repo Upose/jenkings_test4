@@ -191,7 +191,7 @@ export default {
       template_check: '',//选择的模板id
       set_list: [ //这里为了渲染有哪几栏，有哪些设置参数
         {
-          topCount: '',//数据条数-（需要参数）
+          topCount:1,//数据条数-（需要参数）
           sortType: '',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
           id: '',//应用栏目标识 -（需要参数）
           orderIndex: 1,//排序标识
@@ -291,7 +291,7 @@ export default {
       _this.http.getPlain_url('app-widget-list-by-app-id', '/' + val.id).then(res => {
         _this.template_list = res.data || [];
         if (val.is_add) {
-          _this.set_list = [{ topCount: '', sortType: '', id: '', orderIndex: 1 }];
+          _this.set_list = [{ topCount:1, sortType: '', id: '', orderIndex: 1 }];
           //获取模板列表，默认选中第一个模板
           if (_this.template_list.length > 0) {
             //默认选择添加第一个模板之后，需要将当前渲染的那一个模板id拿到，方便做应用选择。
@@ -304,7 +304,7 @@ export default {
           _this.configParameter = JSON.parse((val.configParameter || "{}").replace(/'/g, '"'));
           _this.commonWidgetSet = val.commonWidgetSet;
           if (_this.set_list.length == 0) {
-            _this.set_list = [{ topCount: '', sortType: '', id: '', orderIndex: 1 }];
+            _this.set_list = [{ topCount:1, sortType: '', id: '', orderIndex: 1 }];
           }
           _this.template_check = val.temp_id;
           var index = 0;
@@ -369,9 +369,9 @@ export default {
       this.topCountList = val.topCountList||[];//显示条数
       if (this.set_list[0] && !this.set_list[0].topCount) {
         if(val.topCountList[0]){
-          this.set_list[0].topCount = val.topCountList[0].value||0;
+          this.set_list[0].topCount = val.topCountList[0].value||1;
         }else{
-          this.set_list[0].topCount = 0;
+          this.set_list[0].topCount =1;
         }
       }
       if (isAdd == 'add') {
@@ -396,7 +396,7 @@ export default {
         return;
       }
       this.set_list.push({
-        topCount: '',
+        topCount: 1,
         sortType: '',
         id: '',
         orderIndex: index + 1,

@@ -481,14 +481,14 @@ export default {
         if (_this.id) {
           _this.http.putJson('scene-add', post_obj).then(res => {
             _this.$message({ message: '修改成功', type: 'success' });
-            window.history.go(-1);
+            this.$router.replace('/admin_caseShow');
           }).catch(err => {
             _this.$message({ message: '修改失败', type: 'warning' });
           })
         } else {
           _this.http.postJson('scene-add', post_obj).then(res => {
             _this.$message({ message: '添加成功', type: 'success' });
-            window.history.go(-2);
+            this.$router.replace('/admin_caseShow');
           }).catch(err => {
             _this.$message({ message: '添加失败', type: 'warning' });
           })
@@ -581,17 +581,20 @@ export default {
       this.sortable = Sortable.create(el, {
         animation: 150,
         ghostClass: "sortable-ghost",
-        setData: function (dataTransfer) {
-          dataTransfer.setData("Text", "");
-        },
-        onStart: function (evt) {
-          console.log(evt.oldIndex);
-          evt.oldIndex;
-        },
         onEnd: e => {
-          const targetRow = this.screen_list.splice(e.oldIndex, 1)[0];//oldIndex原位置
-          this.screen_list.splice(e.newIndex, 0, targetRow);//newIndex新位置
-          console.log(e.oldIndex, this.screen_list, '排序后的数据')
+          // const targetRow = this.screen_list.splice(e.oldIndex, 1)[0];//oldIndex原位置
+          // console.log(e.newIndex , e.oldIndex);
+          // this.screen_list.splice(e.newIndex, 0, targetRow);//newIndex新位置
+          // console.log(e.oldIndex, this.screen_list, '排序后的数据')
+          // if (e.newIndex == e.oldIndex) { return; }
+          // var list = this.screen_list;
+          // const targetRow = list.splice(e.oldIndex+1, 1)[0];
+          // list.splice(e.newIndex+1, 0, targetRow);
+          // this.screen_list = [];
+          // console.log(e.newIndex+1 , e.oldIndex+1,list);
+          // setTimeout(() => {
+          //   this.screen_list = list;
+          // }, 10);
         }
       });
     },

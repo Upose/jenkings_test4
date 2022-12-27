@@ -21,7 +21,7 @@
             </div>
           </el-form-item>
           <el-form-item label="附加组件" prop="logo">
-              <el-checkbox-group v-model="postForm.append" :disabled="id?true:false">
+              <el-checkbox-group v-model="postForm_head.append" :disabled="id?true:false">
                 <el-checkbox  v-for="(it,i) in append_list" :key="i" :label="it.value">{{it.key}}</el-checkbox>
               </el-checkbox-group>
           </el-form-item>
@@ -31,12 +31,12 @@
                 <el-select v-model="it.columnId" placeholder="选择栏目">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
                 </el-select>
-                <el-select v-model="it.count" placeholder="显示条数">
+                <!-- <el-select v-model="it.count" placeholder="显示条数">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in topCountList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
-                </el-select>
-                <el-select v-model="it.orderRule" placeholder="排序规则">
+                </el-select> -->
+                <!-- <el-select v-model="it.orderRule" placeholder="排序规则">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in sortList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
-                </el-select>
+                </el-select> -->
                 <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list.length-1)!=i">
                   <i class="iconfont el-icon-vip-jianhao1"></i>
                   <span>删除</span>
@@ -77,12 +77,12 @@ export default {
       jsList: [{}],//js组件
       append_list:[
         {key:'显示IP',value:'1'},
-        {key:'天气预报',value:'1'},
-        {key:'日历组件',value:'1'},
-        {key:'VPN登录',value:'1'},
-        {key:'欢迎词',value:'1'},
-        {key:'消息提醒',value:'1'},
-        {key:'开馆时间',value:'1'},
+        {key:'天气预报',value:'2'},
+        {key:'日历组件',value:'3'},
+        {key:'VPN登录',value:'4'},
+        {key:'欢迎词',value:'5'},
+        {key:'消息提醒',value:'6'},
+        {key:'开馆时间',value:'7'},
       ],//附加组件选择列表
       coumn_data_list: [],//栏目列表-列表
       sortList:[{key: "默认", value: "Default", icon: null}],//排序方式-列表
@@ -98,6 +98,7 @@ export default {
       ],//显示条数-列表
       coumn_list: [{columnId:''}],//新增删除栏目列表
       postForm_head: {
+        append:[],
         headerBgImg:'',//头部背景
         displayNavColumn:[],//栏目
         logo:'',//logo

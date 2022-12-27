@@ -29,7 +29,6 @@ export default {
   name: 'index',
   props: ['data'],
   mounted() {
-    console.log(this.data);
     if(this.data && this.data!='{}'){
       this.postForm = JSON.parse(this.data.replace(/'/g, '"'));
     }

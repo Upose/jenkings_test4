@@ -18,12 +18,12 @@
               <el-select v-model="it.columnId" placeholder="选择栏目">
                 <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
               </el-select>
-              <el-select v-model="it.count" placeholder="显示条数">
+              <!-- <el-select v-model="it.count" placeholder="显示条数">
                 <el-option :label="item.key" :value="item.value" v-for="(item,i) in topCountList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
-              </el-select>
-              <el-select v-model="it.orderRule" placeholder="排序规则">
+              </el-select> -->
+              <!-- <el-select v-model="it.orderRule" placeholder="排序规则">
                 <el-option :label="item.key" :value="item.value" v-for="(item,i) in sortList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
-              </el-select>
+              </el-select> -->
               <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list.length-1)!=i">
                 <i class="iconfont el-icon-vip-jianhao1"></i>
                 <span>删除</span>
