@@ -26,25 +26,25 @@
               <el-form-item label="黑白模式">
                 <el-switch :active-value="true" :inactive-value="false" v-model="postForm.isBlackWhiteMode"></el-switch>
               </el-form-item>
-              <el-form-item label="管理系统LOGO普通" prop="logo" v-if="IsSystemInstance">
+              <el-form-item label="管理系统完整LOGO" prop="backLogo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
-                  <div class="up-img-warp" v-if="postForm.logo">
-                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
+                  <div class="up-img-warp" v-if="postForm.backLogo">
+                    <img :src="postForm.logo?(basurl+postForm.backLogo):default_img">
                   </div>
                   <div class="up-img-warp up-icon">
-                    <span>上传图标</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','adminLogo')">
+                    <span>上传LOGO</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','backLogo')">
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="管理系统LOGO简洁" prop="logo" v-if="IsSystemInstance">
+              <el-form-item label="管理系统简洁LOGO" prop="backSimpleLogo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
-                  <div class="up-img-warp" v-if="postForm.logo">
-                    <img :src="postForm.logo?(basurl+postForm.logo):default_img">
+                  <div class="up-img-warp" v-if="postForm.backSimpleLogo">
+                    <img :src="postForm.logo?(basurl+postForm.backSimpleLogo):default_img">
                   </div>
                   <div class="up-img-warp up-icon">
-                    <span>上传图标</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','adminLogomin')">
+                    <span>上传LOGO</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','backSimpleLogo')">
                   </div>
                 </div>
               </el-form-item>
@@ -252,7 +252,12 @@ export default {
 
     })
     this.bus.$on("getUpladFile",(res)=>{
-      console.log(res);
+      switch (res.key) {
+        case 'backLogo': this.postForm.backLogo = res.url || ''; break;
+        case 'backSimpleLogo': this.postForm.backSimpleLogo = res.url || ''; break;
+        case 'logo': this.postForm.logo = res.url || ''; break;
+      }
+      this.$forceUpdate();
     })
   },
   methods:{
