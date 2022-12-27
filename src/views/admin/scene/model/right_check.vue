@@ -55,7 +55,7 @@
               </div>
               <div class="cloum-row" v-for="(it,i) in set_list" :key="i">
                 <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                  <el-select class="w-saml" v-model="it.id" size="medium" @change="column" placeholder="绑定栏目">
+                  <el-select class="w-saml" v-model="it.id" size="medium" @change="columnClick($event,i)" placeholder="绑定栏目">
                     <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                   </el-select>
                 </div>
@@ -73,27 +73,6 @@
                   <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
                   <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
                 </div>
-                <!-- <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                  <h2 class="s-title">绑定栏目 
-                    <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
-                    <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
-                  </h2>
-                  <el-select class="w-saml" v-model="it.id" size="medium" @change="column" placeholder="请选择">
-                    <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
-                  </el-select>
-                </div>
-                <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
-                  <h2 class="s-title">显示条数</h2>
-                  <el-select class="w-saml" v-model="it.topCount" size="medium" @change="showNum" placeholder="请选择">
-                    <el-option v-for="(item,i) in topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
-                  </el-select>
-                </div>
-                <div class="s-c-row" v-if="availableConfig.indexOf('3')>-1">
-                  <h2 class="s-title">排序规则</h2>
-                  <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="请选择">
-                    <el-option v-for="(item,i) in sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
-                  </el-select>
-                </div> -->
               </div>
             </div><!--栏目配置 end--->
 
@@ -191,6 +170,7 @@ export default {
       template_check: '',//选择的模板id
       set_list: [ //这里为了渲染有哪几栏，有哪些设置参数
         {
+          routeCode:'',//应用code
           topCount:1,//数据条数-（需要参数）
           sortType: '',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
           id: '',//应用栏目标识 -（需要参数）
@@ -226,7 +206,18 @@ export default {
       this.saveClick('edit');
     },
     //栏目选择
-    column(e){
+    columnClick(e,index){
+      // this.options.forEach((item) => {
+      //   var s = null;
+      //   item.child.forEach((m,k) =>{
+      //       if(m.value == e){
+      //           s = true;
+      //       }
+      //   });
+      //   if(s){
+      //       this.set_list[index].routeCode = item.code;
+      //   }
+      // })
       this.saveClick('edit');
     },
     //条数选择
@@ -291,7 +282,7 @@ export default {
       _this.http.getPlain_url('app-widget-list-by-app-id', '/' + val.id).then(res => {
         _this.template_list = res.data || [];
         if (val.is_add) {
-          _this.set_list = [{ topCount:1, sortType: '', id: '', orderIndex: 1 }];
+          _this.set_list = [{ routeCode:'',topCount:1, sortType: '', id: '', orderIndex: 1 }];
           //获取模板列表，默认选中第一个模板
           if (_this.template_list.length > 0) {
             //默认选择添加第一个模板之后，需要将当前渲染的那一个模板id拿到，方便做应用选择。
@@ -304,7 +295,7 @@ export default {
           _this.configParameter = JSON.parse((val.configParameter || "{}").replace(/'/g, '"'));
           _this.commonWidgetSet = val.commonWidgetSet;
           if (_this.set_list.length == 0) {
-            _this.set_list = [{ topCount:1, sortType: '', id: '', orderIndex: 1 }];
+            _this.set_list = [{ routeCode:'',topCount:1, sortType: '', id: '', orderIndex: 1 }];
           }
           _this.template_check = val.temp_id;
           var index = 0;
@@ -371,7 +362,7 @@ export default {
         if(val.topCountList[0]){
           this.set_list[0].topCount = val.topCountList[0].value||1;
         }else{
-          this.set_list[0].topCount =1;
+          this.set_list[0].topCount = 1;
         }
       }
       if (isAdd == 'add') {
@@ -396,6 +387,7 @@ export default {
         return;
       }
       this.set_list.push({
+        routeCode:'',
         topCount: 1,
         sortType: '',
         id: '',

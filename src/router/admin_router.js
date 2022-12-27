@@ -84,6 +84,16 @@ export default {
         parentRoute:'/admin_terminalManage'
       },
     },
+    {
+      path: '/test',
+      name: 'test',
+      component: r => require.ensure([], () => r(require('@/views/admin/test.vue')), 'terminal'),
+      meta: {
+        title: [{ name: '终端管理', path: '/admin_terminalManage' }, { name: '终端内容', }],
+        keepAlive: true,
+        parentRoute:'/admin_terminalManage'
+      },
+    },
   ].map(x=>{
     x.  beforeEnter= beforeEnterImplAsync;
     return x;
