@@ -69,7 +69,9 @@ export default {
       if(type == 'add'){
         this.$router.push('/admin_terminalAdd')
       }else{
-        this.$router.push({path:'/admin_terminalAdd',query:{id:val.id}})
+        if(this.$authShowBtn('terminal_edit')){
+          this.$router.push({path:'/admin_terminalAdd',query:{id:val.id}})
+        }
       }
     },
     delClick(val){

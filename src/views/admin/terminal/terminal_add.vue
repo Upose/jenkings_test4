@@ -24,7 +24,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item label="黑白模式">
-                <el-switch :active-value="1" :inactive-value="0" v-model="postForm.isBlackWhiteMode"></el-switch>
+                <el-switch :active-value="true" :inactive-value="false" v-model="postForm.isBlackWhiteMode"></el-switch>
               </el-form-item>
               <el-form-item label="管理系统LOGO普通" prop="logo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
@@ -112,7 +112,7 @@
                 <el-input type="textarea" class="form-textarea" placeholder="请输入备注信息" maxlength="200" minlength="0" show-word-limit v-model="postForm.remark"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button icon="iconfont el-icon-vip-quxiao" size="medium" @click="$backHistory()">取消</el-button>
+                <el-button icon="iconfont el-icon-vip-quxiao" size="medium" @click="backClick()">取消</el-button>
                 <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm('postForm')">保存</el-button>
               </el-form-item>
             </div>
@@ -347,6 +347,9 @@ export default {
       this.hfHide();
     },
     /*************************************************子页面头部底部end */
+    backClick(){
+      this.$router.replace('/admin_terminalManage');
+    },
     //表单提交
     submitForm(formName) {
       if(this.postForm.headerMode==1){
@@ -368,14 +371,14 @@ export default {
             if(this.id){
               this.http.putJson('terminal-instance-updata',this.postForm).then(res=>{ 
                 this.$message({type: 'success',message: '修改成功!'});
-                window.history.back(); 
+                this.$router.replace('/admin_terminalManage');  
               }).catch(err=>{
                 this.$message({type: 'error',message: '修改失败'});    
               })
             }else{
               this.http.postJson('terminal-instance-add',this.postForm).then(res=>{ 
                 this.$message({type: 'success',message: '添加成功!'});
-                window.history.back(); 
+                this.$router.replace('/admin_terminalManage'); 
               }).catch(err=>{
                 this.$message({type: 'error',message: '添加失败'});    
               })
