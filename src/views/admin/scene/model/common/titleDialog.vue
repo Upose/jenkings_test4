@@ -7,7 +7,7 @@
           <el-form-item label="更换背景" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm.bgimg?(fileUrl+postForm.bgimg):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景更换</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS($event)">
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'img','titleDialog')">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
@@ -34,10 +34,16 @@ export default {
   name: 'index',
   props: ['data'],
   mounted() {
-    console.log(this.data);
+    var _this = this;
     if(this.data && this.data!='{}'){
       this.postForm = JSON.parse(this.data.replace(/'/g, '"'));
     }
+    this.bus.$on("getUpladFile",(res)=>{
+      switch (res.key) {
+        case 'titleDialog': _this.postForm.bgimg = res.url || ''; break;
+      }
+      this.$forceUpdate();
+    })
   },
   data() {
     return {
@@ -65,26 +71,6 @@ export default {
     handleClose(done) {
       this.$emit('closeCommon',{data:this.postForm,type:'title',saveORclose:'close'});
       done();
-    },
-    //文件上传
-    handleFileJS(e) {
-      var _this = this;
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif') {
-        this.$message({ type: 'error', message: '请上传图片文件!' });
-        return;
-      }
-      this.http.postFile("UploadFile", formData).then((res) => {
-        this.postForm.bgimg = res.data[0] || '';
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
     },
   },
 }

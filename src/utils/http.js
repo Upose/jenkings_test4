@@ -351,13 +351,12 @@ export default {
     return new Promise((resolve, reject) => {
       axios({
         url: window.localStorage.getItem('fileUrl') + '/api/file/upload-file',
-        // url: this.postUrl[url],
         data: formData,
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': token,
-          'Authorization': 'X-VipSmart-AppCode',
+          'X-VipSmart-AppCode': 'scenemanage',
         },
       }).then(response => {
         const result = response.data;

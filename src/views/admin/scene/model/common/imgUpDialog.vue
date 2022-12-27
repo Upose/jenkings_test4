@@ -7,7 +7,7 @@
           <el-form-item label="图片" prop="logo">
             <div class="up-img w100" :style="{'background-image':'url('+(postForm.cover?(fileUrl+postForm.cover):'')+')'}">
               <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
-              <input type="file" :id="'file_bg'" multiple="multiple" @change="handleFileJS($event)">
+              <input type="file" :id="'file_bg'" multiple="multiple" @change="$fileUpload($event,'img','imgUpDialog')">
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg()"></i>
             </div>
           </el-form-item>
@@ -29,9 +29,16 @@ export default {
   name: 'index',
   props: ['data'],
   mounted() {
+    var _this = this;
     if(this.data && this.data!='{}'){
       this.postForm = JSON.parse(this.data.replace(/'/g, '"'));
     }
+    this.bus.$on("getUpladFile",(res)=>{
+      switch (res.key) {
+        case 'imgUpDialog': _this.postForm.cover = res.url || ''; break;
+      }
+      this.$forceUpdate();
+    })
   },
   data() {
     return {
@@ -56,26 +63,6 @@ export default {
     handleClose(done) {
       this.$emit('closeCommon',{data:this.postForm,type:'imgup',saveORclose:'close'});
       done();
-    },
-    //文件上传
-    handleFileJS(e) {
-      var _this = this;
-      let $target = e.target || e.srcElement
-      let file = $target.files[0]
-      if (!file) {
-        return
-      }
-      let formData = new FormData()
-      formData.append('files', file)
-      if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/JPG' && file.type !== 'image/JPEG' && file.type !== 'image/gif') {
-        this.$message({ type: 'error', message: '请上传图片文件!' });
-        return;
-      }
-      this.http.postFile("UploadFile", formData).then((res) => {
-        this.postForm.cover = res.data[0] || '';
-      }).catch((err) => {
-        this.$message({ type: 'error', message: '上传失败!' });
-      });
     },
   },
 }
