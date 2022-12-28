@@ -189,7 +189,7 @@ export default {
 /*****顶部 */
 .drag-top {
   width: 100%;
-  height: 64px;
+  min-height: 64px;
   background: @m-col-b0;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
   z-index: 7;

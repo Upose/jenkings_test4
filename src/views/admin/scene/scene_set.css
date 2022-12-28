@@ -57,7 +57,7 @@
 .admin-content .drag-content .drag-c {
   position: absolute;
   bottom: 0;
-  top: 0;
+  top: 64px;
   background-color: #fff;
 }
 .admin-content .drag-content .drag-l-pad,
@@ -159,7 +159,6 @@
   left: 0;
   right: 0;
   z-index: 1;
-  background-color: #F1F3F7;
   /***************屏幕按钮板块 */
 }
 .admin-content .drag-content .drag-c .scaling-right {
@@ -171,8 +170,7 @@
 .admin-content .drag-content .drag-c .drag-container {
   width: 100%;
   min-width: 430px;
-  height: 100%;
-  overflow-y: auto;
+  height: auto;
   background-color: #fff;
   padding: 30px;
 }
@@ -200,6 +198,7 @@
 .admin-content .drag-content .drag-c .screen-btn-drag {
   padding: 20px 5px;
   padding-bottom: 0;
+  background-color: #F1F3F7;
   /***首屏选中效果-不显示删除按钮 */
   /***选中效果 */
   /****新增按钮 */

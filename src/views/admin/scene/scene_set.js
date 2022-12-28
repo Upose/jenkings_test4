@@ -27,10 +27,10 @@ export default {
     }
     this.initGrid();
     this.initData();
-    this.setHeight(document.body.clientHeight - 104);
+    this.setHeight(document.body.clientHeight - 40);
     this.$nextTick(() => {
       window.addEventListener('resize', () => { //监听浏览器窗口大小改变
-        var c_height = document.body.clientHeight - 104;
+        var c_height = document.body.clientHeight - 40;
         this.setHeight(c_height);
       });
     })
@@ -165,7 +165,7 @@ export default {
         _this.grid.column(data.template.width / 10, 'moveScale');
         _this.drag_width = data.template.width == 100 ? 1200 : data.template.width;
         setTimeout(() => {
-          var c_height = document.body.clientHeight - 104;
+          var c_height = document.body.clientHeight - 40;
           _this.setHeight(c_height);
         }, 30);
       } else {
@@ -541,7 +541,7 @@ export default {
                 // _this.grid.opts.row = val.list.height/10;
                 _this.drag_width = val.list.width;
                 setTimeout(() => {
-                  var c_height = document.body.clientHeight - 104;
+                  var c_height = document.body.clientHeight - 40;
                   _this.setHeight(c_height);
                 }, 30);
               }
@@ -600,6 +600,7 @@ export default {
     },
     //高度动态设置
     setHeight(val) {
+      console.log(val);
       if (this.$refs.dragContainer) {
         var c_width = this.$refs.dragContainer.clientWidth - 60;
         this.$refs.scalingRef.getHeight(c_width);
