@@ -528,7 +528,6 @@ export default {
             //这里还要做头部底部的更新
             this.detailsRender(this.postForm);
           } else {//这里表示空模板
-            console.log(val);
             this.postForm['footerTemplate'] = {};
             this.postForm['headerTemplate'] = {};
             this.postForm['sceneScreens'] = [];
@@ -600,7 +599,6 @@ export default {
     },
     //高度动态设置
     setHeight(val) {
-      console.log(val);
       if (this.$refs.dragContainer) {
         var c_width = this.$refs.dragContainer.clientWidth - 60;
         this.$refs.scalingRef.getHeight(c_width);
