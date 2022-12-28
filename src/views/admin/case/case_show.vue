@@ -26,6 +26,7 @@
               <div class="row-box set-hover" v-for="i in (item.sceneList||[])":key="i+'a'">
                 <div class="r-box-bg">
                   <img :src="fileUrl+i.cover" @click="editClick(i,item)"/>
+                  <i class="iconfont el-icon-vip-shouye home-icon" v-if="i.isDefaultIndex"></i>
                   <span class="name">{{i.name}}
                   <el-popover popper-class="service-popover" placement="bottom-start" width="160" v-model="visible">
                     <i class="iconfont el-icon-vip-shezhi" slot="reference"></i>
@@ -34,7 +35,7 @@
                       <li @click="delClick(i)" v-if="!i.isSystemScene && $authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                       <li @click="previewClick(i)" v-if="$authShowBtn('scene-manage_preview')"><i class="iconfont el-icon-vip-yulan"></i><span>预览</span></li>
                       <li @click="disableClick(i)" v-if="$authShowBtn('scene-manage_disable')"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>{{i.status==1?'启用':'禁用'}}</span></li>
-                      <li @click="setDefalutHome(i)"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>默认首页</span></li>
+                      <li @click="setDefalutHome(i)" v-if="!i.isSystemScene&&!i.isDefaultIndex"><i class="iconfont el-icon-vip-shouye"></i><span>默认首页</span></li>
                     </ul>
                   </el-popover>
                   </span>
@@ -216,7 +217,12 @@ export default {
     },
     //开启默认首页
     setDefalutHome(val){
-      alert('等待调用接口，刷新页面');
+      console.log(val);
+      this.http.postPlain_url('template-default-by-code','/'+val.id).then(res=>{
+        console.log(res);
+      }).catch(err=>{
+        console.log(err);
+      })
     },
     //预览场景
     previewClick(val){

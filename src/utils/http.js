@@ -7,7 +7,23 @@ import api from '@/assets/public/js/api';
 // console.log(api.postUrl)
 export default {
   postUrl: api.postUrl,
-
+  error: function (msg) {
+    // console.error(msg);
+  },
+  responseOk: function (response, resolve, reject) {
+    const result = response.data;
+    if (result.statusCode == 200) {
+      resolve(result);
+    } else if (result.statusCode == 499) {
+      Vue.prototype.$message({ type: 'error', message: result.errors });
+    } else {
+      this.error(result.errors);
+      reject(result);
+    }
+  },
+  responseError: function (err, resolve, reject) {
+    reject(err);
+  },
   //不带token的get方法  --- json
   noGet: function (url, data) {
     return new Promise((resolve, reject) => {
@@ -19,15 +35,9 @@ export default {
           'Content-Type': 'application/json'
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -42,16 +52,9 @@ export default {
           'Content-Type': 'application/json'
         },
       }).then(response => {
-        const result = response.data;
-
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -67,15 +70,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -91,15 +88,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -116,16 +107,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -141,16 +125,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -166,16 +143,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -196,15 +166,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -218,15 +182,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -242,15 +200,25 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
+      });
+    });
+  },
+  postPlain_url: function (url, data) {
+    return new Promise((resolve, reject) => {
+      axios({
+        url: this.postUrl[url]+data,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain',
+          'Authorization': token
+        },
+      }).then(response => {
+        this.responseOk(response, resolve, reject);
+      }).catch(err => {
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -265,15 +233,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -288,15 +250,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -311,15 +267,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -334,15 +284,9 @@ export default {
           'Authorization': token
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },
@@ -359,15 +303,9 @@ export default {
           'X-VipSmart-AppCode': 'scenemanage',
         },
       }).then(response => {
-        const result = response.data;
-        if (result.statusCode == 200) {
-          resolve(result);
-        } else {
-          error(result.message);
-          reject(result);
-        }
+        this.responseOk(response, resolve, reject);
       }).catch(err => {
-        reject(err);
+        this.responseError(err, resolve, reject);
       });
     });
   },

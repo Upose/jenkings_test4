@@ -54,9 +54,19 @@
         float: left;
         padding: 15px;
         .r-box-bg{
+          position: relative;
           box-shadow: 0px 2px 15px rgba(40, 120, 255, 0.1);
           &:hover{
             box-shadow: 0px 2px 15px rgba(40, 120, 255, 0.25);
+          }
+          //默认首页的图标标识，后期需要可以打开
+          .home-icon{
+            display: none !important;
+            position: absolute;
+            top:10px;
+            z-index: 9;
+            right:10px;
+            color: #6777ef;
           }
         }
         img{
@@ -84,7 +94,7 @@
       }
       /***移入显示设置按钮**/
       .set-hover{
-        i{
+        i.el-icon-vip-shezhi{
           cursor: pointer;
           display: none;
           position: absolute;

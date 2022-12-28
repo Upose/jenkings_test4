@@ -48,6 +48,17 @@
                   </div>
                 </div>
               </el-form-item>
+              <el-form-item label="浏览器ico" prop="ico">
+                <div class="up-img-form-item">
+                  <div class="up-img-warp" v-if="postForm.ico">
+                    <img :src="postForm.logo?(basurl+postForm.ico):default_img">
+                  </div>
+                  <div class="up-img-warp up-icon">
+                    <span>上传ico文件</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','logo')">
+                  </div>
+                </div>
+              </el-form-item>
               <el-form-item label="终端LOGO" prop="logo">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.logo">
@@ -165,12 +176,12 @@ import footerSet from "../scene/model/footerSet";//底部设置
 export default {
   name: 'index',
   created(){
-    this.http.getPlain('template-list', 'Type=2&PageIndex=1&PageSize=100').then(res => {
+    this.http.getPlain_url('header-footer-list', '/2').then(res => {
       this.head_list = res.data.items || [];
     }).catch(err => {
       this.$message({ type: 'error', message: '获取失败!' });
     })
-    this.http.getPlain('template-list', 'Type=3&PageIndex=1&PageSize=100').then(res => {
+    this.http.getPlain_url('header-footer-list', '/3').then(res => {
       this.footer_list = res.data.items || [];
     }).catch(err => {
       this.$message({ type: 'error', message: '获取失败!' });
