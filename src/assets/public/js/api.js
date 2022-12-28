@@ -27,7 +27,7 @@ export default {
         'terminal-instance-updata': baseURL + '/api/terminal/terminal-instance', //更新终端实例
         'terminal-instance-del': baseURL + '/api/terminal/terminal-instance', //删除终端实例 /{terminalinstanceid}
         'dictionary': baseURL + '/api/scene-manage/dictionary', //获取下拉框字典
-        'app-plate-list-by-app-id': baseURL + '/api/scene-manage/app-plate-list-by-app-id', //获取应用栏目列表 /{appid}
+        'app-plate-list-by-app-id': baseURL + '/api/scene-manage/app-plate-list-by-app-id', //获取应用栏目列表 /{appid}  ---这个接口没用了
         'app-widget-list-by-app-id': baseURL + '/api/scene-manage/app-widget-list-by-app-id', //获取应用组件列表 /{appid}
         'app-plate-list-by-scene-id': baseURL + '/api/scene-manage/app-plate-list-by-scene-id', //获取场景内所有栏目列表 /{sceneid}
         'dictionary-by-type': baseURL + '/api/scene-manage/dictionary-by-type', //按类型获取下拉框字典 /{dictype}
@@ -41,5 +41,6 @@ export default {
 
         //新接口
         'set-default-index-page':baseURL + '/api/scene-manage/set-default-index-page',//根据模板code获取模板默认数据
+        'app-column-list-by-app-id':baseURL + '/api/scene-manage/app-column-list-by-app-id',//根据应用id获取应用栏目列表-分组
     },
 }

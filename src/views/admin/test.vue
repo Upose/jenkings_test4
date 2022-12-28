@@ -2,8 +2,8 @@
   <div class="page-warp">
     <div v-for="(i,k) in set_list">
       <el-select v-model="i.id" placeholder="请选择" @change="groupClick($event,k)">
-        <el-option-group v-for="group in options" :key="group.appName" :label="group.appName">
-          <el-option v-for="item in group.child" :key="item.value" :value="item.value" :label="item.key">{{item.key}}
+        <el-option-group v-for="group in appPlateList" :key="group.appName" :label="group.appName">
+          <el-option v-for="item in group.options" :key="item.value" :value="item.value" :label="item.key">{{item.key}}
           </el-option>
         </el-option-group>
       </el-select>
@@ -22,10 +22,10 @@ export default {
         { id: '',routeCode:''},
         { id: '',routeCode:''},
       ],
-      options: [{
+      appPlateList: [{
         appName: '应用中心',
-        code: 'appcenter',
-        child: [{
+        routeCode: 'appcenter',
+        options: [{
           icon: null,
           key: "统一检索",
           value: "41ead105-4817-4047-98d2-93bceebb07dc",
@@ -36,8 +36,8 @@ export default {
         }]
       }, {
         appName: '信息导航',
-        code: 'navigation',
-        child: [{
+        routeCode: 'navigation',
+        options: [{
           icon: null,
           key: "首页",
           value: "61ead105-4817-4047-98d2-eebb07dc",
@@ -53,15 +53,15 @@ export default {
   },
   methods: {
     groupClick(e,k) {
-      this.options.forEach((item) => {
+      this.appPlateList.forEach((item) => {
         var s = null;
-        item.child.forEach((m,k) =>{
+        item.options.forEach((m,k) =>{
             if(m.value == e){
                 s = true;
             }
         });
         if(s){
-            this.set_list[k].routeCode = item.code;
+            this.set_list[k].routeCode = item.routeCode;
         }
       })
     },

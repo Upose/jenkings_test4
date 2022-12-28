@@ -55,8 +55,14 @@
               </div>
               <div class="cloum-row" v-for="(it,i) in set_list" :key="i">
                 <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                  <el-select class="w-saml" v-model="it.id" size="medium" @change="columnClick($event,i)" placeholder="绑定栏目">
+                  <!-- <el-select class="w-saml" v-model="it.id" size="medium" @change="columnClick($event,i)" placeholder="绑定栏目">
                     <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
+                  </el-select> -->
+                  <el-select class="w-saml" v-model="it.id"  size="medium" placeholder="绑定栏目" @change="columnClick($event,i)">
+                    <el-option-group v-for="group in appPlateList" :key="group.appName" :label="group.appName">
+                      <el-option v-for="item in group.options" :key="item.value" :value="item.value" :label="item.key">{{item.key}}
+                      </el-option>
+                    </el-option-group>
                   </el-select>
                 </div>
                 <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
@@ -207,17 +213,17 @@ export default {
     },
     //栏目选择
     columnClick(e,index){
-      // this.options.forEach((item) => {
-      //   var s = null;
-      //   item.child.forEach((m,k) =>{
-      //       if(m.value == e){
-      //           s = true;
-      //       }
-      //   });
-      //   if(s){
-      //       this.set_list[index].routeCode = item.code;
-      //   }
-      // })
+      this.appPlateList.forEach((item) => {
+        var s = null;
+        item.options.forEach((m,k) =>{
+            if(m.value == e){
+                s = true;
+            }
+        });
+        if(s){
+            this.set_list[index].routeCode = item.routeCode;
+        }
+      })
       this.saveClick('edit');
     },
     //条数选择
@@ -349,7 +355,7 @@ export default {
         this.set_list[0].sortType = val.sortList[0].value;
       }
       //获取应用栏目列表 /{appid}
-      this.http.getPlain_url('app-plate-list-by-app-id', '/' + val.appId).then(res => {
+      this.http.getPlain_url('app-column-list-by-app-id', '/' + val.appId).then(res => {
         this.appPlateList = res.data || [];
         if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
           this.set_list[0].id = res.data[0].value;
