@@ -37,10 +37,11 @@ export default {
         'scene-detail-group': baseURL + '/api/scene-manage/scene-detail', //获取分组场景详情 {sceneid}/{visitorlimittype}/{usersetid}
         'nav-column-list': baseURL + '/api/header-footer/nav-column-list', //获取栏目列表
         'layout-options':baseURL + '/api/scene-manage/scene-layout-options',//获取场景编辑下的-布局、模板、主题色
-        'template-default-by-code':baseURL + '/api/scene-manage/template-default-by-code',//根据模板code获取模板默认数据
+        'template-default-by-code':baseURL + '/api/scene-manage/template-default-by-code',//根据模板code获取模板默认数据   ---这个接口没用了
 
         //新接口
         'set-default-index-page':baseURL + '/api/scene-manage/set-default-index-page',//根据模板code获取模板默认数据
         'app-column-list-by-app-id':baseURL + '/api/scene-manage/app-column-list-by-app-id',//根据应用id获取应用栏目列表-分组
+        'template-default-data-by-id':baseURL + '/api/scene-manage/template-default-data-by-id',//根据模板id，获取模板详情
     },
 }

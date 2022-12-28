@@ -513,8 +513,8 @@ export default {
     //选择模板-左边
     templateClick(val) {
       var _this = this;
-      if (val.list && val.list.code) {
-        this.http.getPlain_url('template-default-by-code', '/' + val.list.code).then(res => {
+      if (val.list && val.list.id) {
+        this.http.getPlain_url('template-default-data-by-id', '/' + val.list.id).then(res => {
           if (res.data && res.data.sceneScreens) {
             this.postForm['footerTemplate'] = res.data.footerTemplate || {};
             this.postForm['headerTemplate'] = res.data.headerTemplate || {};
