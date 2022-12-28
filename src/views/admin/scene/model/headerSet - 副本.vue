@@ -1,4 +1,4 @@
-<!--底部设置
+<!--头部设置
 富文本编辑，html编辑，背景更换，绑定栏目
 -->
 <template>
@@ -28,13 +28,13 @@
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
               <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
-                <el-select v-model="it.value" placeholder="请选择栏目">
+                <el-select v-model="it.columnId" placeholder="选择栏目">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in coumn_data_list" :key="i+'coumn'">{{item.key||'无'}}</el-option>
                 </el-select>
                 <!-- <el-select v-model="it.count" placeholder="显示条数">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in topCountList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
-                </el-select>
-                <el-select v-model="it.orderRule" placeholder="排序规则">
+                </el-select> -->
+                <!-- <el-select v-model="it.orderRule" placeholder="排序规则">
                   <el-option :label="item.key" :value="item.value" v-for="(item,i) in sortList" :key="i+'coumn'">{{item.key||'无'}}</el-option>
                 </el-select> -->
                 <div class="btns-el-btn" @click="removeCoumn1(i)" v-if="(coumn_list.length-1)!=i">
@@ -70,6 +70,41 @@ export default {
       this.$message({ type: 'error', message: '获取失败!' });
     })
   },
+  data() {
+    return {
+      fileUrl: window.localStorage.getItem('fileUrl'),
+      dialogBulk: true,//模板选择
+      jsList: [{}],//js组件
+      append_list:[
+        {key:'显示IP',value:'1'},
+        {key:'天气预报',value:'2'},
+        {key:'日历组件',value:'3'},
+        {key:'VPN登录',value:'4'},
+        {key:'欢迎词',value:'5'},
+        {key:'消息提醒',value:'6'},
+        {key:'开馆时间',value:'7'},
+      ],//附加组件选择列表
+      coumn_data_list: [],//栏目列表-列表
+      sortList:[{key: "默认", value: "Default", icon: null}],//排序方式-列表
+      topCountList:[
+        {key: "4", value: 4, icon: null},
+        {key: "5", value: 5, icon: null},
+        {key: "6", value: 6, icon: null},
+        {key: "7", value: 7, icon: null},
+        {key: "8", value: 8, icon: null},
+        {key: "9", value: 9, icon: null},
+        {key: "10", value: 10, icon: null},
+        {key: "11", value: 11, icon: null},
+      ],//显示条数-列表
+      coumn_list: [{ value: '' }],//新增删除栏目列表
+      postForm_head: {
+        append:[],
+        headerBgImg:'',//头部背景
+        displayNavColumn:[],//栏目
+        logo:'',//logo
+      },//头部表单
+    }
+  },
   mounted(){
     if(this.postForm && this.postForm.headerTemplate){
       this.postForm_head.logo = this.postForm.headerTemplate.logo||'';
@@ -89,42 +124,6 @@ export default {
           this.postForm_head.logo = res.url||'';
         }
     })
-  },
-  data() {
-    return {
-      fileUrl: window.localStorage.getItem('fileUrl'),
-      dialogBulk: true,//模板选择
-      dialogUPimg: false,//图片上传
-      jsList: [{}],
-      append_list:[
-        {key:'显示IP',value:'1'},
-        {key:'天气预报',value:'2'},
-        {key:'日历组件',value:'3'},
-        {key:'VPN登录',value:'4'},
-        {key:'欢迎词',value:'5'},
-        {key:'消息提醒',value:'6'},
-        {key:'开馆时间',value:'7'},
-      ],//附加组件选择列表
-      coumn_data_list: [],//栏目下拉选择列表
-      coumn_list: [{ value: '' }],//新增删除栏目列表
-      postForm_head: {
-        append:[],
-        headerBgImg:'',//头部背景
-        displayNavColumn:[],//栏目
-        logo:'',//logo
-      },//头部表单
-      // sortList:[{key: "默认", value: "Default", icon: null}],//排序方式-列表
-      // topCountList:[
-      //   {key: "4", value: 4, icon: null},
-      //   {key: "5", value: 5, icon: null},
-      //   {key: "6", value: 6, icon: null},
-      //   {key: "7", value: 7, icon: null},
-      //   {key: "8", value: 8, icon: null},
-      //   {key: "9", value: 9, icon: null},
-      //   {key: "10", value: 10, icon: null},
-      //   {key: "11", value: 11, icon: null},
-      // ],//显示条数-列表
-    }
   },
   methods: {
     //x关闭按钮
