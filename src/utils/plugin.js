@@ -112,6 +112,21 @@ function authShowBtn(value){
     return is_show;
   }
 }
+function isImgvideo(val){
+  var imgtype = 'png,jpeg,PNG,JPEG,JPG,jpg,GIF,gif';
+  var videotype = 'avi,wmv,mp4,mpg,mpeg,rm,swf,flv';
+  var type ='img';
+  if(val){
+    var filetype = val.split('.')[1];
+    if(imgtype.indexOf(filetype)>-1){
+      type='img';
+    }else if(videotype.indexOf(filetype)>-1){
+      type='video'
+    }
+  }
+  console.log('背景格式：'+type);
+  return type;
+}
 
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
@@ -122,3 +137,4 @@ Vue.prototype.$addStyle = addStyle;//引入css文件
 Vue.prototype.$addStyleLocal = addStyleLocal;//引入css文件
 Vue.prototype.$addScript = addScript;//引入js文件
 Vue.prototype.$authShowBtn = authShowBtn;//判断按钮等是否有权限
+Vue.prototype.$isImgvideo = isImgvideo;//判断是视频还是图片文件

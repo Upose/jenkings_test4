@@ -19,8 +19,8 @@
           <!-- 这块区域是针对背景视频和banner滚动图等的操作   start     -->
             
             <div class="dlib3-temp-imgvideo" v-if="i==0">
-              <div class="img-warp-bg" v-if="isImgvideo(it.bgImg)=='img'" id="dlib3_bg_img" :style="screensBG(bg_color,it.bgImg)"></div>
-              <div class="video-warp-bg" v-if="isImgvideo(it.bgImg)=='video'" id="dlib3_bg_video">
+              <div class="img-warp-bg" v-if="$isImgvideo(it.bgImg)=='img'" id="dlib3_bg_img"></div>
+              <div class="video-warp-bg" v-if="$isImgvideo(it.bgImg)=='video'" id="dlib3_bg_video">
                 <video :src="fileUrl+it.bgImg" autoplay loop></video>
               </div><!-- 视频背景-end -->
               <div class="banner-warp-bg" id="dlib3_bg_banner">
@@ -105,21 +105,6 @@ export default {
     }
   },
   methods:{
-    isImgvideo(val){
-      var imgtype = 'png,jpeg,PNG,JPEG,JPG,jpg,GIF,gif';
-      var videotype = 'avi,wmv,mp4,mpg,mpeg,rm,swf,flv';
-      var type ='img';
-      if(val){
-        var filetype = val.split('.')[1];
-        if(imgtype.indexOf(filetype)>-1){
-          type='img';
-        }else if(videotype.indexOf(filetype)>-1){
-          type='video'
-        }
-      }
-      console.log('背景格式：'+type);
-      return type;
-    },
     //滚动事件
     appScroll(e) {
       e.preventDefault();

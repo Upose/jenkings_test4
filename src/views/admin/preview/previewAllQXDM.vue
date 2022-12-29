@@ -14,6 +14,32 @@
       </div><!-- 头部信息-end -->
 
       <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="styleSet(it,i)">
+        
+
+        <!-- 这块区域是针对背景视频和banner滚动图等的操作   start     -->
+            
+            <div class="dlib3-temp-imgvideo" v-if="i==0">
+              <div class="img-warp-bg" v-if="$isImgvideo(it.bgImg)=='img'" id="dlib3_bg_img"></div>
+              <div class="video-warp-bg" v-if="$isImgvideo(it.bgImg)=='video'" id="dlib3_bg_video">
+                <video :src="fileUrl+it.bgImg" autoplay loop></video>
+              </div><!-- 视频背景-end -->
+              <div class="banner-warp-bg" id="dlib3_bg_banner">
+                 <div id="dlib3_bg_banner_component">
+                    <!-- <div class="dlib3-banner-index"><img src="https://img0.baidu.com/it/u=3772442123,1691624333&fm=253&fmt=auto&app=138&f=JPEG?w=1166&h=360"></div>
+                    <div class="dlib3-banner-index"><img src="https://img2.baidu.com/it/u=1119585672,1899188854&fm=253&fmt=auto&app=138&f=JPEG?w=658&h=287"></div> -->
+                 </div>
+              </div><!-- banner图-end -->
+            </div><!--
+              这块区域用于，设置滚动banner和视频播放
+              背景图第一层
+              视频播放第二层
+              banner图第三层
+              -->
+
+          <!-- 这块区域是针对背景视频和banner滚动图等的操作   end     -->
+
+
+
         <div class="dalib-template-bg" v-if="i!=0">
           <div class="d-t-w">
             <div class="tbg-c1"></div><!--背景色板块-->
