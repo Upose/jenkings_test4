@@ -41,7 +41,7 @@ export default {
   created() {
     var items = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (items && items.template) {
-      this.templateCssLoad(items.template.filePath);
+      this.templateCssLoad(items.template.cssPath);
       document.title = items.name || '预览';
       this.bg_color = items.template.backgroundColor || '#fff';
       this.details = items;
