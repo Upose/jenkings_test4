@@ -1,4 +1,4 @@
-<!---整屏滚动-->
+<!---整屏滚动-通用-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 

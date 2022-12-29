@@ -1,4 +1,4 @@
-<!---服务中台-通用预览+普通分屏-->
+<!---分段-清新淡墨-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
     

@@ -1,4 +1,4 @@
-<!---服务中台-预览页面-通用预览和演示站点预览-->
+<!---通屏-演示站点-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'" :style="{background:bg_color}">
     <template v-if="details">

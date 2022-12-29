@@ -1,4 +1,4 @@
-<!---整屏滚动-单独针对深职院-->
+<!---整屏滚动-深圳技术大学-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 
@@ -7,18 +7,34 @@
       <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
           <div class="section" v-for="(it,i) in details.sceneScreens" :style="i==0?'':screensBG(bg_color,it.bgImg)" :id="'temp'+i">
-            <div class="temp-imgvideo" v-if="i==0">
-              <div class="img-warp-bg" v-if="isImgvideo(it.bgImg)=='img'" :style="screensBG(bg_color,it.bgImg)"></div>
-              <div class="video-warp-bg" v-if="isImgvideo(it.bgImg)=='video'">
+            
+            
+            
+            
+ <!-- 这块区域是针对背景视频和banner滚动图等的操作   start     -->
+            
+            <div class="dlib3-temp-imgvideo" v-if="i==0">
+              <div class="img-warp-bg" v-if="isImgvideo(it.bgImg)=='img'" id="dlib3_bg_img" :style="screensBG(bg_color,it.bgImg)"></div>
+              <div class="video-warp-bg" v-if="isImgvideo(it.bgImg)=='video'" id="dlib3_bg_video">
                 <video :src="fileUrl+it.bgImg" autoplay loop></video>
               </div><!-- 视频背景-end -->
-              <div class="banner-warp-bg"></div><!-- banner图-end -->
+              <div class="banner-warp-bg" id="dlib3_bg_banner">
+                 <div id="dlib3_bg_banner_component">
+                    <!-- <div class="dlib3-banner-index"><img src="https://img0.baidu.com/it/u=3772442123,1691624333&fm=253&fmt=auto&app=138&f=JPEG?w=1166&h=360"></div>
+                    <div class="dlib3-banner-index"><img src="https://img2.baidu.com/it/u=1119585672,1899188854&fm=253&fmt=auto&app=138&f=JPEG?w=658&h=287"></div> -->
+                 </div>
+              </div><!-- banner图-end -->
             </div><!--
               这块区域用于，设置滚动banner和视频播放
               背景图第一层
               视频播放第二层
               banner图第三层
               -->
+
+ <!-- 这块区域是针对背景视频和banner滚动图等的操作   end     -->
+
+
+
             <div class="temp-header" v-if="i==0 && details.headerTemplate">
               <div :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
                   logo:details.headerTemplate.logo||'',
@@ -67,39 +83,6 @@
 
   </div>
 </template>
-<style lang="less" scoped>
-.temp-imgvideo{
-  width: 100%;
-  height: 100%;
-  position: absolute;
- z-index: 1;
- .banner-warp-bg,.img-warp-bg,.video-warp-bg{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  color: #fff;
- }
- .img-warp-bg{
-  z-index: 2;
- }
- .video-warp-bg{
-  z-index: 3;
-  video{
-    width: 100%;
-    height: 100%;
-    background: #000;
-  }
- }
- .banner-warp-bg{
-  z-index: 4;
- }
- 
-}
-</style>
 <script>
 export default {
   name: 'index',
@@ -147,6 +130,7 @@ export default {
           type='video'
         }
       }
+      console.log('背景格式：'+type);
       return type;
     },
     //初始化模板

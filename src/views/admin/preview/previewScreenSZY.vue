@@ -1,4 +1,4 @@
-<!---整屏滚动-单独针对深职院-->
+<!---整屏滚动-深职院-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 

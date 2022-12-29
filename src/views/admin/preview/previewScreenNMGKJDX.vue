@@ -1,4 +1,4 @@
-<!---整屏滚动-单独针对内蒙古科技大学-->
+<!---整屏滚动-内蒙古科技大学-->
 <template>
   <div class="html-warp-page" :class="(details_reset&&details_reset.themeColor)||'template1'">
 
