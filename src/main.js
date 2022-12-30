@@ -5,7 +5,9 @@ import router from './router'
 import store from '@/store'
 import Debounce from '@/utils/debounce'
 import './utils/plugin'
+import previewComponent from './utils/previewComponent'
 
+Vue.use(previewComponent)
 Vue.config.productionTip = false
 Vue.component('Debounce',Debounce)
 

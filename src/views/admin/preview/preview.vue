@@ -1,34 +1,13 @@
 <!---预览-->
 <template>
   <div :style="{'background':bgColor,'min-width':minWidth+'px','height':min_height}">
-    <previewAll :details="details" v-if="is_show_page == 'previewAll'"></previewAll>
-    <previewLeftmenu :details="details" v-if="is_show_page == 'previewLeftmenu'"></previewLeftmenu>
-    <previewScreen :details="details" v-if="is_show_page == 'previewScreen'"></previewScreen>
-    <previewScreenSZY :details="details" v-if="is_show_page == 'previewScreenSZY'"></previewScreenSZY>
-    <previewScreenSZJS :details="details" v-if="is_show_page == 'previewScreenSZJS'"></previewScreenSZJS>
-    <bigScreenDuzhedaohang :details="details" v-if="is_show_page == 'bigScreenDuzhedaohang'"></bigScreenDuzhedaohang>
-    <previewScreenNMGKJDX :details="details" v-if="is_show_page == 'previewScreenNMGKJDX'"></previewScreenNMGKJDX>
-    <previewAllQXDM :details="details" v-if="is_show_page == 'previewAllQXDM'"></previewAllQXDM>
+    <component :is="is_show_page" :details="details"></component>
   </div>
 </template>
 
 <script>
-import previewAll from './previewAll.vue';//所有页预览
-import previewLeftmenu from './previewLeftmenu.vue';//演示站点
-import previewScreen from './previewScreen.vue';//通屏-滚屏预览
-import previewScreenSZY from './previewScreenSZY.vue';//分屏-深职院
-import previewScreenSZJS from './previewScreenSZJS.vue';//分屏-深圳技术大学
-import bigScreenDuzhedaohang from './bigScreenDuzhedaohang.vue';//读者导航-深职院大屏
-import previewScreenNMGKJDX from './previewScreenNMGKJDX.vue';//分屏-内蒙古科技大学
-import previewAllQXDM from './previewAllQXDM.vue';//分屏-清新淡墨
 export default {
   name: "index",
-  components: {
-    previewAll, previewAllQXDM,
-    previewLeftmenu,
-    previewScreen, previewScreenSZY, previewScreenSZJS, previewScreenNMGKJDX,
-    bigScreenDuzhedaohang,
-  },
   data() {
     return {
       bgColor: '#fff',//背景颜色
@@ -57,35 +36,12 @@ export default {
   methods: {
     //查询属于哪个模板
     selectPage() {
-      if (this.details && this.details.template) {
-        this.bgColor = this.details.template.backgroundColor || '#fff';
-        this.minWidth = this.details.template.width || 1200;
-        this.$forceUpdate();
-      }
-      if (this.details.template.layoutId == 1 && this.details.template.code == 'index2') {//演示站点
-        this.is_show_page = 'previewLeftmenu';
-        this.min_height = '100%';
-      } else if (this.details.template.layoutId == 3) {//分屏
-        this.min_height = '100%';
-        if (this.details.sceneGroupId == 'fdaa5e85-d022-438e-b4a7-d1cf54753bac') {//深职院
-          this.is_show_page = 'previewScreenSZY';
-        } else if (this.details.template.uniqueCode == 'splitscreensztu') {//深圳技术大学
-          this.is_show_page = 'previewScreenSZJS';
-        } else if (this.details.template.uniqueCode == 'imust') {//内蒙古科技大学
-          this.is_show_page = 'previewScreenNMGKJDX';
-        } else {
-          this.is_show_page = 'previewScreen';
-        }
-      } else if (this.details.template.layoutId == 4) {//大屏
-        this.is_show_page = 'bigScreenDuzhedaohang';
-      } else {//通屏，分段
-        this.min_height = '100%';
-        if (this.details.template.uniqueCode == 'onsectionlightink') {
-          this.is_show_page = 'previewAllQXDM';
-        } else {
-          this.is_show_page = 'previewAll';
-        }
-      }
+      var list = this.$selectComponent(this.details);
+      this.bgColor = list.bgColor;
+      this.minWidth = list.minWidth;
+      this.min_height = list.min_height;
+      this.is_show_page = list.is_show_page;
+      this.$forceUpdate();
       console.log(this.is_show_page);
     },
     //加载模板css文件
@@ -142,7 +98,7 @@ export default {
   }
   .banner-warp-bg {
     z-index: 4;
-    background: rgba(255, 255, 255, 0.5);
+    // background: rgba(255, 255, 255, 0.5);
     #dlib3_bg_banner_component {
       width: 100%;
       height: 100%;

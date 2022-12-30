@@ -127,7 +127,43 @@ function isImgvideo(val){
   console.log('背景格式：'+type);
   return type;
 }
-
+function selectComponent(details) {
+  var list = {
+    bgColor: '#fff',
+    minWidth: 1200,
+    min_height: 'auto',
+    is_show_page: '',
+  };
+  if (details && details.template) {
+    list.bgColor = details.template.backgroundColor || '#fff';
+    list.minWidth = details.template.width || 1200;
+  }
+  if (details.template.layoutId == 1 && details.template.code == 'index2') {//演示站点
+    list.is_show_page = 'previewLeftmenu';
+    list.min_height = '100%';
+  } else if (details.template.layoutId == 3) {//分屏
+    list.min_height = '100%';
+    if (details.sceneGroupId == 'fdaa5e85-d022-438e-b4a7-d1cf54753bac') {//深职院
+      list.is_show_page = 'previewScreenSZY';
+    } else if (details.template.code == 'splitscreensztu') {//深圳技术大学
+      list.is_show_page = 'previewScreenSZJS';
+    } else if (details.template.code == 'imust') {//内蒙古科技大学
+      list.is_show_page = 'previewScreenNMGKJDX';
+    } else {
+      list.is_show_page = 'previewScreen';
+    }
+  } else if (details.template.layoutId == 4) {//大屏
+    list.is_show_page = 'bigScreenDuzhedaohang';
+  } else {//通屏，分段
+    list.min_height = '100%';
+    if (details.template.code == 'onsectionlightink') {
+      list.is_show_page = 'previewAllQXDM';
+    } else {
+      list.is_show_page = 'previewAll';
+    }
+  }
+  return list;
+}
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
 Vue.prototype.$fileUpload = fileUpload;//文件上传
@@ -138,3 +174,4 @@ Vue.prototype.$addStyleLocal = addStyleLocal;//引入css文件
 Vue.prototype.$addScript = addScript;//引入js文件
 Vue.prototype.$authShowBtn = authShowBtn;//判断按钮等是否有权限
 Vue.prototype.$isImgvideo = isImgvideo;//判断是视频还是图片文件
+Vue.prototype.$selectComponent = selectComponent;//判断使用哪个模板
