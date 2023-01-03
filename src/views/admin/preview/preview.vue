@@ -67,57 +67,6 @@ export default {
 </script>
 
 <style lang="less">
-/*****这块区域主要针对背景图/视频/banner图滚动展示等 */
-.dlib3-temp-imgvideo {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  z-index: 1;
-  .banner-warp-bg,
-  .img-warp-bg,
-  .video-warp-bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: #fff;
-  }
-  .img-warp-bg {
-    z-index: 2;
-  }
-  .video-warp-bg {
-    z-index: 3;
-    video {
-      width: 100%;
-      height: 100%;
-      background: #000;
-    }
-  }
-  .banner-warp-bg {
-    z-index: 4;
-    // background: rgba(255, 255, 255, 0.5);
-    #dlib3_bg_banner_component {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      .dlib3-banner-index {
-        position: absolute;
-        z-index: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          background: #fff;
-        }
-      }
-    }
-  }
-}
+@import "./css/publicGlobal.less";
 </style>
 
