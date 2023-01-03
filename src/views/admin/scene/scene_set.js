@@ -48,7 +48,7 @@ export default {
       left_fold: true,//左侧菜单展开与否 true：关闭 false：开启
       right_fold: true,//右侧菜单展开与否
       screen_cu: 0,//当前是第几屏
-      screen_list: [{ screenName: '首', bgImg: '', sceneApps: [] }, { screenName: '尾', bgImg: '', sceneApps: [] }],//屏数量
+      screen_list: [{ screenName: '首', bgImg: '',customParameter:'', sceneApps: [] }, { screenName: '尾', bgImg: '',customParameter:'', sceneApps: [] }],//屏数量
       //顶部 步骤1
       top_list: {
         sceneStatus: [],//服务状态
@@ -357,7 +357,9 @@ export default {
           // console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
-            x: x, y: y, h: h, w: w,
+            x: x, y: y, 
+            h: h, 
+            w: w,
             minW: data.width,
             minH: data.height,
             target: data.target,
@@ -465,6 +467,16 @@ export default {
         if (post_obj.layoutId == 1) {//通屏
           post_obj.sceneScreens.splice(1, 1);
         }
+        post_obj.sceneScreens[0].customParameter='A';
+        post_obj.sceneScreens[1].customParameter='B';
+        // post_obj.sceneScreens[2].customParameter='C';
+        // post_obj.sceneScreens[3].customParameter='D';
+        // post_obj.sceneScreens[4].customParameter='E';
+        // post_obj.sceneScreens[5].customParameter='F';
+        // post_obj.sceneScreens[6].customParameter='G';
+        // post_obj.sceneScreens[7].customParameter='H';
+        // post_obj.sceneScreens[8].customParameter='I';
+        // post_obj.sceneScreens[9].customParameter='J';
         //表单验证
         if (!post_obj.name) {
           _this.$message({ message: '请设置场景名称', type: 'info' });

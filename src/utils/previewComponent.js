@@ -10,6 +10,11 @@ const previewComponent = {
         Vue.component('bigScreenDuzhedaohang', r => { require(['@/views/admin/preview/bigScreenDuzhedaohang.vue'], r) });//深职院-大屏
         Vue.component('previewScreenNMGKJDX', r => { require(['@/views/admin/preview/previewScreenNMGKJDX.vue'], r) });//分屏-内蒙古科技大学
         Vue.component('previewAllQXDM', r => { require(['@/views/admin/preview/previewAllQXDM.vue'], r) });//分屏-清新淡墨
+
+        Vue.component('BGvideoImg', r => { require(['@/views/admin/preview/bgComponent/BGvideoImg.vue'], r) });//视频播放和轮播组件
+        
+        Vue.component('A', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/A.vue'], r) });//这里是模板的背景组件
+        Vue.component('B', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/B.vue'], r) });//这里是模板的背景组件
     }
 }
 

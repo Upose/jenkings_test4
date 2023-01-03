@@ -358,7 +358,9 @@ export default {
       this.http.getPlain_url('app-column-list-by-app-id', '/' + val.appId).then(res => {
         this.appPlateList = res.data || [];
         if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
-          this.set_list[0].id = res.data[0].value;
+          if(res.data.length>0 && res.data[0].options.length>0)
+          this.set_list[0].id = res.data[0].options[0].value;
+          this.set_list[0].routeCode = res.data[0].routeCode;
         }
       }).catch(err => {
         console.log(err);

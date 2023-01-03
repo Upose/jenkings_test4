@@ -115,7 +115,7 @@ function authShowBtn(value){
 function isImgvideo(val){
   var imgtype = 'png,jpeg,PNG,JPEG,JPG,jpg,GIF,gif';
   var videotype = 'avi,wmv,mp4,mpg,mpeg,rm,swf,flv';
-  var type ='img';
+  var type ='';
   if(val){
     var filetype = val.split('.')[1];
     if(imgtype.indexOf(filetype)>-1){
