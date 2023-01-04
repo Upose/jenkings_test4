@@ -12,6 +12,7 @@ export default new Vuex.Store({
     menuList:[],//后台左侧菜单
     appDetails:null,//应用信息
     baseinfo:{},
+    dictionary:{},//中台-场景页面下拉框信息等。
   },
   getters: {
     userInfo: (state) => state.userInfo,
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     language: (state) => state.language||'zh-CN',
   },
   mutations: {
+    dictionary: (state, data) => {
+      state.dictionary = data;
+    },
     baseinfo: (state, data) => {
       state.baseinfo = data;
     },

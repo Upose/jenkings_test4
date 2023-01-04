@@ -21,7 +21,7 @@
             </div>
           </el-form-item>
           <el-form-item label="附加组件" prop="logo">
-              <el-checkbox-group v-model="postForm_head.append" :disabled="id?true:false">
+              <el-checkbox-group v-model="postForm_head.headerAttachWidget" :disabled="id?true:false">
                 <el-checkbox  v-for="(it,i) in append_list" :key="i" :label="it.value">{{it.key}}</el-checkbox>
               </el-checkbox-group>
           </el-form-item>
@@ -71,10 +71,15 @@ export default {
     })
   },
   mounted(){
+    console.log(this.$store.state.dictionary);
+    if(this.$store.state.dictionary && this.$store.state.dictionary.headerAttachWidget){
+      this.append_list = this.$store.state.dictionary.headerAttachWidget||[];
+    }
     if(this.postForm && this.postForm.headerTemplate){
       this.postForm_head.logo = this.postForm.headerTemplate.logo||'';
       this.postForm_head.headerBgImg = this.postForm.headerTemplate.headerBgImg||'';
       this.postForm_head.displayNavColumn = this.postForm.headerTemplate.displayNavColumn||[];
+      this.postForm_head.headerAttachWidget = this.postForm.headerTemplate.headerAttachWidget||[];
       if(this.postForm_head.displayNavColumn.length>0){
         this.coumn_list = [];
         this.postForm_head.displayNavColumn.forEach(it=>{
@@ -96,19 +101,11 @@ export default {
       dialogBulk: true,//模板选择
       dialogUPimg: false,//图片上传
       jsList: [{}],
-      append_list:[
-        {key:'显示IP',value:'1'},
-        {key:'天气预报',value:'2'},
-        {key:'日历组件',value:'3'},
-        {key:'VPN登录',value:'4'},
-        {key:'欢迎词',value:'5'},
-        {key:'消息提醒',value:'6'},
-        {key:'开馆时间',value:'7'},
-      ],//附加组件选择列表
+      append_list:[],//附加组件选择列表
       coumn_data_list: [],//栏目下拉选择列表
       coumn_list: [{ value: '' }],//新增删除栏目列表
       postForm_head: {
-        append:[],
+        headerAttachWidget:[],
         headerBgImg:'',//头部背景
         displayNavColumn:[],//栏目
         logo:'',//logo
@@ -153,6 +150,7 @@ export default {
         this.postForm.headerTemplate.logo = this.postForm_head.logo||'';
         this.postForm.headerTemplate.headerBgImg = this.postForm_head.headerBgImg||'';
         this.postForm.headerTemplate.displayNavColumn = this.postForm_head.displayNavColumn||[];
+        this.postForm.headerTemplate.headerAttachWidget = this.postForm_head.headerAttachWidget||[];
         this.$emit('hfHide',true);
         console.log(this.postForm);
       }

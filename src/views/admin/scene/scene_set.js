@@ -577,6 +577,7 @@ export default {
         _this.top_list.sceneStatus = res.data.sceneStatus || [];
         _this.top_list.visitorLimitType = res.data.visitorLimitType || [];
         _this.appServiceType = res.data.appServiceType || [];
+        this.$store.commit('dictionary',res.data);
       })
     },
     //点击应用，获取应用的组件及相应信息id:应用id；temp_id:模板id；is_add:是新增还是选择了场景中已存在的true为新增。
