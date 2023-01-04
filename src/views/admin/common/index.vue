@@ -50,6 +50,7 @@ export default {
   position: relative;
 }
 .admin-warp-content{
+  min-width: 1230px;
   position: absolute;
   left: 0;
   right: 0;

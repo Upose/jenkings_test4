@@ -51,6 +51,7 @@
                         logo:postForm.headerTemplate.logo||'',
                         headerBgImg:postForm.headerTemplate.headerBgImg||'',
                         displayNavColumn:postForm.headerTemplate.displayNavColumn||'',
+                        headerAttachWidget:postForm.headerTemplate.headerAttachWidget||[],
                         sceneid:postForm.id,
                         })">
                           <div id="jl_vip_zt_header"></div>

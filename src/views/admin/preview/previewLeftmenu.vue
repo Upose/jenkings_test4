@@ -9,6 +9,7 @@
             logo:details.headerTemplate.logo||'',
             headerBgImg:details.headerTemplate.headerBgImg||'',
             displayNavColumn:details.headerTemplate.displayNavColumn||'',
+            headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
             sceneid:details.id,
           })">
             <div :id="setId()"></div>

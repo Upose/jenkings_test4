@@ -15,6 +15,7 @@
                   logo:details_reset.headerTemplate.logo||'',
                   headerBgImg:details_reset.headerTemplate.headerBgImg||'',
                   displayNavColumn:details_reset.headerTemplate.displayNavColumn||'',
+                  headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
                   sceneid:details_reset.id,
                 })">
                 <div :id="setId()"></div>
