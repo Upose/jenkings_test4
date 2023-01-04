@@ -51,11 +51,11 @@
               <el-form-item label="浏览器ico" prop="ico">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.icoPath">
-                    <img :src="postForm.logo?(basurl+postForm.icoPath):default_img">
+                    <img :src="postForm.icoPath?(basurl+postForm.icoPath):default_img">
                   </div>
                   <div class="up-img-warp up-icon">
                     <span>上传ico文件</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','icoPath')">
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'ico','icoPath')">
                   </div>
                 </div>
               </el-form-item>
@@ -267,6 +267,7 @@ export default {
         case 'backLogo': this.postForm.backLogo = res.url || ''; break;
         case 'backSimpleLogo': this.postForm.backSimpleLogo = res.url || ''; break;
         case 'logo': this.postForm.logo = res.url || ''; break;
+        case 'icoPath': this.postForm.icoPath = res.url || ''; break;
       }
       this.$forceUpdate();
     })

@@ -28,6 +28,12 @@ function fileUpload(e,filetype,field) {
       this.$message({ type: 'error', message: '请上传图片文件!' });
       return;
     }
+  }else if(filetype=='ico'){
+    console.log(file.type);
+    if (file.type !== 'image/x-icon' && file.type !== 'ico') {
+      this.$message({ type: 'error', message: '请上传ICO图片文件!' });
+      return;
+    }
   }else if(filetype == 'js'){
     if (file.type !== 'text/javascript' && file.type !== 'application/javascript' && file.type !== 'JavaScript') {
       this.$message({ type: 'error', message: '请上传js文件!' });
