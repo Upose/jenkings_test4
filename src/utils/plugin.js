@@ -130,7 +130,7 @@ function isImgvideo(val){
       type='video'
     }
   }
-  console.log('背景格式：'+type);
+  // console.log('背景格式：'+type);
   return type;
 }
 function selectComponent(details) {

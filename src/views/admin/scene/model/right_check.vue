@@ -382,7 +382,7 @@ export default {
         val['appPlateItems'] = this.set_list || [];
         val['configParameter'] = this.configParameter || {};
         val['commonWidgetSet'] = this.commonWidgetSet || '{}';
-        console.log(val);
+        // console.log(val);
         this.$emit('addCompont', { 'list': val, 'is_add_compont': false });
       }
       this.$forceUpdate();

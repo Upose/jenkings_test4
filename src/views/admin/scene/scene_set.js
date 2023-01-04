@@ -181,14 +181,15 @@ export default {
       }, 500)
       if (_this.postForm.sceneScreens && _this.postForm.sceneScreens.length > 0) {
         _this.postForm.sceneScreens.forEach((item, index) => {
+          console.log(item.sceneApps)
           let result = item.sceneApps.map((it, index) => ({
             id: it.id,
             w: it.width,
             h: it.height,
             x: it.xIndex,
             y: it.yIndex,
-            minW: it.appWidget ? it.appWidget.width : it.width,
-            minH: it.appWidget ? it.appWidget.height : it.height,
+            minW: it.appWidget ? it.appWidget.minWidth : it.minWidth,
+            minH: it.appWidget ? it.appWidget.minHeight : it.minHeight,
             appId: it.appId,
             configParameter: it.configParameter,
             commonWidgetSet: it.commonWidgetSet,
@@ -269,11 +270,14 @@ export default {
       var _this = this;
       var list = [];
       if (this.grid.save() && this.grid.save().length) {
+        console.log(this.grid.save())
         this.grid.save().forEach(item => {
           var item_list = {
-            x: item.x, y: item.y, h: item.h, w: item.w,
-            minW: item.minW,
-            minH: item.minH,
+            x: item.x, y: item.y, 
+            h: item.h, 
+            w: item.w,
+            minW: item.appWidget ? item.appWidget.minWidth : item.minWidth,
+            minH: item.appWidget ? item.appWidget.minHeight : item.minHeight,
             target: item.target,
             tempId: item.tempId,
             divId: item.divId,//元素渲染id
@@ -323,7 +327,7 @@ export default {
             y_index = max_y[0].y + max_y[0].h;
           }
         }
-
+        console.log(data);
         let it = {
           x: 0,
           y: y_index,
@@ -331,8 +335,8 @@ export default {
           w: data.width,
           // noMove: true,//静止拖动位置
           // noResize: true,//禁止改变大小
-          minW: data.width,
-          minH: data.height,
+          minW: data.minWidth,
+          minH: data.minHeight,
           target: data.target,
           tempId: data.id,
           divId: component_id,//元素渲染id
@@ -355,13 +359,14 @@ export default {
           // var min_w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-w');
           // var min_h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-h');
           // console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
+          console.log(data);
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
             x: x, y: y, 
             h: h, 
             w: w,
-            minW: data.width,
-            minH: data.height,
+            minW: data.minWidth,
+            minH: data.minHeight,
             target: data.target,
             tempId: data.id,
             divId: component_id,//元素渲染id
@@ -417,6 +422,7 @@ export default {
             sceneApps: [],//屏内包含的应用模板
             orderIndex: index + 1,//当前序号
             id: item.id,
+            customParameter: item.customParameter,
             sceneId: item.sceneId,
             screenName: item.screenName,
             deleteFlag: item.deleteFlag,
@@ -467,8 +473,8 @@ export default {
         if (post_obj.layoutId == 1) {//通屏
           post_obj.sceneScreens.splice(1, 1);
         }
-        post_obj.sceneScreens[0].customParameter='A';
-        post_obj.sceneScreens[1].customParameter='B';
+        // post_obj.sceneScreens[0].customParameter='A';
+        // post_obj.sceneScreens[1].customParameter='B';
         // post_obj.sceneScreens[2].customParameter='C';
         // post_obj.sceneScreens[3].customParameter='D';
         // post_obj.sceneScreens[4].customParameter='E';
