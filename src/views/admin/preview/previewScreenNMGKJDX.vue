@@ -8,6 +8,7 @@
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
           <div class="section" v-for="(it,i) in details_reset.sceneScreens" :style="screensBG(bg_color,it.bgImg)" :id="'temp'+i">
 
+            <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
             <div class="temp-header" v-if="i==0 && details_reset.headerTemplate">

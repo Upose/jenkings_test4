@@ -7,7 +7,8 @@
       <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
           <div class="section" v-for="(it,i) in details.sceneScreens" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
-
+            
+            <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
             <div class="temp-header" v-if="i==0 && details.headerTemplate">

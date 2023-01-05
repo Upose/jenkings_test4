@@ -15,7 +15,8 @@
       </div><!-- 头部信息-end -->
 
       <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="styleSet(it,i)">
-
+        
+        <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
         <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
         <div class="dalib-template-bg" v-if="i!=0">
