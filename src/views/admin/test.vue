@@ -17,6 +17,10 @@
 <script>
 export default {
   name: 'cs',
+  created(){
+    this.$addStyle('/cdn/public/template/service_sys/temp12/component.css');
+    this.$addScript('/cdn/public/template/service_sys/temp12/component.js');
+  },
   data() {
     return {
       set_list: [
