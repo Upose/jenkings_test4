@@ -1,44 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
-    <meta http-equiv="pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
-    <meta http-equiv="expires" content="0">
 
-    <title>服务中台</title>
-    
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>element-ui/index.css">
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>element-ui/fonts/icon.css">
-    <!-- <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack-extra.css"/> -->
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/update_class.css"/>
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack.css"/>
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/css/vipsmart-dalib3-skin.css"/>
-	  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/css/public.css"/>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+  <meta http-equiv="expires" content="0">
 
-    <script src="<%= htmlWebpackPlugin.options.local%>babel-polyfill/polyfill.min.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>vue/vue.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>axios/axios.min.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>axios/qs.min.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>tinymce/v5_5_0/tinymce.min.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>element-ui/index.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>Sortable/Sortable.min.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>vue-cropper/dist/index.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack-h5.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.local%>echars/echarts.min.js"></script>
+  <title>服务中台</title>
 
-    <!--下面两个（rxjs.umd.js/searchExpressionResolver.js）主要是针对检索框的-->
-    
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/rxjs.umd.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/searchExpressionResolver.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/ApplicationBuilder.js"></script>
-    <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/common.js"></script>
-    
-  </head>
-  <body>
-    <div id="home_sys"></div>
-  </body>
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>element-ui/index.css">
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>element-ui/fonts/icon.css">
+  <!-- <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack-extra.css"/> -->
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/update_class.css" />
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack.css" />
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/css/vipsmart-dalib3-skin.css" />
+  <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/css/public.css" />
+
+  <script src="<%= htmlWebpackPlugin.options.local%>babel-polyfill/polyfill.min.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>vue/vue.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>axios/axios.min.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>axios/qs.min.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>tinymce/v5_5_0/tinymce.min.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>element-ui/index.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>Sortable/Sortable.min.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>vue-cropper/dist/index.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>gridstack/gridstack-h5.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.local%>echars/echarts.min.js"></script>
+
+  <!--下面两个（rxjs.umd.js/searchExpressionResolver.js）主要是针对检索框的-->
+
+  <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/rxjs.umd.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/searchExpressionResolver.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/ApplicationBuilder.js"></script>
+  <script src="<%= htmlWebpackPlugin.options.htmlFileUrl %>public/js/common.js"></script>
+
+</head>
+
+<body>
+  <div id="home_sys"></div>
+</body>
+
+<script>
+  const keyCodeMap = {
+    // 91: true, // command
+    61: true,
+    107: true, // 数字键盘 +
+    109: true, // 数字键盘 -
+    173: true, // 火狐 - 号
+    187: true, // +
+    189: true, // -
+  };
+  // 覆盖ctrl||command + ‘+’/‘-’
+  document.onkeydown = function (event) {
+    const e = event || window.event;
+    const ctrlKey = e.ctrlKey || e.metaKey;
+    if (ctrlKey && keyCodeMap[e.keyCode]) {
+      e.preventDefault();
+    } else if (e.detail) { // Firefox
+      event.returnValue = false;
+    }
+  };
+  // 覆盖鼠标滑动
+  document.body.addEventListener('wheel', (e) => {
+    if (e.ctrlKey) {
+      if (e.deltaY < 0) {
+        e.preventDefault();
+        return false;
+      }
+      if (e.deltaY > 0) {
+        e.preventDefault();
+        return false;
+      }
+    }
+  }, { passive: false });
+</script>
+
 </html>
