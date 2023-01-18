@@ -2,8 +2,14 @@
 <template>
   <div class="drag-l">
     <div class="fixed-menu-w">
-      <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">主题风格</span>
-      <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">应用选择</span>
+      <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">
+        <i class="iconfont el-icon-vip-zhuti_yifu loginOut"></i>
+        <i class="txt">主题风格</i>
+      </span>
+      <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">
+        <i class="iconfont el-icon-vip-zhuti loginOut"></i>
+        <i class="txt">应用选择</i>
+      </span>
       <div class="r-bt">
         <i class="el-icon-minus" @click="leftFold()"></i>
         <i class="el-icon-rank" @mousedown="move"></i>
@@ -17,6 +23,7 @@
             <el-collapse-item title="请选择布局" name="1">
               <div class="drag-box-width" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
                 <div class="drag-box" :class="postForm.layoutId==i.value?'box-active':''" :title="i.key">
+                  <i class="iconfont el-icon-vip-xuanzhong" v-if="postForm.layoutId==i.value"></i>
                   <img :src="fileUrl+i.icon" class="img-cover">
                   <span class="d-b-txt">{{i.key||'暂无'}}</span>
                 </div>
@@ -25,20 +32,32 @@
             <!--布局 end-->
 
             <el-collapse-item title="请选择模板" name="2">
-              <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
+              <!-- <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
                 <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
                   <img :src="fileUrl+i.cover" class="img-cover">
                   <span class="d-b-txt">{{i.name||'暂无'}}</span>
+                </div>
+              </div> -->
+              <div class="drag-box-btn-w" @click="templateClick(i)" v-for="i in sceneTemplate">
+                <div class="drag-box" :class="templateId==i.id?'active1':''" :title="i.name">
+                  <i class="iconfont el-icon-vip-xuanzhong" v-if="templateId==i.id"></i>
+                  <span class="d-b-txt fot-c2">{{i.name||'暂无'}}</span>
                 </div>
               </div>
             </el-collapse-item>
             <!--模板 end-->
 
             <el-collapse-item title="请选择主题色" name="3" v-if="(sceneThemeColor||[]).length>0">
-              <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
+              <!-- <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
                 <div class="drag-box" :class="(postForm.themeColor||'template1')==i.value?'box-active':''" :title="i.key">
                   <img :src="fileUrl+i.icon" class="img-cover">
                   <span class="d-b-txt">{{i.key||'暂无'}}</span>
+                </div>
+              </div> -->
+              <div class="drag-box-btn-w" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
+                <div class="drag-box" :style="{'background-image':'url('+(fileUrl+i.icon)+')'}">
+                  <i class="iconfont el-icon-vip-xuanzhong" v-if="(postForm.themeColor||'template1')==i.value"></i>
+                  <span class="d-b-txt fot-c1">{{i.key||'暂无'}}</span>
                 </div>
               </div>
             </el-collapse-item>
@@ -47,25 +66,58 @@
             <el-collapse-item title="模板/屏配置" name="4" v-if="templateId">
 
               <div class="model-set-w c-l" v-show="postForm.layoutId==1||postForm.layoutId==4">
-                <div class="up-img w100 ml0" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
+                <!-- <div class="up-img w100 ml0" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景图更换</span></div>
                   <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgt')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgt')"></i>
+                </div> -->
+                <div class="box-title-img">
+                  <div class="title">背景图更换</div>
+                  <div class="img-w">
+                    <div class="img-show"><img :src="screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):default_img" alt=""></div>
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgt')"></i>
+                    <div class="btn-show">
+                      <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
+                      <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgt')">
+                    </div>
+                  </div>
                 </div>
               </div>
               <!--通屏配置 end-->
-
+              
               <div class="model-set-w c-l" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
-                <div class="up-img w150" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
+                <div class="box-title-img">
+                  <div class="title">{{screen_cu==0?'背景图/视频':'背景图更换'}}</div>
+                  <div class="img-w">
+                    <div class="img-show"><img :src="screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):default_img" alt=""></div>
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
+                    <div class="btn-show">
+                      <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
+                      <input type="file" multiple="multiple" @change="$fileUpload($event,(screen_cu==0?'videoimg':'img'),'bgf')">
+                    </div>
+                  </div>
+                </div>
+                <div class="box-title-img">
+                  <div class="title">图标更换</div>
+                  <div class="img-w">
+                    <div class="img-show"><img :src="screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):default_img" alt=""></div>
+                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('tb')"></i>
+                    <div class="btn-show">
+                      <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
+                      <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb')">
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="up-img w150" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png" /><span>{{screen_cu==0?'背景图/视频':'背景图更换'}}</span></div>
                   <input type="file" multiple="multiple" @change="$fileUpload($event,(screen_cu==0?'videoimg':'img'),'bgf')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
-                </div>
-                <div class="up-img w60" :style="{'background-image':'url('+(screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):'')+')'}">
+                </div> -->
+                <!-- <div class="up-img w60" :style="{'background-image':'url('+(screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):'')+')'}">
                   <div><img src="@/assets/admin/img/icon-upload.png" /><span>图标更换</span></div>
                   <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb')">
                   <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('tb')"></i>
-                </div>
+                </div> -->
               </div>
               <!--通屏配置 end-->
 
@@ -91,6 +143,7 @@
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
                   <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
+                    <i class="iconfont el-icon-vip-xuanzhong" v-if="appId==i.appId"></i>
                     <img :src="fileUrl+i.icon" class="img-cover">
                     <span class="d-b-txt">{{i.name||''}}</span>
                   </div>
@@ -191,6 +244,7 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       header_footer_show: false,
       div_num: '1',
+      default_img:require('@/assets/admin/img/default.png'),
       allList: [],//左侧-布局模板信息
       sceneHeaderFooter: [],
       id: this.$route.query.id,
@@ -221,8 +275,10 @@ export default {
         //获取鼠标拖拽式在页面上的位置
         let pageXs = e.pageX;
         let pageYs = e.pageY;
-        parevent.style.left = pageXs - boxX + "px";
-        parevent.style.top = pageYs - boxY + "px"; 
+        let l = pageXs - boxX;
+        let t = pageYs - boxY;
+        parevent.style.left = (l<0?0:l) + "px";
+        parevent.style.top = (t<40?40:t) + "px"; 
       };
       document.onmouseup = function () {
         document.onmousemove = null;  //删除拖拽事件

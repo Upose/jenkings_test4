@@ -32,7 +32,7 @@
                       <li @click="delClick(i)" v-if="!i.isSystemScene && $authShowBtn('scene-manage_delete')"><i class="iconfont el-icon-vip-shanchu-1"></i><span>删除</span></li>
                       <li @click="previewClick(i)" v-if="$authShowBtn('scene-manage_preview')"><i class="iconfont el-icon-vip-yulan"></i><span>预览</span></li>
                       <li @click="disableClick(i)" v-if="$authShowBtn('scene-manage_disable')"><i class="iconfont" :class="i.status==1?'el-icon-vip-off-min':'el-icon-vip-on-min'"></i><span>{{i.status==1?'启用':'禁用'}}</span></li>
-                      <li @click="setDefalutHome(i)" v-if="!i.isSystemScene&&!i.isDefaultIndex"><i class="iconfont iconfont el-icon-vip-shouye"></i><span>设置为首页</span></li>
+                      <li @click="setDefalutHome(i)" v-if="$authShowBtn('set_default')&&!i.isSystemScene&&!i.isDefaultIndex"><i class="iconfont iconfont el-icon-vip-shouye"></i><span>设置为首页</span></li>
                     </ul>
                   </el-popover>
                   </span>

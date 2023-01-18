@@ -6,6 +6,202 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "33816879",
+      "name": "选中",
+      "font_class": "xuanzhong",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "695225",
+      "name": "主题",
+      "font_class": "zhuti",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "15685198",
+      "name": "主题_衣服",
+      "font_class": "zhuti_yifu",
+      "unicode": "e6d2",
+      "unicode_decimal": 59090
+    },
+    {
+      "icon_id": "16728174",
+      "name": "拼图",
+      "font_class": "pintu",
+      "unicode": "e710",
+      "unicode_decimal": 59152
+    },
+    {
+      "icon_id": "33798407",
+      "name": "检查数据",
+      "font_class": "a-chakan1",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "33798408",
+      "name": "开始导入",
+      "font_class": "a-daoru2",
+      "unicode": "e691",
+      "unicode_decimal": 59025
+    },
+    {
+      "icon_id": "33589656",
+      "name": "预约",
+      "font_class": "a-lujing51642",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "33163106",
+      "name": "xiazaifujian",
+      "font_class": "a-xiazaipandiandanxiazaidayinmoban2",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
+    },
+    {
+      "icon_id": "32768937",
+      "name": "icon-delete",
+      "font_class": "icon-delete",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "32768938",
+      "name": "icon-hmdgl",
+      "font_class": "icon-heimingdanguanli",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "32768939",
+      "name": "icon-return",
+      "font_class": "icon-return",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "32768940",
+      "name": "icon-qd",
+      "font_class": "icon-queding",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "32768941",
+      "name": "icon-px",
+      "font_class": "icon-paixu",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "32768942",
+      "name": "icon-tj",
+      "font_class": "icon-tijiao",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "32768943",
+      "name": "icon-edit",
+      "font_class": "icon-edit",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "32768944",
+      "name": "icon-tj",
+      "font_class": "icon-tongji",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "32768945",
+      "name": "icon-fj",
+      "font_class": "icon-fj",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "32768946",
+      "name": "icon-zztx",
+      "font_class": "icon-zhengzaitianxie",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "32768947",
+      "name": "icon-hdcymx",
+      "font_class": "icon-huodongcanyumingxi",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "32768948",
+      "name": "icon-xq",
+      "font_class": "icon-xiangqing",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "32768949",
+      "name": "icon-ztsj",
+      "font_class": "icon-zhengtishuju",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "32768950",
+      "name": "icon-cd",
+      "font_class": "icon-cundang",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "32436879",
+      "name": "续借失败",
+      "font_class": "a-zu47115",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "32436880",
+      "name": "图书批量续借",
+      "font_class": "a-zu47109",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "32435170",
+      "name": "检索订阅",
+      "font_class": "a-zu47108",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "32431352",
+      "name": "检索记录",
+      "font_class": "a-zu47100",
+      "unicode": "e6be",
+      "unicode_decimal": 59070
+    },
+    {
+      "icon_id": "32431353",
+      "name": "文献收藏",
+      "font_class": "a-zu47107",
+      "unicode": "e6bf",
+      "unicode_decimal": 59071
+    },
+    {
+      "icon_id": "32431354",
+      "name": "期刊订阅",
+      "font_class": "a-zu47106",
+      "unicode": "e6c0",
+      "unicode_decimal": 59072
+    },
+    {
       "icon_id": "5698509",
       "name": "全屏缩小",
       "font_class": "quanpingsuoxiao",

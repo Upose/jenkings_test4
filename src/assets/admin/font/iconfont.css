@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3145988 */
-  src: url('iconfont.woff2?t=1660179575140') format('woff2'),
-       url('iconfont.woff?t=1660179575140') format('woff'),
-       url('iconfont.ttf?t=1660179575140') format('truetype');
+  src: url('iconfont.woff2?t=1674024968389') format('woff2'),
+       url('iconfont.woff?t=1674024968389') format('woff'),
+       url('iconfont.ttf?t=1674024968389') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,118 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.el-icon-vip-xuanzhong:before {
+  content: "\e693";
+}
+
+.el-icon-vip-zhuti:before {
+  content: "\e692";
+}
+
+.el-icon-vip-zhuti_yifu:before {
+  content: "\e6d2";
+}
+
+.el-icon-vip-pintu:before {
+  content: "\e710";
+}
+
+.el-icon-vip-a-chakan1:before {
+  content: "\e690";
+}
+
+.el-icon-vip-a-daoru2:before {
+  content: "\e691";
+}
+
+.el-icon-vip-a-lujing51642:before {
+  content: "\e68f";
+}
+
+.el-icon-vip-a-xiazaipandiandanxiazaidayinmoban2:before {
+  content: "\e68e";
+}
+
+.el-icon-vip-icon-delete:before {
+  content: "\e680";
+}
+
+.el-icon-vip-icon-heimingdanguanli:before {
+  content: "\e681";
+}
+
+.el-icon-vip-icon-return:before {
+  content: "\e682";
+}
+
+.el-icon-vip-icon-queding:before {
+  content: "\e683";
+}
+
+.el-icon-vip-icon-paixu:before {
+  content: "\e684";
+}
+
+.el-icon-vip-icon-tijiao:before {
+  content: "\e685";
+}
+
+.el-icon-vip-icon-edit:before {
+  content: "\e686";
+}
+
+.el-icon-vip-icon-tongji:before {
+  content: "\e687";
+}
+
+.el-icon-vip-icon-fj:before {
+  content: "\e688";
+}
+
+.el-icon-vip-icon-zhengzaitianxie:before {
+  content: "\e689";
+}
+
+.el-icon-vip-icon-huodongcanyumingxi:before {
+  content: "\e68a";
+}
+
+.el-icon-vip-icon-xiangqing:before {
+  content: "\e68b";
+}
+
+.el-icon-vip-icon-zhengtishuju:before {
+  content: "\e68c";
+}
+
+.el-icon-vip-icon-cundang:before {
+  content: "\e68d";
+}
+
+.el-icon-vip-a-zu47115:before {
+  content: "\e67e";
+}
+
+.el-icon-vip-a-zu47109:before {
+  content: "\e67f";
+}
+
+.el-icon-vip-a-zu47108:before {
+  content: "\e67d";
+}
+
+.el-icon-vip-a-zu47100:before {
+  content: "\e6be";
+}
+
+.el-icon-vip-a-zu47107:before {
+  content: "\e6bf";
+}
+
+.el-icon-vip-a-zu47106:before {
+  content: "\e6c0";
 }
 
 .el-icon-vip-quanpingsuoxiao:before {

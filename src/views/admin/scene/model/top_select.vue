@@ -2,8 +2,8 @@
 <template>
   <div class="drag-top c-l" :class="top_fold?'top0':'top100'">
     <div class="drag-top-w">
-      <h1 class="step-num"><span class="num">1</span><span class="txt">场景信息</span></h1>
-      <div class="s-col"><span class="s-txt">名称：</span>
+      <h1 class="step-num"><span class="iconfont el-icon-vip-pintu"></span><span class="txt">场景信息<i class="el-icon-caret-right"></i></span></h1>
+      <div class="s-col ml-0"><span class="s-txt">名称：</span>
         <el-input class="w-saml" v-model="postForm.name" size="medium" placeholder="首页"></el-input>
       </div>
       <!--disabled="disabled"-->
@@ -28,7 +28,7 @@
       <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
       <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
       <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
-      <i class="cut-btn" :class="top_fold?'el-icon-arrow-up':'el-icon-arrow-down'" @click="topFold()"></i>
+      <!-- <i class="cut-btn" :class="top_fold?'el-icon-arrow-up':'el-icon-arrow-down'" @click="topFold()"></i> 折叠顶部按钮-->
     </div>
   </div>
   <!--顶部条件筛选 end-->
@@ -192,14 +192,27 @@ export default {
   min-height: 64px;
   background: @m-col-b0;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.05);
-  z-index: 7;
+  z-index:2;
   position: absolute;
-  padding: 0 20px;
+  padding-right:20px;
   top: 0;
   transition: all .3s;
   .step-num {
-    height: 100%;
-    line-height: 60px;
+    width: 152px;
+    padding-left: 10px;
+    height:35px;
+    background: linear-gradient(90deg, #D5DCE9 0%, #FFFFFF 152px);
+    .iconfont{
+      color: #575F9B;
+      vertical-align: middle;
+    }
+    .el-icon-caret-right{
+      color: #575F9B;
+    }
+    .txt{
+      padding-left:6px;
+      vertical-align: middle;
+    }
   }
   .s-col {
     display: inline-block;
@@ -212,6 +225,9 @@ export default {
     .w-saml {
       width: 136px;
     }
+  }
+  .ml-0{
+    margin-left: 0;
   }
   .default-btn-border {
     height: 36px !important;
@@ -227,6 +243,7 @@ export default {
     margin-top: 13px;
   }
 }
+
 /deep/.el-tag.el-tag--info .el-select__tags-text {
   max-width: 100px;
   display: inline-block;

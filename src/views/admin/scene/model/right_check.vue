@@ -2,7 +2,10 @@
 <template>
   <div class="drag-r">
     <div class="fixed-menu-w">
-      <span class="box active">应用设置</span>
+      <span class="box active">
+        <i class="iconfont el-icon-vip-shezhi loginOut"></i>
+        <i class="txt">应用设置</i>
+      </span>
       <div class="r-bt">
         <i class="el-icon-minus" @click="rightFold()"></i>
         <i class="el-icon-rank" @mousedown="move"></i>
@@ -200,8 +203,10 @@ export default {
         //获取鼠标拖拽式在页面上的位置
         let pageXs = e.pageX;
         let pageYs = e.pageY;
-        parevent.style.left = pageXs - boxX + "px";
-        parevent.style.top = pageYs - boxY + "px"; 
+        let l = pageXs - boxX;
+        let t = pageYs - boxY;
+        parevent.style.left = (l<0?0:l) + "px";
+        parevent.style.top = (t<40?40:t) + "px"; 
       };
       document.onmouseup = function () {
         document.onmousemove = null;  //删除拖拽事件

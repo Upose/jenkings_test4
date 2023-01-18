@@ -242,32 +242,32 @@ iframe {
   display: inline-block;
   position: relative;
 
-  .num {
-    font-size: 13px;
-    color: @m-col-b0;
-    background-color: @ph-col-n12;
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
-    text-align: center;
-    border-radius: 50%;
-    position: relative;
-    margin-right: 10px;
-    vertical-align: middle;
+  // .num {
+  //   font-size: 13px;
+  //   color: @m-col-b0;
+  //   background-color: @ph-col-n12;
+  //   display: inline-block;
+  //   width: 18px;
+  //   height: 18px;
+  //   line-height: 18px;
+  //   text-align: center;
+  //   border-radius: 50%;
+  //   position: relative;
+  //   margin-right: 10px;
+  //   vertical-align: middle;
 
-    &::after {
-      content: "";
-      display: block;
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border-radius: 50%;
-      border: 1px solid @ph-col-n12;
-    }
-  }
+  //   &::after {
+  //     content: "";
+  //     display: block;
+  //     position: absolute;
+  //     top: -2px;
+  //     left: -2px;
+  //     right: -2px;
+  //     bottom: -2px;
+  //     border-radius: 50%;
+  //     border: 1px solid @ph-col-n12;
+  //   }
+  // }
 
   .txt {
     color: @ph-col-n12;
@@ -276,30 +276,30 @@ iframe {
     vertical-align: middle;
   }
 
-  .r-select {
-    cursor: pointer;
-    color: @m-col-b7;
-    font-size: 14px;
-    font-weight: 400px;
-    position: absolute;
-    right: 0;
-    top: 5px;
-    width: 98px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  // .r-select {      
+  //   cursor: pointer;
+  //   color: @m-col-b7;
+  //   font-size: 14px;
+  //   font-weight: 400px;
+  //   position: absolute;
+  //   right: 0;
+  //   top: 5px;
+  //   width: 98px;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   white-space: nowrap;
 
-    .el-dropdown-link {
-      width: 100%;
-      display: block;
-    }
+  //   .el-dropdown-link {
+  //     width: 100%;
+  //     display: block;
+  //   }
 
-    i {
-      position: absolute;
-      right: 0;
-      top: 3px;
-    }
-  }
+  //   i {
+  //     position: absolute;
+  //     right: 0;
+  //     top: 3px;
+  //   }
+  // }
 }
 
 /****服务中台，点击飘出的二级菜单***/
@@ -820,9 +820,9 @@ iframe {
   .el-collapse-item__header {
     color: @ph-col-n12;
     font-size: 14px;
+    font-weight: 800;
     position: relative;
     padding-left: 18px;
-    border-bottom: 1px solid @ph-col-n3;
 
     .el-icon-arrow-right {
       position: absolute;
@@ -842,7 +842,7 @@ iframe {
   .is-active {
     .el-collapse-item__header,
     .el-icon-arrow-right {
-      color: @m-col-b10;
+      color:#333;
     }
   }
 }
