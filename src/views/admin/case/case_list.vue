@@ -150,10 +150,9 @@ export default {
         this.$message({type: 'info',message: '已取消删除'});          
       });
     },
-    //开启默认首页
+    //设置为默认首页
     setDefalutHome(val){
-      console.log(val);
-      this.http.postPlain('template-default-by-code',val.id).then(res=>{
+      this.http.postPlain('set-default-index-page',{terminalId:val.terminalId,scenegroupid:val.id}).then(res=>{
         console.log(res);
       }).catch(err=>{
         console.log(err);

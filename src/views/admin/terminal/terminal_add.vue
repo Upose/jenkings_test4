@@ -177,12 +177,12 @@ export default {
   name: 'index',
   created(){
     this.http.getPlain_url('header-footer-list', '/2').then(res => {
-      this.head_list = res.data.items || [];
+      this.head_list = res.data || [];
     }).catch(err => {
       this.$message({ type: 'error', message: '获取失败!' });
     })
     this.http.getPlain_url('header-footer-list', '/3').then(res => {
-      this.footer_list = res.data.items || [];
+      this.footer_list = res.data || [];
     }).catch(err => {
       this.$message({ type: 'error', message: '获取失败!' });
     })

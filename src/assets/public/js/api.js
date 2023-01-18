@@ -40,7 +40,7 @@ export default {
         'template-default-by-code':baseURL + '/api/scene-manage/template-default-by-code',//根据模板code获取模板默认数据   ---这个接口没用了
 
         //新接口
-        'set-default-index-page':baseURL + '/api/scene-manage/set-default-index-page',//根据模板code获取模板默认数据
+        'set-default-index-page':baseURL + '/api/scene-manage/set-default-index-page',//设置为默认首页/{scenegroupid}
         'app-column-list-by-app-id':baseURL + '/api/scene-manage/app-column-list-by-app-id',//根据应用id获取应用栏目列表-分组
         'template-default-data-by-id':baseURL + '/api/scene-manage/template-default-data-by-id',//根据模板id，获取模板详情
     },
