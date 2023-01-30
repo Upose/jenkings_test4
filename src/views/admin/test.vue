@@ -9,7 +9,7 @@
       </el-select>
     </div>
     <h1>多级选择</h1>
-    <el-cascader :options="options" :props="{ checkStrictly: true }" :show-all-levels="false" v-model="listvalue"></el-cascader>
+    <el-cascader :options="options" :props="{label:'key',checkStrictly: true}" :show-all-levels="false" v-model="listvalue"></el-cascader>
     <el-button @click="submit">默认按钮</el-button>
   </div>
 </template>
@@ -17,10 +17,10 @@
 <script>
 export default {
   name: 'cs',
-  created(){
-    this.$addStyle('/cdn/public/template/service_sys/temp12/component.css');
-    this.$addScript('/cdn/public/template/service_sys/temp12/component.js');
-  },
+  // created(){
+  //   this.$addStyle('/cdn/public/template/service_sys/temp12/component.css');
+  //   this.$addScript('/cdn/public/template/service_sys/temp12/component.js');
+  // },
   data() {
     return {
       set_list: [
@@ -28,7 +28,7 @@ export default {
         { id: '',routeCode:''},
         { id: '',routeCode:''},
       ],
-      listvalue:'',
+      listvalue:["zhinan", "shejiyuanze"],
       appPlateList: [{
         appName: '应用中心',
         routeCode: 'appcenter',
@@ -62,7 +62,8 @@ export default {
             key: '设计原则',
             children: [{
               value: 'yizhi',
-              key: '一致'
+              key: '一致',
+              children:[],
             }]
           }]
         }, {

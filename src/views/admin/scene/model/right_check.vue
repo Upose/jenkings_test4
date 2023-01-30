@@ -58,20 +58,7 @@
               </div>
               <div class="cloum-row" v-for="(it,i) in set_list" :key="i">
                 <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                  <!-- <el-select class="w-saml" v-model="it.id" size="medium" @change="columnClick($event,i)" placeholder="绑定栏目">
-                    <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
-                  </el-select> -->
-                  <el-select class="w-saml" v-model="it.id"  size="medium" placeholder="绑定栏目" @change="columnClick($event,i)">
-                    <!-- <el-option-group v-for="group in appPlateList" :key="group.appName" :label="group.appName">
-                      <el-option v-for="item in group.options" :key="item.value" :value="item.value" :label="item.key">{{item.key}}
-                      </el-option>
-                    </el-option-group> -->
-                    <el-cascader
-                    :options="appPlateList[0].options"
-                    :props="{label: 'key',
-            value: 'value',checkStrictly: true }"
-                    clearable></el-cascader>
-                  </el-select>
+                  <el-cascader :options="appPlateList" :props="{label:'key',checkStrictly: true}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.ids"></el-cascader>
                 </div>
                 <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
                   <el-select class="w-saml" v-model="it.topCount" size="medium" @change="showNum" placeholder="显示条数">
@@ -188,6 +175,7 @@ export default {
           topCount:1,//数据条数-（需要参数）
           sortType: '',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
           id: '',//应用栏目标识 -（需要参数）
+          ids:[],//栏目层级列表-包含父级等。
           orderIndex: 1,//排序标识
         }
       ],
@@ -223,18 +211,22 @@ export default {
     },
     //栏目选择
     columnClick(e,index){
-      this.appPlateList.forEach((item) => {
-        var s = null;
-        item.options.forEach((m,k) =>{
-            if(m.value == e){
-                s = true;
-            }
-        });
-        if(s){
-            this.set_list[index].routeCode = item.routeCode;
-        }
-      })
+      // console.log(e,index);
+      // this.appPlateList.forEach((item) => {
+      //   var s = null;
+      //   item.options.forEach((m,k) =>{
+      //       if(m.value == e){
+      //           s = true;
+      //       }
+      //   });
+      //   if(s){
+      //       this.set_list[index].routeCode = item.routeCode;
+      //   }
+      // })
+      this.set_list[index].routeCode = e[0];
+      this.set_list[index].id = e[e.length-1];
       this.saveClick('edit');
+      console.log(this.set_list);
     },
     //条数选择
     showNum(e){
@@ -326,6 +318,16 @@ export default {
         console.log(err);
       })
     },
+    getTreeData(data) { // 递归遍历树结构，将值转换
+      for (let i = 0; i < data.length; i++) {
+        if (!data[i].children || data[i].children.length < 1) {
+            data[i].children = undefined
+        } else {
+            this.getTreeData(data[i].children)
+        }
+      }
+      return data
+    },
     //选择某个模板
     appsTemplate(val, isAdd) {
       if(this.template_check == val.id && this.is_hf) return;//这里是为了头尾，选择模板时已经选择的，不要再做下面的操作
@@ -365,15 +367,19 @@ export default {
       if (this.set_list[0] && !this.set_list[0].sortType && val.sortList) {
         this.set_list[0].sortType = val.sortList[0].value;
       }
-      //获取应用栏目列表 /{appid}
-      this.http.getPlain_url('app-column-list-by-app-id', '/' + val.appId).then(res => {
-        this.appPlateList = res.data || [];
-        if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
-          if(res.data.length>0 && res.data[0].options.length>0)
-          this.set_list[0].id = res.data[0].options[0].value;
-          this.set_list[0].routeCode = res.data[0].routeCode;
+      //获取应用栏目列表 /{appid} canBindColumnApp
+      this.http.getPlain_url('app-column-list-by-app-id', '/' + val.canBindColumnApp).then(res => {
+        if(res.data && res.data.length>0){
+          this.appPlateList = this.getTreeData(res.data);
+          this.appPlateList.forEach(it=>{
+            it.disabled = true;
+          })
         }
-        console.log(res.data.options);
+        // if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
+        //   if(res.data.length>0 && res.data[0].options.length>0)
+        //   this.set_list[0].id = res.data[0].options[0].value;
+        //   this.set_list[0].routeCode = res.data[0].routeCode;
+        // }
       }).catch(err => {
         console.log(err);
       })
