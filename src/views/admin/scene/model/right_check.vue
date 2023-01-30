@@ -62,10 +62,15 @@
                     <el-option v-for="(item,i) in appPlateList" :key="i+'c'" :label="item.key" :value="item.value"></el-option>
                   </el-select> -->
                   <el-select class="w-saml" v-model="it.id"  size="medium" placeholder="绑定栏目" @change="columnClick($event,i)">
-                    <el-option-group v-for="group in appPlateList" :key="group.appName" :label="group.appName">
+                    <!-- <el-option-group v-for="group in appPlateList" :key="group.appName" :label="group.appName">
                       <el-option v-for="item in group.options" :key="item.value" :value="item.value" :label="item.key">{{item.key}}
                       </el-option>
-                    </el-option-group>
+                    </el-option-group> -->
+                    <el-cascader
+                    :options="appPlateList[0].options"
+                    :props="{label: 'key',
+            value: 'value',checkStrictly: true }"
+                    clearable></el-cascader>
                   </el-select>
                 </div>
                 <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
@@ -338,6 +343,7 @@ export default {
         obj.width = val.width;
         obj.height = val.height;
         obj.templateCode = val.widgetCode;
+        obj.content = val.defaultData;
 
         if(this.is_hf=='foot'){
           this.postForm.footerTemplate = obj;
@@ -367,6 +373,7 @@ export default {
           this.set_list[0].id = res.data[0].options[0].value;
           this.set_list[0].routeCode = res.data[0].routeCode;
         }
+        console.log(res.data.options);
       }).catch(err => {
         console.log(err);
       })
