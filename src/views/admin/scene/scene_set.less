@@ -352,3 +352,28 @@
     // box-shadow: 0px 0px 8px #001eff;//外部阴影
     // box-shadow: 0 0 5px #3a51ff inset;//内部阴影
   }
+/*左侧菜单缩放后-按钮**/
+  .left-menu-flex{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 20;
+    margin-top: -124px;
+    color: #fff;
+    
+    span{
+      cursor: pointer;
+      display: block;
+      background: rgba(62, 83, 238, 0.6);
+      border: 1px solid #a5b3cc;
+      margin: 20px 0;
+      width: 30px;
+      padding: 10px 5px;
+      text-align: center;
+      border-radius: 0 20px 20px 0;
+      transition: all .3s;
+      &:hover{
+        background: rgba(62, 83, 238, 1);
+      }
+    }
+  }

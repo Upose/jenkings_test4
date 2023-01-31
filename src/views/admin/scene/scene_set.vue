@@ -119,29 +119,5 @@ export default {
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
-.left-menu-flex{
-  position: absolute;
-  left: 0;
-  top: 50%;
-  z-index: 20;
-  margin-top: -124px;
-  color: #fff;
-  
-  span{
-    cursor: pointer;
-    display: block;
-    background: rgba(62, 83, 238, 0.75);
-    border: 1px solid #a5b3cc;
-    margin: 20px 0;
-    width: 30px;
-    padding: 10px 5px;
-    text-align: center;
-    border-radius: 0 20px 20px 0;
-    transition: all .3s;
-    &:hover{
-      background: rgba(62, 83, 238, 1);
-    }
-  }
-}
 </style>
 

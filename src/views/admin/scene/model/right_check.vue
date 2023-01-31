@@ -20,16 +20,17 @@
           <el-collapse v-model="activeCollapse" class="drag-collapse">
             <el-collapse-item title="选择样式" name="1" class="select-type" v-if="template_list.length>0">
               <div class="s-list">
-                <div class="d-temp-box" v-for="(it,i) in template_list" :class="template_check == it.id?'d-temp-box-check':''" @click="appsTemplate(it,i)" :key="i">
-                  <img :src="fileUrl+it.cover" />
-                  <span class="temp-name">{{it.name||'无'}}</span>
-                  <el-button type="primary" class="button" size="mini"><i class="iconfont" :class="template_check == it.id?'el-icon-vip-check':'el-icon-vip-no-check'"></i> 选用</el-button>
+                <div class="box-title-img check-temp" :class="template_check == it.id?'border-img-check':''" v-for="(it,i) in template_list" @click="appsTemplate(it,i)" :key="i">
+                  <div class="title">{{it.name||'无'}} <i class="iconfont el-icon-vip-xuanzhong icon-r" v-if="template_check == it.id"></i></div>
+                  <div class="img-w">
+                    <div class="img-show"><img :src="it.cover?(fileUrl+it.cover):default_img"></div>
+                  </div>
                 </div>
               </div>
             </el-collapse-item>
             <!--选择样式 end-->
 
-            <el-collapse-item title="设置内容" name="2" class="select-type">
+            <el-collapse-item title="设置内容" name="2">
               <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
@@ -55,29 +56,41 @@
               </div>
               <!--组件配置 end-->
 
-              <div class="s-choose">
-                <div class="cloum-row-title">
-                  <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">绑定栏目</div>
-                  <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">显示条数</div>
-                  <div class="s-c-row" v-if="availableConfig.indexOf('3')>-1">排序规则</div>
+              <div class="coumn-table" v-if="availableConfig.indexOf('1')>-1 || availableConfig.indexOf('2')>-1 || availableConfig.indexOf('3')>-1">
+                <div class="c-t-head row">
+                  <div class="col1 cl">绑定栏目</div>
+                  <div class="col2 cl">显示条数</div>
+                  <div class="col3 cl">排序规则</div>
+                  <div class="col4 cl"></div>
                 </div>
-                <div class="cloum-row" v-for="(it,i) in set_list" :key="i">
-                  <div class="s-c-row" v-if="availableConfig.indexOf('1')>-1">
-                    <el-cascader :options="appPlateList" :props="{label:'key',checkStrictly: true}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.ids"></el-cascader>
+                <div class="c-t-body row" v-for="(it,i) in set_list" :key="i">
+                  <div class="col1 cl">
+                    <div v-if="availableConfig.indexOf('1')>-1">
+                      <el-cascader :options="appPlateList" :props="{label:'key',checkStrictly: true}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.ids"></el-cascader>
+                    </div>
+                    <div class="t-center" v-else>-</div>
                   </div>
-                  <div class="s-c-row" v-if="availableConfig.indexOf('2')>-1">
-                    <el-select class="w-saml" v-model="it.topCount" size="medium" @change="showNum" placeholder="显示条数">
-                      <el-option v-for="(item,i) in topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
-                    </el-select>
+                  <div class="col2 cl">
+                    <div v-if="availableConfig.indexOf('2')>-1">
+                      <el-select class="w-saml" v-model="it.topCount" size="medium" @change="showNum" placeholder="条数">
+                        <el-option v-for="(item,i) in topCountList" :key="i+'b'" :label="item.key" :value="item.value"></el-option>
+                      </el-select>
+                    </div>
+                    <div class="t-center" v-else>-</div>
                   </div>
-                  <div class="s-c-row" v-if="availableConfig.indexOf('3')>-1">
-                    <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="排序规则">
-                      <el-option v-for="(item,i) in sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
-                    </el-select>
+                  <div class="col3 cl">
+                    <div v-if="availableConfig.indexOf('3')>-1">
+                      <el-select class="w-saml" v-model="it.sortType" size="medium" placeholder="排序">
+                        <el-option v-for="(item,i) in sortList" :key="i+'a'" :label="item.key" :value="item.value"></el-option>
+                      </el-select>
+                    </div>
+                    <div class="t-center" v-else>-</div>
                   </div>
-                  <div class="r-btn" v-if="availableConfig.indexOf('1')>-1">
-                    <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
-                    <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
+                  <div class="col4 cl">
+                    <div class="r-btn" v-if="availableConfig.indexOf('1')>-1">
+                      <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
+                      <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -193,22 +206,9 @@ export default {
     },
     //栏目选择
     columnClick(e, index) {
-      // console.log(e,index);
-      // this.appPlateList.forEach((item) => {
-      //   var s = null;
-      //   item.options.forEach((m,k) =>{
-      //       if(m.value == e){
-      //           s = true;
-      //       }
-      //   });
-      //   if(s){
-      //       this.set_list[index].routeCode = item.routeCode;
-      //   }
-      // })
       this.set_list[index].routeCode = e[0];
       this.set_list[index].id = e[e.length - 1];
       this.saveClick('edit');
-      console.log(this.set_list);
     },
     //条数选择
     showNum(e) {
@@ -525,34 +525,6 @@ export default {
   },
 }
 </script>
-<style lang="less" scoped>
-.cloum-row-title {
-  font-size: 12px;
-  color: #6777ef;
-  margin-top: 8px;
-}
-.cloum-row,
-.cloum-row-title {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  .s-c-row {
-    width: 110px;
-    margin-right: 10px;
-    &:first-child {
-      width: 160px;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-  .r-btn {
-    font-size: 20px;
-    cursor: pointer;
-    color: #6777ef;
-  }
-}
-</style>
 <style lang="less" scoped>
 @import "~@/assets/admin/css/color.less";
 @import "~@/assets/admin/css/style.less";
