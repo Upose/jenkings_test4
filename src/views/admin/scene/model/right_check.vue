@@ -20,8 +20,8 @@
           <el-collapse v-model="activeCollapse" class="drag-collapse">
             <el-collapse-item title="选择样式" name="1" class="select-type" v-if="template_list.length>0">
               <div class="s-list">
-                <div class="box-title-img check-temp" :class="template_check == it.id?'border-img-check':''" v-for="(it,i) in template_list" @click="appsTemplate(it,i)" :key="i">
-                  <div class="title" :title="it.name||''">{{it.name||'无'}} <i class="iconfont el-icon-vip-xuanzhong icon-r" v-if="template_check == it.id"></i></div>
+                <div class="box-title-img check-temp"  :title="it.name||''" :class="template_check == it.id?'border-img-check':''" v-for="(it,i) in template_list" @click="appsTemplate(it,i)" :key="i">
+                  <div class="title">{{it.name||'无'}} <i class="iconfont el-icon-vip-xuanzhong icon-r" v-if="template_check == it.id"></i></div>
                   <div class="img-w">
                     <div class="img-show"><img :src="it.cover?(fileUrl+it.cover):default_img"></div>
                   </div>
@@ -66,7 +66,7 @@
                 <div class="c-t-body row" v-for="(it,i) in set_list" :key="i">
                   <div class="col1 cl">
                     <div v-if="availableConfig.indexOf('1')>-1">
-                      <el-cascader :options="appPlateList" :props="{label:'key',checkStrictly: true}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.ids"></el-cascader>
+                      <el-cascader :options="appPlateList" :props="{label:'key',checkStrictly: true,emitPath:false}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.id"></el-cascader>
                     </div>
                     <div class="t-center" v-else>-</div>
                   </div>
@@ -170,7 +170,6 @@ export default {
           topCount: 1,//数据条数-（需要参数）
           sortType: '',//排序方式 1-创建时间倒序 2-访问量倒序-（需要参数）
           id: '',//应用栏目标识 -（需要参数）
-          ids: [],//栏目层级列表-包含父级等。
           orderIndex: 1,//排序标识
         }
       ],
@@ -206,8 +205,11 @@ export default {
     },
     //栏目选择
     columnClick(e, index) {
-      this.set_list[index].routeCode = e[0];
-      this.set_list[index].id = e[e.length - 1];
+      this.appPlateList.forEach(x=>{
+        if(JSON.stringify(x).indexOf(e)>0){
+          this.set_list[index].routeCode = x.value||'';
+        }
+      })
       this.saveClick('edit');
     },
     //条数选择
@@ -300,6 +302,7 @@ export default {
         console.log(err);
       })
     },
+    //遍历children为[]时修改为undefined
     getTreeData(data) { // 递归遍历树结构，将值转换
       for (let i = 0; i < data.length; i++) {
         if (!data[i].children || data[i].children.length < 1) {
@@ -309,6 +312,12 @@ export default {
         }
       }
       return data
+    },
+    setColumnParent(val,index){
+      console.log(this.appPlateList);
+      this.appPlateList.forEach(x=>{
+
+      })
     },
     //选择某个模板
     appsTemplate(val, isAdd) {

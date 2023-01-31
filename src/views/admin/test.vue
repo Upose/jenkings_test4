@@ -9,7 +9,7 @@
       </el-select>
     </div>
     <h1>多级选择</h1>
-    <el-cascader :options="options" :props="{label:'key',checkStrictly: true}" :show-all-levels="false" v-model="listvalue"></el-cascader>
+    <el-cascader :options="options" :props="{label:'key',checkStrictly: true,emitPath:false}" :show-all-levels="false" v-model="listvalue"></el-cascader>
     <el-button @click="submit">默认按钮</el-button>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
         { id: '',routeCode:''},
         { id: '',routeCode:''},
       ],
-      listvalue:["zhinan", "shejiyuanze"],
+      listvalue:'yizhi',
       appPlateList: [{
         appName: '应用中心',
         routeCode: 'appcenter',
