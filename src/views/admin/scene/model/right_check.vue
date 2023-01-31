@@ -313,12 +313,6 @@ export default {
       }
       return data
     },
-    setColumnParent(val,index){
-      console.log(this.appPlateList);
-      this.appPlateList.forEach(x=>{
-
-      })
-    },
     //选择某个模板
     appsTemplate(val, isAdd) {
       if (this.template_check == val.id && this.is_hf) return;//这里是为了头尾，选择模板时已经选择的，不要再做下面的操作
@@ -366,11 +360,11 @@ export default {
             it.disabled = true;
           })
         }
-        // if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
-        //   if(res.data.length>0 && res.data[0].options.length>0)
-        //   this.set_list[0].id = res.data[0].options[0].value;
-        //   this.set_list[0].routeCode = res.data[0].routeCode;
-        // }
+        if (this.set_list[0] && !this.set_list[0].id && res.data[0]) {
+          if(res.data.length>0 && res.data[0].children.length>0)
+          this.set_list[0].id = res.data[0].children[0].value;
+          this.set_list[0].routeCode = res.data[0].value;
+        }
       }).catch(err => {
         console.log(err);
       })
