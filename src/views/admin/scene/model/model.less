@@ -309,8 +309,12 @@
     background: #E2E8F1;
     border-radius: 3px 3px 0px 0px;
     position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
     .icon-r{
-      color: #6777ef;
+      color: #3E54EE;
       position: absolute;
       right: 0;
       top: 0;
@@ -400,8 +404,19 @@
   width:140px;
   display:inline-block;
   margin-right:15px;
+  cursor: pointer;
+  .title{
+    transition: all .3s;
+    border-radius: 0;
+  }
   &:nth-child(even){
     margin-right: 0;
+  }
+  &:hover{
+    .title{
+      color: #3E54EE;
+      background: #d1d7ff;
+    }
   }
   .img-w{
     height: 70px;

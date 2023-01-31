@@ -21,7 +21,7 @@
             <el-collapse-item title="选择样式" name="1" class="select-type" v-if="template_list.length>0">
               <div class="s-list">
                 <div class="box-title-img check-temp" :class="template_check == it.id?'border-img-check':''" v-for="(it,i) in template_list" @click="appsTemplate(it,i)" :key="i">
-                  <div class="title">{{it.name||'无'}} <i class="iconfont el-icon-vip-xuanzhong icon-r" v-if="template_check == it.id"></i></div>
+                  <div class="title" :title="it.name||''">{{it.name||'无'}} <i class="iconfont el-icon-vip-xuanzhong icon-r" v-if="template_check == it.id"></i></div>
                   <div class="img-w">
                     <div class="img-show"><img :src="it.cover?(fileUrl+it.cover):default_img"></div>
                   </div>
