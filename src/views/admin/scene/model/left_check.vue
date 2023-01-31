@@ -31,7 +31,7 @@
             <!--布局 end-->
 
             <el-collapse-item title="请选择模板" name="2">
-              
+
               <div class="drag-box-btn-w" @click="templateClick(i)" v-for="i in sceneTemplate">
                 <div class="drag-box" :class="templateId==i.id?'active1':''" :title="i.name">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="templateId==i.id"></i>
@@ -41,8 +41,8 @@
             </el-collapse-item>
             <!--模板 end-->
 
-            <el-collapse-item title="请选择主题色" name="3" v-if="(sceneThemeColor||[]).length>0">
-              
+            <el-collapse-item title="请选择主题色" name="3" class="color-clooapse" v-if="(sceneThemeColor||[]).length>0">
+
               <div class="drag-box-btn-w" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
                 <div class="drag-box" :style="{'background-image':'url('+(fileUrl+i.icon)+')'}">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="(postForm.themeColor||'template1')==i.value"></i>
@@ -68,7 +68,7 @@
                 </div>
               </div>
               <!--通屏配置 end-->
-              
+
               <div class="model-set-w c-l" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
                 <div class="box-title-img">
                   <div class="title">{{screen_cu==0?'背景图/视频':'背景图更换'}}</div>
@@ -109,7 +109,8 @@
                   <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </h1><!--选择应用类型 end-->
+            </h1>
+            <!--选择应用类型 end-->
             <el-collapse-item title="应用类型" name="1">
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
@@ -119,7 +120,8 @@
                     <span class="d-b-txt">{{i.name||''}}</span>
                   </div>
                 </div>
-              </div><!--应用列表 end-->
+              </div>
+              <!--应用列表 end-->
             </el-collapse-item>
 
             <el-collapse-item title="通用组件" name="2">
@@ -186,8 +188,8 @@ export default {
       },
     },
   },
-  mounted(){
-    this.bus.$on("getUpladFile",(res)=>{
+  mounted() {
+    this.bus.$on("getUpladFile", (res) => {
       switch (res.key) {
         case 'bgt': this.screen_list[this.screen_cu].bgImg = res.url || ''; break;
         case 'bgf': this.screen_list[this.screen_cu].bgImg = res.url || ''; break;
@@ -214,7 +216,7 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       header_footer_show: false,
       div_num: '1',
-      default_img:require('@/assets/admin/img/default.png'),
+      default_img: require('@/assets/admin/img/default.png'),
       allList: [],//左侧-布局模板信息
       sceneHeaderFooter: [],
       id: this.$route.query.id,
@@ -237,7 +239,7 @@ export default {
       var event = e.target;  //获取wqh盒子
       var parevent = event.parentNode.parentNode.parentNode;
       //获取鼠标位置
-      let pageX = e.pageX; 
+      let pageX = e.pageX;
       let pageY = e.pageY;
       var boxX = pageX - parevent.offsetLeft;
       var boxY = pageY - parevent.offsetTop;
@@ -248,8 +250,8 @@ export default {
         let pageYs = e.pageY;
         let l = pageXs - boxX;
         let t = pageYs - boxY;
-        parevent.style.left = (l<0?0:l) + "px";
-        parevent.style.top = (t<40?40:t) + "px"; 
+        parevent.style.left = (l < 0 ? 0 : l) + "px";
+        parevent.style.top = (t < 40 ? 40 : t) + "px";
       };
       document.onmouseup = function () {
         document.onmousemove = null;  //删除拖拽事件

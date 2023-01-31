@@ -32,7 +32,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.bgImg);
+    // console.log(this.bgImg);
   },
   methods: {
 //样式设置

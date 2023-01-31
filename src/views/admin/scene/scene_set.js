@@ -181,7 +181,7 @@ export default {
       }, 500)
       if (_this.postForm.sceneScreens && _this.postForm.sceneScreens.length > 0) {
         _this.postForm.sceneScreens.forEach((item, index) => {
-          console.log(item.sceneApps)
+          // console.log(item.sceneApps)
           let result = item.sceneApps.map((it, index) => ({
             id: it.id,
             w: it.width,
@@ -270,7 +270,6 @@ export default {
       var _this = this;
       var list = [];
       if (this.grid.save() && this.grid.save().length) {
-        console.log(this.grid.save())
         this.grid.save().forEach(item => {
           var item_list = {
             x: item.x, y: item.y, 
@@ -327,7 +326,7 @@ export default {
             y_index = max_y[0].y + max_y[0].h;
           }
         }
-        console.log(data);
+        // console.log(data);
         let it = {
           x: 0,
           y: y_index,
