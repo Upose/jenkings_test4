@@ -2,7 +2,10 @@
 .ml0 {
   margin-left: 0 !important;
 }
-
+.drag-collapse{
+  position: relative;
+  margin-top: 10px;
+}
 /**左侧***/
 .drag-l-warp {
   left: 0;
@@ -134,31 +137,46 @@
     font-size: 14px;
     color: #34395e;
   }
-  .step-three {
-    height: auto;
-    position: relative;
-    padding-bottom: 10px;
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      height: 1px;
-      left: -20px;
-      right: -20px;
-      top: 32px;
-      background-color: @ph-col-n3;
-    }
+  // .step-three {
+  //   height: auto;
+  //   position: relative;
+  //   padding-bottom: 10px;
+  //   &::after {
+  //     content: '';
+  //     display: block;
+  //     position: absolute;
+  //     height: 1px;
+  //     left: -20px;
+  //     right: -20px;
+  //     top: 32px;
+  //     background-color: @ph-col-n3;
+  //   }
     
-    .step-num {
-      width: 100%;
-      margin-bottom:8px;
-    }
-  }
+  //   .step-num {
+  //     width: 100%;
+  //     margin-bottom:8px;
+  //   }
+  // }
 
-  .fixed-temp-w {
-    margin-top: 10px;
-    padding-top: 3px;
-    border-top: 1px solid @ph-col-n3;
+  // .fixed-temp-w {
+  //   margin-top: 10px;
+  //   padding-top: 3px;
+  //   border-top: 1px solid @ph-col-n3;
+  // }
+  .app-select{
+    position: absolute;
+    top: -5px;
+    z-index: 9;
+    left: 76px;
+    .icon-r{
+      font-weight: 400;
+      font-size: 14px;
+      color: #999;
+      padding-right: 5px;
+    }
+    .r-select{
+      color: #6D7CEF;
+    }
   }
 }
 
@@ -169,6 +187,7 @@
 
 .drag-box-warp {
   margin-left: -5px;
+  display: table;
 }
 
 /***模板配置 */

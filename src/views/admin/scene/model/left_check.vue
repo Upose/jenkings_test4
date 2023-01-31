@@ -18,7 +18,6 @@
     <div class="drag-l-pad">
       <div class="left-check-page">
         <div class="drag-l-warp">
-          <!-- <h1 class="step-num"><span class="num">2</span><span class="txt">主题风格</span></h1> -->
           <el-collapse v-model="activeCollapse" class="drag-collapse" v-show="div_num=='1'">
             <el-collapse-item title="请选择布局" name="1">
               <div class="drag-box-width" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
@@ -32,12 +31,7 @@
             <!--布局 end-->
 
             <el-collapse-item title="请选择模板" name="2">
-              <!-- <div class="drag-box-width" v-for="i in sceneTemplate" :key="i+'b'" @click="templateClick(i)">
-                <div class="drag-box" :class="templateId==i.id?'box-active':''" :title="i.name">
-                  <img :src="fileUrl+i.cover" class="img-cover">
-                  <span class="d-b-txt">{{i.name||'暂无'}}</span>
-                </div>
-              </div> -->
+              
               <div class="drag-box-btn-w" @click="templateClick(i)" v-for="i in sceneTemplate">
                 <div class="drag-box" :class="templateId==i.id?'active1':''" :title="i.name">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="templateId==i.id"></i>
@@ -48,12 +42,7 @@
             <!--模板 end-->
 
             <el-collapse-item title="请选择主题色" name="3" v-if="(sceneThemeColor||[]).length>0">
-              <!-- <div class="drag-box-width" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
-                <div class="drag-box" :class="(postForm.themeColor||'template1')==i.value?'box-active':''" :title="i.key">
-                  <img :src="fileUrl+i.icon" class="img-cover">
-                  <span class="d-b-txt">{{i.key||'暂无'}}</span>
-                </div>
-              </div> -->
+              
               <div class="drag-box-btn-w" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
                 <div class="drag-box" :style="{'background-image':'url('+(fileUrl+i.icon)+')'}">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="(postForm.themeColor||'template1')==i.value"></i>
@@ -66,11 +55,6 @@
             <el-collapse-item title="模板/屏配置" name="4" v-if="templateId">
 
               <div class="model-set-w c-l" v-show="postForm.layoutId==1||postForm.layoutId==4">
-                <!-- <div class="up-img w100 ml0" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
-                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>背景图更换</span></div>
-                  <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgt')">
-                  <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgt')"></i>
-                </div> -->
                 <div class="box-title-img">
                   <div class="title">背景图更换</div>
                   <div class="img-w">
@@ -108,16 +92,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- <div class="up-img w150" :style="{'background-image':'url('+(screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):'')+')'}">
-                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>{{screen_cu==0?'背景图/视频':'背景图更换'}}</span></div>
-                  <input type="file" multiple="multiple" @change="$fileUpload($event,(screen_cu==0?'videoimg':'img'),'bgf')">
-                  <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
-                </div> -->
-                <!-- <div class="up-img w60" :style="{'background-image':'url('+(screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):'')+')'}">
-                  <div><img src="@/assets/admin/img/icon-upload.png" /><span>图标更换</span></div>
-                  <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb')">
-                  <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('tb')"></i>
-                </div> -->
               </div>
               <!--通屏配置 end-->
 
@@ -126,20 +100,17 @@
 
           </el-collapse>
 
-          <div v-show="div_num=='2'">
-            <div class="step-three">
-              <h1 class="step-num">
-                <!-- <span class="num">3</span><span class="txt">应用选择</span> -->
-                <span class="app-type">应用类型：</span>
-                <el-dropdown trigger="click" class="r-select">
-                  <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
-                  </el-dropdown-menu>
-                </el-dropdown>
-              </h1>
-              <!--选择应用类型 end-->
-
+          <el-collapse v-model="activeCollapse1" class="drag-collapse" v-show="div_num=='2'">
+            <h1 class="app-select">
+              <span class="icon-r"><i class="el-icon-caret-right"></i> | </span>
+              <el-dropdown trigger="click" class="r-select">
+                <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </h1><!--选择应用类型 end-->
+            <el-collapse-item title="应用类型" name="1">
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
                   <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
@@ -148,11 +119,10 @@
                     <span class="d-b-txt">{{i.name||''}}</span>
                   </div>
                 </div>
-              </div>
-              <!--应用列表 end-->
-            </div>
-            <h4 class="app-type">通用组件</h4>
-            <div class="fixed-temp-w">
+              </div><!--应用列表 end-->
+            </el-collapse-item>
+
+            <el-collapse-item title="通用组件" name="2">
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
                   <div class="drag-box" :class="appId==i.key?'box-active':''" :title="i.key">
@@ -173,8 +143,8 @@
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </el-collapse-item>
+          </el-collapse>
           <!--头部底部固定模板,脚本设置 end-->
 
         </div>
@@ -253,6 +223,7 @@ export default {
       serve_name: '',//应用类型-选择的名称
       appId: '',//当前应用
       activeCollapse: ['1', '2', '3', '4'],//左边折叠的数量
+      activeCollapse1: ['1', '2'],//左边折叠的数量
       sceneTemplate: [],//模板列表
       sceneThemeColor: [],//颜色列表
       apps_list: [],//应用列表
