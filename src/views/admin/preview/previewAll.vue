@@ -90,7 +90,6 @@ export default {
     appScroll(e) {
       e.preventDefault();
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;  //浏览器兼容
-      // console.log(e, scrollTop);
     },
     //悬浮菜单点击事件
     clickSilder(val) {
@@ -105,12 +104,7 @@ export default {
         top:(val.yIndex*10)+'px',
         left:10*val.xIndex+'px',
         position: 'absolute',
-        // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
-      if(val.appWidget && val.appWidget.target){
-        this.$addStyle(val.appWidget.target+'/component.css');
-        this.$addScript(val.appWidget.target+'/component.js');
-      }
       return styleList;
     },
     //判断是否为空
