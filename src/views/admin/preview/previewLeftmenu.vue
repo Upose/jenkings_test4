@@ -12,19 +12,19 @@
             headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
             sceneid:details.id,
           })">
-            <div :id="setId()"></div>
+            <div :id="$setId()"></div>
           </div>
         </div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
             <div :class="isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')" :data-obj="JSON.stringify(left_menu.configParameter||'{}')">
-              <div :id="setId()"></div>
+              <div :id="$setId()"></div>
             </div>
           </div>
           <div class="center-fixed">
             <div class="center-fixed-content" v-for="(it,i) in details.sceneScreens" :style="{height:it.height+'px'}">
               <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div>
             </div>
             <div class="temp-preview-foot">
@@ -34,7 +34,7 @@
                   footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
                   sceneid:details.id,
                 })">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div><!-- 底部信息-end -->
             </div>
           </div>
@@ -48,29 +48,29 @@
 <script>
 export default {
   name: 'index',
-  props:['details'],
+  props: ['details'],
   created() {
     // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-        this.$addStyle(this.details.headerTemplate.router + '/component.css');
-        this.$addScript(this.details.headerTemplate.router + '/component.js');
-        setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
-          this.$addStyle(this.details.footerTemplate.router + '/component.css');
-          this.$addScript(this.details.footerTemplate.router + '/component.js');
-        }, 300);
-        if (this.details.sceneScreens) {
-          this.details.sceneScreens[0].sceneApps.forEach(it => {
-            if (it.xIndex == 0 && it.appWidget && it.appWidget.widgetCode == 'other_left_menu_list') {
-              this.left_menu = it;
-              if (it.appWidget && it.appWidget.target) {
-                this.$addStyle(it.appWidget.target + '/component.css');
-                this.$addScript(it.appWidget.target + '/component.js');
-              }
+      this.$addStyle(this.details.headerTemplate.router + '/component.css');
+      this.$addScript(this.details.headerTemplate.router + '/component.js');
+      setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
+        this.$addStyle(this.details.footerTemplate.router + '/component.css');
+        this.$addScript(this.details.footerTemplate.router + '/component.js');
+      }, 300);
+      if (this.details.sceneScreens) {
+        this.details.sceneScreens[0].sceneApps.forEach(it => {
+          if (it.xIndex == 0 && it.appWidget && it.appWidget.widgetCode == 'other_left_menu_list') {
+            this.left_menu = it;
+            if (it.appWidget && it.appWidget.target) {
+              this.$addStyle(it.appWidget.target + '/component.css');
+              this.$addScript(it.appWidget.target + '/component.js');
             }
-          })
-        }
+          }
+        })
       }
+    }
   },
   data() {
     return {
@@ -109,15 +109,11 @@ export default {
       }
       return list;
     },
-    //动态设置模板id
-    setId() {
-      return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
-    },
     //格式化
-    commonWidgetSetFormat(val){
-      if(val && val!="undefind" && val !='null'){
+    commonWidgetSetFormat(val) {
+      if (val && val != "undefind" && val != 'null') {
         return val.replace(/\"/g, "'");
-      }else{
+      } else {
         return '{}';
       }
     },

@@ -172,6 +172,9 @@ function selectComponent(details) {
   }
   return list;
 }
+function setId() {
+  return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
+}
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
 Vue.prototype.$fileUpload = fileUpload;//文件上传
@@ -183,3 +186,4 @@ Vue.prototype.$addScript = addScript;//引入js文件
 Vue.prototype.$authShowBtn = authShowBtn;//判断按钮等是否有权限
 Vue.prototype.$isImgvideo = isImgvideo;//判断是视频还是图片文件
 Vue.prototype.$selectComponent = selectComponent;//判断使用哪个模板
+Vue.prototype.$setId = setId;//动态设置模板id

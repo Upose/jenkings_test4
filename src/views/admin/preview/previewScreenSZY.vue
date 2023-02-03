@@ -8,8 +8,8 @@
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
           <div class="section" v-for="(it,i) in details.sceneScreens" :style="screensBG(bg_color,it.bgImg)" :id="'temp'+i">
 
-          <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
-          <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
+            <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
+            <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
             <div class="temp-header" v-if="i==0 && details.headerTemplate">
               <div :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
@@ -19,7 +19,7 @@
                   headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
                   sceneid:details.id,
                 })">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div><!-- 头部信息-end -->
             </div>
 
@@ -27,7 +27,7 @@
               <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
                 <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
                   <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
-                    <div :id="setId()"></div>
+                    <div :id="$setId()"></div>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@
                 footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
                 sceneid:details.id,
               })">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div><!-- 底部信息-end -->
             </div>
 
@@ -138,10 +138,6 @@ export default {
       }
       return widgetCode;
     },
-    //动态设置模板id
-    setId() {
-      return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
-    },
     /********************分屏************** */
     //悬浮菜单点击事件
     clickSilder(val) {
@@ -213,5 +209,4 @@ export default {
 
 <style lang="less" scoped>
 @import "./css/previewScreenSZY.less";
-
 </style>

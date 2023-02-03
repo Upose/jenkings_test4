@@ -14,7 +14,7 @@
                   headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
                   sceneid:details.id,
                 })">
-            <div :id="setId()"></div>
+            <div :id="$setId()"></div>
           </div><!-- 头部信息-end -->
         </div>
 
@@ -24,7 +24,7 @@
             <div class="bocy-content" :style="{height:details.template.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
               <div v-for="(item,index) in it.sceneApps" :key="index" :style="styleRender(item)">
                 <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
-                  <div :id="setId()"></div>
+                  <div :id="$setId()"></div>
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@
               footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
               sceneid:details.id,
             })">
-            <div :id="setId()"></div>
+            <div :id="$setId()"></div>
           </div><!-- 底部信息-end -->
         </div>
 
@@ -116,10 +116,6 @@ export default {
         }
       }
       return widgetCode;
-    },
-    //动态设置模板id
-    setId() {
-      return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
     },
     //格式化
     commonWidgetSetFormat(val) {

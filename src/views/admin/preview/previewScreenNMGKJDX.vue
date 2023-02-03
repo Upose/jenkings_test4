@@ -19,7 +19,7 @@
                   headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
                   sceneid:details_reset.id,
                 })">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div><!-- 头部信息-end -->
             </div>
             <!--头部-第一屏有-->
@@ -38,7 +38,7 @@
               <div class="bocy-content" :style="{height:it.height+'px'}">
                 <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details_reset.template.width,item)" :style="styleRender(item)">
                   <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
-                    <div :id="setId()"></div>
+                    <div :id="$setId()"></div>
                   </div>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                 <div class="bocy-content" :style="{height:x.height+'px'}" v-for="(x,y) in it.sceneList" v-show="twoNum==(''+i+'_'+y+'')||threeNum==(''+i+'_'+y+'')">
                   <div v-for="(item,index) in x.sceneApps" :key="index" :class="isWidgetCodeWapr(details_reset.template.width,item)" :style="styleRender(item)">
                     <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
-                      <div :id="setId()"></div>
+                      <div :id="$setId()"></div>
                     </div>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                 footerDisplayNavColumn:details_reset.footerTemplate.footerDisplayNavColumn||'',
                 sceneid:details_reset.id,
               })">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div><!-- 底部信息-end -->
             </div>
             <!--底部-最后一屏有-->
@@ -87,10 +87,6 @@
 
   </div>
 </template>
-
-<style lang="less" scoped>
-
-</style>
 
 <script>
 export default {
@@ -270,10 +266,6 @@ export default {
         }
       }
       return widgetCode;
-    },
-    //动态设置模板id
-    setId() {
-      return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
     },
     /********************分屏************** */
     //悬浮菜单点击事件

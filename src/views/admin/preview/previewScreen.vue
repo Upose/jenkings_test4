@@ -3,11 +3,11 @@
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 
     <template v-if="details">
-      
+
       <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
           <div class="section" v-for="(it,i) in details.sceneScreens" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
-            
+
             <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
@@ -19,36 +19,34 @@
                   headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
                   sceneid:details.id,
                 })">
-                <div :id="setId()"></div>
+                <div :id="$setId()"></div>
               </div><!-- 头部信息-end -->
             </div>
 
             <div class="scene-warp-bg" :key="i+'scene'">
               <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
                 <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
-                  <div :class="isWidgetCode(item)"  :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
-                    <div :id="setId()"></div>
+                  <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                    <div :id="$setId()"></div>
                   </div>
                 </div>
               </div>
             </div>
 
-          <div class="temp-footer" v-if="(i+1)==details.sceneScreens.length && details.footerTemplate">
-            <div :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
+            <div class="temp-footer" v-if="(i+1)==details.sceneScreens.length && details.footerTemplate">
+              <div :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
                 content:details.footerTemplate.content||'',
                 footerBgImg:details.footerTemplate.footerBgImg||'',
                 footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
                 sceneid:details.id,
               })">
-              <div :id="setId()"></div>
-            </div><!-- 底部信息-end -->
-          </div>
+                <div :id="$setId()"></div>
+              </div><!-- 底部信息-end -->
+            </div>
 
           </div>
         </div>
       </div>
-
-
 
       <div class="dlib3-hovering-menu" v-if="(details.layoutId==2||details.layoutId==3) && details && details.sceneScreens">
         <a class="temp-box thover-bg-c1" :class="fullpage.current==(i+1)?'temp-box-active tbg-c2':''" v-for="(it,i) in (details.sceneScreens||[])" :key="i" :id="'tempbox'+i" @click="clickSilder(i)">
@@ -66,17 +64,17 @@
 <script>
 export default {
   name: 'index',
-  props:['details'],
+  props: ['details'],
   created() {
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-      if(this.details.headerTemplate && this.details.headerTemplate.router){
-        this.$addStyle(this.details.headerTemplate.router+'/component.css');
-        this.$addScript(this.details.headerTemplate.router+'/component.js');
+      if (this.details.headerTemplate && this.details.headerTemplate.router) {
+        this.$addStyle(this.details.headerTemplate.router + '/component.css');
+        this.$addScript(this.details.headerTemplate.router + '/component.js');
       }
-      if(this.details.footerTemplate && this.details.footerTemplate.router){
-        this.$addStyle(this.details.footerTemplate.router+'/component.css');
-        this.$addScript(this.details.footerTemplate.router+'/component.js');
+      if (this.details.footerTemplate && this.details.footerTemplate.router) {
+        this.$addStyle(this.details.footerTemplate.router + '/component.css');
+        this.$addScript(this.details.footerTemplate.router + '/component.js');
       }
     }
   },
@@ -99,9 +97,9 @@ export default {
   methods: {
     //初始化模板
     styleRender(val) {//css 渲染
-      var w = this.details.template.width||100;
+      var w = this.details.template.width || 100;
       var list = {
-        width:(val.width/w)*1000+'%',
+        width: (val.width / w) * 1000 + '%',
         height: (val.height * 10) + 'px',
         top: (val.yIndex * 10) + 'px',
         left: 10 * val.xIndex + 'px',
@@ -131,7 +129,7 @@ export default {
     //外层全屏
     isWidgetCodeWapr(width, item) {
       var widgetCode = '';
-      if (item.width == (width/10) && item.configParameter && item.configParameter.fullScreen) {
+      if (item.width == (width / 10) && item.configParameter && item.configParameter.fullScreen) {
         if (width == 1200) {
           widgetCode = ' mar-left-1200';
         } else if (width == 1440) {
@@ -140,17 +138,13 @@ export default {
       }
       return widgetCode;
     },
-    //动态设置模板id
-    setId() {
-      return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
-    },
     /********************分屏************** */
     //悬浮菜单点击事件
     clickSilder(val) {
-      this.move(val+1);
+      this.move(val + 1);
     },
     next() {
-      let len = this.details.sceneScreens.length||0;
+      let len = this.details.sceneScreens.length || 0;
       if (this.fullpage.current + 1 <= len) {
         this.fullpage.current += 1;
         this.move(this.fullpage.current);
@@ -196,10 +190,10 @@ export default {
       }
     },
     //格式化
-    commonWidgetSetFormat(val){
-      if(val && val!="undefind" && val !='null'){
+    commonWidgetSetFormat(val) {
+      if (val && val != "undefind" && val != 'null') {
         return val.replace(/\"/g, "'");
-      }else{
+      } else {
         return '{}';
       }
     },

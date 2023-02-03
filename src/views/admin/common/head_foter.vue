@@ -1,4 +1,4 @@
-<!--头部底部模板选择-->
+<!--头部底部模板选择--这个文件好像没用了-->
 <template>
   <div class="tag-box">
     <el-dialog append-to-body title="选择头部和底部模板" :visible.sync="dialogBulk" width="600px" :close-on-click-modal="false" :before-close="handleClose">
