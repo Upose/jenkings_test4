@@ -12,7 +12,7 @@
             </div>
           </el-form-item>
           <el-form-item label="跳转地址" prop="name">
-            <el-input v-model="postForm.url" placeholder="请输入地址" maxlength="50" minlength="2" show-word-limit></el-input>
+            <el-input v-model="postForm.url" placeholder="请输入地址" maxlength="200" minlength="2" show-word-limit></el-input>
           </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>

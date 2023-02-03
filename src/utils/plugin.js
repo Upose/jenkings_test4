@@ -162,9 +162,11 @@ function selectComponent(details) {
     list.is_show_page = 'bigScreenDuzhedaohang';
   } else {//通屏，分段
     list.min_height = '100%';
-    if (details.template.uniqueCode == 'onsectionlightink') {
+    if(details.template.uniqueCode == 'onsectionlightink'){
       list.is_show_page = 'previewAllQXDM';
-    } else {
+    }else if(details.template.uniqueCode == 'nhic'){
+      list.is_show_page = 'previewAllNHIC';
+    }else{
       list.is_show_page = 'previewAll';
     }
   }
