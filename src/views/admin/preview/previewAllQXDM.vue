@@ -29,8 +29,8 @@
           </div>
         </div><!-- 背景板块 end -->
         <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
-          <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
-            <div :class="isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+          <div v-for="(item,index) in it.sceneApps" :key="index" :class="$isWidgetCodeWapr(details.template.width,item)" :style="styleRender(item)">
+            <div :class="$isWidgetCode(item)" :style="{height:'100%'}" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="$commonWidgetSetFormat(item.commonWidgetSet)">
               <div :id="$setId()"></div>
             </div>
           </div>
@@ -123,32 +123,6 @@ export default {
       }
       return styleList;
     },
-    //判断是否为空
-    isWidgetCode(item) {
-      var widgetCode = '';
-      if (item.widgetCode) {
-        widgetCode = item.widgetCode;
-      } else {
-        if (item.appWidget && item.appWidget.widgetCode) {
-          widgetCode = item.appWidget.widgetCode;
-        } else {
-          widgetCode = '';
-        }
-      }
-      return widgetCode;
-    },
-    //外层全屏
-    isWidgetCodeWapr(width, item) {
-      var widgetCode = '';
-      if (item.width == (width / 10) && item.configParameter && item.configParameter.fullScreen) {
-        if (width == 1200) {
-          widgetCode = ' mar-left-1200';
-        } else if (width == 1440) {
-          widgetCode = ' mar-left-1440';
-        }
-      }
-      return widgetCode;
-    },
     //样式设置
     styleSet(it, i) {
       var list = {};
@@ -164,14 +138,6 @@ export default {
         list = { 'background': ' url(' + this.fileUrl + (it.bgImg || '') + ')' };
       }
       return list;
-    },
-    //格式化
-    commonWidgetSetFormat(val) {
-      if (val && val != "undefind" && val != 'null') {
-        return val.replace(/\"/g, "'");
-      } else {
-        return '{}';
-      }
     },
   },
 }

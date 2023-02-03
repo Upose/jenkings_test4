@@ -17,13 +17,13 @@
         </div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
-            <div :class="isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')" :data-obj="JSON.stringify(left_menu.configParameter||'{}')">
+            <div :class="$isWidgetCode(left_menu)" :style="{width:'100%',height:'100%'}" :data-set="JSON.stringify(left_menu.appPlateItems||'[{}]')" :data-obj="JSON.stringify(left_menu.configParameter||'{}')">
               <div :id="$setId()"></div>
             </div>
           </div>
           <div class="center-fixed">
             <div class="center-fixed-content" v-for="(it,i) in details.sceneScreens" :style="{height:it.height+'px'}">
-              <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+              <div v-for="(item,index) in it.sceneApps" :key="index" :class="$isWidgetCode(item)" v-if="item&&item.xIndex!=0" :style="styleRender_full(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="$commonWidgetSetFormat(item.commonWidgetSet)">
                 <div :id="$setId()"></div>
               </div>
             </div>
@@ -82,18 +82,6 @@ export default {
     }
   },
   methods: {
-    //判断是否为空
-    isWidgetCode(item) {
-      if (item.widgetCode) {
-        return item.widgetCode;
-      } else {
-        if (item.appWidget && item.appWidget.widgetCode) {
-          return item.appWidget.widgetCode;
-        } else {
-          return {};
-        }
-      }
-    },
     styleRender_full(val) {//css 渲染
       var list = {
         width: '100%',
@@ -108,14 +96,6 @@ export default {
         this.$addScript(val.appWidget.target + '/component.js');
       }
       return list;
-    },
-    //格式化
-    commonWidgetSetFormat(val) {
-      if (val && val != "undefind" && val != 'null') {
-        return val.replace(/\"/g, "'");
-      } else {
-        return '{}';
-      }
     },
   },
 }

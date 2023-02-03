@@ -36,8 +36,8 @@
             <!--屏标题块-->
             <div class="scene-warp-bg" :key="i+'scene'" v-if="!it.isRest">
               <div class="bocy-content" :style="{height:it.height+'px'}">
-                <div v-for="(item,index) in it.sceneApps" :key="index" :class="isWidgetCodeWapr(details_reset.template.width,item)" :style="styleRender(item)">
-                  <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                <div v-for="(item,index) in it.sceneApps" :key="index" :class="$isWidgetCodeWapr(details_reset.template.width,item)" :style="styleRender(item)">
+                  <div :class="$isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="$commonWidgetSetFormat(item.commonWidgetSet)">
                     <div :id="$setId()"></div>
                   </div>
                 </div>
@@ -50,8 +50,8 @@
               </div>
               <div class="right-content">
                 <div class="bocy-content" :style="{height:x.height+'px'}" v-for="(x,y) in it.sceneList" v-show="twoNum==(''+i+'_'+y+'')||threeNum==(''+i+'_'+y+'')">
-                  <div v-for="(item,index) in x.sceneApps" :key="index" :class="isWidgetCodeWapr(details_reset.template.width,item)" :style="styleRender(item)">
-                    <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                  <div v-for="(item,index) in x.sceneApps" :key="index" :class="$isWidgetCodeWapr(details_reset.template.width,item)" :style="styleRender(item)">
+                    <div :class="$isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="$commonWidgetSetFormat(item.commonWidgetSet)">
                       <div :id="$setId()"></div>
                     </div>
                   </div>
@@ -241,32 +241,6 @@ export default {
       }
       return list;
     },
-    //判断是否为空
-    isWidgetCode(item) {
-      var widgetCode = '';
-      if (item.widgetCode) {
-        widgetCode = item.widgetCode;
-      } else {
-        if (item.appWidget && item.appWidget.widgetCode) {
-          widgetCode = item.appWidget.widgetCode;
-        } else {
-          widgetCode = '';
-        }
-      }
-      return widgetCode;
-    },
-    //外层全屏
-    isWidgetCodeWapr(width, item) {
-      var widgetCode = '';
-      if (item.width == (width / 10) && item.configParameter && item.configParameter.fullScreen) {
-        if (width == 1200) {
-          widgetCode = ' mar-left-1200';
-        } else if (width == 1440) {
-          widgetCode = ' mar-left-1440';
-        }
-      }
-      return widgetCode;
-    },
     /********************分屏************** */
     //悬浮菜单点击事件
     clickSilder(val) {
@@ -316,14 +290,6 @@ export default {
         this.next();
       } else if (this.fullpage.deltaY < 0) {
         this.pre();
-      }
-    },
-    //格式化
-    commonWidgetSetFormat(val) {
-      if (val && val != "undefind" && val != 'null') {
-        return val.replace(/\"/g, "'");
-      } else {
-        return '{}';
       }
     },
     //滚屏背景设置

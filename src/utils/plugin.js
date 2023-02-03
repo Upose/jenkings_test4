@@ -175,6 +175,38 @@ function selectComponent(details) {
 function setId() {
   return "jl_vip_zt_" + Math.ceil(Math.random() * 1e8);
 }
+function isWidgetCode(item) {
+  var widgetCode = '';
+  if (item.widgetCode) {
+    widgetCode = item.widgetCode;
+  } else {
+    if (item.appWidget && item.appWidget.widgetCode) {
+      widgetCode = item.appWidget.widgetCode;
+    } else {
+      widgetCode = '';
+    }
+  }
+  return widgetCode;
+}
+function isWidgetCodeWapr(width, item) {
+  var widgetCode = '';
+  if (item.width == (width / 10) && item.configParameter && item.configParameter.fullScreen) {
+    if (width == 1200) {
+      widgetCode = ' mar-left-1200';
+    } else if (width == 1440) {
+      widgetCode = ' mar-left-1440';
+    }
+  }
+  return widgetCode;
+}
+//格式化
+function commonWidgetSetFormat(val) {
+  if (val && val != "undefind" && val != 'null') {
+    return val.replace(/\"/g, "'");
+  } else {
+    return '{}';
+  }
+}
 Vue.prototype.http = http;
 Vue.prototype.bus = bus;
 Vue.prototype.$fileUpload = fileUpload;//文件上传
@@ -187,3 +219,6 @@ Vue.prototype.$authShowBtn = authShowBtn;//判断按钮等是否有权限
 Vue.prototype.$isImgvideo = isImgvideo;//判断是视频还是图片文件
 Vue.prototype.$selectComponent = selectComponent;//判断使用哪个模板
 Vue.prototype.$setId = setId;//动态设置模板id
+Vue.prototype.$isWidgetCode = isWidgetCode;//判断组件数据是否为空
+Vue.prototype.$isWidgetCodeWapr = isWidgetCodeWapr;//外层全屏
+Vue.prototype.$commonWidgetSetFormat = commonWidgetSetFormat;//格式化
