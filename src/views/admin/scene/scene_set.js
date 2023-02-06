@@ -15,6 +15,7 @@ export default {
     this.grid.destroy();
     document.removeEventListener('click', this.documentFun);
     window.removeEventListener('resize', () => { }, false);
+    if(document.getElementsByClassName('img-collapse')&& document.getElementsByClassName('img-collapse')[0])document.getElementsByClassName('img-collapse')[0].style.display='block';
   },
   created() {
     this.$root.collapse = true;//默认不展开左侧导航栏目菜单
@@ -22,6 +23,7 @@ export default {
     document.addEventListener("click", this.documentFun);
   },
   mounted() {
+    if(document.getElementsByClassName('img-collapse')&& document.getElementsByClassName('img-collapse')[0])document.getElementsByClassName('img-collapse')[0].style.display='none';
     if (this.id) {
       this.getDetails();
     }

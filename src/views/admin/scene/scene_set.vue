@@ -85,12 +85,13 @@
             <scalingPage class="scaling-right" ref="scalingRef" :ratio_num.sync="ratio_num" :width="drag_width"></scalingPage>
             <!-- 缩放组件 -->
 
-            <div class="left-menu-flex">
-              <span @click="left_fold=false" v-show="left_fold">主题风格</span>
-              <span @click="right_fold=false" v-show="right_fold">应用设置</span>
-            </div>
+            
           </div>
           <!--中间内容 end-->
+          <div class="left-menu-flex">
+            <span @click="left_fold=false" v-show="left_fold">主题风格</span>
+            <span @click="right_fold=false" v-show="right_fold">应用设置</span>
+          </div>
 
           <rightCheck ref="rightCheck_ref" @loadHeadFoot="loadHeadFoot" @refreshHF="refreshHF" :postForm="postForm" :right_fold.sync="right_fold" v-show="!right_fold" @addCompont="addCompont" @saveTempSet="saveTempSet"></rightCheck>
 
