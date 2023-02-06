@@ -154,7 +154,7 @@ export default {
         if (res.data) {
           this.detailsRender(res.data);
           //这里要加载模板css文件
-          this.templateCssLoad(res.data.template.cssPath);
+          this.templateCssLoad(this.fileUrl+res.data.template.cssPath);
         }
       }).catch(err => { })
     },
@@ -570,7 +570,7 @@ export default {
             this.$addStyleLocal('./static/js/gridstack/gridstack_extra_1200.css');
           }
           //这里要加载模板才css文件
-          this.templateCssLoad(this.postForm.template.cssPath);
+          this.templateCssLoad(this.fileUrl+this.postForm.template.cssPath);
           
         }).catch(err => {
           this.$message({ message: '模板信息获取失败', type: 'error' });
@@ -664,7 +664,7 @@ export default {
           form.visitorLimitType = this.postForm.visitorLimitType;
           this.detailsRender(form);
           //这里要加载模板才css文件
-          this.templateCssLoad(form.template.cssPath);
+          this.templateCssLoad(this.fileUrl+form.template.cssPath);
         }
       }).catch(err => {
         console.log(err);
