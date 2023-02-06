@@ -107,6 +107,10 @@ export default {
         left: 10 * val.xIndex + 'px',
         position: 'absolute',
       };
+      if (val.appWidget && val.appWidget.target) {
+        this.$addStyle(val.appWidget.target + '/component.css');
+        this.$addScript(val.appWidget.target + '/component.js');
+      }
       return styleList;
     },
     
