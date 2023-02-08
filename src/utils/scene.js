@@ -1,3 +1,4 @@
+let fileUrl = window.localStorage.getItem('fileUrl');
 function isImgvideo(val) {
     var imgtype = 'png,jpeg,PNG,JPEG,JPG,jpg,GIF,gif';
     var videotype = 'avi,wmv,mp4,mpg,mpeg,rm,swf,flv';
@@ -85,18 +86,18 @@ function commonWidgetSetFormat(val) {
         return '{}';
     }
 }
-function styleSet(it, i) {
+function styleSet(details,it, i) {
     var list = {};
-    if (i < 0 && this.details.sceneScreens && this.details.sceneScreens[0]) {//这里是针对头部，头部传值为-1
-      list = { 'background': this.bg_color + ' url(' + this.fileUrl + (this.details.sceneScreens[0].bgImg || '') + ')', 'background-position': 'center top !important' };
+    if (i < 0 && details.sceneScreens && details.sceneScreens[0]) {//这里是针对头部，头部传值为-1
+      list = { 'background': 'url(' + fileUrl + (details.sceneScreens[0].bgImg || '') + ')', 'background-position': 'center top !important' };
     } else if (i == 0) {//第一屏
       if (this.details.sceneScreens.length > 1) {//多屏情况下的第一屏
-        list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(this.details.headerTemplate.height * 10) + 'px !important'), 'background-repeat': 'repeat-x' };
+        list = { 'background': 'url(' + fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(details.headerTemplate.height * 10) + 'px !important'), 'background-repeat': 'repeat-x' };
       } else {
-        list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position': 'center top !important', 'background-repeat': 'repeat-x' };
+        list = { 'background': 'url(' + fileUrl + (it.bgImg || '') + ')', 'background-position': 'center top !important', 'background-repeat': 'repeat-x' };
       }
     } else {
-      list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')' };
+      list = { 'background': 'url(' + fileUrl + (it.bgImg || '') + ')' };
     }
     return list;
   }

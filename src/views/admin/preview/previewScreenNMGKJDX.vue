@@ -12,15 +12,7 @@
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
             <div class="temp-header" v-if="i==0 && details_reset.headerTemplate">
-              <div :class="details_reset.headerTemplate.templateCode" :data-set="JSON.stringify({
-                  logo:details_reset.headerTemplate.logo||'',
-                  headerBgImg:details_reset.headerTemplate.headerBgImg||'',
-                  displayNavColumn:details_reset.headerTemplate.displayNavColumn||'',
-                  headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
-                  sceneid:details_reset.id,
-                })">
-                <div :id="$setId()"></div>
-              </div><!-- 头部信息-end -->
+              <component :is="'previewhead'" :data="details" :isstyleSet="false"></component>
             </div>
             <!--头部-第一屏有-->
 
@@ -95,10 +87,6 @@ export default {
   created() {
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-      if (this.details.headerTemplate && this.details.headerTemplate.router) {
-        this.$addStyle(this.details.headerTemplate.router + '/component.css');
-        this.$addScript(this.details.headerTemplate.router + '/component.js');
-      }
       if (this.details.footerTemplate && this.details.footerTemplate.router) {
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');

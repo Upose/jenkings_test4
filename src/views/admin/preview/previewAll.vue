@@ -4,18 +4,9 @@
 
     <template v-if="details">
       <!--宽1200通用-->
+      <component v-if="details.headerTemplate" :is="'previewhead'" :data="details" :isstyleSet="true"></component>
 
-      <div v-if="details.headerTemplate" :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
-          logo:details.headerTemplate.logo||'',
-          headerBgImg:details.headerTemplate.headerBgImg||'',
-          displayNavColumn:details.headerTemplate.displayNavColumn||'',
-          headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
-          sceneid:details.id,
-        })" :style="$styleSet({},-1)">
-        <div :id="$setId()"></div>
-      </div><!-- 头部信息-end -->
-
-      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="$styleSet(it,i)">
+      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="$styleSet(details,it,i)">
 
         <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
         <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
@@ -59,10 +50,6 @@ export default {
   created() {
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-      if (this.details.headerTemplate && this.details.headerTemplate.router) {
-        this.$addStyle(this.details.headerTemplate.router + '/component.css');
-        this.$addScript(this.details.headerTemplate.router + '/component.js');
-      }
       if (this.details.footerTemplate && this.details.footerTemplate.router) {
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');
@@ -113,24 +100,6 @@ export default {
       }
       return styleList;
     },
-    
-    // //样式设置
-    // styleSet(it, i) {
-    //   var list = {};
-    //   if (i < 0 && this.details.sceneScreens && this.details.sceneScreens[0]) {//这里是针对头部，头部传值为-1
-    //     list = { 'background': this.bg_color + ' url(' + this.fileUrl + (this.details.sceneScreens[0].bgImg || '') + ')', 'background-position': 'center top !important' };
-    //   } else if (i == 0) {//第一屏
-    //     if (this.details.sceneScreens.length > 1) {//多屏情况下的第一屏
-    //       list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(this.details.headerTemplate.height * 10) + 'px !important'), 'background-repeat': 'repeat-x' };
-    //     } else {
-    //       list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position': 'center top !important', 'background-repeat': 'repeat-x' };
-    //     }
-    //   } else {
-    //     list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')' };
-    //   }
-    //   return list;
-    // },
-    
   },
 }
 </script>

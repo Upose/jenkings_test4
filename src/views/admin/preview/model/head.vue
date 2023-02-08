@@ -1,27 +1,40 @@
 <!--头部组件-->
 <template>
-  <div v-if="details.headerTemplate" :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
-        logo:details.headerTemplate.logo||'',
-        headerBgImg:details.headerTemplate.headerBgImg||'',
-        displayNavColumn:details.headerTemplate.displayNavColumn||'',
-        headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
-        sceneid:details.id,
-      })" :style="$styleSet({},-1)">
+  <div :class="data.headerTemplate.templateCode" :data-set="JSON.stringify({
+        logo:data.headerTemplate.logo||'',
+        headerBgImg:data.headerTemplate.headerBgImg||'',
+        displayNavColumn:data.headerTemplate.displayNavColumn||'',
+        headerAttachWidget:data.headerTemplate.headerAttachWidget||[],
+        sceneid:data.id,
+      })" :style="isstyleSet ? $styleSet(data,{},-1) : ''">
 
     <div :id="$setId()"></div>
-  </div><!-- 头部信息-end -->
+
+  </div>
 </template>
 
 <script>
 export default {
   name: 'head',
-  props: ['details'],
+  created(){
+    console.log('头部组件',this.data,this.isstyleSet);
+  },
+  /**
+   * data 详情
+   * styleSet：true需要设置 false:不需要设置  （全屏滚动为false）
+   */
+  props: ['data', 'isstyleSet'],
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
-  mounted() { },
+  mounted() {
+    if (this.data.headerTemplate && this.data.headerTemplate.router) {
+        this.$addStyle(this.data.headerTemplate.router + '/component.css');
+        this.$addScript(this.data.headerTemplate.router + '/component.js');
+      }
+  },
   methods: {},
 }
 </script>

@@ -4,7 +4,6 @@
     视频播放第二层
     banner图第三层
 -->
-
 <template>
   <div class="dlib3-temp-imgvideo">
     <div class="img-warp-bg" v-if="$isImgvideo(bgImg)=='img'" id="dlib3_bg_img" :style="sceenBgImg(bgImg)">
@@ -39,7 +38,6 @@ export default {
     sceenBgImg(bgImg) {
       var list = {};
       list = { 'background': 'url(' + this.fileUrl + (bgImg || '') + ')','background-position':'center top','background-repeat': 'repeat-x'};
-      console.log(list);
       return list;
     },
   },

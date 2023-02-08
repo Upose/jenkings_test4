@@ -5,15 +5,7 @@
       <!--左边固定-->
       <div class="left-fixed-template">
         <div class="header-prewiew">
-          <div v-if="details.headerTemplate" :class="details.headerTemplate.templateCode" :data-set="JSON.stringify({
-            logo:details.headerTemplate.logo||'',
-            headerBgImg:details.headerTemplate.headerBgImg||'',
-            displayNavColumn:details.headerTemplate.displayNavColumn||'',
-            headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
-            sceneid:details.id,
-          })">
-            <div :id="$setId()"></div>
-          </div>
+          <component v-if="details.headerTemplate" :is="'previewhead'" :data="details" :isstyleSet="false"></component>
         </div><!-- 头部信息-end -->
         <div class="content">
           <div class="left-fixed">
@@ -53,8 +45,6 @@ export default {
     // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-      this.$addStyle(this.details.headerTemplate.router + '/component.css');
-      this.$addScript(this.details.headerTemplate.router + '/component.js');
       setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');
