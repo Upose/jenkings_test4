@@ -23,7 +23,7 @@
           <div class="scene-warp-bg" :key="i+'scene'">
             <div class="bocy-content" :style="{height:details.template.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
               <div v-for="(item,index) in it.sceneApps" :key="index" :style="styleRender(item)">
-                <div :class="isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="commonWidgetSetFormat(item.commonWidgetSet)">
+                <div :class="$isWidgetCode(item)" :data-set="JSON.stringify(item.appPlateItems||'[{}]')" :data-obj="JSON.stringify(item.configParameter||'{}')" :data-common="$commonWidgetSetFormat(item.commonWidgetSet)">
                   <div :id="$setId()"></div>
                 </div>
               </div>
@@ -74,16 +74,6 @@ export default {
       fileUrl: window.localStorage.getItem('fileUrl'),
       bg_color: '#fff',//背景颜色
       details: {},
-      opts: {//元素初始化高度
-        cellHeight: '10',
-        cellHeightThrottle: 100,
-      },
-      left_menu: { widgetCode: {} },
-      fullpage: {//分屏参数
-        current: 1,
-        isScrolling: false,
-        deltaY: 0,
-      },
     }
   },
   methods: {
@@ -102,28 +92,6 @@ export default {
         this.$addScript(val.appWidget.target + '/component.js');
       }
       return list;
-    },
-    //判断是否为空
-    isWidgetCode(item) {
-      var widgetCode = '';
-      if (item.widgetCode) {
-        widgetCode = item.widgetCode;
-      } else {
-        if (item.appWidget && item.appWidget.widgetCode) {
-          widgetCode = item.appWidget.widgetCode;
-        } else {
-          widgetCode = '';
-        }
-      }
-      return widgetCode;
-    },
-    //格式化
-    commonWidgetSetFormat(val) {
-      if (val && val != "undefind" && val != 'null') {
-        return val.replace(/\"/g, "'");
-      } else {
-        return '{}';
-      }
     },
   },
 }

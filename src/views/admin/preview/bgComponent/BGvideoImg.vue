@@ -38,7 +38,8 @@ export default {
 //样式设置
     sceenBgImg(bgImg) {
       var list = {};
-      list = { 'background': ' url(' + this.fileUrl + (bgImg || '') + ')','background-repeat-y': 'no-repeat', 'background-repeat-x': 'initial !important' };
+      list = { 'background': 'url(' + this.fileUrl + (bgImg || '') + ')','background-position':'center top','background-repeat': 'repeat-x'};
+      console.log(list);
       return list;
     },
   },

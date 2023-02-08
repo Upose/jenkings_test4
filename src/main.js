@@ -5,6 +5,7 @@ import router from './router'
 import store from '@/store'
 import Debounce from '@/utils/debounce'
 import './utils/plugin'
+import './utils/scene'
 import previewComponent from './utils/previewComponent'
 
 Vue.use(previewComponent)

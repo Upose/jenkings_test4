@@ -11,11 +11,11 @@
           displayNavColumn:details.headerTemplate.displayNavColumn||'',
           headerAttachWidget:details.headerTemplate.headerAttachWidget||[],
           sceneid:details.id,
-        })" :style="styleSet({},-1)">
+        })" :style="$styleSet({},-1)">
         <div :id="$setId()"></div>
       </div><!-- 头部信息-end -->
 
-      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="styleSet(it,i)">
+      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="$styleSet(it,i)">
 
         <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
         <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
@@ -114,22 +114,22 @@ export default {
       return styleList;
     },
     
-    //样式设置
-    styleSet(it, i) {
-      var list = {};
-      if (i < 0 && this.details.sceneScreens && this.details.sceneScreens[0]) {
-        list = { 'background': this.bg_color + ' url(' + this.fileUrl + (this.details.sceneScreens[0].bgImg || '') + ')', 'background-position': 'center top !important' };
-      } else if (i == 0) {//第一屏
-        if (this.details.sceneScreens.length > 1) {//多屏情况下的第一屏
-          list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(this.details.headerTemplate.height * 10) + 'px !important'), 'background-repeat': 'repeat-x' };
-        } else {
-          list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position': 'center top !important', 'background-repeat': 'repeat-x' };
-        }
-      } else {
-        list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')' };
-      }
-      return list;
-    },
+    // //样式设置
+    // styleSet(it, i) {
+    //   var list = {};
+    //   if (i < 0 && this.details.sceneScreens && this.details.sceneScreens[0]) {//这里是针对头部，头部传值为-1
+    //     list = { 'background': this.bg_color + ' url(' + this.fileUrl + (this.details.sceneScreens[0].bgImg || '') + ')', 'background-position': 'center top !important' };
+    //   } else if (i == 0) {//第一屏
+    //     if (this.details.sceneScreens.length > 1) {//多屏情况下的第一屏
+    //       list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position-y': (-(this.details.headerTemplate.height * 10) + 'px !important'), 'background-repeat': 'repeat-x' };
+    //     } else {
+    //       list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')', 'background-position': 'center top !important', 'background-repeat': 'repeat-x' };
+    //     }
+    //   } else {
+    //     list = { 'background': this.bg_color + ' url(' + this.fileUrl + (it.bgImg || '') + ')' };
+    //   }
+    //   return list;
+    // },
     
   },
 }
