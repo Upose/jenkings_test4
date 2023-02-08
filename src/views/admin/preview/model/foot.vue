@@ -1,3 +1,4 @@
+<!--底部组件-->
 <template>
   <div :class="data.footerTemplate.templateCode" :data-set="JSON.stringify({
           content:data.footerTemplate.content||'',
@@ -7,7 +8,8 @@
         })">
 
     <div :id="$setId()"></div>
-  </div><!-- 底部信息-end -->
+
+  </div>
 </template>
 
 <script>

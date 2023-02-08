@@ -6,7 +6,7 @@
 
       <div class="fullPage" ref="fullPage" v-if="details_reset.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
-          <div class="section" v-for="(it,i) in details_reset.sceneScreens" :style="screensBG(bg_color,it.bgImg)" :id="'temp'+i">
+          <div class="section" v-for="(it,i) in details_reset.sceneScreens" :style="screensBG(it.bgImg)" :id="'temp'+i">
 
             <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
@@ -79,7 +79,6 @@ export default {
   props: ['details'],
   created() {
     if (this.details && this.details.template) {
-      this.bg_color = this.details.template.backgroundColor || '#fff';
       if (this.details.footerTemplate && this.details.footerTemplate.router) {
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');
@@ -92,7 +91,6 @@ export default {
       twoNum: '1_0',
       threeNum: '2_0',
       fileUrl: window.localStorage.getItem('fileUrl'),
-      bg_color: '#fff',//背景颜色
       details: {},//原始数据
       details_reset: {},//重新构造数据
       opts: {//元素初始化高度
@@ -274,9 +272,9 @@ export default {
       }
     },
     //滚屏背景设置
-    screensBG(bg_color, bgImg) {
+    screensBG(bgImg) {
       if (bgImg) {
-        return { 'background': bg_color + ' url(' + this.fileUrl + (bgImg || '') + ')' }
+        return { 'background-image': ' url(' + this.fileUrl + (bgImg || '') + ')' }
       }
     },
   },

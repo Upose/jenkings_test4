@@ -1,11 +1,3 @@
-<!--
- * @Author: 904678748@qq.com 904678748@qq.com
- * @Date: 2022-11-14 20:35:53
- * @LastEditors: 904678748@qq.com 904678748@qq.com
- * @LastEditTime: 2023-02-08 13:37:21
- * @FilePath: \home_sys\src\views\admin\preview\bigScreenDuzhedaohang.vue
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <!---大屏预览-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
@@ -47,9 +39,6 @@ export default {
   name: 'index',
   props: ['details'],
   created() {
-    if (this.details && this.details.template) {
-      this.bg_color = this.details.template.backgroundColor || '#fff';
-    }
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
     }

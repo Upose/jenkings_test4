@@ -1,6 +1,6 @@
 <!---通屏-演示站点-->
 <template>
-  <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'" :style="{background:bg_color}">
+  <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
     <template v-if="details">
       <!--左边固定-->
       <div class="left-fixed-template">
@@ -35,9 +35,7 @@ export default {
   name: 'index',
   props: ['details'],
   created() {
-    // this.details = JSON.parse(window.localStorage.getItem('scenePreview'));
     if (this.details && this.details.template) {
-      this.bg_color = this.details.template.backgroundColor || '#fff';
       setTimeout(() => {//循环未完成，有可能错误，所以采用了一个定时
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');
@@ -59,7 +57,6 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       isLock: false,//是否左侧固定模板
-      bg_color: '#fff',//背景颜色
       details: {},
       left_menu: { widgetCode: {} },
     }

@@ -1,3 +1,4 @@
+<!--预览页面选择模板-->
 <template>
   <div :style="{'background':bgColor,'min-width':minWidth+'px','height':min_height}">
     <component :is="is_show_page" :details="details"></component>
@@ -22,7 +23,6 @@ export default {
     if (items && items.template) {
       this.templateCssLoad(this.fileUrl+items.template.cssPath);
       document.title = items.name || '预览';
-      this.bg_color = items.template.backgroundColor || '#fff';
       this.details = items;
       this.selectPage();
       if (this.details.jsPath && this.details.jsPath.length > 0) {

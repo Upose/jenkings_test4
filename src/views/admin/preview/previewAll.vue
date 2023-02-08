@@ -42,7 +42,6 @@ export default {
   props: ['details'],
   created() {
     if (this.details && this.details.template) {
-      this.bg_color = this.details.template.backgroundColor || '#fff';
       if (this.details.sceneScreens) {
         this.details.sceneScreens[0].sceneApps.forEach(it => {
           if (it.appWidget && it.appWidget.target) {
@@ -59,7 +58,6 @@ export default {
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
-      bg_color: '#fff',//背景颜色
       details: {},
     }
   },

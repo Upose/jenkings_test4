@@ -6,7 +6,7 @@
 
       <div class="fullPage" ref="fullPage" v-if="details.sceneScreens">
         <div class="fullPageContainer" ref="fullPageContainer" @mousewheel="mouseWheelHandle" @DOMMouseScroll="mouseWheelHandle">
-          <div class="section" v-for="(it,i) in details.sceneScreens" :style="{'background':bg_color+' url('+fileUrl+(it.bgImg||'')+')'}">
+          <div class="section" v-for="(it,i) in details.sceneScreens" :style="{'background-image':' url('+fileUrl+(it.bgImg||'')+')'}">
 
             <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
@@ -52,7 +52,6 @@ export default {
   props: ['details'],
   created() {
     if (this.details && this.details.template) {
-      this.bg_color = this.details.template.backgroundColor || '#fff';
       if (this.details.footerTemplate && this.details.footerTemplate.router) {
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');
@@ -62,7 +61,6 @@ export default {
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
-      bg_color: '#fff',//背景颜色
       details: {},
       opts: {//元素初始化高度
         cellHeight: '10',

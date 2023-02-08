@@ -50,7 +50,6 @@ export default {
   props: ['details'],
   created() {
     if (this.details && this.details.template) {
-      this.bg_color = this.details.template.backgroundColor || '#fff';
       if (this.details.footerTemplate && this.details.footerTemplate.router) {
         this.$addStyle(this.details.footerTemplate.router + '/component.css');
         this.$addScript(this.details.footerTemplate.router + '/component.js');
@@ -71,7 +70,6 @@ export default {
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
-      bg_color: '#fff',//背景颜色
       details: {},
     }
   },
