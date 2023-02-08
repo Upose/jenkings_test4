@@ -3,6 +3,7 @@
 const previewComponent = {
     install: function (Vue) {
         Vue.component('previewhead', r => { require(['@/views/admin/preview/model/head.vue'], r) });//头部
+        Vue.component('previewfoot', r => { require(['@/views/admin/preview/model/foot.vue'], r) });//底部
         Vue.component('previewAll', r => { require(['@/views/admin/preview/previewAll.vue'], r) });//通屏-所有页预览
         Vue.component('previewLeftmenu', r => { require(['@/views/admin/preview/previewLeftmenu.vue'], r) });//演示站点
         Vue.component('previewScreen', r => { require(['@/views/admin/preview/previewScreen.vue'], r) });//通屏-滚屏预览

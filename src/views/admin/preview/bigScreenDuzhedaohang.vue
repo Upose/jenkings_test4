@@ -2,7 +2,7 @@
  * @Author: 904678748@qq.com 904678748@qq.com
  * @Date: 2022-11-14 20:35:53
  * @LastEditors: 904678748@qq.com 904678748@qq.com
- * @LastEditTime: 2023-02-08 11:36:06
+ * @LastEditTime: 2023-02-08 13:37:21
  * @FilePath: \home_sys\src\views\admin\preview\bigScreenDuzhedaohang.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -33,14 +33,7 @@
         </div>
 
         <div class="temp-footer" v-if="details.footerTemplate">
-          <div :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
-              content:details.footerTemplate.content||'',
-              footerBgImg:details.footerTemplate.footerBgImg||'',
-              footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
-              sceneid:details.id,
-            })">
-            <div :id="$setId()"></div>
-          </div><!-- 底部信息-end -->
+          <component :is="'previewfoot'" :data="details" :isstyleSet="false"></component>
         </div>
 
       </div>
@@ -59,10 +52,6 @@ export default {
     }
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-      if (this.details.footerTemplate && this.details.footerTemplate.router) {
-        this.$addStyle(this.details.footerTemplate.router + '/component.css');
-        this.$addScript(this.details.footerTemplate.router + '/component.js');
-      }
     }
   },
   data() {

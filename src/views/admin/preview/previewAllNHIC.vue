@@ -29,14 +29,7 @@
 
       </div>
 
-      <div v-if="details.footerTemplate" :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
-          content:details.footerTemplate.content||'',
-          footerBgImg:details.footerTemplate.footerBgImg||'',
-          footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
-          sceneid:details.id,
-        })">
-        <div :id="$setId()"></div>
-      </div><!-- 底部信息-end -->
+      <component v-if="details.footerTemplate" :is="'previewfoot'" :data="details" :isstyleSet="false"></component>
 
       <div class="dlib3-hovering-menu" v-if="details.layoutId==2 && details && details.sceneScreens">
         <a class="temp-box" v-for="(it,i) in (details.sceneScreens||[])" :key="i" @click="clickSilder('temp'+i)">
@@ -58,10 +51,6 @@ export default {
   created() {
     if (this.details && this.details.template) {
       this.bg_color = this.details.template.backgroundColor || '#fff';
-      if (this.details.footerTemplate && this.details.footerTemplate.router) {
-        this.$addStyle(this.details.footerTemplate.router + '/component.css');
-        this.$addScript(this.details.footerTemplate.router + '/component.js');
-      }
       if (this.details.sceneScreens) {
         this.details.sceneScreens[0].sceneApps.forEach(it => {
           if (it.appWidget && it.appWidget.target) {

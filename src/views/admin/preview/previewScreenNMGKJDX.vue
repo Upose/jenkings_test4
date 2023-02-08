@@ -12,7 +12,7 @@
             <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
             <div class="temp-header" v-if="i==0 && details_reset.headerTemplate">
-              <component :is="'previewhead'" :data="details" :isstyleSet="false"></component>
+              <component :is="'previewhead'" :data="details_reset" :isstyleSet="false"></component>
             </div>
             <!--头部-第一屏有-->
 
@@ -52,14 +52,7 @@
             </div><!-- 中间渲染区域 - 区别渲染 -->
 
             <div class="temp-footer" v-if="(i+1)==details_reset.sceneScreens.length && details_reset.footerTemplate">
-              <div :class="details_reset.footerTemplate.templateCode" :data-set="JSON.stringify({
-                content:details_reset.footerTemplate.content||'',
-                footerBgImg:details_reset.footerTemplate.footerBgImg||'',
-                footerDisplayNavColumn:details_reset.footerTemplate.footerDisplayNavColumn||'',
-                sceneid:details_reset.id,
-              })">
-                <div :id="$setId()"></div>
-              </div><!-- 底部信息-end -->
+              <component :is="'previewfoot'" :data="details_reset" :isstyleSet="false"></component>
             </div>
             <!--底部-最后一屏有-->
 

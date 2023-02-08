@@ -26,14 +26,7 @@
             </div>
 
             <div class="temp-footer" v-if="(i+1)==details.sceneScreens.length && details.footerTemplate">
-              <div :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
-                content:details.footerTemplate.content||'',
-                footerBgImg:details.footerTemplate.footerBgImg||'',
-                footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
-                sceneid:details.id,
-              })">
-                <div :id="$setId()"></div>
-              </div><!-- 底部信息-end -->
+              <component :data="details" :isstyleSet="false"></component>
             </div>
 
           </div>

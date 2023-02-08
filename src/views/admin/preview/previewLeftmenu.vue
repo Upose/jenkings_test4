@@ -20,14 +20,7 @@
               </div>
             </div>
             <div class="temp-preview-foot">
-              <div v-if="details.footerTemplate" :class="details.footerTemplate.templateCode" :data-set="JSON.stringify({
-                  content:details.footerTemplate.content||'',
-                  footerBgImg:details.footerTemplate.footerBgImg||'',
-                  footerDisplayNavColumn:details.footerTemplate.footerDisplayNavColumn||'',
-                  sceneid:details.id,
-                })">
-                <div :id="$setId()"></div>
-              </div><!-- 底部信息-end -->
+              <component v-if="details.footerTemplate" :is="'previewfoot'" :data="details" :isstyleSet="false"></component>
             </div>
           </div>
         </div>
