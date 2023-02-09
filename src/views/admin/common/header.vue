@@ -32,10 +32,14 @@ export default {
       fileUrl:window.localStorage.getItem('fileUrl'),
       activeName:0,
       default_img:require('@/assets/admin/img/upload/user-img.png'),
-      logoList:{
-        show:window.localStorage.getItem('fileUrl')+'/uploads/cqu/scene/admin-logo-min.png',
-        hide:window.localStorage.getItem('fileUrl')+'/uploads/cqu/scene/admin-logo-text.png',
+      logoList: {
+        show: '',
+        hide: '',
       },
+      // logoList: {
+      //   show: window.localStorage.getItem('fileUrl') + '/uploads/cqu/scene/admin-logo-min.png',
+      //   hide: window.localStorage.getItem('fileUrl') + '/uploads/cqu/scene/admin-logo-text.png',
+      // },
       dataList:[],
     }
   },
