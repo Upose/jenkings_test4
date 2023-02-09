@@ -14,10 +14,16 @@
           <el-form-item label="主标题" prop="name" class="title-row">
             <el-input v-model="postForm.mtitle" placeholder="请输入主标题" maxlength="10" minlength="0" show-word-limit></el-input>
             <el-color-picker v-model="postForm.mcolor" size="small"></el-color-picker>
+            <el-select class="f-size-input" size="small" v-model="postForm.mfsize" placeholder="14px">
+              <el-option v-for="item in fonts" :key="item" :label="item" :value="item"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="副标题" prop="name" class="title-row">
             <el-input v-model="postForm.stitle" placeholder="请输入副标题" maxlength="10" minlength="0" show-word-limit></el-input>
             <el-color-picker v-model="postForm.scolor" size="small"></el-color-picker>
+            <el-select class="f-size-input" size="small" v-model="postForm.sfsize" placeholder="12px">
+              <el-option v-for="item in fonts" :key="item" :label="item" :value="item"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
@@ -27,7 +33,20 @@
     </el-dialog>
   </div>
 </template>
-
+<style lang="less" scoped>
+.f-size-input{
+  position: absolute;
+  right:40px;
+  /deep/.el-input--small .el-input__inner{
+    padding-right: 0;
+    padding-left:2px;
+    width: 35px;
+  }
+  /deep/.el-input__suffix{
+    display: none;
+  }
+}
+</style>
 
 <script>
 export default {
@@ -49,11 +68,15 @@ export default {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
       dialogBulk:true,
+      fonts: ['12px','14px','16px','18px','20px','22px','24px','26px','28px','30px','36px','40px','50px','60px'],
       postForm: {
+        fontsize:'14px',
         bgimg: '',
         mtitle:'',
+        mfsize:'14px',
         mcolor:'',
         stitle:'',
+        sfsize:'12px',
         scolor:'',
       },
     }
@@ -82,7 +105,7 @@ export default {
 .title-row{
   position: relative;
   /deep/.el-input__suffix{
-    right: 45px;
+    right:80px;
   }
   .el-color-picker{
     position: absolute;
