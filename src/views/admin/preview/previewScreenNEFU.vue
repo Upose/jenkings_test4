@@ -52,13 +52,9 @@
 
       <component v-if="details.footerTemplate" :is="'previewfoot'" :data="details" :isstyleSet="false"></component>
 
-      <div class="dlib3-hovering-menu" v-if="details.layoutId==2 && details && details.sceneScreens">
-        <a class="temp-box" v-for="(it,i) in (details.sceneScreens||[])" :key="i" @click="clickSilder('temp'+i)">
-          <img class="temp-icon" :src="fileUrl+it.icon" :class="it.icon?'':'temp-icon-hide'">
-          <span class="temp-title" :title="it.screenName">{{it.screenName}}</span>
-        </a>
+      <div class="dlib3-hovering-menu">
       </div>
-      <!--悬浮菜单 end-->
+      <!-- 悬浮菜单 end -->
 
     </template>
 

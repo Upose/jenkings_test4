@@ -79,52 +79,48 @@
     height: 1%;
     min-height: 100%;
   }
-  /****悬浮菜单样式 */
-  .dlib3-hovering-menu{
-    position: fixed;
-    right: 20px;
-    z-index: 99;
-    top: 50%;
-    margin-top: -100px;
-    .temp-box{
-      display: block;
-      cursor: pointer;
-      color: #000;
-      width: 60px;
-      height: 60px;
-      background: rgba(255,255,255,0.6);
-      box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
-      border-radius: 5px;
-      transition: all .3s;
-      margin: 6px 0;
-      padding: 2px 5px;
-      border:1px solid rgba(0,0,0,0);
-      &:hover{
-        background: #fff;
-        border: 1px solid #eee;
-        box-shadow: 2px 4px 7px #6b6a6a;
-      }
-      .temp-icon{
-        width: 30px;
-        height: 30px;
-        display: block;
-        border-radius: 3px;
-        margin: 5px auto;
-      }
-      .temp-title{
-        color: #333;
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-size: 12px;
-        text-align: center;
-      }
+/****悬浮菜单样式 */
+.dlib3-hovering-menu{
+  visibility: hidden;
+  position: fixed;
+  right: 20px;
+  z-index: 99;
+  top: 50%;
+  margin-top:-254px;
+  .temp-box{
+    display: block;
+    cursor: pointer;
+    color: #fff;
+    width: 80px;
+    height: 80px;
+    background:rgba(0,0,0,0.6);
+    border-radius: 5px;
+    transition: all .3s;
+    margin: 4px 0;
+    padding: 17px 5px;
+    &:hover{
+      background: #C8A063;
     }
-    .temp-icon-hide{
-      visibility: hidden;
+    .temp-icon{
+      width: 20px;
+      height: 20px;
+      display: block;
+      border-radius: 3px;
+      margin: 5px auto;
+    }
+    .temp-title{
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 12px;
+      text-align: center;
     }
   }
+  .temp-icon-hide{
+    visibility: hidden;
+  }
+}
   
   .html-warp-page{
     overflow-x: hidden;
