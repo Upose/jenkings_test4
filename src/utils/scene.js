@@ -46,6 +46,8 @@ function selectComponent(details) {
             list.is_show_page = 'previewAllQXDM';
         } else if (details.template.uniqueCode == 'nhic') {
             list.is_show_page = 'previewAllNHIC';
+        }else if(details.template.code == 'nefu'){//东北林业
+            list.is_show_page = 'previewScreenNEFU';
         } else {
             list.is_show_page = 'previewAll';
         }

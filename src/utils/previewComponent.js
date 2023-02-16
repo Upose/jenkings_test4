@@ -13,6 +13,7 @@ const previewComponent = {
         Vue.component('previewScreenNMGKJDX', r => { require(['@/views/admin/preview/previewScreenNMGKJDX.vue'], r) });//分屏-内蒙古科技大学
         Vue.component('previewAllQXDM', r => { require(['@/views/admin/preview/previewAllQXDM.vue'], r) });//分段-清新淡墨
         Vue.component('previewAllNHIC', r => { require(['@/views/admin/preview/previewAllNHIC.vue'], r) });//分段-广东南华工商职业学院
+        Vue.component('previewScreenNEFU', r => { require(['@/views/admin/preview/previewScreenNEFU.vue'], r) });//分段-东北林业
 
         Vue.component('BGvideoImg', r => { require(['@/views/admin/preview/bgComponent/BGvideoImg.vue'], r) });//视频播放和轮播组件
         
