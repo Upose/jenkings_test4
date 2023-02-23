@@ -42,6 +42,12 @@ export default {
   watch: {
     'postForm.name'(nval, oval) {
       this.$forceUpdate();
+    },
+    'dataList.sceneStatus'(nval, oval) {
+      if(!this.id && this.dataList.sceneStatus){
+        this.postForm['status']=this.dataList.sceneStatus[0].value||0;
+        this.postForm['visitorLimitType']=this.dataList.visitorLimitType[0].value||0;
+      }
     }
   },
   data() {
