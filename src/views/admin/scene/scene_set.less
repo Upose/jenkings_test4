@@ -99,6 +99,7 @@
       }
       .drag-r-pad{
         min-height: 200px;
+        background: url(../../../assets/admin/img/nullsetdata.png) no-repeat center;
       }
       .drag-l,.drag-r{
         user-select:none;
@@ -355,25 +356,24 @@
 /*左侧菜单缩放后-按钮**/
   .left-menu-flex{
     position: fixed;
-    left:90px;
+    left:0;
     top: 50%;
     z-index: 1;
     margin-top: -124px;
-    color: #fff;
-    
     span{
       cursor: pointer;
       display: block;
-      background: rgba(62, 83, 238, 0.6);
-      border: 1px solid #a5b3cc;
-      margin: 20px 0;
-      width: 30px;
-      padding: 10px 5px;
-      text-align: center;
-      border-radius: 0 20px 20px 0;
-      transition: all .3s;
+      width: 40px;
+      height:108px;
+      margin-top: 20px;
       &:hover{
-        background: rgba(62, 83, 238, 1);
+        opacity: .7;
+      }
+      &:first-child{
+        background: url(../../../assets/admin/img/skin-btn.png) no-repeat center;
+      }
+      &:last-child{
+        background: url(../../../assets/admin/img/set-btn.png) no-repeat center;
       }
     }
   }

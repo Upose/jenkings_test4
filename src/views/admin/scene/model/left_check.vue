@@ -20,11 +20,11 @@
         <div class="drag-l-warp">
           <el-collapse v-model="activeCollapse" class="drag-collapse" v-show="div_num=='1'">
             <el-collapse-item title="请选择布局" name="1">
-              <div class="drag-box-width" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)">
+              <div class="drag-box-width layout-box" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)" :title="i.key">
                 <div class="drag-box" :class="postForm.layoutId==i.value?'box-active':''" :title="i.key">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="postForm.layoutId==i.value"></i>
                   <img :src="fileUrl+i.icon" class="img-cover">
-                  <span class="d-b-txt">{{i.key||'暂无'}}</span>
+                  <!-- <span class="d-b-txt">{{i.key||'暂无'}}</span> -->
                 </div>
               </div>
             </el-collapse-item>
@@ -43,10 +43,10 @@
 
             <el-collapse-item title="请选择主题色" name="3" class="color-clooapse" v-if="(sceneThemeColor||[]).length>0">
 
-              <div class="drag-box-btn-w" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
+              <div class="drag-box-btn-w drag-box-color" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
                 <div class="drag-box" :style="{'background-image':'url('+(fileUrl+i.icon)+')'}">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="(postForm.themeColor||'template1')==i.value"></i>
-                  <span class="d-b-txt fot-c1">{{i.key||'暂无'}}</span>
+                  <!-- <span class="d-b-txt fot-c1">{{i.key||'暂无'}}</span> -->
                 </div>
               </div>
             </el-collapse-item>

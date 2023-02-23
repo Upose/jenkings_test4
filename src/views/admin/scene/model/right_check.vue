@@ -29,8 +29,7 @@
               </div>
             </el-collapse-item>
             <!--选择样式 end-->
-
-            <el-collapse-item title="设置内容" name="2">
+            <el-collapse-item title="设置内容" name="2" v-if="(commonTemplateName!=''&& commonTemplateName!='placeholder')||is_hf!=null||template_check!=''||availableConfig!=''">
               <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='header'" size="medium" :data="postForm.headerTemplate" @click="headSetShow()">头部高级设置</el-button>
@@ -222,6 +221,7 @@ export default {
         this.commonTemplateName = '';
         this.availableConfig = '';
         this.is_hf = val;
+        this.setAppsName(val=='foot'?'底部':'头部');
         this.http.getPlain_url('app-widget-list-by-app-id', '/' + val).then(res => {
           this.template_list = res.data || [];
           if (val == 'foot') {

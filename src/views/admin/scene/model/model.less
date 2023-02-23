@@ -50,8 +50,9 @@
   .drag-box-width {
     cursor: pointer;
     width: 25%;
+    float:left;
     border-radius: 3px;
-    display: inline-block;
+    display: block;
 
     .drag-box {
       width: 70px;
@@ -100,7 +101,7 @@
       white-space: nowrap;
     }
   }
-  /*颜色-模板-选择块**/
+  /*模板-颜色-选择块**/
   .drag-box-btn-w{
     // width: 33.333%;
     display: inline-block;
@@ -132,7 +133,7 @@
         right: 0;
         top: 0;
       }
-    }
+    }  
     .fot-c1{
       color: #fff;
     }
@@ -141,6 +142,37 @@
     }
     .active1{
       border: 1px solid #3E54EE;
+    }
+  }
+  /*颜色-选择块**/
+  .drag-box-color{
+    .drag-box{
+      background-size: 100% 100%;
+      width:32px !important;
+    }
+    
+    &:nth-child(3n+3){
+      .drag-box{
+        margin-right: 5px !important;
+      }
+    }
+    &:nth-child(8n+8){
+      .drag-box{
+        margin-right: 0px;
+      }
+    }
+  }
+  /*布局-选择块**/
+  .layout-box{
+    width: 12.5%;
+    &:first-child{
+      margin-left: -5px;
+    }
+    .drag-box{
+      width: 32px;
+      height:32px;
+      padding: 0;
+      background: #F9FAFC;
     }
   }
   .app-type{
@@ -470,7 +502,7 @@
 
   .select-type {
     .s-list {
-      max-height: 270px;
+      max-height: 340px;
       overflow-y: auto;
       // overflow-x: hidden;
       // margin: 0 -20px;
@@ -654,6 +686,13 @@
       font-size: 18px;
       line-height:35px;
       color: #6777ef;
+      span{
+        cursor: pointer;
+        transition: all .3s;
+        &:hover{
+          color: #000;
+        }
+      }
     }
   }
   .c-t-head{
