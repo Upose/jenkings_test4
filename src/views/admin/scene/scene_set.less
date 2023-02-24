@@ -182,8 +182,18 @@
             transform-origin: 0 0;
             margin-left: auto;
             margin-right: auto;
-            border: 1px dashed #BCBCBC;
             background-color:rgba(255,255,255,0);
+            position: relative;
+            &::after{
+              content: '';
+              position: absolute;
+              left: -5px;
+              bottom: -5px;
+              right:-5px;
+              top:0;
+              border: 3px dashed rgba(211,211,211,0.9);
+              // border-top-width:0;
+            }
           }
           img{
             width: 1198px;

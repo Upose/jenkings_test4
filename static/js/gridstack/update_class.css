@@ -37,7 +37,7 @@
     bottom: 0;
     top: 0;
     z-index: 10;
-    border: 1px solid #bdc4ff;
+    border: 3px dashed rgba(211,211,211,0.9);
     background-color: rgba(0,0,0,0);
 }
 .jl_vip_zt_warp .mask-layer-active{

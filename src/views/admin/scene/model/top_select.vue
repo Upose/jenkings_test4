@@ -25,10 +25,12 @@
           <el-option v-for="item in (userType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
         </el-select>
       </div>
-      <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
-      <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
-      <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
-      <!-- <i class="cut-btn" :class="top_fold?'el-icon-arrow-up':'el-icon-arrow-down'" @click="topFold()"></i> 折叠顶部按钮-->
+      <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r copy-btn" v-if="id" @click="copyURL()">复制链接</el-button>
+      <label class="btns-w">
+        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
+        <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
+      </label>
+      <!-- <i class="cut-btn" :class="top_fold?'el-icon-arrow-up':'el-icon-arrow-down'" @click="topFold()"></i> 折叠顶部按钮 -->
     </div>
   </div>
   <!--顶部条件筛选 end-->
@@ -248,6 +250,9 @@ export default {
     float: right;
     margin-top: 13px;
   }
+  .copy-btn{
+    margin-right: 181px;
+  }
 }
 
 /deep/.el-tag.el-tag--info .el-select__tags-text {
@@ -265,5 +270,10 @@ export default {
 }
 .top0{
   top: 0;
+}
+.btns-w{
+  position: fixed;
+  top: 40px;
+  right: 30px;
 }
 </style>
