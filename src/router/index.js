@@ -6,7 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: process.env.NODE_ENV == 'production' ? '/scenemanagev2/' : '',// 打包时需要配置二级目录名
+  base: process.env.NODE_ENV == 'production' ? '/scenemanagenew/' : '',// 打包时需要配置二级目录名
   routes: [
     {
       path: '/web',
