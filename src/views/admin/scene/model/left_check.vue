@@ -51,55 +51,68 @@
               </div>
             </el-collapse-item>
             <!--主题色 end-->
-
             <el-collapse-item title="模板/屏配置" name="4" v-if="templateId">
+              <div class="screen-w" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
+                <div class="row" v-for="(item,index) in screen_list" :class="index==screen_cu?'screen-r-active':''">
+                  <div class="t-title">
+                    <div class="img-box">
+                      <img v-if="screen_list[index].icon" :src="screen_list[index].icon?(fileUrl+screen_list[index].icon):''">
+                      <img src="@/assets/admin/img/icon-default.png" v-else>
+                      <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb_'+index)" title="点击上传图标">
+                      <span class="del" v-if="screen_list[index].icon" @click="delBGImg('tb',index)" title="点击删除图标"><i class="iconfont el-icon-vip-Vector"></i></span>
+                    </div>
+                    <div class="warp">
+                      <div class="txt-w">
+                        <div class="input-w" v-if="item.isedit">
+                          <input type="text" v-model="item.screenName"/>
+                          <button @click="editScreen(index)">确定</button>
+                        </div>
+                        <div class="txt" v-else @click="screenClick(index)">{{item.screenName}}</div>
+                      </div>
+                      <i class="edit iconfont el-icon-vip-bianji" v-if="!item.isedit" @click="editScreen(index)"></i>
+                      <i class="del-r iconfont el-icon-vip-Vector" :class="item.isedit?'del-r-left':''" v-if="index!=0&&index!=(screen_list.length-1)" @click="removScreen(index)"></i>
+                      <span class="r-hint"><i class="el-input__icon el-icon-arrow-down"></i></span>
+                    </div>
+                  </div><!--标题-图标-->
 
+                  <div class="b-bg" v-if="screen_cu==index">
+                    <div class="model-set-w c-l">
+                      <div class="box-title-img">
+                        <div class="title">{{screen_cu==0?'背景图/视频':'背景图更换'}}</div>
+                        <div class="img-w">
+                          <div class="img-show"><img :src="screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):default_img" alt=""></div>
+                          <i class="del-img iconfont el-icon-vip-Vector" @click="delBGImg('bgf',screen_cu)"></i>
+                          <div class="btn-show">
+                            <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
+                            <input type="file" multiple="multiple" @change="$fileUpload($event,(screen_cu==0?'videoimg':'img'),'bgf')">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!--屏-背景设置-->
+                </div>
+              </div>
               <div class="model-set-w c-l" v-show="postForm.layoutId==1||postForm.layoutId==4">
                 <div class="box-title-img">
                   <div class="title">背景图更换</div>
                   <div class="img-w">
                     <div class="img-show"><img :src="screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):default_img" alt=""></div>
-                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgt')"></i>
+                    <i class="del-img iconfont el-icon-vip-Vector" @click="delBGImg('bgt',screen_cu)"></i>
                     <div class="btn-show">
                       <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
                       <input type="file" multiple="multiple" @change="$fileUpload($event,'img','bgt')">
                     </div>
                   </div>
                 </div>
-              </div>
-              <!--通屏配置 end-->
-
-              <div class="model-set-w c-l" v-show="(postForm.layoutId==2||postForm.layoutId==3)">
-                <div class="box-title-img">
-                  <div class="title">{{screen_cu==0?'背景图/视频':'背景图更换'}}</div>
-                  <div class="img-w">
-                    <div class="img-show"><img :src="screen_list[screen_cu].bgImg?(fileUrl+screen_list[screen_cu].bgImg):default_img" alt=""></div>
-                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('bgf')"></i>
-                    <div class="btn-show">
-                      <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
-                      <input type="file" multiple="multiple" @change="$fileUpload($event,(screen_cu==0?'videoimg':'img'),'bgf')">
-                    </div>
-                  </div>
-                </div>
-                <div class="box-title-img">
-                  <div class="title">图标更换</div>
-                  <div class="img-w">
-                    <div class="img-show"><img :src="screen_list[screen_cu].icon?(fileUrl+screen_list[screen_cu].icon):default_img" alt=""></div>
-                    <i class="del-img iconfont el-icon-vip-shanchu-1" @click="delBGImg('tb')"></i>
-                    <div class="btn-show">
-                      <div><img src="@/assets/admin/img/icon-upload.png" /><span>点击上传</span></div>
-                      <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb')">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--通屏配置 end-->
+              </div><!--通屏配置 end-->
 
             </el-collapse-item>
             <!--模板/屏配置 end-->
 
           </el-collapse>
+          <div class="add-screen" v-show="div_num=='1'&&(postForm.layoutId==2||postForm.layoutId==3)" @click="addScreen()">新增一屏</div>
 
+          <div class="sc-name" v-show="div_num=='2'&&(postForm.layoutId==2||postForm.layoutId==3)">当前：{{screen_list[screen_cu].screenName}}</div>
           <el-collapse v-model="activeCollapse1" class="drag-collapse" v-show="div_num=='2'">
             <h1 class="app-select">
               <span class="icon-r"><i class="el-icon-caret-right"></i> | </span>
@@ -194,9 +207,13 @@ export default {
         case 'bgt': this.screen_list[this.screen_cu].bgImg = res.url || ''; break;
         case 'bgf': this.screen_list[this.screen_cu].bgImg = res.url || ''; break;
         case 'tb': this.screen_list[this.screen_cu].icon = res.url || ''; break;
+        default:
+        if(res.key.indexOf('tb')>-1){
+          this.screen_list[res.key.split('_')[1]].icon = res.url || ''; break;
+        }
       }
       this.$forceUpdate();
-      this.$emit('sceneLeftBG', { type: res.key, url: (res.url || '') });
+      // this.$emit('sceneLeftBG', { type: res.key, url: (res.url || '') });
     })
   },
   created() {
@@ -416,20 +433,40 @@ export default {
       this.header_footer_show = true;
     },
     //删除背景图片
-    delBGImg(val) {
+    delBGImg(val,index) {
+      console.log(index);
       switch (val) {
-        case 'bgt': this.screen_list[this.screen_cu].bgImg = ''; break;//通屏背景
-        case 'bgf': this.screen_list[this.screen_cu].bgImg = ''; break;//分屏背景
-        case 'tb': this.screen_list[this.screen_cu].icon = ''; break;//分屏图标
+        case 'bgt': this.screen_list[index].bgImg = ''; break;//通屏背景
+        case 'bgf': this.screen_list[index].bgImg = ''; break;//分屏背景
+        case 'tb': this.screen_list[index].icon = ''; break;//分屏图标
       }
+      console.log(this.screen_list);
       this.$forceUpdate();
-      this.$emit('sceneLeftBG', { type: val, url: '' })
+      // this.$emit('sceneLeftBG', { type: val, url: '' })
     },
     //添加公共组件
     addCompont(val) {
       this.$emit('rightMenu', val.code);
       this.$emit('addCompont', { 'list': val, 'is_add_compont': true });
     },
+    //编辑当前屏菜单名称
+    editScreen(index) {
+      this.screen_list[index].isedit = !this.screen_list[index].isedit;
+      this.$forceUpdate();
+    },
+    //选中屏
+    screenClick(val){
+      this.$emit('screenClick', val);
+    },
+    //删除屏
+    removScreen(val){
+      console.log(val);
+      this.$emit('removScreen', val);
+    },
+    //添加屏
+    addScreen(){
+      this.$emit('addScreen', null);
+    }
   },
 }
 </script>

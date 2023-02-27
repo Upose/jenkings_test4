@@ -9,10 +9,29 @@
         <topSelect ref="topselect_ref" :dataList="top_list" :postForm="postForm" @setHFooter="setHFooter" @saveClick="saveClick" @scenePreview="scenePreview" @getDetailsGroup="getDetailsGroup"></topSelect>
 
         <div class="drag-content" :style="{'min-height':(drag_height-1)+'px'}">
-          <leftCheck ref="leftcheck_ref" @sceneLeftBG="sceneLeftBG" @rightMenu="rightMenu" @addCompont="addCompont" :left_fold.sync="left_fold" v-show="!left_fold" :screen_cu="screen_cu" :screen_list="screen_list" :appServiceType="appServiceType" :postForm="postForm" @getAppDetails="getAppDetails" @setAppsList="setAppsList" @layoutClick="layoutClick" @setTheme="setTheme" @templateClick="templateClick"></leftCheck>
+          <leftCheck 
+            ref="leftcheck_ref" 
+            @sceneLeftBG="sceneLeftBG" 
+            @rightMenu="rightMenu" 
+            @addCompont="addCompont" 
+            :left_fold.sync="left_fold"
+            v-show="!left_fold" 
+            :screen_cu="screen_cu" 
+            :screen_list="screen_list" 
+            :appServiceType="appServiceType" 
+            :postForm="postForm" 
+            @getAppDetails="getAppDetails" 
+            @setAppsList="setAppsList" 
+            @layoutClick="layoutClick" 
+            @setTheme="setTheme" 
+            @screenClick="screenClick" 
+            @removScreen="removScreen" 
+            @addScreen="addScreen" 
+            @templateClick="templateClick">
+           </leftCheck>
 
           <div class="drag-c">
-            <div class="screen-btn-drag" v-show="(postForm.layoutId== 2||postForm.layoutId== 3) && postForm.template">
+            <!-- <div class="screen-btn-drag" v-show="(postForm.layoutId== 2||postForm.layoutId== 3) && postForm.template">
               <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''">
                 <span class="txt-show" @click="screenClick(0)">{{screen_list[0].screenName||''}}</span>
                 <input type="text" class="txt-edit" v-model="screen_list[0].screenName" v-if="screen_list[0].isedit"/>
@@ -32,7 +51,7 @@
                 <i class="iconfont s-btn-edit" :class="screen_list[screen_list.length-1].isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(screen_list.length-1)"></i>
               </el-button>
               <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
-            </div>
+            </div> -->
             <!--屏幕数量+拖拽排序 end-->
 
             <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">

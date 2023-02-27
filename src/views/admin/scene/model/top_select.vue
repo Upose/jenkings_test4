@@ -50,7 +50,12 @@ export default {
         this.postForm['status']=this.dataList.sceneStatus[0].value||0;
         this.postForm['visitorLimitType']=this.dataList.visitorLimitType[0].value||0;
       }
-    }
+    },
+    'postForm.visitorLimitType'(nval, oval){
+        if(this.postForm['visitorLimitType']!=0&&this.postForm['visitorLimitType']!=''&&this.postForm['visitorLimitType']!=1){
+          this.getUserType(this.postForm['visitorLimitType'], false);
+        }
+    },
   },
   data() {
     return {
@@ -113,6 +118,7 @@ export default {
     },
     //权限控制选择
     visitorLimitTypeCheck(val) {
+      console.log(val);
       //情况用户类型
       this.userType_one = '';
 
@@ -251,7 +257,7 @@ export default {
     margin-top: 13px;
   }
   .copy-btn{
-    margin-right: 181px;
+    margin-right: 190px;
   }
 }
 

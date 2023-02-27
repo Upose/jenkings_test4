@@ -6,11 +6,46 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "33816879",
+      "icon_id": "34276965",
+      "name": "编辑",
+      "font_class": "Shape",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "34276967",
+      "name": "删除",
+      "font_class": "Vector",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "34268631",
+      "name": "新增一屏",
+      "font_class": "a-Group58",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "34252754",
+      "name": "展开",
+      "font_class": "Union",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "34244755",
       "name": "选中",
       "font_class": "xuanzhong",
       "unicode": "e693",
       "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "33818355",
+      "name": "选中",
+      "font_class": "xuanzhong1",
+      "unicode": "e694",
+      "unicode_decimal": 59028
     },
     {
       "icon_id": "695225",
