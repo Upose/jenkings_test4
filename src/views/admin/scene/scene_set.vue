@@ -135,9 +135,25 @@ export default {
 
 <style lang="less">
 @import "../preview/css/publicGlobal.less";
+  .common-placeholder-warp{
+    width: 100%;
+    height: 100%;
+    font-size:12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9b9b9b;
+    text-shadow: white -1px 1px 0px;
+    background: url(../../../assets/admin/img/union.png);
+    &::after{
+      content: '空白占位框'
+    }
+  }
 </style>
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
+
 </style>
 
