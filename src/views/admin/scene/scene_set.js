@@ -47,8 +47,8 @@ export default {
       drag_height: 500,//最低高度
       ratio_num: 1,//缩放比例
       appsList: [],//应用列表
-      left_fold: true,//左侧菜单展开与否 true：关闭 false：开启
-      right_fold: false,//右侧菜单展开与否
+      left_fold: localStorage.getItem('nav')||false,//左侧菜单展开与否 true：关闭 false：开启
+      right_fold: localStorage.getItem('nav')||false,//右侧菜单展开与否
       screen_cu: 0,//当前是第几屏
       screen_list: [{ screenName: '首', bgImg: '',customParameter:'', sceneApps: [] }, { screenName: '尾', bgImg: '',customParameter:'', sceneApps: [] }],//屏数量
       //顶部 步骤1
