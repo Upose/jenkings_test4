@@ -96,7 +96,7 @@
               </div>
               <!--栏目配置 end--->
 
-              <div class="set-btn-w">
+              <div class="set-btn-w" v-if="commonTemplateName=='title'||commonTemplateName=='imgup'">
                 <el-button v-if="commonTemplateName=='title'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="titleSet()">标题设置</el-button>
                 <el-button v-if="commonTemplateName=='imgup'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="imgupSet()">图片设置</el-button>
               </div>
