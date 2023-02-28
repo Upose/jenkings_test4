@@ -29,6 +29,7 @@
               </div>
             </el-collapse-item>
             <!--选择样式 end-->
+            <!-- {{commonTemplateName+'=='+is_hf+'=='+template_check+'=='+availableConfig}} -->
             <el-collapse-item title="设置内容" name="2" v-if="(commonTemplateName!=''&& commonTemplateName!='placeholder')||is_hf!=null||template_check!=''||availableConfig!=''">
               <div class="model-set-w r-model-w c-l">
                 <el-button class="default-btn-border btn-block" icon="el-icon-setting" v-if="is_hf=='foot'" size="medium" :data="postForm.footerTemplate" @click="footSetShow()">底部高级设置</el-button>
@@ -95,7 +96,7 @@
               </div>
               <!--栏目配置 end--->
 
-              <div>
+              <div class="set-btn-w">
                 <el-button v-if="commonTemplateName=='title'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="titleSet()">标题设置</el-button>
                 <el-button v-if="commonTemplateName=='imgup'" class="default-btn-border btn-block" icon="el-icon-setting" size="medium" @click="imgupSet()">图片设置</el-button>
               </div>
@@ -240,6 +241,7 @@ export default {
         })
       } else {
         this.commonTemplateName = val;
+        this.template_check = '';
       }
     },
     //显示当前组件属于哪个应用
@@ -482,6 +484,7 @@ export default {
       this.appPlateList = [];
       this.template_list = [];
       this.commonTemplateName = code;
+      this.template_check='';
 
       var is_cu_temp = document.getElementsByClassName('mask-layer-active');
       this.commonWidgetSet = is_cu_temp[0].offsetParent.getAttribute('data-common');
