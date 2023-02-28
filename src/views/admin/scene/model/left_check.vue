@@ -1,7 +1,7 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
   <div class="drag-l">
-    <div class="fixed-menu-w">
+    <div class="fixed-menu-w" @mousedown="move">
       <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">
         <i class="iconfont el-icon-vip-zhuti_yifu loginOut"></i>
         <i class="txt">主题风格</i>
@@ -12,7 +12,7 @@
       </span>
       <div class="r-bt">
         <i class="el-icon-minus" @click="leftFold()"></i>
-        <i class="el-icon-rank" @mousedown="move"></i>
+        <i class="el-icon-rank"></i>
       </div>
     </div>
     <div class="drag-l-pad">
@@ -254,7 +254,13 @@ export default {
   methods: {
     move(e) {
       var event = e.target;  //获取wqh盒子
-      var parevent = event.parentNode.parentNode.parentNode;
+      var parevent = event;
+      for(var i=0;i<10;i++){
+        parevent = parevent.parentNode;
+        var x = this.selectParevent(parevent);
+        if(x){break;}
+      }
+      // var parevent = event.parentNode.parentNode.parentNode;
       //获取鼠标位置
       let pageX = e.pageX;
       let pageY = e.pageY;
@@ -273,6 +279,14 @@ export default {
       document.onmouseup = function () {
         document.onmousemove = null;  //删除拖拽事件
       };
+    },
+    //查找父元素
+    selectParevent(e){
+      if(e && e.className=='drag-l'){
+        return true;
+      }else{
+        return false;
+      }
     },
     //设置详情
     setDatils(val) {
