@@ -1,14 +1,14 @@
 <!---服务中台-栏目-左边2,3步骤 -->
 <template>
   <div class="drag-r">
-    <div class="fixed-menu-w">
+    <div class="fixed-menu-w" @mousedown="move">
       <span class="box active">
         <i class="iconfont el-icon-vip-shezhi loginOut"></i>
         <i class="txt">应用设置</i>
       </span>
       <div class="r-bt">
         <i class="el-icon-minus" @click="rightFold()"></i>
-        <i class="el-icon-rank" @mousedown="move"></i>
+        <i class="el-icon-rank"></i>
       </div>
     </div>
     <div class="drag-r-pad">
@@ -179,7 +179,12 @@ export default {
   methods: {
     move(e) {
       var event = e.target;  //获取wqh盒子
-      var parevent = event.parentNode.parentNode.parentNode;
+      var parevent = event;
+      for(var i=0;i<10;i++){
+        parevent = parevent.parentNode;
+        var x = this.selectParevent(parevent);
+        if(x){break;}
+      }
       //获取鼠标位置
       let pageX = e.pageX;
       let pageY = e.pageY;
@@ -198,6 +203,14 @@ export default {
       document.onmouseup = function () {
         document.onmousemove = null;  //删除拖拽事件
       };
+    },
+    //查找父元素
+    selectParevent(e){
+      if(e && e.className=='drag-r'){
+        return true;
+      }else{
+        return false;
+      }
     },
     //是否全屏
     fullScreenClick(e) {
