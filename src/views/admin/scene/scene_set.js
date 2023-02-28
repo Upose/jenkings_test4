@@ -517,11 +517,16 @@ export default {
     //预览
     scenePreview() {
       this.savePostJson('preview');
-      setTimeout(() => {
-        window.localStorage.setItem('scenePreview', JSON.stringify(this.postForm));
-        var url = location.href.split('#')[0] + "#/admin_preview";
-        window.open(url);
-      }, 100);
+      // setTimeout(() => {
+      //   window.localStorage.setItem('scenePreview', JSON.stringify(this.postForm));
+      //   var url = location.href.split('#')[0] + "#/admin_preview";
+      //   window.open(url);
+      // }, 100);
+        setTimeout(() => {
+          window.localStorage.setItem('scenePreview', JSON.stringify(this.postForm));
+          const { href } = this.$router.resolve({path: '/admin_preview'});
+          window.open(href, '_blank');
+        }, 100);
     },
     //保存模板设置参数（条数，栏目，排序规则等）
     saveTempSet(val) {

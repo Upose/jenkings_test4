@@ -227,9 +227,13 @@ export default {
     previewClick(val){
       this.http.getPlain_url('scene-detail','/'+val.id).then(res=>{
         window.localStorage.setItem('scenePreview',JSON.stringify(res.data));
-        var url = location.href.split('#')[0] + "#/admin_preview";
+        // var url = location.href.split('#')[0] + "#/admin_preview";
+        // setTimeout(() => {
+        //   window.open(url);
+        // }, 50);
+        const { href } = this.$router.resolve({path: '/admin_preview'});
         setTimeout(() => {
-          window.open(url);
+          window.open(href, '_blank');
         }, 50);
 
       }).catch(err=>{
