@@ -6,7 +6,6 @@
       <div class="s-col ml-0"><span class="s-txt">名称：</span>
         <el-input class="w-saml" v-model="postForm.name" size="medium" placeholder="首页"></el-input>
       </div>
-      <!--disabled="disabled"-->
       <div class="s-col"><span class="s-txt">服务状态：</span>
         <el-select class="w-saml" v-model="postForm.status" size="medium" placeholder="请选择">
           <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
@@ -25,10 +24,10 @@
           <el-option v-for="item in (userType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
         </el-select>
       </div>
-      <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r copy-btn" v-if="id" @click="copyURL()">复制链接</el-button>
       <label class="btns-w">
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-baocun1" type="primary" size="medium" @click="$emit('saveClick')">保存</el-button>
         <el-button class="default-btn-border s-r-f-r" icon="iconfont el-icon-vip-yulan-1" type="primary" size="medium" @click="$emit('scenePreview')">预览</el-button>
+        <el-button icon="iconfont el-icon-vip-fuzhi" size="medium" class="s-r-f-r" v-if="id" @click="copyURL()">复制链接</el-button>
       </label>
       <!-- <i class="cut-btn" :class="top_fold?'el-icon-arrow-up':'el-icon-arrow-down'" @click="topFold()"></i> 折叠顶部按钮 -->
     </div>
@@ -174,10 +173,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "~@/assets/admin/css/color.less"; /**颜色配置 */
+@import "~@/assets/admin/css/color.less";
 @import "~@/assets/admin/css/style.less";
 .drag-top-w {
   position: relative;
+  padding-right:250px;
   .cut-btn {
     cursor: pointer;
     display: block;
@@ -255,9 +255,6 @@ export default {
   .s-r-f-r {
     float: right;
     margin-top: 13px;
-  }
-  .copy-btn{
-    margin-right: 190px;
   }
 }
 

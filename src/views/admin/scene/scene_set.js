@@ -36,7 +36,7 @@ export default {
         this.setHeight(c_height);
       });
     })
-    this.dragSort();
+    // this.dragSort();
   },
   data() {
     return {
@@ -47,8 +47,8 @@ export default {
       drag_height: 500,//最低高度
       ratio_num: 1,//缩放比例
       appsList: [],//应用列表
-      left_fold: false,//左侧菜单展开与否 true：关闭 false：开启
-      right_fold: false,//右侧菜单展开与否
+      left_fold: true,//左侧菜单展开与否 true：关闭 false：开启
+      right_fold: true,//右侧菜单展开与否
       screen_cu: 0,//当前是第几屏
       screen_list: [{ screenName: '首', bgImg: '',customParameter:'', sceneApps: [] }, { screenName: '尾', bgImg: '',customParameter:'', sceneApps: [] }],//屏数量
       //顶部 步骤1
@@ -594,29 +594,29 @@ export default {
       admin_vue.$refs.rightCheck_ref.setAppsName(apps_cu.name);
       admin_vue.$refs.rightCheck_ref.appDetails({ 'id': val.id, 'temp_id': val.temp_id, 'is_add': val.is_add, 'set_list': val.set_list, 'configParameter': val.configParameter, 'commonWidgetSet': val.commonWidgetSet });
     },
-    /***拖拽更换屏顺序**/
-    dragSort() {
-      const el = this.$refs.dragBox;
-      this.sortable = Sortable.create(el, {
-        animation: 150,
-        ghostClass: "sortable-ghost",
-        onEnd: e => {
-          // const targetRow = this.screen_list.splice(e.oldIndex, 1)[0];//oldIndex原位置
-          // console.log(e.newIndex , e.oldIndex);
-          // this.screen_list.splice(e.newIndex, 0, targetRow);//newIndex新位置
-          // console.log(e.oldIndex, this.screen_list, '排序后的数据')
-          // if (e.newIndex == e.oldIndex) { return; }
-          // var list = this.screen_list;
-          // const targetRow = list.splice(e.oldIndex+1, 1)[0];
-          // list.splice(e.newIndex+1, 0, targetRow);
-          // this.screen_list = [];
-          // console.log(e.newIndex+1 , e.oldIndex+1,list);
-          // setTimeout(() => {
-          //   this.screen_list = list;
-          // }, 10);
-        }
-      });
-    },
+    // /***拖拽更换屏顺序**/
+    // dragSort() {
+    //   const el = this.$refs.dragBox;
+    //   this.sortable = Sortable.create(el, {
+    //     animation: 150,
+    //     ghostClass: "sortable-ghost",
+    //     onEnd: e => {
+    //       // const targetRow = this.screen_list.splice(e.oldIndex, 1)[0];//oldIndex原位置
+    //       // console.log(e.newIndex , e.oldIndex);
+    //       // this.screen_list.splice(e.newIndex, 0, targetRow);//newIndex新位置
+    //       // console.log(e.oldIndex, this.screen_list, '排序后的数据')
+    //       // if (e.newIndex == e.oldIndex) { return; }
+    //       // var list = this.screen_list;
+    //       // const targetRow = list.splice(e.oldIndex+1, 1)[0];
+    //       // list.splice(e.newIndex+1, 0, targetRow);
+    //       // this.screen_list = [];
+    //       // console.log(e.newIndex+1 , e.oldIndex+1,list);
+    //       // setTimeout(() => {
+    //       //   this.screen_list = list;
+    //       // }, 10);
+    //     }
+    //   });
+    // },
     //高度动态设置
     setHeight(val) {
       if (this.$refs.dragContainer) {
