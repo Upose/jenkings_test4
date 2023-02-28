@@ -135,7 +135,7 @@ export default {
 
 <style lang="less">
 @import "../preview/css/publicGlobal.less";
-  .common-placeholder-warp{
+  .grid-stack-item .common-placeholder-warp{
     width: 100%;
     height: 100%;
     font-size:12px;
