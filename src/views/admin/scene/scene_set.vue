@@ -143,9 +143,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9b9b9b;
+    color: #969696;
     text-shadow: white -1px 1px 0px;
-    background: url(../../../assets/admin/img/union.png);
+    background: url(../../../assets/admin/img/union.svg) center;
+    background-size:100% 100%;
     &::after{
       content: '空白占位框'
     }
