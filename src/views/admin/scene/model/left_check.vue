@@ -110,7 +110,7 @@
             <!--模板/屏配置 end-->
 
           </el-collapse>
-          <div class="add-screen" v-show="div_num=='1'&&(postForm.layoutId==2||postForm.layoutId==3)" @click="addScreen()">新增一屏</div>
+          <div class="add-screen" v-show="templateId&&div_num=='1'&&(postForm.layoutId==2||postForm.layoutId==3)" @click="addScreen()">新增一屏</div>
 
           <div class="sc-name" v-show="div_num=='2'&&(postForm.layoutId==2||postForm.layoutId==3)">当前：{{screen_list[screen_cu].screenName}}</div>
           <el-collapse v-model="activeCollapse1" class="drag-collapse" v-show="div_num=='2'">
