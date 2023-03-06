@@ -38,7 +38,7 @@
 
             <div v-if="it.isRest" class="reset-scene-warp-bg">
               <div class="left-menu">
-                <div v-for="(z,k) in it.sceneList" @click="MneuClick(i,(''+i+'_'+k+''))" :class="(twoNum==(''+i+'_'+k+'')||threeNum==(''+i+'_'+k+''))?'active':''">{{z.screenName||''}}</div>
+                <div v-for="(z,k) in it.sceneList" @click="MneuClick(i,(''+i+'_'+k+''))" :class="(twoNum==(''+i+'_'+k+'')||threeNum==(''+i+'_'+k+''))?'active':''"><span>{{z.screenName||''}}</span></div>
               </div>
               <div class="right-content">
                 <div class="bocy-content" :style="{height:x.height+'px'}" v-for="(x,y) in it.sceneList" v-show="twoNum==(''+i+'_'+y+'')||threeNum==(''+i+'_'+y+'')">
