@@ -58,8 +58,7 @@
               <div class="drag-warp-bg jl_vip_zt_warp_preview" :style="{'zoom':ratio_num}">
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
                 <div class="scene-warp-bg" :id="'temp'+screen_cu">
-
-                  <component v-if="(postForm.sceneScreens[screen_cu]||{}).customParameter&&!(postForm.sceneScreens[screen_cu]||{}).bgImg" :is="(postForm.sceneScreens[screen_cu]||{}).customParameter||'previewAll'"></component>
+                  <component v-if="(postForm.sceneScreens[screen_cu]||{}).customParameter" :is="(postForm.sceneScreens[screen_cu]||{}).customParameter||'previewAll'" :style="{'background':'url('+fileUrl+(postForm.sceneScreens[screen_cu]||{}).bgImg+')'}"></component>
                   <component :bgImg="(postForm.sceneScreens[screen_cu]||{}).bgImg||''" :is="'BGvideoImg'" v-if="screen_cu==0"></component>
 
                   <div style="z-index:5;position:relative;">

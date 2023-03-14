@@ -1,3 +1,11 @@
+/*
+ * @Author: 904678748@qq.com 904678748@qq.com
+ * @Date: 2023-03-14 16:49:44
+ * @LastEditors: 904678748@qq.com 904678748@qq.com
+ * @LastEditTime: 2023-03-14 17:30:57
+ * @FilePath: \home_sys\src\utils\previewComponent.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 //所有涉及到的模板文件
 
 const previewComponent = {
@@ -17,8 +25,10 @@ const previewComponent = {
 
         Vue.component('BGvideoImg', r => { require(['@/views/admin/preview/bgComponent/BGvideoImg.vue'], r) });//视频播放和轮播组件
         
+        Vue.component('onsectionfreshD', r => { require(['@/views/admin/preview/bgComponent/onsectionfresh/D.vue'], r) });//这里是模板的背景组件
+        
         Vue.component('A', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/A.vue'], r) });//这里是模板的背景组件
-        Vue.component('B', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/B.vue'], r) });//这里是模板的背景组件
+        // Vue.component('B', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/B.vue'], r) });//这里是模板的背景组件
     }
 }
 

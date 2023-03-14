@@ -6,9 +6,9 @@
       <!--宽1200通用-->
       <component v-if="details.headerTemplate" :is="'previewhead'" :data="details" :isstyleSet="true"></component>
 
-      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="$styleSet(details,it,i)">
+      <div class="scene-warp-bg" v-for="(it,i) in details.sceneScreens" :key="i+'scene'" :id="'temp'+i" :style="it.customParameter?'':$styleSet(details,it,i)">
 
-        <component v-if="it.customParameter&&!it.bgImg" :is="it.customParameter"></component>
+        <component v-if="it.customParameter" :is="it.customParameter" :style="$styleSet(details,it,i)"></component>
         <component :bgImg="it.bgImg" :is="'BGvideoImg'" v-if="i==0"></component>
 
         <div class="bocy-content" :style="{height:it.height+'px',width:(details.template.width==100?'100%':(details.template.width+'px'))}">
