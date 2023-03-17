@@ -2,7 +2,7 @@
 <template>
   <div class="drag-r">
     <div class="fixed-menu-w" @mousedown="move">
-      <span class="box active">
+      <span class="box bg3-active">
         <i class="iconfont el-icon-vip-shezhi loginOut"></i>
         <i class="txt">应用设置</i>
       </span>
@@ -27,8 +27,8 @@
                   </div>
                 </div>
               </div>
-            </el-collapse-item>
-            <!--选择样式 end-->
+            </el-collapse-item><!--选择样式 end-->
+            
             <!-- {{commonTemplateName+'=='+is_hf+'=='+template_check+'=='+availableConfig}} -->
             <el-collapse-item title="设置内容" name="2" v-if="(commonTemplateName!=''&& commonTemplateName!='placeholder')||is_hf!=null||template_check!=''||availableConfig!=''">
               <div class="model-set-w r-model-w c-l">
