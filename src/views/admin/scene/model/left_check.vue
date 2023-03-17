@@ -2,11 +2,11 @@
 <template>
   <div class="drag-l">
     <div class="fixed-menu-w" @mousedown="move">
-      <span class="box" :class="div_num=='1'?'active':''" @click="div_num='1'">
+      <span class="box bg1" :class="div_num=='1'?'bg1-active':''" @click="div_num='1'">
         <i class="iconfont el-icon-vip-zhuti_yifu loginOut"></i>
         <i class="txt">主题风格</i>
       </span>
-      <span class="box" :class="div_num=='2'?'active':''" @click="div_num='2'">
+      <span class="box bg2" :class="div_num=='2'?'bg2-active':''" @click="div_num='2'">
         <i class="iconfont el-icon-vip-zhuti loginOut"></i>
         <i class="txt">应用选择</i>
       </span>
@@ -20,11 +20,17 @@
         <div class="drag-l-warp">
           <el-collapse v-model="activeCollapse" class="drag-collapse" v-show="div_num=='1'">
             <el-collapse-item title="请选择布局" name="1">
-              <div class="drag-box-width layout-box" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)" :title="i.key">
+              <!-- <div class="drag-box-width layout-box" v-for="i in (allList||[])" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)" :title="i.key">
                 <div class="drag-box" :class="postForm.layoutId==i.value?'box-active':''" :title="i.key">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="postForm.layoutId==i.value"></i>
                   <img :src="fileUrl+i.icon" class="img-cover">
-                  <!-- <span class="d-b-txt">{{i.key||'暂无'}}</span> -->
+                  <span class="d-b-txt">{{i.key||'暂无'}}</span>
+                </div>
+              </div> -->
+              <div class="drag-box-btn-w" :data-id="i.value" :key="i+'a'" @click="layoutClick(i)" :title="i.key"  v-for="i in (allList||[])">
+                <div class="drag-box" :class="postForm.layoutId==i.value?'active1':''" :title="i.key">
+                  <i class="iconfont el-icon-vip-xuanzhong" v-if="postForm.layoutId==i.value"></i>
+                  <span class="d-b-txt fot-c2"><img :src="fileUrl+i.icon" class="img-cover">{{i.key||'暂无'}}</span>
                 </div>
               </div>
             </el-collapse-item>

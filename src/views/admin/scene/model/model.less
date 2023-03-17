@@ -1,4 +1,5 @@
 /******这个模板下面的所有css*****/
+
 .ml0 {
   margin-left: 0 !important;
 }
@@ -122,6 +123,14 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      .d-b-txt {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .img-cover{
+        margin-right:6px;
+      }
       &:hover {
         border: 1px solid #3E54EE;
       }
@@ -161,24 +170,6 @@
         margin-right: 0px;
       }
     }
-  }
-  /*布局-选择块**/
-  .layout-box{
-    width: 12.5%;
-    margin-bottom: 15px;
-    &:first-child{
-      margin-left: -5px;
-    }
-    .drag-box{
-      width: 32px;
-      height:32px;
-      padding: 0;
-      background: #EDEFF3;
-    }
-  }
-  .app-type{
-    font-size: 14px;
-    color: #34395e;
   }
   // .step-three {
   //   height: auto;

@@ -19,6 +19,7 @@
     margin-bottom: 5px;
     position: relative;
     .box{
+      width: 115px;
       display: inline-block;
       color: #575F9B;
       font-size: 14px;
@@ -27,7 +28,6 @@
       cursor: pointer;
       text-align: center;
       i{
-        display: block;
         line-height:18px;
         margin-bottom: 5px;
       }
@@ -35,11 +35,36 @@
         font-size:16px;
       }
       &:hover{
-        background: rgba(255, 255, 255, 0.15);
+        opacity: .85;
       }
     }
-    .active{
-      background: rgba(255, 255, 255, 0.2);
+    .bg2,.bg2-active{
+      margin-left: -20px;
+    }
+    .bg1{
+      background-image: url(../../../assets/admin/img/bg1.png);
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .bg1-active{
+      background-image: url(../../../assets/admin/img/bg1-active.png);
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .bg2{
+      background-image: url(../../../assets/admin/img/bg2.png);
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .bg2-active{
+      background-image: url(../../../assets/admin/img/bg2-active.png);
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .bg3-active{
+      background-image: url(../../../assets/admin/img/bg3.png);
+      background-position: center;
+      background-repeat: no-repeat;
     }
     .r-bt{
       position: absolute;
