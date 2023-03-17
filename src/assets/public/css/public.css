@@ -80,6 +80,7 @@ button {
 }
 input[type='file'] {
   cursor: pointer;
+  font-size: 0;
 }
 .c-l:after {
   content: " ";
