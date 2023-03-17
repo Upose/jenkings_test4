@@ -59,7 +59,7 @@
                       <img v-if="screen_list[index].icon" :src="screen_list[index].icon?(fileUrl+screen_list[index].icon):''">
                       <img src="@/assets/admin/img/icon-default.png" v-else>
                       <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb_'+index)" title="点击上传图标">
-                      <span class="del" v-if="screen_list[index].icon" @click="delBGImg('tb',index)" title="点击删除图标"><i class="iconfont el-icon-vip-Vector"></i></span>
+                      <span class="del" @click="delBGImg('tb',index)" title="点击删除图标"><i class="iconfont el-icon-vip-Vector"></i></span>
                     </div>
                     <div class="warp">
                       <div class="txt-w">
@@ -114,7 +114,7 @@
 
           <div class="sc-name" v-show="div_num=='2'&&(postForm.layoutId==2||postForm.layoutId==3)">当前：{{screen_list[screen_cu].screenName}}</div>
           <el-collapse v-model="activeCollapse1" class="drag-collapse" v-show="div_num=='2'">
-            <h1 class="app-select">
+            <!-- <h1 class="app-select">
               <span class="icon-r"><i class="el-icon-caret-right"></i> | </span>
               <el-dropdown trigger="click" class="r-select">
                 <span class="el-dropdown-link">{{serve_name||'请选择'}}<i class="el-icon-arrow-down el-icon--right"></i></span>
@@ -122,22 +122,8 @@
                   <el-dropdown-item v-for="(it,i) in (appServiceType||[])" :key="i" @click.native="serveClick(i)">{{it.key||'暂无'}}</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
-            </h1>
-            <!--选择应用类型 end-->
-            <el-collapse-item title="应用类型" name="1">
-              <div class="drag-box-warp c-l">
-                <div class="drag-box-width" v-for="i in apps_list" :key="i+'c'" @click="appDetails(i.appId)">
-                  <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
-                    <i class="iconfont el-icon-vip-xuanzhong" v-if="appId==i.appId"></i>
-                    <img :src="fileUrl+i.icon" class="img-cover">
-                    <span class="d-b-txt">{{i.name||''}}</span>
-                  </div>
-                </div>
-              </div>
-              <!--应用列表 end-->
-            </el-collapse-item>
-
-            <el-collapse-item title="通用组件" name="2">
+            </h1> -->
+            <el-collapse-item title="通用组件" name="0">
               <div class="drag-box-warp c-l">
                 <div class="drag-box-width" v-for="i in sceneHeaderFooter" :key="i+'d'" @click="addHFtemp(i.key)">
                   <div class="drag-box" :class="appId==i.key?'box-active':''" :title="i.key">
@@ -159,6 +145,21 @@
                 </div>
               </div>
             </el-collapse-item>
+            <!--选择应用类型 end-->
+            <el-collapse-item :title="it.key" :name="(x+1).toString()" v-for="(it,x) in (appServiceType||[])" :key="x" v-if="(it.list||[]).length>0">
+              <div class="drag-box-warp c-l">
+                <div class="drag-box-width" v-for="i in it.list" :key="i+'c'" @click="appDetails(i.appId)">
+                  <div class="drag-box" :class="appId==i.appId?'box-active':''" :title="i.name">
+                    <i class="iconfont el-icon-vip-xuanzhong" v-if="appId==i.appId"></i>
+                    <img :src="fileUrl+i.icon" class="img-cover">
+                    <span class="d-b-txt">{{i.name||''}}</span>
+                  </div>
+                </div>
+              </div>
+              <!--应用列表 end-->
+            </el-collapse-item>
+
+            
           </el-collapse>
           <!--头部底部固定模板,脚本设置 end-->
 
@@ -242,12 +243,9 @@ export default {
       serve_name: '',//应用类型-选择的名称
       appId: '',//当前应用
       activeCollapse: ['1', '2', '3', '4'],//左边折叠的数量
-      activeCollapse1: ['1', '2'],//左边折叠的数量
+      activeCollapse1: ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],//左边折叠的数量
       sceneTemplate: [],//模板列表
       sceneThemeColor: [],//颜色列表
-      apps_list: [],//应用列表
-      apps_list_index: 0,//应用列表-下标
-      apps_list_all: [],//应用列表-总列表
       common_tempList: [],//通用组件
     }
   },
@@ -354,43 +352,13 @@ export default {
       this.left_fold = true;
       this.$emit("update:left_fold", this.left_fold);
     },
-    //应用选择-服务类型点击事件 index 应用分组的下标
-    serveClick(index) {
-      // console.log(index);
-      this.apps_list_index = index;
-      var app_type = this.appServiceType[index] || {};
-      this.apps_list = app_type['list'] || [];
-      this.serve_name = app_type.key;
-
-    },
-    //根据应用id，查询属于哪个类型及对应下标
-    selectApps(appid) {
-      var s = this.apps_list.findIndex(x => x.appId == appid);
-      if (s > -1) {
-        this.serveClick(this.apps_list_index); return;
-      } else {
-        var index = null;
-        this.appServiceType.forEach((it, i) => {
-          if (it.list && it.list.length > 0) {
-            it.list.forEach((t, k) => {
-              if (t.appId == appid) {
-                index = i;
-                return;
-              }
-            })
-          }
-        })
-        return index;
-      }
-    },
     //按服务类型获取应用列表 /{appservicetype}/{terminaltype} -----这里要改成查询全部，不要传id
     getApps() {
       var _this = this;
       _this.http.getPlain_url('app-list-by-service-type', '/' + 0 + '/' + this.$route.query.type).then(res => {
-        _this.apps_list_all = res.data || [];
-        _this.$emit('setAppsList', _this.apps_list_all);
-        if (_this.apps_list_all.length > 0) {
-          _this.apps_list_all.forEach((it, i) => {
+        var ls = res.data||[];
+        if(ls.length>0){
+          ls.forEach((it, i) => {
             _this.appServiceType.forEach((t, k) => {
               if (it.serviceType.indexOf(t.value) > -1) {
                 if (!_this.appServiceType[k]['list']) {
@@ -400,21 +368,13 @@ export default {
               }
             })
           })
+          console.log(_this.appServiceType);
         }
-        if (_this.serve_name == '' && _this.apps_list_all.length > 0) {
-          _this.serveClick(0);
-        }
-      }).catch(err => {
-        console.log(err);
       })
     },
     //设置某个应用选中
     setAppid(id) {
       this.appId = id;
-      var index = this.selectApps(this.appId);
-      if (index != null) {
-        this.serveClick(index);
-      }
     },
     //应用点击事件
     appDetails(id) {

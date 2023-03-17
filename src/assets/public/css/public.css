@@ -40,6 +40,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: none;
+  scrollbar-width: thin;
 }
 html,
 body,
@@ -75,6 +76,9 @@ textarea {
   outline: none;
 }
 button {
+  cursor: pointer;
+}
+input[type='file'] {
   cursor: pointer;
 }
 .c-l:after {

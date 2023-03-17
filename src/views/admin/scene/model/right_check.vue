@@ -88,7 +88,7 @@
                   </div>
                   <div class="col4 cl">
                     <div class="r-btn" v-if="availableConfig.indexOf('1')>-1">
-                      <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
+                      <span class="s-edit" @click="addRow()" v-if="maxColumnCount>set_list.length"><i class="el-icon-plus"></i></span>
                       <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
                     </div>
                   </div>
