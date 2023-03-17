@@ -212,7 +212,7 @@
   bottom: -5px;
   right: -5px;
   top: 0;
-  border: 3px dashed rgba(211, 211, 211, 0.9);
+  border: 3px dashed #36BDFF;
 }
 .admin-content .drag-content .drag-c .drag-container img {
   width: 1198px;

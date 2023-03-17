@@ -564,9 +564,7 @@ export default {
                 }, 30);
               }
             }
-            this.screen_list.forEach(item => {
-              item['sceneApps'] = [];
-            })
+            this.screen_list=[{ screenName: '首', bgImg: '',customParameter:'', sceneApps: [] }, { screenName: '尾', bgImg: '',customParameter:'', sceneApps: [] }];
             this.$addStyleLocal('./static/js/gridstack/gridstack_extra_1200.css');
           }
           //这里要加载模板才css文件
