@@ -65,7 +65,7 @@
                       <img v-if="screen_list[index].icon" :src="screen_list[index].icon?(fileUrl+screen_list[index].icon):''">
                       <img src="@/assets/admin/img/icon-default.png" v-else>
                       <input type="file" multiple="multiple" @change="$fileUpload($event,'img','tb_'+index)" title="点击上传图标">
-                      <span class="del" @click="delBGImg('tb',index)" title="点击删除图标"><i class="iconfont el-icon-vip-Vector"></i></span>
+                      <span class="del" v-if="screen_list[index].icon" @click="delBGImg('tb',index)" title="点击删除图标"><i class="iconfont el-icon-vip-Vector"></i></span>
                     </div>
                     <div class="warp">
                       <div class="txt-w">
