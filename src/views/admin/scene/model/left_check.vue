@@ -39,7 +39,7 @@
             <el-collapse-item title="请选择模板" name="2">
 
               <div class="drag-box-btn-w" @click="templateClick(i)" v-for="i in sceneTemplate">
-                <div class="drag-box" :class="templateId==i.id?'active1':''" :title="i.name">
+                <div class="drag-box" :class="setTemplayteBG(i)" :title="i.name">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="templateId==i.id"></i>
                   <span class="d-b-txt fot-c2">{{i.name||'暂无'}}</span>
                 </div>
@@ -445,7 +445,18 @@ export default {
     //添加屏
     addScreen(){
       this.$emit('addScreen', null);
-    }
+    },
+    setTemplayteBG(val){
+      // templateId==i.id?'active1':''
+      var cls = '';
+      if(val.isDefault){
+        cls = cls+' default-temp'
+      }
+      if(this.templateId == val.id){
+        cls = cls +' active1'
+      }
+      return cls;
+    },
   },
 }
 </script>
