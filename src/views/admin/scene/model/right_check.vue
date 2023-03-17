@@ -66,7 +66,8 @@
                 <div class="c-t-body row" v-for="(it,i) in set_list" :key="i">
                   <div class="col1 cl">
                     <div v-if="availableConfig.indexOf('1')>-1">
-                      <el-cascader :options="appPlateList" :props="{label:'key',checkStrictly: true,emitPath:false}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.id"></el-cascader>
+                      <el-cascader v-if="appPlateList.length>1" :options="appPlateList" :props="{label:'key',checkStrictly: true,emitPath:false}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.id"></el-cascader>
+                      <el-cascader v-else :options="((appPlateList[0]||{}).children||[])" :props="{label:'key',checkStrictly: true,emitPath:false}" size="medium" placeholder="绑定栏目" @change="columnClick($event,i)" :show-all-levels="false" v-model="it.id"></el-cascader>
                     </div>
                     <div class="t-center" v-else>-</div>
                   </div>
@@ -88,7 +89,7 @@
                   </div>
                   <div class="col4 cl">
                     <div class="r-btn" v-if="availableConfig.indexOf('1')>-1">
-                      <span class="s-edit" @click="addRow()"><i class="el-icon-plus"></i></span>
+                      <span class="s-edit" @click="addRow()" v-if="maxColumnCount>set_list.length"><i class="el-icon-plus"></i></span>
                       <span class="s-edit s-del" @click="removeRow(i)" v-if="i!=0"><i class="el-icon-minus"></i></span>
                     </div>
                   </div>
@@ -380,6 +381,7 @@ export default {
           this.set_list[0].id = res.data[0].children[0].value;
           this.set_list[0].routeCode = res.data[0].value;
         }
+        console.log(this.appPlateList);
       }).catch(err => {
         console.log(err);
       })

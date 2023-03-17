@@ -6,15 +6,19 @@
       <div class="s-col ml-0"><span class="s-txt">名称：</span>
         <el-input class="w-saml" v-model="postForm.name" size="medium" placeholder="首页"></el-input>
       </div>
-      <div class="s-col"><span class="s-txt">服务状态：</span>
-        <el-select class="w-saml" v-model="postForm.status" size="medium" placeholder="请选择">
-          <el-option v-for="item in dataList.sceneStatus" :key="item.value" :label="item.key" :value="item.value"></el-option>
-        </el-select>
+      <div class="s-col hit-col"><span class="s-txt">服务状态：</span>
+        <el-switch v-model="postForm.status" :active-value="1" :inactive-value="0" active-color="#6777EF" inactive-color="#999"></el-switch>
+        <el-tooltip class="t-hint" effect="dark" content="禁用后该场景不能被正常访问" placement="top">
+          <i class="iconfont el-icon-vip-tishi1"></i>
+        </el-tooltip>
       </div>
-      <div class="s-col"><span class="s-txt">权限控制：</span>
+      <div class="s-col hit-col"><span class="s-txt">权限控制：</span>
         <el-select class="w-saml" v-model="postForm.visitorLimitType" @change="visitorLimitTypeCheck" size="medium" placeholder="请选择">
           <el-option v-for="item in (dataList.visitorLimitType||[])" :key="item.value" :label="item.key" :value="item.value"></el-option>
         </el-select>
+        <el-tooltip class="t-hint" effect="dark" content="设置读者群体访问权限，禁用则不判断权限" placement="top">
+          <i class="iconfont el-icon-vip-tishi1"></i>
+        </el-tooltip>
       </div>
       <div class="s-col" v-if="visitorLimitType(postForm.visitorLimitType)"><span class="s-txt">{{visitorLimitTypeText(dataList.visitorLimitType)}}：</span>
         <!-- <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
@@ -279,4 +283,15 @@ export default {
   top: 40px;
   right: 30px;
 }
+.hit-col{
+  position: relative;
+  margin-right:20px;
+  .t-hint{
+    color:#999;
+    position: absolute;
+    right:-20px;
+    top: 24px;
+  }
+}
+
 </style>

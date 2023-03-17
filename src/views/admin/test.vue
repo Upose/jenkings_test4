@@ -10,6 +10,7 @@
     </div>
     <h1>多级选择</h1>
     <el-cascader :options="options" :props="{label:'key',checkStrictly: true,emitPath:false}" :show-all-levels="false" v-model="listvalue"></el-cascader>
+    <el-cascader :options="options[0].children" :props="{label:'key',checkStrictly: true,emitPath:false}" :show-all-levels="false" v-model="listvalue"></el-cascader>
     <el-button @click="submit">默认按钮</el-button>
   </div>
 </template>
