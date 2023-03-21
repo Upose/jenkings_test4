@@ -20,11 +20,11 @@
               <i class="del-img iconfont el-icon-vip-shanchu-1" @click="postForm_head.logo=''"></i>
             </div>
           </el-form-item>
-          <el-form-item label="附加组件" prop="logo">
+          <!-- <el-form-item label="附加组件" prop="logo">
               <el-checkbox-group v-model="postForm_head.headerAttachWidget" :disabled="id?true:false">
                 <el-checkbox  v-for="(it,i) in append_list" :key="i" :label="it.value">{{it.key}}</el-checkbox>
               </el-checkbox-group>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="展示栏目">
             <div class="btns-colse-warp">
               <div class="btns-select-row" v-for="(it,i) in coumn_list" :key="i+'b'">
