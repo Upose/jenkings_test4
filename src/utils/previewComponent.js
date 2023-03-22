@@ -1,11 +1,3 @@
-/*
- * @Author: 904678748@qq.com 904678748@qq.com
- * @Date: 2023-03-14 16:49:44
- * @LastEditors: 904678748@qq.com 904678748@qq.com
- * @LastEditTime: 2023-03-14 17:30:57
- * @FilePath: \home_sys\src\utils\previewComponent.js
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- */
 //所有涉及到的模板文件
 
 const previewComponent = {
@@ -22,13 +14,22 @@ const previewComponent = {
         Vue.component('previewAllQXDM', r => { require(['@/views/admin/preview/previewAllQXDM.vue'], r) });//分段-清新淡墨
         Vue.component('previewAllNHIC', r => { require(['@/views/admin/preview/previewAllNHIC.vue'], r) });//分段-广东南华工商职业学院
         Vue.component('previewScreenNEFU', r => { require(['@/views/admin/preview/previewScreenNEFU.vue'], r) });//分段-东北林业
+        Vue.component('previewwydq', r => { require(['@/views/admin/preview/previewwydq.vue'], r) });//分段-文雅大气
 
         Vue.component('BGvideoImg', r => { require(['@/views/admin/preview/bgComponent/BGvideoImg.vue'], r) });//视频播放和轮播组件
         
-        Vue.component('onsectionfreshD', r => { require(['@/views/admin/preview/bgComponent/onsectionfresh/D.vue'], r) });//这里是模板的背景组件
-        
-        Vue.component('A', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/A.vue'], r) });//这里是模板的背景组件
-        // Vue.component('B', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/B.vue'], r) });//这里是模板的背景组件
+        Vue.component('A', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/A.vue'], r) });//清新淡墨-背景组件
+
+        Vue.component('onsectionfreshD', r => { require(['@/views/admin/preview/bgComponent/onsectionfresh/D.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqA', r => { require(['@/views/admin/preview/bgComponent/previewwydq/A.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqB', r => { require(['@/views/admin/preview/bgComponent/previewwydq/B.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqC', r => { require(['@/views/admin/preview/bgComponent/previewwydq/C.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqD', r => { require(['@/views/admin/preview/bgComponent/previewwydq/D.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqE', r => { require(['@/views/admin/preview/bgComponent/previewwydq/E.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqF', r => { require(['@/views/admin/preview/bgComponent/previewwydq/F.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqG', r => { require(['@/views/admin/preview/bgComponent/previewwydq/G.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqH', r => { require(['@/views/admin/preview/bgComponent/previewwydq/H.vue'], r) });//文雅大气-背景组件
+        Vue.component('previewwydqI', r => { require(['@/views/admin/preview/bgComponent/previewwydq/I.vue'], r) });//文雅大气-背景组件
     }
 }
 

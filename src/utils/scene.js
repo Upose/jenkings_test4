@@ -46,8 +46,10 @@ function selectComponent(details) {
             list.is_show_page = 'previewAllQXDM';
         } else if (details.template.uniqueCode == 'nhic') {
             list.is_show_page = 'previewAllNHIC';
-        }else if(details.template.code == 'nefu'){//东北林业
+        }else if(details.template.uniqueCode == 'nefu'){//东北林业
             list.is_show_page = 'previewScreenNEFU';
+        } else if(details.template.uniqueCode == 'wydq'){//文雅大气
+            list.is_show_page = 'preview'+ details.template.uniqueCode;
         } else {
             list.is_show_page = 'previewAll';
         }

@@ -758,7 +758,6 @@ export default {
     },
     //加载模板css文件
     templateCssLoad(url) {
-      console.log(url);
       if (url) {
         var docUrl = '';
         var temp = document.getElementById('templateId');

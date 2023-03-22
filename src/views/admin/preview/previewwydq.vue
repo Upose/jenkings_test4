@@ -1,4 +1,4 @@
-<!---分段-清新淡墨-广东南华工商职业学院-->
+<!---分段-文雅大气-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 
@@ -50,6 +50,10 @@ export default {
   props: ['details'],
   created() {
     if (this.details && this.details.template) {
+      if (this.details.footerTemplate && this.details.footerTemplate.router) {
+        this.$addStyle(this.details.footerTemplate.router + '/component.css');
+        this.$addScript(this.details.footerTemplate.router + '/component.js');
+      }
       if (this.details.sceneScreens) {
         this.details.sceneScreens[0].sceneApps.forEach(it => {
           if (it.appWidget && it.appWidget.target) {
@@ -102,5 +106,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "./css/previewAllQXDM.less";
+@import "./css/previewwydq.less";
 </style>
