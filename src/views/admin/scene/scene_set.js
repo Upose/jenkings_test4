@@ -788,5 +788,13 @@ export default {
       }
       return list;
     },
+    //背景判断
+    setBgTemp(val){
+      if(val && val!=null && val!=undefined){
+        return {'background':'url('+this.fileUrl+val+')'};
+      }else{
+        return '';
+      }
+    },
   },
 }
