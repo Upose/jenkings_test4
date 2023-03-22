@@ -539,6 +539,15 @@ export default {
       var _this = this;
       if (val.list && val.list.id) {
         this.http.getPlain_url('template-default-data-by-id', '/' + val.list.id).then(res => {
+
+          if(document.getElementById('dlib3_bg_img')) document.getElementById('dlib3_bg_img').remove();
+          if(document.getElementById('dlib3_bg_video')) document.getElementById('dlib3_bg_video').remove();
+          if(document.getElementById('dlib3_bg_banner_component')) document.getElementById('dlib3_bg_banner_component').remove();
+          let end = setInterval(function () { }, 10000);
+          for (let i = 1; i <= end; i++) {
+            clearInterval(i);
+          }
+          
           if (res.data && res.data.sceneScreens) {
             this.postForm['footerTemplate'] = res.data.footerTemplate || {};
             this.postForm['headerTemplate'] = res.data.headerTemplate || {};
@@ -763,7 +772,6 @@ export default {
     },
     //加载模板css文件
     templateCssLoad(url) {
-      console.log(url);
       if (url) {
         var docUrl = '';
         var temp = document.getElementById('templateId');
@@ -793,6 +801,14 @@ export default {
         }
       }
       return list;
+    },
+    //背景判断
+    setBgTemp(val){
+      if(val && val!=null && val!=undefined){
+        return {'background':'url('+this.fileUrl+val+')'};
+      }else{
+        return '';
+      }
     },
   },
 }

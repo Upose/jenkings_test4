@@ -1,4 +1,4 @@
-<!---通用预览+普通分段-->
+<!---通用预览+普通分段-东北林业-->
 <template>
   <div class="html-warp-page" :class="(details&&details.themeColor)||'template1'">
 

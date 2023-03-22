@@ -155,7 +155,7 @@ export default {
     },
     //编辑场景 tid:终端id，type：终端类型 ，id:场景id
     editClick(val,f_val){
-      console.log(val,f_val);
+      // console.log(val,f_val);
       if(this.$authShowBtn('scene-manage_edit')){
         this.$router.push({path:'admin_sceneSet',query: {tid:f_val.terminalId,type:f_val.terminalType,id:val.id}});
       }else{
