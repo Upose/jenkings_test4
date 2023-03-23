@@ -1,7 +1,7 @@
 <!--学院图书馆-->
 <template>
   <div class="a-bg-warp dlib3-bgcomponent-w">
-    <div class="a-bg-top tbg-lin-c5180-c10">
+    <div class="a-bg-top tbg-lin-c5totop-c10">
       <img src="../../../../../../static/images/previewwydq/A.png">
     </div>
   </div>

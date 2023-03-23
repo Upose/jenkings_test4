@@ -1,6 +1,6 @@
 <!--浅色背景-->
 <template>
-  <div class="c-bg-warp dlib3-bgcomponent-w tbg-lin-c8180-c70">
+  <div class="c-bg-warp dlib3-bgcomponent-w tbg-lin-c8totop-c70">
     
   </div>
 </template>
