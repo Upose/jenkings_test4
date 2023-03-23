@@ -25,6 +25,9 @@
               <el-option v-for="item in fonts" :key="item" :label="item" :value="item"></el-option>
             </el-select> -->
           </el-form-item>
+          <el-form-item label="特殊结构" prop="name" class="title-row">
+            <el-input v-model="postForm.vhtml" rows="6" type="textarea"  placeholder="填入html" show-word-limit></el-input>
+          </el-form-item>
           <el-form-item class="m-center">
             <el-button icon="iconfont el-icon-vip-baocun1" size="medium" type="primary" @click="submitForm()">保存</el-button>
           </el-form-item>
@@ -79,6 +82,7 @@ export default {
         stitle:'',
         sfsize:'12px',
         scolor:'',
+        vhtml:'',
       },
     }
   },
