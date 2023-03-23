@@ -1,6 +1,6 @@
 <!--浅色背景-->
 <template>
-  <div class="c-bg-warp dlib3-bgcomponent-w">
+  <div class="c-bg-warp dlib3-bgcomponent-w tbg-lin-c8180-c70">
     <img src="../../../../../../static/images/previewwydq/F.png">
     <div class="box-bg tborder-c1"></div>
   </div>
@@ -26,7 +26,6 @@ export default {
   width: 100%;
   height: 100%;
   min-width: 1200px;
-  background: linear-gradient(180deg, #F5FCFA 100%, #DEFCF2 0%);
   img{
     display: block;
     margin:auto;
