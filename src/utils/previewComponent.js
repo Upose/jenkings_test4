@@ -20,7 +20,8 @@ const previewComponent = {
         
         Vue.component('A', r => { require(['@/views/admin/preview/bgComponent/previewAllQXDM/A.vue'], r) });//清新淡墨-背景组件
 
-        Vue.component('onsectionfreshD', r => { require(['@/views/admin/preview/bgComponent/onsectionfresh/D.vue'], r) });//文雅大气-背景组件
+        Vue.component('onsectionfreshD', r => { require(['@/views/admin/preview/bgComponent/onsectionfresh/D.vue'], r) });//清新淡墨-背景组件
+        
         Vue.component('previewwydqA', r => { require(['@/views/admin/preview/bgComponent/previewwydq/A.vue'], r) });//文雅大气-背景组件
         Vue.component('previewwydqB', r => { require(['@/views/admin/preview/bgComponent/previewwydq/B.vue'], r) });//文雅大气-背景组件
         Vue.component('previewwydqC', r => { require(['@/views/admin/preview/bgComponent/previewwydq/C.vue'], r) });//文雅大气-背景组件
