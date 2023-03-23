@@ -1,6 +1,6 @@
 <!--深色背景-->
 <template>
-  <div class="b-bg-warp dlib3-bgcomponent-w tbg-lin-c5180-c10">
+  <div class="b-bg-warp dlib3-bgcomponent-w tbg-lin-c5totop-c10">
     <img src="../../../../../../static/images/previewwydq/G.png">
   </div>
 </template>
