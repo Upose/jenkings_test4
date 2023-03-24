@@ -215,8 +215,8 @@ export default {
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
       if (val.appWidget && val.appWidget.target) {
-        this.$addStyle(val.appWidget.target + '/component.css');
-        this.$addScript(val.appWidget.target + '/component.js');
+        this.$addStyle(val.appWidget.target + '/component.css',val.appWidget.widgetCode);
+        this.$addScript(val.appWidget.target + '/component.js',val.appWidget.widgetCode);
       }
       return list;
     },

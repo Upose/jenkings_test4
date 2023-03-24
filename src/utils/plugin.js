@@ -79,23 +79,29 @@ function isThirdpartyApp(is_web, url) {
   return is_open;
 }
 
-function addStyle(url) {
+function addStyle(url,code) {
+  if(code&&document.getElementsByClassName(code+'-css').length>0)return;
   var link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
   link.setAttribute("type", "text/css");
+  if(code)link.setAttribute("class", code+"-css");
   link.setAttribute("href", process.env.VUE_APP_TEMPLATESRC + url + '?version=' + new Date().getTime());
   document.getElementsByTagName("body")[0].appendChild(link);
 }
-function addStyleLocal(url) {
+function addStyleLocal(url,code) {
+  if(code&&document.getElementsByClassName(code+'-css').length>0)return;
   var link = document.createElement("link");
   link.setAttribute("rel", "stylesheet");
+  if(code)link.setAttribute("class", code+"-css");
   link.setAttribute("type", "text/css");
   link.setAttribute("href", url + '?version=' + new Date().getTime());
   document.getElementsByTagName("body")[0].appendChild(link);
 }
-function addScript(url) {
+function addScript(url,code) {
+  if(code&&document.getElementsByClassName(code+'-js').length>0)return;
   var js_element = document.createElement("script");
   js_element.setAttribute("type", "text/javascript");
+  if(code)js_element.setAttribute("class", code+"-js");
   js_element.setAttribute("src", process.env.VUE_APP_TEMPLATESRC + url + '?version=' + new Date().getTime());
   document.getElementsByTagName("body")[0].appendChild(js_element);
 }
