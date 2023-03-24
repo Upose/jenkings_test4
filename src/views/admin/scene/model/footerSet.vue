@@ -141,7 +141,7 @@ export default {
       this.postForm_fot.footerDisplayNavColumn = [];
       this.postForm_fot.content = tinyMCE.activeEditor.getContent()||'';
       this.coumn_list.forEach(item => {
-        if (item.value) this.postForm_fot.footerDisplayNavColumn.push(item.value)
+        if (item.columnId) this.postForm_fot.footerDisplayNavColumn.push(item.columnId)
       })
       if(this.childPage){ //设置子页面头部信息
         this.$emit('childFootSet',this.postForm_fot)
