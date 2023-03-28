@@ -100,7 +100,20 @@ export default {
   methods: {
     //点击事件-组件操作
     documentFun(e) {
-      if (e.target.className == 'jl_vip_zt_del') {//删除按钮
+      if (e.target.className.indexOf('jl_vip_zt_del')>-1) {//删除按钮
+        
+        //删除时，如果是有新闻标记的，需要在删除时判断是否有dalib3-banner-tag，然后清空对应的banner。
+        var cs = (e.target.className.split(' ')||[])[1];
+        if(cs){
+          let a = cs.slice(0,cs.length-4)+'-warp';
+          console.log(document.getElementsByClassName(a));
+          if(document.getElementsByClassName(a) && document.getElementsByClassName(a)[0]){
+            if(document.getElementsByClassName(a)[0]._prevClass.indexOf('dalib3-banner-tag')>-1){
+              if (document.getElementById('dlib3_bg_banner_component')) document.getElementById('dlib3_bg_banner_component').innerHTML='';
+            }
+          }
+        }
+        
         if (e.target.parentNode.parentNode.parentNode) {
           admin_vue.grid.removeWidget(e.target.parentNode.parentNode.parentNode);
           admin_vue.saveList();
@@ -539,13 +552,14 @@ export default {
       var _this = this;
       if (val.list && val.list.id) {
         this.http.getPlain_url('template-default-data-by-id', '/' + val.list.id).then(res => {
-
-          if(document.getElementById('dlib3_bg_img')) document.getElementById('dlib3_bg_img').remove();
+          debugger
           if(document.getElementById('dlib3_bg_video')) document.getElementById('dlib3_bg_video').remove();
-          if(document.getElementById('dlib3_bg_banner_component')) document.getElementById('dlib3_bg_banner_component').remove();
-          let end = setInterval(function () { }, 10000);
-          for (let i = 1; i <= end; i++) {
-            clearInterval(i);
+          if(document.getElementById('dlib3_bg_img')) document.getElementById('dlib3_bg_img').innerHTML='';
+          if(document.getElementById('dlib3_bg_banner_component')) document.getElementById('dlib3_bg_banner_component').innerHTML='';
+          
+          
+          if(window.dalib3_banner_interval){
+            clearInterval(window.dalib3_banner_interval);
           }
           
           if (res.data && res.data.sceneScreens) {
@@ -764,10 +778,10 @@ export default {
       var data_common = (val.commonWidgetSet && val.commonWidgetSet != 'undefined' && val.commonWidgetSet != 'null' && Object.keys(val.commonWidgetSet).length != 0) ? val.commonWidgetSet.replace(/\"/g, "'") : '{}';
       var data_set = JSON.stringify(val.appPlateItems || []).replace(/\"/g, "'");
       switch (type) {
-        case 'a': return '<div class="jl_vip_zt_warp ' + (val.appWidget ? val.appWidget.widgetCode : val.widgetCode) + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget ? val.appWidget.id : val.id) + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
-        case 'b': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
-        case 'c': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
-        case 'd': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'a': return '<div class="jl_vip_zt_warp ' + (val.appWidget ? val.appWidget.widgetCode : val.widgetCode) + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del '+(val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode)+'_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + (val.appWidget ? val.appWidget.id : val.id) + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'b': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + val.divId + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del '+(val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode)+'_del"></i><div class="mask-layer" data-appId="' + val.appId + '" data-appWidgetId="' + val.tempId + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + val.divId + '"></div></div>';
+        case 'c': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del '+(val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode)+'_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
+        case 'd': return '<div class="jl_vip_zt_warp ' + val.widgetCode + '" data-code="' + (val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode) + '" data-id="' + create_id + '" data-set="' + data_set + '" data-obj="' + data_obj + '" data-common="' + data_common + '"><i class="jl_vip_zt_del '+(val.appWidget ? val.appWidget.uniqueCode : val.uniqueCode)+'_del"></i><div class="mask-layer mask-layer-active" data-appId="' + val.appId + '" data-appWidgetId="' + val.id + '" data-set="' + data_set + '"data-common="' + data_common + '" data-obj="' + data_obj + '"></div><div id="' + create_id + '"></div></div>';
       }
     },
     //加载模板css文件
