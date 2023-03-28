@@ -6,18 +6,18 @@
  * @LastEditors: gongqin
 -->
 <template>
-  <div class="s-row" :class="isActive(item.router)?'active':''" :title="item.name" @click="openPage(item)">
+  <a class="s-row" :class="isActive(item.router)?'active':''" :title="item.name" :href="$setHref({ url:item.router})">
     <i class="iconfont el-icon-vip-daohanglanmu"></i>
     <span>{{item.name}}</span>
-  </div>
+  </a>
 </template>
 <script>
 export default {
   props: ['item'],
   methods: {
-    openPage(val) {
-      this.$router.push(val.router);
-    },
+    // openPage(val) {
+    //   this.$router.push(val.router);
+    // },
     //是否当前菜单
     isActive(url) {
       var cu_href = this.$route.meta.parentRoute;
@@ -33,6 +33,7 @@ export default {
 <style lang="less" scoped>
 @import "~@/assets/admin/css/color.less"; /**颜色配置 */
 .s-row {
+  display: block;
   height: 40px;
   line-height: 40px;
   font-size: 13px;
