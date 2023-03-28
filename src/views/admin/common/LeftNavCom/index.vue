@@ -2,8 +2,8 @@
  * @Description: 后台左侧导航栏
  * @Author: wanjikun
  * @Date: 2022-07-25 14:10:18
- * @LastEditTime: 2022-07-27 16:57:39
- * @LastEditors: gongqin
+ * @LastEditTime: 2023-03-28 11:28:36
+ * @LastEditors: 904678748@qq.com 904678748@qq.com
 -->
 <template>
   <div class="header-warp">
@@ -11,7 +11,7 @@
       <div class="m-text">
         <span class="m">{{appInfo.appName}}</span>
         <div class="v-cont">
-          <span class="v" @click="openLog(appInfo.logUrl)">v{{appInfo.appVersion}}</span>
+          <a class="v" :href="openLog(appInfo.logUrl)">v{{appInfo.appVersion}}</a>
           <img  @click="collapseChage" :src="$root.collapse ? zhankai :shouqi" class="img-collapse"/>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default {
       }
     },
     openLog(url) {
-      window.location.href = url;
+      return this.$setHref({ url: url, type: 'full' });
     },
     // 侧边栏折叠展开
     collapseChage() {
@@ -98,7 +98,7 @@ export default {
       transform: translateY(-50%);
       background-color: @m-col-b9;
     }
-    span {
+    span,a {
       display: block;
       color: #3E54EE;
       padding-left: 16px;

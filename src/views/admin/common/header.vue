@@ -8,8 +8,10 @@
     <!--开启关闭左侧菜单按钮-->
 
     <div class="m-box-list" :class="{'logo-collapse-left':$root.collapse}">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="item.appName" :name="index" v-for="(item,index) in dataList" :key="index"></el-tab-pane>
+      <el-tabs v-model="activeName">
+        <el-tab-pane :label="item.appName" :name="index" v-for="(item,index) in dataList" :key="index">
+          <a slot="label" :href="handleClick(index)">{{ item.appName }}</a>
+        </el-tab-pane>
       </el-tabs>
     </div><!--顶部导航菜单-->
 
@@ -51,9 +53,8 @@ export default {
     }).catch(err=>{})
   },
   methods:{
-    //菜单点击事件
-    handleClick(tab, event) {
-      window.location.href = this.dataList[this.activeName].backendUrl||'#';
+    handleClick(val) {
+      return this.$setHref({ type: 'full', url: this.dataList[val].backendUrl })
     },
     //退出登录
     outLogin(){
