@@ -16,7 +16,7 @@
     </div><!--顶部导航菜单-->
 
     <div class="login-msg-warp">
-      <div class="u-img-w"><el-image class="u-img" v-if="userInfo" :src="fileUrl+userInfo.photo||default_img" :fit="'contain'"></el-image></div>
+      <div class="u-img-w"><el-image class="u-img" v-if="userInfo" :src="this.$imgUrlComple(userInfo.photo)||default_img" :fit="'contain'"></el-image></div>
       <span class="u-name">{{userInfo.name||''}}</span>
       <i class="iconfont el-icon-vip-tuichu loginOut" title="退出登录" @click="outLogin()"></i>
     </div><!--右侧用户信息/退出登录板块-->
