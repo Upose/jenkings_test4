@@ -44,6 +44,8 @@ function selectComponent(details) {
         list.min_height = '100%';
         if (details.template.uniqueCode == 'onsectionlightink') {
             list.is_show_page = 'previewAllQXDM';
+        }else if (details.template.uniqueCode == 'wnyxy') {
+            list.is_show_page = 'previewAllQXDM';
         } else if (details.template.uniqueCode == 'nhic') {
             list.is_show_page = 'previewAllNHIC';
         }else if(details.template.uniqueCode == 'nefu'){//东北林业
