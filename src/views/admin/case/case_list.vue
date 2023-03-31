@@ -152,8 +152,9 @@ export default {
     },
     //设置为默认首页
     setDefalutHome(val){
-      this.http.postPlain('set-default-index-page',{terminalId:val.terminalId,scenegroupid:val.id}).then(res=>{
-        console.log(res);
+      this.http.postJson('set-default-index-page',{terminalId:val.terminalId,scenegroupid:val.id}).then(res=>{
+        this.$message({type: 'success',message: '设置成功!'});
+        this.initData();
       }).catch(err=>{
         console.log(err);
       })
