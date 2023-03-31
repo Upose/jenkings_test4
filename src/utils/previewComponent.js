@@ -15,6 +15,7 @@ const previewComponent = {
         Vue.component('previewAllNHIC', r => { require(['@/views/admin/preview/previewAllNHIC.vue'], r) });//分段-广东南华工商职业学院
         Vue.component('previewScreenNEFU', r => { require(['@/views/admin/preview/previewScreenNEFU.vue'], r) });//分段-东北林业
         Vue.component('previewwydq', r => { require(['@/views/admin/preview/previewwydq.vue'], r) });//分段-文雅大气
+        Vue.component('previewwit', r => { require(['@/views/admin/preview/previewwit.vue'], r) });//分屏-智慧灵动
 
         Vue.component('BGvideoImg', r => { require(['@/views/admin/preview/bgComponent/BGvideoImg.vue'], r) });//视频播放和轮播组件
         
@@ -31,6 +32,8 @@ const previewComponent = {
         Vue.component('previewwydqG', r => { require(['@/views/admin/preview/bgComponent/previewwydq/G.vue'], r) });//文雅大气-背景组件
         Vue.component('previewwydqH', r => { require(['@/views/admin/preview/bgComponent/previewwydq/H.vue'], r) });//文雅大气-背景组件
         Vue.component('previewwydqI', r => { require(['@/views/admin/preview/bgComponent/previewwydq/I.vue'], r) });//文雅大气-背景组件
+
+        Vue.component('previewwitA', r => { require(['@/views/admin/preview/bgComponent/previewwit/A.vue'], r) });//智慧灵动-背景组件
     }
 }
 
