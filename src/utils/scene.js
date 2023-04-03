@@ -35,6 +35,8 @@ function selectComponent(details) {
             list.is_show_page = 'previewScreenSZJS';
         } else if (details.template.uniqueCode == 'imust') {//内蒙古科技大学
             list.is_show_page = 'previewScreenNMGKJDX';
+        } else if (details.template.uniqueCode == 'wit') {//智慧灵动
+            list.is_show_page = 'previewwit';
         } else {
             list.is_show_page = 'previewScreen';
         }
