@@ -25,10 +25,9 @@
               </div>
             </div>
 
-            <div class="temp-footer" v-if="(i+1)==details.sceneScreens.length && details.footerTemplate">
-              <component v-if="details.footerTemplate" :is="'previewfoot'" :data="details" :isstyleSet="false"></component>
-            </div>
-
+          </div>
+          <div class="temp-footer" ref="tempFooter" v-if="details.footerTemplate">
+            <component v-if="details.footerTemplate" :is="'previewfoot'" :data="details" :isstyleSet="false"></component>
           </div>
         </div>
       </div>
@@ -82,18 +81,25 @@ export default {
         // 'min-width':'1200px',//这个地方要根据是否选择的通屏100%；left:50%;margin-left:-600px;
       };
       if (val.appWidget && val.appWidget.target) {
-        this.$addStyle(val.appWidget.target + '/component.css',val.appWidget.widgetCode);
-        this.$addScript(val.appWidget.target + '/component.js',val.appWidget.widgetCode);
+        this.$addStyle(val.appWidget.target + '/component.css', val.appWidget.widgetCode);
+        this.$addScript(val.appWidget.target + '/component.js', val.appWidget.widgetCode);
       }
       return list;
     },
     /********************分屏************** */
     //悬浮菜单点击事件
     clickSilder(val) {
+      this.fullpage.current = val + 1;
       this.move(val + 1);
     },
     next() {
       let len = this.details.sceneScreens.length || 0;
+      // 最后一屏 向下滚动时出现底部
+      if (this.fullpage.current == len) {
+        this.fullpage.current += 1;
+        let footerHeight = this.$refs.tempFooter.offsetHeight;
+        this.move(len, footerHeight * -1)
+      }
       if (this.fullpage.current + 1 <= len) {
         this.fullpage.current += 1;
         this.move(this.fullpage.current);
@@ -105,20 +111,20 @@ export default {
         this.move(this.fullpage.current);
       }
     },
-    move(index) {
+    move(index, footerHeight = 0) {
       this.fullpage.isScrolling = true;
-      this.directToMove(index);
+      this.directToMove(index, footerHeight);
       setTimeout(() => {
         this.fullpage.isScrolling = false;
       }, 1010);
     },
-    directToMove(index) {
+    directToMove(index, footerHeight = 0) {
       let height = this.$refs["fullPage"].clientHeight;
       let scrollPage = this.$refs["fullPageContainer"];
       let scrollHeight;
-      scrollHeight = -(index - 1) * height + "px";
+      scrollHeight = -(index - 1) * height + footerHeight + "px";
       scrollPage.style.transform = `translateY(${scrollHeight})`;
-      this.fullpage.current = index;
+      // this.fullpage.current = index;
     },
     mouseWheelHandle(event) {
       let evt = event || window.event;
