@@ -1,3 +1,11 @@
+/*
+ * @Author: 904678748@qq.com 904678748@qq.com
+ * @Date: 2023-04-03 10:18:32
+ * @LastEditors: 904678748@qq.com 904678748@qq.com
+ * @LastEditTime: 2023-04-03 16:35:08
+ * @FilePath: \home_sys\src\utils\fileUP.js
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import bus from './bus';
 /**
  * 
@@ -44,7 +52,7 @@ function fileUpload(e, filetype, field) {
       return;
     }
   
-    http.postFile("UploadFile", formData).then((res) => {
+    this.http.postFile("UploadFile", formData).then((res) => {
       bus.$emit('getUpladFile', { key: field, url: res.data[0] });
     }).catch((err) => {
       this.$message({ type: 'error', message: err.message || '上传失败!' });
