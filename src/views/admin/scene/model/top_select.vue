@@ -20,7 +20,7 @@
           <i class="iconfont el-icon-vip-tishi1"></i>
         </el-tooltip>
       </div>
-      <div class="s-col" v-if="visitorLimitType(postForm.visitorLimitType)"><span class="s-txt">{{visitorLimitTypeText(dataList.visitorLimitType)}}：</span>
+      <div class="s-col" v-show="visitorLimitType(postForm.visitorLimitType)"><span class="s-txt">{{visitorLimitTypeText(dataList.visitorLimitType)}}：</span>
         <!-- <el-select v-model="userType_data" @change="userClcik" size="medium" multiple collapse-tags placeholder="请选择">
                 <el-option v-for="item in userType" :key="item.value" :label="item.key" :value="item.value"></el-option>
             </el-select> 多选-->
@@ -59,6 +59,11 @@ export default {
           this.getUserType(this.postForm['visitorLimitType'], false);
         }
     },
+    'postForm.sceneUsers'(nval, oval){
+        if(this.postForm['sceneUsers'] && this.postForm['sceneUsers'].length>0){
+          this.userType_one = this.postForm['sceneUsers'][0].userSetId||'';
+        }
+    },
   },
   data() {
     return {
@@ -69,6 +74,9 @@ export default {
       userType_one: '',
       top_fold:true,
     }
+  },
+  mounted(){
+
   },
   methods: {
     //设置详情
@@ -145,11 +153,13 @@ export default {
         this.postForm.user_type = [];
         this.userType_data = [];
       }
+      debugger
       this.http.getPlain_url('dictionary-by-type', '/' + id).then(res => {
         this.userType = res.data || [];
       }).catch(err => {
         console.log(err);
       })
+      console.log('userType',this.userType);
     },
     //是否显示用户选择框
     visitorLimitType(val) {
