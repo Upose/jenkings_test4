@@ -87,7 +87,7 @@ export default {
       if(this.postForm_fot.footerDisplayNavColumn.length>0){
         this.coumn_list = [];
         this.postForm_fot.footerDisplayNavColumn.forEach(it=>{
-          this.coumn_list.push({value:it});
+          this.coumn_list.push({columnId:it});
         })
       }
     }
