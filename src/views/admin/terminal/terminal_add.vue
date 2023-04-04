@@ -48,14 +48,14 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="浏览器ico" prop="ico">
+              <el-form-item label="浏览器图标" prop="ico">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.icoPath">
                     <img :src="postForm.icoPath?(basurl+postForm.icoPath):default_img">
                   </div>
                   <div class="up-img-warp up-icon">
-                    <span>上传ico文件</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'ico','icoPath')">
+                    <span>上传图片文件</span>
+                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','icoPath')">
                   </div>
                 </div>
               </el-form-item>
