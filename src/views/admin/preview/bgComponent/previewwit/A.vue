@@ -2,7 +2,7 @@
 <template>
   <div class="a-bg-warp dlib3-bgcomponent-w">
     <div class="a-bg-top tbg-lin-c5totop-c10">
-      
+      <!-- <img src="../../../../../../static/images/previewwit/bg.png"> -->
     </div>
   </div>
 </template>
