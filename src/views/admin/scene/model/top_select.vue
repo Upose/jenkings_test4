@@ -7,7 +7,7 @@
         <el-input class="w-saml" v-model="postForm.name" size="medium" placeholder="首页"></el-input>
       </div>
       <div class="s-col hit-col"><span class="s-txt">服务状态：</span>
-        <el-switch v-model="postForm.status" :active-value="1" :inactive-value="0" active-color="#6777EF" inactive-color="#999"></el-switch>
+        <el-switch v-model="postForm.status" :active-value="0" :inactive-value="1" active-color="#6777EF" inactive-color="#999"></el-switch>
         <el-tooltip class="t-hint" effect="dark" content="禁用后该场景不能被正常访问" placement="top">
           <i class="iconfont el-icon-vip-tishi1"></i>
         </el-tooltip>
