@@ -154,7 +154,7 @@ export default {
     setDefalutHome(val){
       this.http.postJson('set-default-index-page',{terminalId:val.terminalId,scenegroupid:val.id}).then(res=>{
         this.$message({type: 'success',message: '设置成功!'});
-        this.initData();
+        window.location.reload();
       }).catch(err=>{
         console.log(err);
       })
