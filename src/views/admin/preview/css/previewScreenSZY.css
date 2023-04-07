@@ -136,6 +136,9 @@
     overflow-x: auto;
   }
 }
+ /deep/ .dlib3-temp-imgvideo .img-warp-bg {
+  background-size: 100% 100% !important;
+}
 #temp1 {
   background-image: url(../../../../../static/images/szy/part2-rightbg.png), url(../../../../../static/images/szy/line-bg.jpg);
   background-position: 100% 0%, bottom center;
