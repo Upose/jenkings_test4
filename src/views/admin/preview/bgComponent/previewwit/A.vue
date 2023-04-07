@@ -1,6 +1,7 @@
+
 <!--学院图书馆-->
 <template>
-  <div class="a-bg-warp dlib3-bgcomponent-w">
+  <div class="a-bg-warp dlib3-bgcomponent-w tbg-c7">
     <div class="title-w">
       <span class="img-l"></span>
       <i class="title tfont-c2 dlib3-wit-title">个人图书馆</i>
@@ -8,7 +9,7 @@
     </div>
     <img src="../../../../../../static/images/previewwit/b-t.png" class="b-t">
     <img src="../../../../../../static/images/previewwit/b-b.png" class="b-b">
-    <div class="a-bg-top tbg-lin-c5totop-c10"></div>
+    <div class="a-bg-top"></div>
     <img src="../../../../../../static/images/previewwit/bg.png" class="bg">
   </div>
 </template>
@@ -33,7 +34,6 @@ export default {
   width: 100%;
   height: 100%;
   min-width: 1200px;
-  background: #DDFCFF;
   display: flex;
   align-items: center;
   justify-content: center;
