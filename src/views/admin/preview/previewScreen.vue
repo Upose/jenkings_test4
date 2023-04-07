@@ -26,7 +26,7 @@
             </div>
 
             <div class="temp-footer" v-if="(i+1)==details.sceneScreens.length && details.footerTemplate">
-              <component :data="details" :isstyleSet="false"></component>
+              <component :data="details" :is="'previewfoot'" :isstyleSet="false"></component>
             </div>
 
           </div>
