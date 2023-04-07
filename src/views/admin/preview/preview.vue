@@ -28,7 +28,7 @@ export default {
       if (this.details.jsPath && this.details.jsPath.length > 0) {
         var list = this.details.jsPath.split(';');
         list.forEach(it => {
-          this.$addScript(it);
+          this.$addScript(this.fileUrl+it);
         })
       }
     }
