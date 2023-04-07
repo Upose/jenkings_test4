@@ -66,7 +66,7 @@ export default {
 
     this.bus.$on("getUpladFile",(res)=>{
       if(/^[0-9]+.?[0-9]*$/.test(res.key)){
-        this.jsPath[res.key].value = this.fileUrl + (res.url||'');
+        this.jsPath[res.key].value = (res.url||'');
         this.$forceUpdate();
       }
     })
