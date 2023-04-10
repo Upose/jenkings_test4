@@ -552,7 +552,6 @@ export default {
       var _this = this;
       if (val.list && val.list.id) {
         this.http.getPlain_url('template-default-data-by-id', '/' + val.list.id).then(res => {
-          debugger
           if(document.getElementById('dlib3_bg_video')) document.getElementById('dlib3_bg_video').remove();
           if(document.getElementById('dlib3_bg_img')) document.getElementById('dlib3_bg_img').innerHTML='';
           if(document.getElementById('dlib3_bg_banner_component')) document.getElementById('dlib3_bg_banner_component').innerHTML='';
@@ -568,6 +567,7 @@ export default {
             this.postForm['sceneScreens'] = res.data.sceneScreens || [];
             this.postForm['template'] = res.data.template || {};
             this.postForm['themeColor'] = res.data.themeColor || 'template1';
+            this.screen_cu = 0;
             //这里要清空头底模板
             document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
             document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
