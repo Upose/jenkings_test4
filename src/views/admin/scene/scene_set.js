@@ -581,8 +581,8 @@ export default {
             this.postForm['themeColor'] = res.data.themeColor || 'template1';
             this.screen_cu = 0;
             //这里要清空头底模板
-            document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
-            document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + new Date().getTime()) + '"></div>';
+            document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + this.$setId()) + '"></div>';
+            document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + this.$setId()) + '"></div>';
             this.grid.removeAll();//清除元素
             //这里还要做头部底部的更新
             this.detailsRender(this.postForm);
