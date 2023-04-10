@@ -376,7 +376,9 @@ export default {
           var w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-w');
           var h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-h');
           var code = is_cu_temp[0].parentNode.getAttribute('data-code');
-          if(code != data.widgetCode){
+          if(code == data.widgetCode){
+            // console.log('组件等于当前组件');
+          }else{
             w = data.width;
             h = data.height;
           }
