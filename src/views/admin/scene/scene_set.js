@@ -578,8 +578,6 @@ export default {
             //这里要清空头底模板
             document.getElementById('jl_vip_zt_footer_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + this.$setId()) + '"></div>';
             document.getElementById('jl_vip_zt_header_warp').innerHTML = '<div id="' + ('jl_vip_zt_' + this.$setId()) + '"></div>';
-            console.log(document.getElementById('jl_vip_zt_footer_warp').innerHTML);
-            console.log(document.getElementById('jl_vip_zt_header_warp').innerHTML);
             this.grid.removeAll();//清除元素
             //这里还要做头部底部的更新
             this.detailsRender(this.postForm);
