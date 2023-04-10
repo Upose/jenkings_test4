@@ -160,7 +160,6 @@
   left: 0;
   right: 0;
   z-index: 1;
-  /***************屏幕按钮板块 */
 }
 .admin-content .drag-content .drag-c .scaling-right {
   position: fixed;
@@ -209,112 +208,6 @@
 .admin-content .drag-content .drag-c .drag-container img {
   width: 1198px;
   display: block;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag {
-  padding: 20px 5px;
-  padding-bottom: 0;
-  background-color: #F1F3F7;
-  /***首屏选中效果-不显示删除按钮 */
-  /***选中效果 */
-  /****新增按钮 */
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .drag-box-warp {
-  display: inline-block;
-  margin-right: -5px;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border {
-  margin-bottom: 20px;
-  width: 126px;
-  background-color: #C5CFE0;
-  color: #34395E;
-  margin-right: 40px;
-  margin-left: 0;
-  position: relative;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border:first-child {
-  margin-left: 0;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border::after {
-  position: absolute;
-  content: '';
-  display: block;
-  left: -5px;
-  right: -5px;
-  top: -5px;
-  bottom: -5px;
-  border: 1px dashed #BCBCBC;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .txt-show,
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .txt-edit {
-  display: block;
-  width: 100%;
-  height: 100%;
-  line-height: 34px;
-  position: absolute;
-  left: 0;
-  z-index: 2;
-  top: 0;
-  border-radius: 3px;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .txt-edit {
-  padding-right: 20px;
-  cursor: auto;
-  padding: 0 5px;
-  border: 1px solid #C5CFE0;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .s-b-d-close {
-  position: absolute;
-  right: -10px;
-  top: -10px;
-  display: none;
-  z-index: 3;
-  font-size: 16px;
-  color: #6C757D;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .s-b-d-close:hover {
-  opacity: 0.8;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .s-b-d-close:active {
-  opacity: 1;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .s-btn-edit {
-  display: none;
-  cursor: pointer;
-  position: absolute;
-  right: -1px;
-  bottom: -1px;
-  z-index: 3;
-  font-size: 12px;
-  color: #fff;
-  background: #6777ef;
-  padding: 7px;
-  transform: scale(0.9);
-  border-radius: 44px 0 0 0;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .default-btn-n-border .s-btn-edit:hover {
-  background: #6c757d;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .screen-one {
-  margin-right: 35px;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .s-b-active {
-  color: #fff;
-  background: linear-gradient(353deg, #9985FF 0%, #9985FF 54%, #A18FFF 56%, #A18FFF 100%);
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .s-b-active .s-btn-edit {
-  display: block;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .s-b-active-close {
-  color: #fff;
-  background: linear-gradient(353deg, #9985FF 0%, #9985FF 54%, #A18FFF 56%, #A18FFF 100%);
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .s-b-active-close .s-b-d-close,
-.admin-content .drag-content .drag-c .screen-btn-drag .s-b-active-close .s-btn-edit {
-  display: block;
-}
-.admin-content .drag-content .drag-c .screen-btn-drag .s-b-add {
-  margin-right: 0 !important;
-  background: #E4E6FC;
 }
 .jl_vip_zt_warp_hf {
   position: relative;

@@ -41,7 +41,7 @@
               <div class="drag-box-btn-w" @click="templateClick(i)" v-for="i in sceneTemplate">
                 <div class="drag-box" :class="setTemplayteBG(i)" :title="i.name">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="templateId==i.id"></i>
-                  <span class="d-b-txt fot-c2">{{i.name||'暂无'}}</span>
+                  <span class="d-b-txt fot-c2 block">{{i.name||'暂无'}}</span>
                 </div>
               </div>
             </el-collapse-item>

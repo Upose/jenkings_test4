@@ -31,29 +31,6 @@
            </leftCheck>
 
           <div class="drag-c">
-            <!-- <div class="screen-btn-drag" v-show="(postForm.layoutId== 2||postForm.layoutId== 3) && postForm.template">
-              <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==0?'s-b-active':''">
-                <span class="txt-show" @click="screenClick(0)">{{screen_list[0].screenName||''}}</span>
-                <input type="text" class="txt-edit" v-model="screen_list[0].screenName" v-if="screen_list[0].isedit"/>
-                <i class="iconfont s-btn-edit" :class="screen_list[0].isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(0)"></i>
-              </el-button>
-              <span class="drag-box-warp" ref="dragBox" style="display: unset;">
-                <el-button size="small" v-for="(item,index) in screen_list" :key="'dragbox'+index" class="default-btn-n-border" :class="screen_cu==index?'s-b-active-close':''" v-if="index!=0 && index!=(screen_list.length-1)">
-                  <span class="txt-show" @click="screenClick(index)">{{item.screenName||''}}</span>
-                  <input type="text" class="txt-edit" v-model="item.screenName" v-if="item.isedit"/>
-                  <span class="s-b-d-close el-icon-error" @click.stop="removScreen(index)"></span>
-                  <i class="iconfont s-btn-edit" :class="item.isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(index)"></i>
-                </el-button>
-              </span>
-              <el-button size="small" class="default-btn-n-border screen-one" :class="screen_cu==(screen_list.length-1)?'s-b-active':''">
-                <span class="txt-show"  @click="screenClick(screen_list.length-1)">{{screen_list[screen_list.length-1].screenName||''}}</span>
-                <input type="text" class="txt-edit" v-model="screen_list[screen_list.length-1].screenName" v-if="screen_list[screen_list.length-1].isedit"/>
-                <i class="iconfont s-btn-edit" :class="screen_list[screen_list.length-1].isedit?'el-icon-vip-gou2':'el-icon-vip-bianji'" @click.stop="editScreen(screen_list.length-1)"></i>
-              </el-button>
-              <el-button size="small" class="default-btn-n-border s-b-add" icon="el-icon-plus" @click="addScreen()">新增1屏</el-button>
-            </div> -->
-            <!--屏幕数量+拖拽排序 end-->
-
             <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
               <div class="drag-warp-bg jl_vip_zt_warp_preview" :style="{'zoom':ratio_num}">
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
