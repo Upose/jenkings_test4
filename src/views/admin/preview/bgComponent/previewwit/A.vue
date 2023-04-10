@@ -4,24 +4,29 @@
   <div class="a-bg-warp dlib3-bgcomponent-w tbg-c7">
     <div class="title-w">
       <span class="img-l"></span>
-      <i class="title tfont-c2 dlib3-wit-title">个人图书馆</i>
+      <i class="title tfont-c2 dlib3-wit-title">标题设置</i>
       <span class="img-r"></span>
     </div>
     <img src="../../../../../../static/images/previewwit/b-t.png" class="b-t">
     <img src="../../../../../../static/images/previewwit/b-b.png" class="b-b">
     <div class="a-bg-top"></div>
-    <img src="../../../../../../static/images/previewwit/bg.png" class="bg">
+    <img :src="bgImg" class="bg">
   </div>
 </template>
 
 <script>
 export default {
+  props:['data'],
   data() {
     return {
+      bgImg:require('../../../../../../static/images/previewwit/bg.png'),
+      fileUrl: window.localStorage.getItem('fileUrl'),
     }
   },
   mounted() {
-
+    if(this.data && this.data.bgImg){
+      this.bgImg = this.fileUrl+this.data.bgImg;
+    }
   },
   methods: {
     

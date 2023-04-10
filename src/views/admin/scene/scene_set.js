@@ -252,7 +252,12 @@ export default {
       //添加屏时，始终将尾屏放到最后
       var last_sceen = this.screen_list[this.screen_list.length - 1];
       var sceen_name = '第' + (this.screen_list.length) + (this.postForm.layoutId == 2 ? '段' : '屏');
-      this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name };
+      // this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name };
+      if(this.postForm.template && this.postForm.template.uniqueCode == 'wit'){//如果模板是智慧灵动-则添加屏时默认增加背景组件
+        this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name ,customParameter:'previewwitA'};
+      }else{
+        this.screen_list[this.screen_list.length - 1] = { icon: '', bgImg: '', sceneApps: [], screenName: sceen_name};
+      }
       this.screen_list.push(last_sceen);
     },
     //删除一屏
