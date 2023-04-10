@@ -375,15 +375,20 @@ export default {
           var y = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-y');
           var w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-w');
           var h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-h');
+          var code = is_cu_temp[0].parentNode.getAttribute('data-code');
+          if(code != data.widgetCode){
+            w = data.width;
+            h = data.height;
+          }
           // var min_w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-w');
           // var min_h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-h');
           // console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
-          console.log('组件参数',data,x,y,w,h);
+          // console.log('组件参数',data,x,y,w,h);//这里还要加个判断-组件相同则h:h,w:w,否则
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
             x: x, y: y, 
-            h: data.height, 
-            w: data.width,
+            h: h, 
+            w: w,
             minW: data.minWidth,
             minH: data.minHeight,
             target: data.target,
