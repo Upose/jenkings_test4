@@ -378,7 +378,7 @@ export default {
           // var min_w = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-w');
           // var min_h = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-min-h');
           // console.log('这里的最大最小值是否为更换后元素的值',min_w,min_h);
-          console.log(data);
+          console.log('组件参数',data,x,y,w,h);
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
             x: x, y: y, 

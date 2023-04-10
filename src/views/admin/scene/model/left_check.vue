@@ -231,7 +231,7 @@ export default {
       this.initLeftData();
     });
     //获取通用组件
-    this.http.getPlain_url('app-widget-list-by-app-id', '/common').then(res => {
+    this.http.getPlain_url('app-widget-list-by-app-id', '?appid=common').then(res => {
       this.common_tempList = res.data || [];
     });
   },

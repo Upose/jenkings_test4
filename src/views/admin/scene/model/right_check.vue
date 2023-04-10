@@ -127,7 +127,7 @@ export default {
   name: 'index',
   mounted() {
     //获取通用组件
-    this.http.getPlain_url('app-widget-list-by-app-id', '/common').then(res => {
+    this.http.getPlain_url('app-widget-list-by-app-id', '?appid=common').then(res => {
       this.common_tempList = res.data || [];
     });
     this.bus.$on("getUpladFile", (res) => {
@@ -237,7 +237,7 @@ export default {
         this.availableConfig = '';
         this.is_hf = val;
         this.setAppsName(val=='foot'?'底部':'头部');
-        this.http.getPlain_url('app-widget-list-by-app-id', '/' + val).then(res => {
+        this.http.getPlain_url('app-widget-list-by-app-id', '?appid=' + val+'&uniquecode='+this.postForm.template.uniqueCode).then(res => {
           this.template_list = res.data || [];
           if (val == 'foot') {
             this.template_check = this.postForm.footerTemplate.id || '';
@@ -287,7 +287,7 @@ export default {
       this.commonTemplateName = '';//清空通用组件标记
       _this.is_add = val.is_add;
       //获取应用组件列表 /{appid}
-      _this.http.getPlain_url('app-widget-list-by-app-id', '/' + val.id).then(res => {
+      _this.http.getPlain_url('app-widget-list-by-app-id', '?appid=' + val.id+'&uniquecode='+this.postForm.template.uniqueCode).then(res => {
         _this.template_list = res.data || [];
         if (val.is_add) {
           _this.set_list = [{ routeCode: '', topCount: 1, sortType: '', id: '', orderIndex: 1 }];
