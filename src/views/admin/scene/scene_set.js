@@ -382,8 +382,8 @@ export default {
           this.grid.removeWidget(is_cu_temp[0].parentNode.parentNode.parentNode);
           let it = {
             x: x, y: y, 
-            h: h, 
-            w: w,
+            h: data.height, 
+            w: data.width,
             minW: data.minWidth,
             minH: data.minHeight,
             target: data.target,
