@@ -80,8 +80,10 @@
                   </div>
                 </div>
               </el-form-item>
-              <el-form-item label="访问路径" prop="visitUrl">
-                <el-input v-model="postForm.visitUrl" placeholder="请输入访问路径" maxlength="50" minlength="2" show-word-limit></el-input>
+              <el-form-item label="访问路径" prop="visitUrl" class="openurl">
+                <span class="url1">{{orgInfo.portalUrl}}?url=</span>
+                <el-input class="input-w" v-model="postForm.visitUrl" placeholder="访问路径" clearable maxlength="50" minlength="2" show-word-limit></el-input>
+                <el-button icon="iconfont el-icon-vip-fuzhi" type="primary" @click="copyUrl()">复制链接</el-button>
               </el-form-item>
               <el-form-item label="应用页头设置" prop="headerMode">
                 <el-radio-group v-model="postForm.headerMode">
@@ -196,6 +198,7 @@ export default {
       basurl:window.localStorage.getItem('fileUrl')+'/',
       default_img:require("../../../assets/admin/img/icon2.png"),
       select_img:{},
+      orgInfo: JSON.parse(window.localStorage.getItem('orgInfo') || '{}'),
       iconList:[],//图标列表
       postForm: {
         headerMode:0,
@@ -403,7 +406,29 @@ export default {
           }
       });
     },
-    
+    //复制链接
+    copyUrl(){
+      if(this.orgInfo && this.orgInfo.portalUrl && this.postForm.visitUrl){
+        this.clipboardCopy(this.orgInfo.portalUrl + '?url='+this.postForm.visitUrl);
+      }else{
+        this.$message({ type: 'error', message: '地址信息不全' });
+      }
+    },
+    //插件-复制
+    clipboardCopy(txt){
+      let transfer = document.createElement('input');//创建控件
+      document.body.appendChild(transfer);
+      transfer.style.cssText = 'position: fixed;opacity:0;'
+      transfer.value = txt;  // 这里表示想要复制的内容
+      transfer.focus();
+      transfer.select();
+      if (document.execCommand('copy')) {
+        document.execCommand('copy');
+      }
+      transfer.blur();
+      this.$message({message: '复制成功',type:'success'});
+      document.body.removeChild(transfer);//删除控件
+    },
   },
 }
 </script>
@@ -479,4 +504,19 @@ export default {
     }
   }
 }
+  .openurl {
+    /deep/.el-form-item__content{
+      display: flex;
+    }
+    /deep/.el-button{
+      padding: 12px 10px;
+    }
+    .url1 {
+      flex-shrink: 0;
+    }
+    .input-w {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  }
 </style>
