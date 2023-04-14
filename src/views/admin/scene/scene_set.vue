@@ -127,6 +127,9 @@ export default {
       content: '空白占位框'
     }
   }
+  .drag-content .dlib3-temp-imgvideo .img-warp-bg{
+    background-repeat-y: no-repeat !important;
+  }
 </style>
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
