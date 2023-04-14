@@ -314,6 +314,7 @@ export default {
           })
           _this.appsTemplate(_this.template_list[index], 'edit');
         }
+        console.log('appPlateList',this.appPlateList);
       }).catch(err => {
         console.log(err);
       })
