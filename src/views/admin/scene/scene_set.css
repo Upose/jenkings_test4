@@ -284,3 +284,6 @@
 .left-menu-flex span:last-child {
   background: url(../../../assets/admin/img/set-btn.png) no-repeat center;
 }
+.dlib3-temp-imgvideo .img-warp-bg {
+  background-repeat-y: no-repeat !important;
+}
