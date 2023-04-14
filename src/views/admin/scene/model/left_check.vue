@@ -351,7 +351,7 @@ export default {
       if (this.sceneThemeColor.length > 0) {
         this.postForm.themeColor = this.sceneThemeColor[0].value || 'template1';
       }
-      
+      this.$emit('templateClick', { list: val, isadd: is_add })
     },
     /***左边折叠 -改造为隐藏块-也就是最小化功能*/
     leftFold() {
