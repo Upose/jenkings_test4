@@ -12,24 +12,27 @@
           <div class="search-div">
             <span class="title">选择场景：</span><el-button :type="i == s_index ?'primary':''" size="small" v-for="(it,i) in s_list" :key="i" @click="menuClick(it,i)">{{it.name||'无'}}</el-button>
           </div>
-          <el-table :data="tableData" v-loading="loading" style="width: 100%;min-width:700px;" :expand-row-keys="expends" :row-key="getRowKeys">
-            <el-table-column type="expand" width="30">
-              <template slot-scope="scope">
-                <div v-for="(item,index) in scope.row.plateList" class="row c-l">
-                  <div class="col1">{{index+1}}</div>
-                  <div class="col2" :title="item.name">{{item.name}}</div>
-                  <!-- <div class="col3">{{item.appName||'-'}}</div> -->
-                  <div class="col4">{{item.createTime.slice(0,10)}}</div>
-                  <div class="col5"><el-button @click="handleSet(item)" type="text" v-if="$authShowBtn('content_manage')" size="mini" icon="iconfont el-icon-vip-shezhi" round>内容管理</el-button></div>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column label="序号" prop="appName" width="180"></el-table-column>
-            <el-table-column label="栏目名称" prop="content"></el-table-column>
-            <!-- <el-table-column label="应用" prop="content"></el-table-column> -->
-            <el-table-column label="创建日期" prop="content"></el-table-column>
-            <el-table-column label="操作" align="center" prop="name"></el-table-column>
-          </el-table>
+
+          <div class="table-warp-bg">
+            <el-table :data="tableData" v-loading="loading" :expand-row-keys="expends" :row-key="getRowKeys">
+              <el-table-column type="expand" width="30">
+                <template slot-scope="scope">
+                  <div v-for="(item,index) in scope.row.plateList" class="row c-l">
+                    <div class="col1">{{index+1}}</div>
+                    <div class="col2" :title="item.name">{{item.name}}</div>
+                    <!-- <div class="col3">{{item.appName||'-'}}</div> -->
+                    <div class="col4">{{item.createTime.slice(0,10)}}</div>
+                    <div class="col5"><el-button @click="handleSet(item)" type="text" v-if="$authShowBtn('content_manage')" size="mini" icon="iconfont el-icon-vip-shezhi" round>内容管理</el-button></div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="序号" prop="appName" width="180"></el-table-column>
+              <el-table-column label="栏目名称" prop="content"></el-table-column>
+              <!-- <el-table-column label="应用" prop="content"></el-table-column> -->
+              <el-table-column label="创建日期" prop="content"></el-table-column>
+              <el-table-column label="操作" align="center" prop="name"></el-table-column>
+            </el-table>
+          </div>
 
         </div>
         <footerPage class="top20"></footerPage>
@@ -179,5 +182,16 @@ export default {
         margin-top: -5px;
       }
     }
+  }
+  .table-warp-bg{
+    min-height:400px;
+    padding-bottom: 40px;
+    /deep/.el-table{
+      width: 700px;
+      margin-left: 20px;
+      border-right: 1px solid #eee;
+      border-left: 1px solid #eee;
+    }
+
   }
 </style>
