@@ -81,7 +81,7 @@
                 </div>
               </el-form-item>
               <el-form-item label="访问路径" prop="visitUrl" class="openurl">
-                <span class="url1">{{orgInfo.portalUrl}}?url=</span>
+                <span class="url1">{{orgInfo.portalUrl}}/</span>
                 <el-input class="input-w" v-model="postForm.visitUrl" placeholder="访问路径" clearable maxlength="50" minlength="2" show-word-limit></el-input>
                 <el-button icon="iconfont el-icon-vip-fuzhi" type="primary" @click="copyUrl()">复制链接</el-button>
               </el-form-item>
@@ -409,7 +409,7 @@ export default {
     //复制链接
     copyUrl(){
       if(this.orgInfo && this.orgInfo.portalUrl && this.postForm.visitUrl){
-        this.clipboardCopy(this.orgInfo.portalUrl + '?url='+this.postForm.visitUrl);
+        this.clipboardCopy(this.orgInfo.portalUrl + '/'+this.postForm.visitUrl);
       }else{
         this.$message({ type: 'error', message: '地址信息不全' });
       }
