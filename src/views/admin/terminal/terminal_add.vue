@@ -408,8 +408,8 @@ export default {
     },
     //复制链接
     copyUrl(){
-      if(this.orgInfo && this.orgInfo.portalUrl && this.postForm.visitUrl){
-        this.clipboardCopy(this.orgInfo.portalUrl + '/'+this.postForm.visitUrl);
+      if(this.orgInfo && this.orgInfo.portalUrl){
+        this.clipboardCopy(this.orgInfo.portalUrl + '/'+(this.postForm.visitUrl||''));
       }else{
         this.$message({ type: 'error', message: '地址信息不全' });
       }
