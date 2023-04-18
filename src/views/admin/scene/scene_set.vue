@@ -36,7 +36,7 @@
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
                 <div class="scene-warp-bg" :id="'temp'+screen_cu">
                   <component v-if="(postForm.sceneScreens[screen_cu]||{}).customParameter" :is="(postForm.sceneScreens[screen_cu]||{}).customParameter||'previewAll'" :data="postForm.sceneScreens[screen_cu]||{}"></component>
-                  <component :bgImg="(postForm.sceneScreens[screen_cu]||{}).bgImg||''" :is="'BGvideoImg'" v-if="screen_cu==0"></component>
+                  <component :bgImg="(postForm.sceneScreens[screen_cu]||{}).bgImg||''" :is="'BGvideoImg'" v-if="screen_cu==0" :class="(postForm.template||{}).uniqueCode=='onscreenfashion'?'bg-top110':''"></component>
 
                   <div style="z-index:5;position:relative;">
                       <div class="jl_vip_zt_warp_hf head" :class="is_HF=='header'?'mask-layer-active':''" v-show="postForm.headerTemplate && postForm.headerTemplate.router && postForm.headerTemplate.templateCode && (postForm.layoutId== 2?(screen_cu==0):true)" style="min-height:50px" :style="{'height':(postForm.headerTemplate.height*10)+'px'}">
@@ -130,10 +130,12 @@ export default {
   .drag-content .dlib3-temp-imgvideo .img-warp-bg{
     background-repeat-y: no-repeat !important;
   }
+  .bg-top110 .img-warp-bg{
+    background-position-y:110px !important;
+  }
 </style>
 <style lang="less" scoped>
 @import "../../../assets/admin/css/color.less";
 @import "./scene_set.less";
-
 </style>
 
