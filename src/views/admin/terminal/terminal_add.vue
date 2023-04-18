@@ -29,7 +29,7 @@
               <el-form-item label="管理系统完整LOGO" prop="backLogo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.backLogo">
-                    <img :src="postForm.logo?(basurl+postForm.backLogo):default_img">
+                    <img :src="postForm.backLogo?(basurl+postForm.backLogo):default_img">
                   </div>
                   <div class="up-img-warp up-icon">
                     <span>上传LOGO</span>
@@ -40,7 +40,7 @@
               <el-form-item label="管理系统简洁LOGO" prop="backSimpleLogo" v-if="IsSystemInstance">
                 <div class="up-img-form-item">
                   <div class="up-img-warp" v-if="postForm.backSimpleLogo">
-                    <img :src="postForm.logo?(basurl+postForm.backSimpleLogo):default_img">
+                    <img :src="postForm.backSimpleLogo?(basurl+postForm.backSimpleLogo):default_img">
                   </div>
                   <div class="up-img-warp up-icon">
                     <span>上传LOGO</span>
@@ -195,7 +195,7 @@ export default {
       dialogUPimg:false,
       dialogSelectimg:false,
       IsSystemInstance:false,//是否默认终端
-      basurl:window.localStorage.getItem('fileUrl')+'/',
+      basurl:window.localStorage.getItem('fileUrl'),
       default_img:require("../../../assets/admin/img/icon2.png"),
       select_img:{},
       orgInfo: JSON.parse(window.localStorage.getItem('orgInfo') || '{}'),
