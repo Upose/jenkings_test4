@@ -232,7 +232,7 @@ export default {
               { required: true, message: '请选择', trigger: 'change' },
           ],
           visitUrl: [
-              { required: true,message: '请输入内容', trigger: 'blur' },
+              { trigger: 'blur' },
               { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
           ],
           remark: [
