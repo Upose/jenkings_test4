@@ -370,6 +370,9 @@ export default {
         this.addCompontFlush(it);
       } else {
         var is_cu_temp = document.getElementsByClassName('mask-layer-active');
+        if(is_cu_temp && is_cu_temp[0] && is_cu_temp[0].nextSibling.getAttribute('class').indexOf('dalib3-banner-tag')>-1){
+          if(document.getElementById('dlib3_bg_banner_component')) document.getElementById('dlib3_bg_banner_component').innerHTML='';
+        }//这段代码是修改新闻banner组件切换时去除背景
         if (is_cu_temp.length > 0) {
           var x = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-x');
           var y = is_cu_temp[0].parentNode.parentNode.parentNode.getAttribute('gs-y');
