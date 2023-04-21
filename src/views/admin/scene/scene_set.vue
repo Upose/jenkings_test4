@@ -34,7 +34,7 @@
             <div class="drag-container" ref="dragContainer" :class="postForm.themeColor||'template1'">
               <div class="drag-warp-bg jl_vip_zt_warp_preview" :style="{'zoom':ratio_num}">
                 <!--scene-warp-bg 层是为了将拖拽区域包起来，然后设置背景颜色保持和预览效果一致-->
-                <div class="scene-warp-bg" :id="'temp'+screen_cu">
+                <div class="scene-warp-bg" :id="'temp'+screen_cu" :style="setBgTemp((postForm.sceneScreens[screen_cu]||{}).bgImg)">
                   <component v-if="(postForm.sceneScreens[screen_cu]||{}).customParameter" :is="(postForm.sceneScreens[screen_cu]||{}).customParameter||'previewAll'" :data="postForm.sceneScreens[screen_cu]||{}"></component>
                   <component :bgImg="(postForm.sceneScreens[screen_cu]||{}).bgImg||''" :is="'BGvideoImg'" v-if="screen_cu==0" :class="(postForm.template||{}).uniqueCode=='onscreenfashion'?'bg-top110':''"></component>
 

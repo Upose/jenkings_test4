@@ -6,11 +6,11 @@
 -->
 <template>
   <div class="dlib3-temp-imgvideo">
-    <div class="img-warp-bg" v-if="$isImgvideo(bgImg)=='img'" id="dlib3_bg_img" :style="sceenBgImg(bgImg)">
+    <div class="img-warp-bg" v-if="$isImgvideo(bg_img)=='img'" id="dlib3_bg_img" :style="sceenBgImg(bg_img)">
     </div><!-- 背景图-end -->
 
-    <div class="video-warp-bg" v-if="$isImgvideo(bgImg)=='video'" id="dlib3_bg_video">
-      <video :src="fileUrl+bgImg" autoplay loop></video>
+    <div class="video-warp-bg" v-if="$isImgvideo(bg_img)=='video'" id="dlib3_bg_video">
+      <video :src="fileUrl+bg_img" autoplay loop></video>
     </div><!-- 视频背景-end -->
 
     <div class="banner-warp-bg" id="dlib3_bg_banner">
@@ -25,16 +25,25 @@
 <script>
 export default {
   props: ['bgImg'],
+  watch: {
+   bgImg(newV,oldV) {
+    this.bg_img = newV;
+    } 
+  },
+  created(){
+    this.bg_img = this.bgImg;
+  },
   data() {
     return {
       fileUrl: window.localStorage.getItem('fileUrl'),
+      bg_img:''
     }
   },
   mounted() {
     // console.log(this.bgImg);
   },
   methods: {
-//样式设置
+    //样式设置
     sceenBgImg(bgImg) {
       var list = {};
       list = { 'background': 'url(' + this.fileUrl + (bgImg || '') + ')','background-position':'center top','background-repeat': 'repeat-x'};
