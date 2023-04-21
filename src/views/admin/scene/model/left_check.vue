@@ -50,7 +50,7 @@
             <el-collapse-item title="请选择主题色" name="3" class="color-clooapse" v-if="(sceneThemeColor||[]).length>0">
 
               <div class="drag-box-btn-w drag-box-color" @click="setTheme(i)" v-for="i in ((sceneThemeColor||[]))">
-                <div class="drag-box" :style="{'background-image':'url('+(fileUrl+i.icon)+')'}">
+                <div class="drag-box" :style="{'background-image':'url('+(fileUrl+i.icon)+')'}" :title="i.key">
                   <i class="iconfont el-icon-vip-xuanzhong" v-if="(postForm.themeColor||'template1')==i.value"></i>
                   <!-- <span class="d-b-txt fot-c1">{{i.key||'暂无'}}</span> -->
                 </div>
