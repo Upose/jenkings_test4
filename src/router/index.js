@@ -5,8 +5,8 @@ import adminRouter from './admin_router';
 Vue.use(Router)
 const dlibAppRouterPrefix = window.dlibAppRouterPrefix;
 const ruterBase = dlibAppRouterPrefix
-  ? dlibAppRouterPrefix + "/scenemanagenew/"
-  : "/scenemanagenew/";
+  ? dlibAppRouterPrefix + "/scenemanage/"
+  : "/scenemanage/";
 export default new Router({
   mode: 'history',
   base: process.env.NODE_ENV == "production" ? ruterBase : "",

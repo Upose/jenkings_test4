@@ -53,9 +53,9 @@
                   <div class="up-img-warp" v-if="postForm.icoPath">
                     <img :src="postForm.icoPath?(basurl+postForm.icoPath):default_img">
                   </div>
-                  <div class="up-img-warp up-icon">
+                  <div class="up-img-warp up-icon" @click="dialogUPimg=true">
                     <span>上传图片文件</span>
-                    <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','icoPath')">
+                    <!-- <input type="file" class="file-input" multiple="multiple" @change="$fileUpload($event,'img','icoPath')"> -->
                   </div>
                 </div>
               </el-form-item>
@@ -131,9 +131,9 @@
             </div>
           </el-form>
         </div><!---顶部查询板块 end--->
-        <!-- <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleClose">
+        <el-dialog append-to-body title="图片上传" :visible.sync="dialogUPimg" width="550px" :close-on-click-modal="false" :before-close="handleClose">
           <UpdateImg @imgUrl="imgUrl" :imgWidth="100" :imgHeight="100"></UpdateImg>
-        </el-dialog> -->
+        </el-dialog>
         <el-dialog append-to-body title="图片选择" :visible.sync="dialogSelectimg" width="540px" :close-on-click-modal="false" :before-close="selectImgClose">
           <p class="el-form-img-box-hint">点击图标即可选中所需要的图标</p>
           <div class="c-l">
@@ -313,7 +313,7 @@ export default {
     },
     //获取图片上传返回地址
     imgUrl(val){
-      this.postForm['logo'] = val[0];
+      this.postForm['icoPath'] = val[0];
       this.dialogUPimg = false;
     },
     //图片上传-弹窗关闭
